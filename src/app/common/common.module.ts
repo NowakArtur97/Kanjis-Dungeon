@@ -10,4 +10,4 @@ import { environment } from 'src/environments/environment.secret';
     AngularFirestoreModule,
   ],
 })
-export class CommonModule {}
+export default class CommonModule {}

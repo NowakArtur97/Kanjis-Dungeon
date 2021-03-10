@@ -6,5 +6,6 @@ import { CardLayoutComponent } from './card-layout/card-layout.component';
 @NgModule({
   declarations: [CardLayoutComponent],
   imports: [CommonModule],
+  exports: [CardLayoutComponent],
 })
-export class CardModule {}
+export default class CardModule {}
