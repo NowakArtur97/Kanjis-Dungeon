@@ -7,4 +7,9 @@ export const saveRadicals = createAction(
   props<{ radicals: Radical[] }>()
 );
 
+export const setRadicals = createAction(
+  '[Radical] Set Radicals',
+  props<{ radicals: Radical[] }>()
+);
+
 export const fetchRadicals = createAction('[Radical] Fetch Radicals');
