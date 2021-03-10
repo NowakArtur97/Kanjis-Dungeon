@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { RadicalService } from './radical.service.service';
+import RadicalService from './radical.service';
 
 describe('RadicalService', () => {
   let service: RadicalService;
