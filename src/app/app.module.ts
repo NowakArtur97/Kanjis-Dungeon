@@ -5,14 +5,16 @@ import { BrowserModule } from '@angular/platform-browser';
 import { environment } from 'src/environments/environment.secret';
 
 import { AppComponent } from './app.component';
-import { CardLayoutComponent } from './card/card-layout/card-layout.component';
+import { CardModule } from './card/card.module';
 
 @NgModule({
-  declarations: [AppComponent, CardLayoutComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
+
+    CardModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
