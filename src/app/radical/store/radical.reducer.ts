@@ -8,7 +8,10 @@ export interface RadicalStoreState {
 }
 
 const initialState: RadicalStoreState = {
-  radicals: [],
+  radicals: [
+    { id: 1, radical: '一', meanings: ['ground'] },
+    { id: 2, radical: '二', meanings: ['two'] },
+  ],
 };
 
 const _radicalReducer = createReducer(

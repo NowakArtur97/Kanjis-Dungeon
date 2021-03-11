@@ -1,8 +1,12 @@
+import { state } from '@angular/animations';
 import { Injectable } from '@angular/core';
-import { Actions } from '@ngrx/effects';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import RadicalService from 'src/app/common/services/radical.service';
+import { map, switchMap, withLatestFrom } from 'rxjs/operators';
 import AppStoreState from 'src/app/store/app.state';
+
+import RadicalService from '../services/radical.service';
+import * as RadicalsActions from './radical.actions';
 
 @Injectable()
 export default class RadicalEffects {
@@ -11,4 +15,16 @@ export default class RadicalEffects {
     private store: Store<AppStoreState>,
     private radicalService: RadicalService
   ) {}
+
+  saveRadicals$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(RadicalsActions.saveRadicals),
+      withLatestFrom(this.store.select((state) => state.radical.radicals)),
+      switchMap(([actions, radicals]) =>
+        this.radicalService
+          .saveRadicals(radicals)
+          .pipe(map(() => RadicalsActions.fetchRadicals()))
+      )
+    )
+  );
 }
