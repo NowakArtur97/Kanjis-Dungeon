@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { CardLayoutComponent } from './card-layout/card-layout.component';
+import { CardWrapperComponent } from './card-wrapper/card-wrapper.component';
+import { CardRadicalComponent } from './card-radical/card-radical.component';
 
 @NgModule({
-  declarations: [CardLayoutComponent],
+  declarations: [CardWrapperComponent, CardRadicalComponent],
   imports: [CommonModule],
-  exports: [CardLayoutComponent],
+  exports: [CardWrapperComponent],
 })
 export default class CardModule {}
