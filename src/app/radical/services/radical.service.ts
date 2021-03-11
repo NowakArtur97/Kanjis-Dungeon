@@ -1,18 +1,19 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import Radical from 'src/app/radical/models/radical.model';
+import { environment } from 'src/environments/environment.secret';
+
+import Radical from '../models/radical.model';
 
 @Injectable({ providedIn: 'root' })
 export default class RadicalService {
-  constructor(private firestore: AngularFirestore) {}
-
   private readonly COLLECTION_NAME = 'radicals';
 
-  saveRadicals(radicals: Radical[]): Observable<Radical[]> {
-    console.log(radicals);
-    return new Observable<any>(() => {
-      this.firestore.collection(this.COLLECTION_NAME).add(radicals);
-    });
-  }
+  constructor(private httpClient: HttpClient) {}
+
+  saveRadicals = (radicals: Radical[]): Observable<Radical[]> =>
+    this.httpClient.put<any>(
+      `${environment.firebaseConfig.databaseURL}/${this.COLLECTION_NAME}.json`,
+      radicals
+    );
 }

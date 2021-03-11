@@ -1,10 +1,9 @@
-import { state } from '@angular/animations';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { map, switchMap, withLatestFrom } from 'rxjs/operators';
-import AppStoreState from 'src/app/store/app.state';
 
+import AppStoreState from '../../store/app.state';
 import RadicalService from '../services/radical.service';
 import * as RadicalsActions from './radical.actions';
 
