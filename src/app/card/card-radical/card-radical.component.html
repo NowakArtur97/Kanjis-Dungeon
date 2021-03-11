@@ -1,0 +1,23 @@
+<div class="card_radical">
+  <form class="card_radical__form">
+    <div class="card_radical__field">
+      <label for="radical" class="card_radical__attribute">Radical: </label>
+      <input
+        class="card_radical__radical"
+        type="text"
+        name="radical"
+        id="radical"
+      />{{ currentRadical.radical }}
+    </div>
+    <div class="card_radical__field">
+      <label for="meaning" class="card_radical__attribute">Meaning: </label>
+      <input
+        class="card_radical__meaning"
+        type="text"
+        name="meaning"
+        id="meaning"
+      />{{ currentRadical.meanings[0] }}
+    </div>
+    <button class="card_radical__submit_button" type="submit">Check</button>
+  </form>
+</div>
