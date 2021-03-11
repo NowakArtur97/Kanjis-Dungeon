@@ -1,5 +1,5 @@
 export default interface Radical {
   readonly id: number;
   readonly radical: string;
-  readonly meaning: string;
+  readonly meanings: string[];
 }
