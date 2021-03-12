@@ -22,10 +22,9 @@
 .card_radical__controls {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
 
-  padding: 0.2em;
   height: 100%;
   width: 100%;
 
@@ -37,13 +36,18 @@
 }
 
 .card_radical__controls--gray {
-  background-color: gray;
+  background-color: rgb(177, 177, 177);
+  color: black;
+}
+
+.card_radical__attribute {
+  flex-basis: 15%;
 }
 
 .card_radical__input {
   display: block;
 
-  flex-basis: 70%;
+  flex-basis: 85%;
   width: 100%;
 
   border: none;
@@ -51,25 +55,23 @@
 
   text-align: center;
   font-size: 1em;
-  border: 3px rgb(4, 14, 46) solid;
+  border-top: 3px rgb(4, 14, 46) solid;
+  border-bottom: 3px rgb(4, 14, 46) solid;
   outline: none;
 
-  color: white;
+  color: black;
 }
 
 .card_radical__input--big {
   font-size: 4em;
-}
-
-.card_radical__input:focus,
-.card_radical__input:active {
-  border: 3px rgb(2, 6, 20) solid;
+  color: white;
 }
 
 .card_radical__submit_button {
   display: block;
   width: 100%;
 
+  border: none;
   background-color: royalblue;
   color: white;
   font-size: 1.5em;
