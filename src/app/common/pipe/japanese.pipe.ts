@@ -259,21 +259,19 @@ export class JapanesePipe implements PipeTransform {
 
     afterConversion = this.convertToJapanese(afterConversion);
 
-    return afterConversion;
+    return this.convertToJapanese(afterConversion);
   }
 
-  private convertToJapanese(afterConversion: string) {
-    while (this.containsAnyLetter(afterConversion)) {
+  private convertToJapanese(word: string): string {
+    while (this.containsAnyLetter(word)) {
       this.allMappings.forEach((value, key) => {
-        if (afterConversion.includes(key)) {
-          afterConversion = afterConversion.replace(
-            new RegExp(key, 'g'),
-            value
-          );
+        if (word.includes(key)) {
+          word = word.replace(new RegExp(key, 'g'), value);
         }
       });
     }
-    return afterConversion;
+
+    return word;
   }
 
   private containsAnyLetter = (word: string): boolean =>

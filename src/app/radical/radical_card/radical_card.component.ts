@@ -7,7 +7,7 @@ import Radical from 'src/app/radical/models/radical.model';
 import AppStoreState from 'src/app/store/app.state';
 
 @Component({
-  selector: 'app-radical_card',
+  selector: 'app-radical-card',
   templateUrl: './radical_card.component.html',
   styleUrls: ['./radical_card.component.css'],
 })
