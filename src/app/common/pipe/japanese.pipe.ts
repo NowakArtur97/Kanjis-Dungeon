@@ -5,8 +5,11 @@ import { Pipe, PipeTransform } from '@angular/core';
   pure: false,
 })
 export class JapanesePipe implements PipeTransform {
-  private readonly LETTER_REG_EXP = /[a-zA-Z]/g;
-  private readonly DOUBLED_LETTER = 'っ';
+  private readonly DOUBLE_LOWER_CASE_LETTERS_REG_EXP = /([a-z])\1{1}/g;
+  private readonly DOUBLE_UPPER_CASE_LETTERS_REG_EXP = /([A-Z])\1{1}/g;
+  private readonly ALL_LETTERS_REG_EXP = /[a-zA-Z]/g;
+  private readonly DOUBLED_LETTER_HIRAGANA = 'っ';
+  private readonly DOUBLED_LETTER_KATAKANA = 'ッ';
   private hiraganaMappings: Map<string, string> = new Map([
     ['ka', 'か'],
     ['ki', 'き'],
@@ -255,15 +258,40 @@ export class JapanesePipe implements PipeTransform {
   );
 
   transform(value: string): string {
-    let afterConversion = value;
-
+    let afterConversion = this.convertDoubleLowerCaseLetters(value);
+    afterConversion = this.convertDoubleUpperCaseLetters(afterConversion);
     afterConversion = this.convertToJapanese(afterConversion);
 
     return this.convertToJapanese(afterConversion);
   }
 
+  private convertDoubleLowerCaseLetters = (word: string): string =>
+    this.convertDoubleLetters(
+      word,
+      this.DOUBLED_LETTER_HIRAGANA,
+      this.DOUBLE_LOWER_CASE_LETTERS_REG_EXP
+    );
+
+  private convertDoubleUpperCaseLetters = (word: string): string =>
+    this.convertDoubleLetters(
+      word,
+      this.DOUBLED_LETTER_KATAKANA,
+      this.DOUBLE_UPPER_CASE_LETTERS_REG_EXP
+    );
+
+  private convertDoubleLetters(
+    word: string,
+    convertTo: string,
+    regExp: RegExp
+  ): string {
+    if (this.containsAnyLetters(word)) {
+      return word.replace(regExp, convertTo);
+    }
+    return word;
+  }
+
   private convertToJapanese(word: string): string {
-    while (this.containsAnyLetter(word)) {
+    while (this.containsAnyLetters(word)) {
       this.allMappings.forEach((value, key) => {
         if (word.includes(key)) {
           word = word.replace(new RegExp(key, 'g'), value);
@@ -274,6 +302,6 @@ export class JapanesePipe implements PipeTransform {
     return word;
   }
 
-  private containsAnyLetter = (word: string): boolean =>
-    this.LETTER_REG_EXP.test(word);
+  private containsAnyLetters = (word: string): boolean =>
+    this.ALL_LETTERS_REG_EXP.test(word);
 }
