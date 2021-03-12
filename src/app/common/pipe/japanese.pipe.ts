@@ -51,6 +51,9 @@ export class JapanesePipe implements PipeTransform {
     ['tsu', 'つ'],
     ['te', 'て'],
     ['to', 'と'],
+    ['cha', 'ちゃ'],
+    ['chu', 'ちゅ'],
+    ['cho', 'ちょ'],
     ['da', 'だ'],
     ['dji', 'ぢ'],
     ['dzu', 'づ'],
@@ -65,6 +68,9 @@ export class JapanesePipe implements PipeTransform {
     ['nu', 'ぬ'],
     ['ne', 'ね'],
     ['no', 'の'],
+    ['nya', 'にゃ'],
+    ['nyu', 'にゅ'],
+    ['nyo', 'にょ'],
 
     ['ha', 'は'],
     ['hi', 'ひ'],
@@ -121,9 +127,135 @@ export class JapanesePipe implements PipeTransform {
     ['nn', 'ん'],
   ]);
 
-  transform(value: string): string {
-    console.log(value);
+  private katakanaMappings: Map<string, string> = new Map([
+    ['A', 'ア'],
+    ['I', 'イ'],
+    ['U', 'ウ'],
+    ['E', 'エ'],
+    ['O', 'オ'],
 
-    return value;
+    ['KA', 'カ'],
+    ['KI', 'キ'],
+    ['KU', 'ク'],
+    ['KE', 'ケ'],
+    ['KO', 'コ'],
+    ['KYA', 'キャ'],
+    ['KYU', 'キュ'],
+    ['KYO', 'キョ'],
+    ['GA', 'ガ'],
+    ['GI', 'ギ'],
+    ['GU', 'グ'],
+    ['GE', 'ゲ'],
+    ['GO', 'ゴ'],
+    ['GYA', 'ギャ'],
+    ['GYU', 'ギュ'],
+    ['GYO', 'ギョ'],
+
+    ['SA', 'サ'],
+    ['SHI', 'シ'],
+    ['SU', 'ス'],
+    ['SE', 'セ'],
+    ['SO', 'ソ'],
+    ['SYA', 'シャ'],
+    ['SYU', 'シュ'],
+    ['SYO', 'ショ'],
+    ['ZA', 'ザ'],
+    ['JI', 'ジ'],
+    ['ZU', 'ズ'],
+    ['ZE', 'ゼ'],
+    ['ZO', 'ゾ'],
+    ['JA', 'ジゃ'],
+    ['JU', 'ジゅ'],
+    ['JO', 'ジょ'],
+
+    ['TA', 'タ'],
+    ['CHI', 'チ'],
+    ['TSU', 'ツ'],
+    ['TE', 'テ'],
+    ['TO', 'ト'],
+    ['CHA', 'チャ'],
+    ['CHU', 'チュ'],
+    ['CHO', 'チョ'],
+    ['DA', 'ダ'],
+    ['JI', 'ヂ'],
+    ['DZU', 'ヅ'],
+    ['DE', 'デ'],
+    ['DO', 'ド'],
+    ['DJA', 'ヂャ'],
+    ['DJU', 'ヂュ'],
+    ['DJO', 'ヂョ'],
+
+    ['NA', 'ナ'],
+    ['NI', 'ニ'],
+    ['NU', 'ヌ'],
+    ['NE', 'ネ'],
+    ['NO', 'ノ'],
+    ['NYA', 'ニャ'],
+    ['NYU', 'ニュ'],
+    ['NYO', 'ニョ'],
+
+    ['HA', 'ハ'],
+    ['HI', 'ヒ'],
+    ['FU', 'フ'],
+    ['HE', 'ヘ'],
+    ['HO', 'ホ'],
+    ['HYA', 'ヒャ'],
+    ['HYU', 'ヒュ'],
+    ['HYO', 'ヒョ'],
+    ['BA', 'バ'],
+    ['BI', 'ビ'],
+    ['BU', 'ブ'],
+    ['BE', 'ベ'],
+    ['BO', 'ボ'],
+    ['BYA', 'ビャ'],
+    ['BYU', 'ビュ'],
+    ['BYO', 'ビョ'],
+    ['PA', 'パ'],
+    ['PI', 'ピ'],
+    ['PU', 'プ'],
+    ['PE', 'ペ'],
+    ['PO', 'ポ'],
+    ['PYA', 'ピャ'],
+    ['PYU', 'ピュ'],
+    ['PYO', 'ピョ'],
+
+    ['MA', 'マ'],
+    ['MI', 'ミ'],
+    ['MU', 'ム'],
+    ['ME', 'メ'],
+    ['MO', 'モ'],
+    ['MYA', 'ミャ'],
+    ['MYU', 'ミュ'],
+    ['MYO', 'ミョ'],
+
+    ['YA', 'ヤ'],
+    ['YU', 'ユ'],
+    ['YO', 'ヨ'],
+
+    ['RA', 'ラ'],
+    ['RI', 'リ'],
+    ['RU', 'ル'],
+    ['RE', 'レ'],
+    ['RO', 'ロ'],
+    ['RYA', 'リャ'],
+    ['RYU', 'リュ'],
+    ['RYO', 'リョ'],
+
+    ['WA', 'ワ'],
+    ['WI', 'ヰ'],
+    ['WE', 'ヱ'],
+    ['WO', 'ヲ'],
+
+    ['NN', 'ン'],
+  ]);
+  private allMappings = new Map(
+    [...this.hiraganaMappings].concat([...this.katakanaMappings])
+  );
+
+  transform(value: string): string {
+    const signs = this.allMappings.get(value);
+    console.log(signs);
+
+    return signs || value;
   }
 }
