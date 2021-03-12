@@ -2,16 +2,12 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
   name: 'japanese',
+  pure: false,
 })
 export class JapanesePipe implements PipeTransform {
+  private readonly LETTER_REG_EXP = /[a-zA-Z]/g;
   private readonly DOUBLED_LETTER = 'っ';
   private hiraganaMappings: Map<string, string> = new Map([
-    ['a', 'あ'],
-    ['i', 'い'],
-    ['u', 'う'],
-    ['e', 'え'],
-    ['o', 'お'],
-
     ['ka', 'か'],
     ['ki', 'き'],
     ['ku', 'く'],
@@ -124,16 +120,16 @@ export class JapanesePipe implements PipeTransform {
     ['we', 'ゑ'],
     ['wo', 'を'],
 
+    ['a', 'あ'],
+    ['i', 'い'],
+    ['u', 'う'],
+    ['e', 'え'],
+    ['o', 'お'],
+
     ['nn', 'ん'],
   ]);
 
   private katakanaMappings: Map<string, string> = new Map([
-    ['A', 'ア'],
-    ['I', 'イ'],
-    ['U', 'ウ'],
-    ['E', 'エ'],
-    ['O', 'オ'],
-
     ['KA', 'カ'],
     ['KI', 'キ'],
     ['KU', 'ク'],
@@ -246,6 +242,12 @@ export class JapanesePipe implements PipeTransform {
     ['WE', 'ヱ'],
     ['WO', 'ヲ'],
 
+    ['A', 'ア'],
+    ['I', 'イ'],
+    ['U', 'ウ'],
+    ['E', 'エ'],
+    ['O', 'オ'],
+
     ['NN', 'ン'],
   ]);
   private allMappings = new Map(
@@ -253,9 +255,27 @@ export class JapanesePipe implements PipeTransform {
   );
 
   transform(value: string): string {
-    const signs = this.allMappings.get(value);
-    console.log(signs);
+    let afterConversion = value;
 
-    return signs || value;
+    afterConversion = this.convertToJapanese(afterConversion);
+
+    return afterConversion;
   }
+
+  private convertToJapanese(afterConversion: string) {
+    while (this.containsAnyLetter(afterConversion)) {
+      this.allMappings.forEach((value, key) => {
+        if (afterConversion.includes(key)) {
+          afterConversion = afterConversion.replace(
+            new RegExp(key, 'g'),
+            value
+          );
+        }
+      });
+    }
+    return afterConversion;
+  }
+
+  private containsAnyLetter = (word: string): boolean =>
+    this.LETTER_REG_EXP.test(word);
 }
