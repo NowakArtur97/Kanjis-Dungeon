@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 
+import { AppCommonModule } from '../common/app-common.module';
 import { RadicalCardComponent } from './radical_card/radical_card.component';
 import RadicalEffects from './store/radical.effects';
 import { radicalReducer } from './store/radical.reducer';
@@ -15,6 +16,8 @@ import { radicalReducer } from './store/radical.reducer';
     ReactiveFormsModule,
     StoreModule.forFeature('radical', radicalReducer),
     EffectsModule.forFeature([RadicalEffects]),
+
+    AppCommonModule,
   ],
   exports: [RadicalCardComponent],
 })

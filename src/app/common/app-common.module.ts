@@ -6,5 +6,6 @@ import { JapanesePipe } from './pipe/japanese.pipe';
 @NgModule({
   declarations: [JapanesePipe, JapanesePipe],
   imports: [CommonModule],
+  exports: [JapanesePipe],
 })
 export class AppCommonModule {}

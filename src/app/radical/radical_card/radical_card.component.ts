@@ -13,7 +13,8 @@ import AppStoreState from 'src/app/store/app.state';
 })
 export class RadicalCardComponent implements OnInit, OnDestroy {
   private radicalSubscription$: Subscription;
-  currentRadical: Radical;
+  private currentRadical: Radical;
+  radicalValue: string;
   radicalFormGroup: FormGroup;
 
   constructor(private store: Store<AppStoreState>) {}
@@ -21,7 +22,10 @@ export class RadicalCardComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.radicalSubscription$ = this.store
       .select('radical')
-      .subscribe(({ radicals }) => (this.currentRadical = radicals[0]));
+      .subscribe(({ radicals }) => {
+        this.currentRadical = radicals[0];
+        this.radicalValue = this.currentRadical.radical;
+      });
 
     this.initForm();
   }

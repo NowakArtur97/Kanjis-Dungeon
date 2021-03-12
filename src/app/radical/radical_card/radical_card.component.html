@@ -8,6 +8,8 @@
     <div class="radical_card__controls radical_card__controls--blue">
       <label for="radical" class="radical_card__attribute">Sign: </label>
       <input
+        [ngModel]="radicalValue | japanese"
+        (ngModelChange)="radicalValue = $event"
         formControlName="radical"
         class="radical_card__input radical_card__input--big"
         type="text"
