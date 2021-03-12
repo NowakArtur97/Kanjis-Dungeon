@@ -7,11 +7,11 @@ import Radical from 'src/app/radical/models/radical.model';
 import AppStoreState from 'src/app/store/app.state';
 
 @Component({
-  selector: 'app-card-radical',
-  templateUrl: './card-radical.component.html',
-  styleUrls: ['./card-radical.component.css'],
+  selector: 'app-radical_card',
+  templateUrl: './radical_card.component.html',
+  styleUrls: ['./radical_card.component.css'],
 })
-export class CardRadicalComponent implements OnInit, OnDestroy {
+export class RadicalCardComponent implements OnInit, OnDestroy {
   private radicalSubscription$: Subscription;
   currentRadical: Radical;
   radicalFormGroup: FormGroup;

@@ -1,4 +1,4 @@
-.card_radical {
+.radical_card {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -9,7 +9,7 @@
   font-size: 3em;
 }
 
-.card_radical__form {
+.radical_card__form {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -19,7 +19,7 @@
   width: 100%;
 }
 
-.card_radical__controls {
+.radical_card__controls {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -31,20 +31,20 @@
   color: white;
 }
 
-.card_radical__controls--blue {
+.radical_card__controls--blue {
   background-color: royalblue;
 }
 
-.card_radical__controls--gray {
+.radical_card__controls--gray {
   background-color: rgb(177, 177, 177);
   color: black;
 }
 
-.card_radical__attribute {
+.radical_card__attribute {
   flex-basis: 15%;
 }
 
-.card_radical__input {
+.radical_card__input {
   display: block;
 
   flex-basis: 85%;
@@ -62,12 +62,12 @@
   color: black;
 }
 
-.card_radical__input--big {
+.radical_card__input--big {
   font-size: 4em;
   color: white;
 }
 
-.card_radical__submit_button {
+.radical_card__submit_button {
   display: block;
   width: 100%;
 
@@ -80,7 +80,7 @@
   transition: 0.2s;
 }
 
-.card_radical__submit_button:hover {
+.radical_card__submit_button:hover {
   background-color: white;
   color: royalblue;
 }

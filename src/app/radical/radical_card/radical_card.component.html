@@ -1,0 +1,30 @@
+<div class="radical_card">
+  <form
+    [formGroup]="radicalFormGroup"
+    (ngSubmit)="onValidateCard()"
+    class="radical_card__form"
+  >
+    <h1 class="radical_card__type">Radical</h1>
+    <div class="radical_card__controls radical_card__controls--blue">
+      <label for="radical" class="radical_card__attribute">Sign: </label>
+      <input
+        formControlName="radical"
+        class="radical_card__input radical_card__input--big"
+        type="text"
+        name="radical"
+        id="radical"
+      />
+    </div>
+    <div class="radical_card__controls radical_card__controls--gray">
+      <label for="meaning" class="radical_card__attribute">Meaning: </label>
+      <input
+        formControlName="meaning"
+        class="radical_card__input"
+        type="text"
+        name="meaning"
+        id="meaning"
+      />
+    </div>
+    <button class="radical_card__submit_button" type="submit">Check</button>
+  </form>
+</div>
