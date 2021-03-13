@@ -5,46 +5,54 @@
     class="radical_card__form"
     autocomplete="off"
   >
-    <div class="radical_card__controls">
+    <div class="radical_card__controls radical_card__controls--big">
       <input
         [ngModel]="radicalValue | japanese"
         (ngModelChange)="radicalValue = $event"
         formControlName="radical"
-        class="radical_card__input radical_card__input--big"
+        class="radical_card__input radical_card__input--lowercase radical_card__input--big"
         type="text"
         name="radical"
         id="radical"
       />
     </div>
-    <div class="radical_card__controls radical_card__controls--column">
-      <input
-        formControlName="meaning"
-        class="radical_card__input"
-        type="text"
-        name="meaning"
-        id="meaning"
-      />
-      <input
-        formControlName="meaning"
-        class="radical_card__input"
-        type="text"
-        name="meaning"
-        id="meaning"
-      />
-      <input
-        formControlName="meaning"
-        class="radical_card__input"
-        type="text"
-        name="meaning"
-        id="meaning"
-      />
-      <input
-        formControlName="meaning"
-        class="radical_card__input"
-        type="text"
-        name="meaning"
-        id="meaning"
-      />
+    <div class="radical_card__details">
+      <div class="radical_card__controls">
+        <input
+          formControlName="meaning"
+          class="radical_card__input"
+          type="text"
+          name="meaning"
+          id="meaning"
+        />
+      </div>
+      <div class="radical_card__controls">
+        <input
+          formControlName="meaning"
+          class="radical_card__input"
+          type="text"
+          name="meaning"
+          id="meaning"
+        />
+      </div>
+      <div class="radical_card__controls">
+        <input
+          formControlName="meaning"
+          class="radical_card__input"
+          type="text"
+          name="meaning"
+          id="meaning"
+        />
+      </div>
+      <div class="radical_card__controls">
+        <input
+          formControlName="meaning"
+          class="radical_card__input"
+          type="text"
+          name="meaning"
+          id="meaning"
+        />
+      </div>
     </div>
     <button class="radical_card__submit_button" type="submit">Check</button>
   </form>
