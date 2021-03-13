@@ -21,50 +21,33 @@
 
 .radical_card__controls {
   display: flex;
-  flex-direction: column;
   justify-content: space-between;
-  align-items: center;
 
   height: 100%;
   width: 100%;
+  margin: 0.1em;
 
   color: white;
-}
-
-.radical_card__controls--blue {
-  background-color: royalblue;
-}
-
-.radical_card__controls--gray {
-  background-color: rgb(177, 177, 177);
-  color: black;
-}
-
-.radical_card__attribute {
-  flex-basis: 15%;
 }
 
 .radical_card__input {
   display: block;
 
-  flex-basis: 85%;
+  height: 20%;
   width: 100%;
 
   border: none;
-  background-color: transparent;
+  background-color: royalblue;
 
   text-align: center;
+  color: white;
   font-size: 1em;
-  border-top: 3px rgb(4, 14, 46) solid;
-  border-bottom: 3px rgb(4, 14, 46) solid;
   outline: none;
-
-  color: black;
 }
 
 .radical_card__input--big {
+  height: 100%;
   font-size: 2em;
-  color: white;
 }
 
 .radical_card__submit_button {

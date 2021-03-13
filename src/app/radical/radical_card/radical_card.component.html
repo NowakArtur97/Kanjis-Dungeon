@@ -5,9 +5,7 @@
     class="radical_card__form"
     autocomplete="off"
   >
-    <h1 class="radical_card__type">Radical</h1>
-    <div class="radical_card__controls radical_card__controls--blue">
-      <label for="radical" class="radical_card__attribute">Sign: </label>
+    <div class="radical_card__controls">
       <input
         [ngModel]="radicalValue | japanese"
         (ngModelChange)="radicalValue = $event"
@@ -18,8 +16,7 @@
         id="radical"
       />
     </div>
-    <div class="radical_card__controls radical_card__controls--gray">
-      <label for="meaning" class="radical_card__attribute">Meaning: </label>
+    <div class="radical_card__controls">
       <input
         formControlName="meaning"
         class="radical_card__input"
