@@ -30,10 +30,14 @@
   color: white;
 }
 
+.radical_card__controls--column {
+  flex-direction: column;
+}
+
 .radical_card__input {
   display: block;
 
-  height: 20%;
+  height: 24%;
   width: 100%;
 
   border: none;
