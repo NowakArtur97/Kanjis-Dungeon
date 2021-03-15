@@ -21,7 +21,7 @@ export default class RadicalEffects {
       withLatestFrom(this.store.select((state) => state.radical.radicals)),
       switchMap(([actions, radicals]) =>
         this.radicalService
-          .saveRadicals(radicals)
+          .save(radicals)
           .pipe(map(() => RadicalsActions.fetchRadicals()))
       )
     )
