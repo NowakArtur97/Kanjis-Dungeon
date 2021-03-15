@@ -14,4 +14,9 @@ export default abstract class GenericFirebaseService<T extends Radical> {
       `${environment.firebaseConfig.databaseURL}/${this.collectionName}.json`,
       models
     );
+
+  getAll = (): Observable<T[]> =>
+    this.httpClient.get<T[]>(
+      `${environment.firebaseConfig.databaseURL}/${this.collectionName}.json`
+    );
 }
