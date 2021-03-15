@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule, Routes } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 
@@ -12,6 +13,10 @@ import KanjiModule from './kanji/kanji.module';
 import RadicalModule from './radical/radical.module';
 import VocabularyModule from './vocabulary/vocabulary.module';
 
+const appRoutes: Routes = [
+  { path: '', redirectTo: '/quiz', pathMatch: 'full' },
+];
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -20,6 +25,7 @@ import VocabularyModule from './vocabulary/vocabulary.module';
     BrowserModule,
     StoreModule.forRoot([]),
     EffectsModule.forRoot([]),
+    RouterModule.forRoot(appRoutes),
 
     AppCommonModule,
     CardModule,
