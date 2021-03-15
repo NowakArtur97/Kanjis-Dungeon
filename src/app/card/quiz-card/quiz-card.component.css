@@ -1,4 +1,15 @@
-.radical_card {
+.quiz_card__wrapper {
+  height: 70vh;
+  min-height: 500px;
+  width: 80vw;
+  max-width: 300px;
+
+  border: 3px solid black;
+  background-color: rgb(177, 177, 177);
+  box-shadow: 10px 10px 5px 0px rgba(0, 35, 173, 0.6);
+}
+
+.quiz_card {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -9,7 +20,7 @@
   font-size: 3em;
 }
 
-.radical_card__form {
+.quiz_card__form {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -19,7 +30,7 @@
   width: 100%;
 }
 
-.radical_card__details {
+.quiz_card__details {
   display: flex;
   flex-direction: column;
 
@@ -29,7 +40,7 @@
   color: white;
 }
 
-.radical_card__controls {
+.quiz_card__controls {
   display: flex;
   justify-content: space-between;
 
@@ -40,11 +51,11 @@
   color: white;
 }
 
-.radical_card__controls--big {
+.quiz_card__controls--big {
   flex-basis: 60%;
 }
 
-.radical_card__input {
+.quiz_card__input {
   display: block;
   width: 100%;
 
@@ -60,21 +71,21 @@
   transition: 0.2s;
 }
 
-.radical_card__input:focus {
+.quiz_card__input:focus {
   background-color: white;
   color: royalblue;
 }
 
-.radical_card__input--big {
+.quiz_card__input--big {
   height: 100%;
   font-size: 2em;
 }
 
-.radical_card__input--lowercase {
+.quiz_card__input--lowercase {
   text-transform: none;
 }
 
-.radical_card__submit_button {
+.quiz_card__submit_button {
   display: block;
   width: 98%;
   flex-basis: 10%;
@@ -91,7 +102,7 @@
   transition: 0.2s;
 }
 
-.radical_card__submit_button:hover {
+.quiz_card__submit_button:hover {
   background-color: white;
   color: royalblue;
 }

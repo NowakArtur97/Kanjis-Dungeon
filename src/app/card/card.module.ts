@@ -1,12 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 
-import RadicalModule from '../radical/radical.module';
-import { CardWrapperComponent } from './card-wrapper/card-wrapper.component';
+import { AppCommonModule } from '../common/app-common.module';
+import { QuizCardComponent } from './quiz-card/quiz-card.component';
 
 @NgModule({
-  declarations: [CardWrapperComponent],
-  imports: [CommonModule, RadicalModule],
-  exports: [CardWrapperComponent],
+  declarations: [QuizCardComponent],
+  imports: [CommonModule, ReactiveFormsModule, AppCommonModule],
+  exports: [QuizCardComponent],
 })
 export default class CardModule {}

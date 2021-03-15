@@ -1,0 +1,61 @@
+<section class="quiz_card__wrapper">
+  <div class="quiz_card">
+    <form
+      [formGroup]="quizFormGroup"
+      (ngSubmit)="onValidateCard()"
+      class="quiz_card__form"
+      autocomplete="off"
+    >
+      <div class="quiz_card__controls quiz_card__controls--big">
+        <input
+          [ngModel]="charactersValue | japanese"
+          (ngModelChange)="charactersValue = $event"
+          formControlName="characters"
+          class="quiz_card__input quiz_card__input--lowercase quiz_card__input--big"
+          type="text"
+          name="characters"
+          id="characters"
+        />
+      </div>
+      <div class="quiz_card__details">
+        <div class="quiz_card__controls">
+          <input
+            formControlName="meaning"
+            class="quiz_card__input"
+            type="text"
+            name="meaning"
+            id="meaning"
+          />
+        </div>
+        <div class="quiz_card__controls">
+          <input
+            formControlName="meaning"
+            class="quiz_card__input"
+            type="text"
+            name="meaning"
+            id="meaning"
+          />
+        </div>
+        <div class="quiz_card__controls">
+          <input
+            formControlName="meaning"
+            class="quiz_card__input"
+            type="text"
+            name="meaning"
+            id="meaning"
+          />
+        </div>
+        <div class="quiz_card__controls">
+          <input
+            formControlName="meaning"
+            class="quiz_card__input"
+            type="text"
+            name="meaning"
+            id="meaning"
+          />
+        </div>
+      </div>
+      <button class="quiz_card__submit_button" type="submit">Check</button>
+    </form>
+  </div>
+</section>

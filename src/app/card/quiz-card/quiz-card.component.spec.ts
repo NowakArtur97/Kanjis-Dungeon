@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RadicalCardComponent } from './radical_card.component';
+import { QuizCardComponent } from './quiz-card.component';
 
-describe('RadicalCardComponent', () => {
-  let component: RadicalCardComponent;
-  let fixture: ComponentFixture<RadicalCardComponent>;
+describe('QuizCardComponent', () => {
+  let component: QuizCardComponent;
+  let fixture: ComponentFixture<QuizCardComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [RadicalCardComponent],
+      declarations: [QuizCardComponent],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RadicalCardComponent);
+    fixture = TestBed.createComponent(QuizCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

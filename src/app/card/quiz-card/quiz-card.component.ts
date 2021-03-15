@@ -7,50 +7,50 @@ import Radical from 'src/app/radical/models/radical.model';
 import AppStoreState from 'src/app/store/app.state';
 
 @Component({
-  selector: 'app-radical-card',
-  templateUrl: './radical_card.component.html',
-  styleUrls: ['./radical_card.component.css'],
+  selector: 'app-quiz-card',
+  templateUrl: './quiz-card.component.html',
+  styleUrls: ['./quiz-card.component.css'],
 })
-export class RadicalCardComponent implements OnInit, OnDestroy {
-  private radicalSubscription$: Subscription;
-  private currentRadical: Radical;
-  radicalValue: string;
-  radicalFormGroup: FormGroup;
+export class QuizCardComponent implements OnInit, OnDestroy {
+  private characterSubscription$: Subscription;
+  private currentCharacter: Radical;
+  charactersValue: string;
+  quizFormGroup: FormGroup;
 
   constructor(private store: Store<AppStoreState>) {}
 
   ngOnInit(): void {
-    this.radicalSubscription$ = this.store
+    this.characterSubscription$ = this.store
       .select('radical')
       .subscribe(({ radicals }) => {
-        this.currentRadical = radicals[0];
-        this.radicalValue = this.currentRadical.characters;
+        this.currentCharacter = radicals[0];
+        this.charactersValue = this.currentCharacter.characters;
       });
 
     this.initForm();
   }
 
   ngOnDestroy(): void {
-    this.radicalSubscription$?.unsubscribe();
+    this.characterSubscription$?.unsubscribe();
   }
 
   private initForm(): void {
-    this.radicalFormGroup = new FormGroup({
-      radical: new FormControl(this.currentRadical.characters, [
+    this.quizFormGroup = new FormGroup({
+      characters: new FormControl(this.currentCharacter.characters, [
         CommonValidators.notBlank,
       ]),
-      meaning: new FormControl(this.currentRadical.meanings[0], [
+      meaning: new FormControl(this.currentCharacter.meanings[0], [
         CommonValidators.notBlank,
       ]),
     });
   }
 
-  get radical(): AbstractControl {
-    return this.radicalFormGroup.get('radical');
+  get character(): AbstractControl {
+    return this.quizFormGroup.get('characters');
   }
 
   get meaning(): AbstractControl {
-    return this.radicalFormGroup.get('meaning');
+    return this.quizFormGroup.get('meaning');
   }
 
   onValidateCard(): void {
