@@ -1,6 +1,7 @@
 import { Action, createReducer, on } from '@ngrx/store';
 
 import Word from '../models/word.model';
+import VOCABULARY from '../vocabulary.data';
 import * as VocabularyActions from './vocabulary.actions';
 
 export interface VocabularyStoreState {
@@ -8,20 +9,7 @@ export interface VocabularyStoreState {
 }
 
 const initialState: VocabularyStoreState = {
-  vocabulary: [
-    {
-      id: 1,
-      characters: '大人',
-      meanings: ['adult', 'mature'],
-      reading: 'おとな',
-    },
-    {
-      id: 2,
-      characters: '一人',
-      meanings: ['alone', 'one person'],
-      reading: 'ひとり',
-    },
-  ],
+  vocabulary: VOCABULARY,
 };
 
 const _vocabularyReducer = createReducer(

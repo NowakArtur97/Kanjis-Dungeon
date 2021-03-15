@@ -1,6 +1,7 @@
 import { Action, createReducer, on } from '@ngrx/store';
 
 import Radical from '../models/radical.model';
+import RADICALS from '../radical.data';
 import * as RadicalActions from './radical.actions';
 
 export interface RadicalStoreState {
@@ -8,10 +9,7 @@ export interface RadicalStoreState {
 }
 
 const initialState: RadicalStoreState = {
-  radicals: [
-    { id: 1, characters: '一', meanings: ['ground'] },
-    { id: 2, characters: '二', meanings: ['two'] },
-  ],
+  radicals: RADICALS,
 };
 
 const _radicalReducer = createReducer(

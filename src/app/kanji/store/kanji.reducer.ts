@@ -1,5 +1,6 @@
 import { Action, createReducer, on } from '@ngrx/store';
 
+import KANJI from '../kanji.data';
 import Kanji from '../models/kanji.model';
 import * as KanjiActions from './kanji.actions';
 
@@ -8,22 +9,7 @@ export interface KanjiStoreState {
 }
 
 const initialState: KanjiStoreState = {
-  kanji: [
-    {
-      id: 1,
-      characters: '上',
-      meanings: ['above', 'up', 'over'],
-      onyomi: ['じょう'],
-      kunyomi: ['うえ', 'あ', 'のぼ', 'うわ', 'かみ'],
-    },
-    {
-      id: 2,
-      characters: '下',
-      meanings: ['below', 'down', 'under', 'beneath'],
-      onyomi: ['か', 'げ'],
-      kunyomi: ['した', 'さ', 'くだ', 'お'],
-    },
-  ],
+  kanji: KANJI,
 };
 
 const _kanjiReducer = createReducer(
