@@ -24,7 +24,7 @@ export class RadicalCardComponent implements OnInit, OnDestroy {
       .select('radical')
       .subscribe(({ radicals }) => {
         this.currentRadical = radicals[0];
-        this.radicalValue = this.currentRadical.radical;
+        this.radicalValue = this.currentRadical.characters;
       });
 
     this.initForm();
@@ -36,7 +36,7 @@ export class RadicalCardComponent implements OnInit, OnDestroy {
 
   private initForm(): void {
     this.radicalFormGroup = new FormGroup({
-      radical: new FormControl(this.currentRadical.radical, [
+      radical: new FormControl(this.currentRadical.characters, [
         CommonValidators.notBlank,
       ]),
       meaning: new FormControl(this.currentRadical.meanings[0], [

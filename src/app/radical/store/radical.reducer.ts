@@ -9,8 +9,8 @@ export interface RadicalStoreState {
 
 const initialState: RadicalStoreState = {
   radicals: [
-    { id: 1, radical: '一', meanings: ['ground'] },
-    { id: 2, radical: '二', meanings: ['two'] },
+    { id: 1, characters: '一', meanings: ['ground'] },
+    { id: 2, characters: '二', meanings: ['two'] },
   ],
 };
 
