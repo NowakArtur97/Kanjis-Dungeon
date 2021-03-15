@@ -6,6 +6,7 @@ import AppStoreState from 'src/app/store/app.state';
 
 import KanjiService from '../../kanji/services/kanji.service';
 import * as KanjiActions from '../../kanji/store/kanji.actions';
+import KANJI from '../kanji.data';
 
 @Injectable()
 export default class KanjiEffects {
@@ -15,21 +16,29 @@ export default class KanjiEffects {
     private kanjiService: KanjiService
   ) {}
 
-  saveKanji$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(KanjiActions.saveKanji),
-        withLatestFrom(this.store.select((state) => state.kanji.kanji)),
-        switchMap(([actions, kanji]) => this.kanjiService.save(kanji))
-      ),
-    { dispatch: false }
+  saveKanji$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(KanjiActions.saveKanji),
+      withLatestFrom(this.store.select((state) => state.kanji.kanji)),
+      switchMap(([actions, kanji]) => this.kanjiService.save(kanji)),
+      map((kanji) => KanjiActions.setKanji({ kanji }))
+    )
   );
 
   fetchKanji$ = createEffect(() =>
     this.actions$.pipe(
       ofType(KanjiActions.fetchKanji),
-      switchMap(() => this.kanjiService.getAll()),
-      map((kanji) => KanjiActions.setKanji({ kanji }))
+      switchMap(() =>
+        this.kanjiService
+          .getAll()
+          .pipe(
+            map((kanji) =>
+              kanji?.length >= KANJI?.length
+                ? KanjiActions.setKanji({ kanji })
+                : KanjiActions.saveKanji()
+            )
+          )
+      )
     )
   );
 }
