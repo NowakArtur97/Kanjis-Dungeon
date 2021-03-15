@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { switchMap, withLatestFrom } from 'rxjs/operators';
+import { map, switchMap, withLatestFrom } from 'rxjs/operators';
 
 import AppStoreState from '../../store/app.state';
 import RadicalService from '../services/radical.service';
@@ -23,5 +23,13 @@ export default class RadicalEffects {
         switchMap(([actions, radicals]) => this.radicalService.save(radicals))
       ),
     { dispatch: false }
+  );
+
+  fetchRadicals$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(RadicalsActions.fetchRadicals),
+      switchMap(() => this.radicalService.getAll()),
+      map((radicals) => RadicalsActions.setRadicals({ radicals }))
+    )
   );
 }
