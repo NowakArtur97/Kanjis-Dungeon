@@ -258,6 +258,10 @@ export class JapanesePipe implements PipeTransform {
   );
 
   transform(value: string): string {
+    if (!value) {
+      return value;
+    }
+
     let afterConversion = this.convertDoubleLowerCaseLetters(value);
     afterConversion = this.convertDoubleUpperCaseLetters(afterConversion);
     afterConversion = this.convertToJapanese(afterConversion);
