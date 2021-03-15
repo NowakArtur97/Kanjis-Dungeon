@@ -1,4 +1,3 @@
-import { state } from '@angular/animations';
 import { Action, createReducer, on } from '@ngrx/store';
 
 import Word from '../models/word.model';
