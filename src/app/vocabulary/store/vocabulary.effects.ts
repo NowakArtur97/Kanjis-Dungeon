@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { switchMap, withLatestFrom } from 'rxjs/operators';
+import { map, switchMap, withLatestFrom } from 'rxjs/operators';
 import AppStoreState from 'src/app/store/app.state';
 
 import VocabularyService from '../services/vocabulary.service';
@@ -27,5 +27,13 @@ export default class VocabularyEffects {
         )
       ),
     { dispatch: false }
+  );
+
+  fetchVocabulary$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(VocabularyActions.fetchVocabulary),
+      switchMap(() => this.vocabularyService.getAll()),
+      map((vocabulary) => VocabularyActions.setVocabulary({ vocabulary }))
+    )
   );
 }

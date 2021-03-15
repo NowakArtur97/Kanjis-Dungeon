@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { switchMap, withLatestFrom } from 'rxjs/operators';
+import { map, switchMap, withLatestFrom } from 'rxjs/operators';
 import AppStoreState from 'src/app/store/app.state';
 
 import KanjiService from '../../kanji/services/kanji.service';
@@ -23,5 +23,13 @@ export default class KanjiEffects {
         switchMap(([actions, kanji]) => this.kanjiService.save(kanji))
       ),
     { dispatch: false }
+  );
+
+  fetchKanji$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(KanjiActions.fetchKanji),
+      switchMap(() => this.kanjiService.getAll()),
+      map((kanji) => KanjiActions.setKanji({ kanji }))
+    )
   );
 }

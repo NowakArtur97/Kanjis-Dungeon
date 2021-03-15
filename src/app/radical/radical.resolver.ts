@@ -24,7 +24,7 @@ export default class RadicalResolver
     this.store.select('radical').pipe(
       take(1),
       switchMap(({ radicals }) => {
-        if (radicals?.length === 0) {
+        if (radicals?.length < 10) {
           this.store.dispatch(RadicalActions.fetchRadicals());
           return this.actions$.pipe(
             ofType(RadicalActions.setRadicals),

@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
 
-  shouldUpdateDatabase: false,
+  shouldUpdateDatabase: true,
 };
 
 /*
