@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import Radical from 'src/app/radical/models/radical.model';
 import { environment } from 'src/environments/environment.secret';
 
-export default abstract class GenericFirebaseService<T> {
+export default abstract class GenericFirebaseService<T extends Radical> {
   private readonly COLLECTION_NAME: string;
 
   constructor(
@@ -13,7 +13,7 @@ export default abstract class GenericFirebaseService<T> {
     this.COLLECTION_NAME = collectionName;
   }
 
-  save = (models: Radical[]): Observable<Radical[]> =>
+  save = (models: T[]): Observable<T[]> =>
     this.httpClient.put<any>(
       `${environment.firebaseConfig.databaseURL}/${this.COLLECTION_NAME}.json`,
       models
