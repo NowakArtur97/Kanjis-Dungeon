@@ -5,6 +5,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from 'src/environments/environment';
 
 import { AppComponent } from './app.component';
 import CardModule from './card/card.module';
@@ -24,6 +26,7 @@ const appRoutes: Routes = [
     HttpClientModule,
     BrowserModule,
     StoreModule.forRoot([]),
+    StoreDevtoolsModule.instrument({ logOnly: environment.production }),
     EffectsModule.forRoot([]),
     RouterModule.forRoot(appRoutes),
 
