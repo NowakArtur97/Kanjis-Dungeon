@@ -8,6 +8,7 @@ import { StoreModule } from '@ngrx/store';
 import { AppComponent } from './app.component';
 import CardModule from './card/card.module';
 import { AppCommonModule } from './common/app-common.module';
+import KanjiModule from './kanji/kanji.module';
 import RadicalModule from './radical/radical.module';
 import VocabularyModule from './vocabulary/vocabulary.module';
 
@@ -23,6 +24,7 @@ import VocabularyModule from './vocabulary/vocabulary.module';
     AppCommonModule,
     CardModule,
     RadicalModule,
+    KanjiModule,
     VocabularyModule,
   ],
   providers: [],
