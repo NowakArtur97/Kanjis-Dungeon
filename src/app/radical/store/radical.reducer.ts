@@ -16,7 +16,7 @@ const _radicalReducer = createReducer(
 
   on(RadicalActions.setRadicals, (state, { radicals }) => ({
     ...state,
-    radicals: radicals ? [...radicals] : [],
+    radicals: [...radicals],
   }))
 );
 
