@@ -1,15 +1,17 @@
-import { Action, createReducer, createReducer, on, on } from '@ngrx/store';
+import { Action, createReducer, on } from '@ngrx/store';
 import Radical from 'src/app/radical/models/radical.model';
 
 import * as QuizActions from './quiz.actions';
 
 export interface QuizStoreState {
+  maxNumberOfQuestions: number;
   questions: Radical[];
   answers: Radical[];
   mistakes: Radical[];
 }
 
 const initialState: QuizStoreState = {
+  maxNumberOfQuestions: 20,
   questions: [],
   answers: [],
   mistakes: [],
@@ -44,7 +46,7 @@ const _quizReducer = createReducer(
   }))
 );
 
-export function radicalReducer(
+export function quizReducer(
   state: QuizStoreState,
   action: Action
 ): QuizStoreState {
