@@ -1,6 +1,5 @@
 import { Action, createReducer, on } from '@ngrx/store';
 
-import KANJI from '../kanji.data';
 import Kanji from '../models/kanji.model';
 import * as KanjiActions from './kanji.actions';
 
@@ -9,7 +8,7 @@ export interface KanjiStoreState {
 }
 
 const initialState: KanjiStoreState = {
-  kanji: KANJI,
+  kanji: [],
 };
 
 const _kanjiReducer = createReducer(

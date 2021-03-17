@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { map, switchMap, withLatestFrom } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import AppStoreState from 'src/app/store/app.state';
 
 import VocabularyService from '../services/vocabulary.service';
@@ -19,10 +19,7 @@ export default class VocabularyEffects {
   saveVocabulary$ = createEffect(() =>
     this.actions$.pipe(
       ofType(VocabularyActions.saveVocabulary),
-      withLatestFrom(this.store.select((state) => state.vocabulary.vocabulary)),
-      switchMap(([actions, vocabulary]) =>
-        this.vocabularyService.save(vocabulary)
-      ),
+      switchMap(() => this.vocabularyService.save(VOCABULARY)),
       map((vocabulary) => VocabularyActions.setVocabulary({ vocabulary }))
     )
   );
@@ -35,7 +32,7 @@ export default class VocabularyEffects {
           .getAll()
           .pipe(
             map((vocabulary) =>
-              vocabulary?.length >= VOCABULARY?.length
+              vocabulary?.length >= VOCABULARY.length
                 ? VocabularyActions.setVocabulary({ vocabulary })
                 : VocabularyActions.saveVocabulary()
             )

@@ -23,11 +23,12 @@ export class QuizCardComponent implements OnInit, OnDestroy {
     this.characterSubscription$ = this.store
       .select('radical')
       .subscribe(({ radicals }) => {
-        this.currentCharacter = radicals[0];
-        this.charactersValue = this.currentCharacter.characters;
+        if (radicals.length !== 0) {
+          this.currentCharacter = radicals[0];
+          this.charactersValue = this.currentCharacter.characters;
+        }
+        this.initForm();
       });
-
-    this.initForm();
   }
 
   ngOnDestroy(): void {
@@ -35,13 +36,16 @@ export class QuizCardComponent implements OnInit, OnDestroy {
   }
 
   private initForm(): void {
+    let characters = '';
+    let meanings = '';
+    if (this.currentCharacter) {
+      characters = this.currentCharacter.characters;
+      meanings = this.currentCharacter.meanings[0];
+    }
+
     this.quizFormGroup = new FormGroup({
-      characters: new FormControl(this.currentCharacter.characters, [
-        CommonValidators.notBlank,
-      ]),
-      meaning: new FormControl(this.currentCharacter.meanings[0], [
-        CommonValidators.notBlank,
-      ]),
+      characters: new FormControl(characters, [CommonValidators.notBlank]),
+      meaning: new FormControl(meanings, [CommonValidators.notBlank]),
     });
   }
 

@@ -24,7 +24,7 @@ export default class VocabularyResolver
     this.store.select('vocabulary').pipe(
       take(1),
       switchMap(({ vocabulary }) => {
-        if (vocabulary?.length < 10) {
+        if (vocabulary.length === 0) {
           this.store.dispatch(VocabularyActions.fetchVocabulary());
           return this.actions$.pipe(
             ofType(VocabularyActions.setVocabulary),

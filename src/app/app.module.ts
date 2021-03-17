@@ -12,6 +12,7 @@ import { AppComponent } from './app.component';
 import CardModule from './card/card.module';
 import { AppCommonModule } from './common/app-common.module';
 import KanjiModule from './kanji/kanji.module';
+import { QuizModule } from './quiz/quiz.module';
 import RadicalModule from './radical/radical.module';
 import VocabularyModule from './vocabulary/vocabulary.module';
 
@@ -35,6 +36,7 @@ const appRoutes: Routes = [
     RadicalModule,
     KanjiModule,
     VocabularyModule,
+    QuizModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

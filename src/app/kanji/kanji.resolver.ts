@@ -23,7 +23,7 @@ export default class KanjiResolver implements Resolve<{ kanji: Kanji[] }> {
     this.store.select('kanji').pipe(
       take(1),
       switchMap(({ kanji }) => {
-        if (kanji?.length < 10) {
+        if (kanji.length === 0) {
           this.store.dispatch(KanjiActions.fetchKanji());
           return this.actions$.pipe(ofType(KanjiActions.setKanji), take(1));
         } else {
