@@ -11,7 +11,7 @@ export interface QuizStoreState {
 }
 
 const initialState: QuizStoreState = {
-  maxNumberOfQuestions: 20,
+  maxNumberOfQuestions: 12,
   questions: [],
   answers: [],
   mistakes: [],
