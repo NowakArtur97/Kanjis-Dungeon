@@ -12,7 +12,7 @@ import AppStoreState from 'src/app/store/app.state';
   styleUrls: ['./quiz-card.component.css'],
 })
 export class QuizCardComponent implements OnInit, OnDestroy {
-  private characterSubscription$: Subscription;
+  private characterSubscription$ = new Subscription();
   private currentCharacter: Radical;
   charactersValue: string;
   quizFormGroup: FormGroup;
@@ -20,15 +20,15 @@ export class QuizCardComponent implements OnInit, OnDestroy {
   constructor(private store: Store<AppStoreState>) {}
 
   ngOnInit(): void {
-    this.characterSubscription$ = this.store
-      .select('radical')
-      .subscribe(({ radicals }) => {
-        if (radicals.length !== 0) {
-          this.currentCharacter = radicals[0];
+    this.characterSubscription$.add(
+      this.store.select('quiz').subscribe(({ questions }) => {
+        if (questions.length > 0) {
+          this.currentCharacter = questions[0];
           this.charactersValue = this.currentCharacter.characters;
         }
         this.initForm();
-      });
+      })
+    );
   }
 
   ngOnDestroy(): void {
