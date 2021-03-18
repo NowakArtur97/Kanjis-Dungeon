@@ -5,12 +5,19 @@ import Radical from 'src/app/radical/models/radical.model';
 export default class QuizService {
   prepareQuestions = (
     characters: Radical[],
-    numberOfQuestions: number
-  ): Radical[] => this.getRandomQuestions(characters, numberOfQuestions);
+    numberOfQuestions: number,
+    alreadyChosenQuestions: Radical[]
+  ): Radical[] =>
+    this.getRandomQuestions(
+      characters,
+      numberOfQuestions,
+      alreadyChosenQuestions
+    );
 
   private getRandomQuestions(
     allQuestions: Radical[],
-    numberOfQuestions: number
+    numberOfQuestions: number,
+    alreadyChosenQuestions: Radical[]
   ): Radical[] {
     const questions: Radical[] = [];
     if (
@@ -30,7 +37,7 @@ export default class QuizService {
       }
     }
 
-    return questions;
+    return [...alreadyChosenQuestions, ...questions];
   }
 
   private isNumberOfQuestionsBiggerThanNumberOfAllQuestions = (

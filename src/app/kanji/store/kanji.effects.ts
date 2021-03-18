@@ -49,11 +49,19 @@ export default class KanjiEffects {
     this.actions$.pipe(
       ofType(KanjiActions.setKanji),
       withLatestFrom(
-        this.store.select((state) => state.radical.radicals),
-        this.store.select((state) => state.quiz.maxNumberOfQuestions)
+        this.store.select((state) => state.kanji.kanji),
+        this.store.select((state) => state.quiz.maxNumberOfQuestions),
+        this.store.select((state) => state.quiz.questions)
       ),
-      switchMap(([action, radicals, maxNumberOfQuestions]) =>
-        of(this.quizService.prepareQuestions(radicals, maxNumberOfQuestions))
+      switchMap(
+        ([action, radicals, maxNumberOfQuestions, alreadyChosenQuestions]) =>
+          of(
+            this.quizService.prepareQuestions(
+              radicals,
+              maxNumberOfQuestions,
+              alreadyChosenQuestions
+            )
+          )
       ),
       map((questions) => QuizActions.setQuestions({ questions }))
     )
