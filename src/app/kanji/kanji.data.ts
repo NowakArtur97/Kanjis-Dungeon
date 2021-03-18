@@ -15,6 +15,63 @@ const KANJI: Kanji[] = [
     onyomi: ['か', 'げ'],
     kunyomi: ['した', 'さ', 'くだ', 'お'],
   },
+  {
+    id: 3,
+    characters: '大',
+    meanings: ['big', 'large'],
+    onyomi: ['たい', 'だい'],
+    kunyomi: ['おお'],
+    nanori: ['ひろ'],
+  },
+  {
+    id: 4,
+    characters: '工',
+    meanings: ['construction', 'industry'],
+    onyomi: ['こう', 'く'],
+  },
+  {
+    id: 5,
+    characters: '八',
+    meanings: ['eight'],
+    onyomi: ['はち'],
+    kunyomi: ['や', 'よう'],
+  },
+  {
+    id: 6,
+    characters: '入',
+    meanings: ['enter'],
+    onyomi: ['にゅう'],
+    kunyomi: ['はい', 'い'],
+  },
+  {
+    id: 7,
+    characters: '山',
+    meanings: ['mountain'],
+    onyomi: ['さん'],
+    kunyomi: ['やま'],
+  },
+  {
+    id: 8,
+    characters: '口',
+    meanings: ['mouth'],
+    onyomi: ['こう', 'く'],
+    kunyomi: ['くち'],
+  },
+  {
+    id: 9,
+    characters: '九',
+    meanings: ['nine'],
+    onyomi: ['く', 'きゅう'],
+    kunyomi: ['ここの'],
+  },
+  {
+    id: 10,
+    characters: '一',
+    meanings: ['one'],
+    onyomi: ['いち', 'いつ'],
+    kunyomi: ['ひと'],
+    nanori: ['かず'],
+  },
 ];
 
 export default KANJI;

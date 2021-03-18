@@ -28,6 +28,7 @@ export default class QuizService {
       numberOfQuestions,
       alreadyChosenQuestions
     );
+
     while (questions.length < numberOfQuestions) {
       let question =
         allQuestions[Math.floor(Math.random() * allQuestions.length)];
@@ -47,7 +48,6 @@ export default class QuizService {
     let thisTypeNumberOfQuestions = Math.floor(
       numberOfQuestions / this.NUMBER_OF_QUESTIONS_TYPES
     );
-    console.log(thisTypeNumberOfQuestions);
 
     const questionsLeft =
       numberOfQuestions -
@@ -55,11 +55,10 @@ export default class QuizService {
     if (questionsLeft <= thisTypeNumberOfQuestions) {
       thisTypeNumberOfQuestions += questionsLeft;
     }
-    console.log(questionsLeft);
+
     if (allQuestions.length < thisTypeNumberOfQuestions) {
       thisTypeNumberOfQuestions = allQuestions.length;
     }
-    console.log('****************');
 
     return thisTypeNumberOfQuestions;
   }
