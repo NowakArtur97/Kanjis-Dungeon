@@ -1,58 +1,40 @@
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs';
-import Kanji from 'src/app/kanji/models/kanji.model';
 import Radical from 'src/app/radical/models/radical.model';
-import AppStoreState from 'src/app/store/app.state';
-import Word from 'src/app/vocabulary/models/word.model';
-
-import * as QuizActions from '../store/quiz.actions';
-import { QuizStoreState } from '../store/quiz.reducer';
 
 @Injectable({ providedIn: 'root' })
 export default class QuizService {
-  private quizStoreSubscription$ = new Subscription();
-  private radicals: Radical[] = [];
-  private kanji: Kanji[] = [];
-  private vocabulary: Word[] = [];
-  private quizStore: QuizStoreState;
-  private questions: Radical[] = [];
+  prepareQuestions = (
+    characters: Radical[],
+    numberOfQuestions: number
+  ): Radical[] => this.getRandomQuestions(characters, numberOfQuestions);
 
-  constructor(private store: Store<AppStoreState>) {
-    this.quizStoreSubscription$.add(
-      this.store
-        .select('quiz')
-        .subscribe((quizStore) => (this.quizStore = quizStore))
-    );
+  private getRandomQuestions(
+    allQuestions: Radical[],
+    numberOfQuestions: number
+  ): Radical[] {
+    const questions: Radical[] = [];
+    if (
+      this.isNumberOfQuestionsBiggerThanNumberOfAllQuestions(
+        allQuestions.length,
+        numberOfQuestions
+      )
+    ) {
+      numberOfQuestions = allQuestions.length;
+    }
 
-    this.quizStoreSubscription$.add(
-      this.store
-        .select('radical')
-        .subscribe(({ radicals }) => (this.radicals = radicals))
-    );
+    while (questions.length < numberOfQuestions) {
+      let question =
+        allQuestions[Math.floor(Math.random() * allQuestions.length)];
+      if (!questions.includes(question)) {
+        questions.push(question);
+      }
+    }
 
-    this.quizStoreSubscription$.add(
-      this.store.select('kanji').subscribe(({ kanji }) => (this.kanji = kanji))
-    );
-
-    this.quizStoreSubscription$.add(
-      this.store
-        .select('vocabulary')
-        .subscribe(({ vocabulary }) => (this.vocabulary = vocabulary))
-    );
+    return questions;
   }
 
-  prepareQuestions(): void {
-    this.getRandomQuestions([
-      ...this.radicals,
-      ...this.kanji,
-      ...this.vocabulary,
-    ]);
-
-    this.store.dispatch(
-      QuizActions.setQuestions({ questions: this.questions })
-    );
-  }
-
-  private getRandomQuestions(allQuestions: Radical[]): void {}
+  private isNumberOfQuestionsBiggerThanNumberOfAllQuestions = (
+    numberOfAllQuestions: number,
+    numberOfQuestions: number
+  ) => numberOfAllQuestions < numberOfQuestions;
 }
