@@ -54,10 +54,10 @@ export default class KanjiEffects {
         this.store.select((state) => state.quiz.questions)
       ),
       switchMap(
-        ([action, radicals, maxNumberOfQuestions, alreadyChosenQuestions]) =>
+        ([action, kanji, maxNumberOfQuestions, alreadyChosenQuestions]) =>
           of(
             this.quizService.prepareQuestions(
-              radicals,
+              kanji,
               maxNumberOfQuestions,
               alreadyChosenQuestions
             )
