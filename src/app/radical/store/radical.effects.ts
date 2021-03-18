@@ -1,43 +1,61 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { map, switchMap } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { map, switchMap, withLatestFrom } from 'rxjs/operators';
+import QuizService from 'src/app/quiz/services/quiz.service';
 
+import * as QuizActions from '../../quiz/store/quiz.actions';
 import AppStoreState from '../../store/app.state';
 import RADICALS from '../radical.data';
 import RadicalService from '../services/radical.service';
-import * as RadicalsActions from './radical.actions';
+import * as RadicalActions from './radical.actions';
 
 @Injectable()
 export default class RadicalEffects {
   constructor(
     private actions$: Actions,
     private store: Store<AppStoreState>,
-    private radicalService: RadicalService
+    private radicalService: RadicalService,
+    private quizService: QuizService
   ) {}
 
   saveRadicals$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(RadicalsActions.saveRadicals),
+      ofType(RadicalActions.saveRadicals),
       switchMap(() => this.radicalService.save(RADICALS)),
-      map((radicals) => RadicalsActions.setRadicals({ radicals }))
+      map((radicals) => RadicalActions.setRadicals({ radicals }))
     )
   );
 
   fetchRadicals$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(RadicalsActions.fetchRadicals),
+      ofType(RadicalActions.fetchRadicals),
       switchMap(() =>
         this.radicalService
           .getAll()
           .pipe(
             map((radicals) =>
               radicals?.length >= RADICALS.length
-                ? RadicalsActions.setRadicals({ radicals })
-                : RadicalsActions.saveRadicals()
+                ? RadicalActions.setRadicals({ radicals })
+                : RadicalActions.saveRadicals()
             )
           )
       )
+    )
+  );
+
+  setRadicalsQuestions$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(RadicalActions.setRadicals),
+      withLatestFrom(
+        this.store.select((state) => state.radical.radicals),
+        this.store.select((state) => state.quiz.maxNumberOfQuestions)
+      ),
+      switchMap(([action, radicals, maxNumberOfQuestions]) =>
+        of(this.quizService.prepareQuestions(radicals, maxNumberOfQuestions))
+      ),
+      map((questions) => QuizActions.setQuestions({ questions }))
     )
   );
 }
