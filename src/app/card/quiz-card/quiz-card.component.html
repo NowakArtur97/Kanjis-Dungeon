@@ -27,31 +27,40 @@
             id="meaning"
           />
         </div>
-        <div class="quiz_card__controls">
+        <div *ngIf="isKanji()" class="quiz_card__controls">
           <input
-            formControlName="meaning"
+            formControlName="onyomi"
             class="quiz_card__input"
             type="text"
-            name="meaning"
-            id="meaning"
+            name="onyomi"
+            id="onyomi"
           />
         </div>
-        <div class="quiz_card__controls">
+        <div *ngIf="isKanji()" class="quiz_card__controls">
           <input
-            formControlName="meaning"
+            formControlName="kunyomi"
             class="quiz_card__input"
             type="text"
-            name="meaning"
-            id="meaning"
+            name="kunyomi"
+            id="kunyomi"
           />
         </div>
-        <div class="quiz_card__controls">
+        <div *ngIf="isKanji()" class="quiz_card__controls">
           <input
-            formControlName="meaning"
+            formControlName="nanori"
             class="quiz_card__input"
             type="text"
-            name="meaning"
-            id="meaning"
+            name="nanori"
+            id="nanori"
+          />
+        </div>
+        <div *ngIf="isVocabulary()" class="quiz_card__controls">
+          <input
+            formControlName="reading"
+            class="quiz_card__input"
+            type="text"
+            name="reading"
+            id="reading"
           />
         </div>
       </div>
