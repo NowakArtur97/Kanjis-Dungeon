@@ -37,7 +37,9 @@ const _quizReducer = createReducer(
 
   on(QuizActions.addMistake, (state, { mistake }) => ({
     ...state,
-    mistakes: [...state.mistakes, mistake],
+    mistakes: state.mistakes.includes(mistake)
+      ? [...state.mistakes]
+      : [...state.mistakes, mistake],
   })),
 
   on(QuizActions.clearMistakes, (state) => ({

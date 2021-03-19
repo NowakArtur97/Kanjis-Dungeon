@@ -7,6 +7,8 @@ import CommonValidators from 'src/app/common/validators/common.validator';
 import Radical from 'src/app/radical/models/radical.model';
 import AppStoreState from 'src/app/store/app.state';
 
+import * as QuizActions from '../../quiz/store/quiz.actions';
+
 @Component({
   selector: 'app-quiz-card',
   templateUrl: './quiz-card.component.html',
@@ -17,6 +19,7 @@ export class QuizCardComponent implements OnInit, OnDestroy {
   private currentCharacter: Radical;
   charactersValue: string;
   quizFormGroup: FormGroup;
+  answerIsWrong = false;
 
   constructor(private store: Store<AppStoreState>) {}
 
@@ -60,12 +63,35 @@ export class QuizCardComponent implements OnInit, OnDestroy {
     this.quizFormGroup = new FormGroup({
       characters: new FormControl(characters, [CommonValidators.notBlank]),
       meaning: new FormControl(meanings, [CommonValidators.notBlank]),
-      onyomi: new FormControl(onyomi[0], [CommonValidators.notBlank]),
-      kunyomi: new FormControl(kunyomi[0], [CommonValidators.notBlank]),
-      nanori: new FormControl(nanori[0], [CommonValidators.notBlank]),
-      reading: new FormControl(reading, [CommonValidators.notBlank]),
+      onyomi: new FormControl(onyomi[0], []),
+      kunyomi: new FormControl(kunyomi[0], []),
+      nanori: new FormControl(nanori[0], []),
+      reading: new FormControl(reading, []),
     });
   }
+
+  onValidateCard(): void {
+    if (this.answerIsWrong) {
+      this.answerIsWrong = false;
+      return;
+    }
+
+    if (this.quizFormGroup.invalid) {
+      this.quizFormGroup.updateValueAndValidity();
+      this.store.dispatch(
+        QuizActions.addMistake({ mistake: this.currentCharacter })
+      );
+    } else {
+      // TODO: Dispatch next question
+      console.log('NEXT QUESTION');
+      // this.store.dispatch(QuizActions.nextQuestion())
+    }
+  }
+
+  isKanji = (): boolean => CharacterUtil.isKanji(this.currentCharacter);
+
+  isVocabulary = (): boolean =>
+    CharacterUtil.isVocabulary(this.currentCharacter);
 
   get character(): AbstractControl {
     return this.quizFormGroup.get('characters');
@@ -90,13 +116,4 @@ export class QuizCardComponent implements OnInit, OnDestroy {
   get nanori(): AbstractControl {
     return this.quizFormGroup.get('nanori');
   }
-
-  onValidateCard(): void {
-    console.log('HELLO');
-  }
-
-  isKanji = (): boolean => CharacterUtil.isKanji(this.currentCharacter);
-
-  isVocabulary = (): boolean =>
-    CharacterUtil.isVocabulary(this.currentCharacter);
 }
