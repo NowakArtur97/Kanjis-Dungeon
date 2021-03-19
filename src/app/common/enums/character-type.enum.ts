@@ -1,6 +1,6 @@
 enum CharacterType {
-  RADICAL,
-  KANJI,
-  VOCABULARY,
+  RADICAL = 'Radical',
+  KANJI = 'Kanji',
+  VOCABULARY = 'Vocabulary',
 }
 export default CharacterType;
