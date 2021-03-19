@@ -1,6 +1,11 @@
 import { createAction, props } from '@ngrx/store';
 import Radical from 'src/app/radical/models/radical.model';
 
+export const setNextQuestion = createAction(
+  '[Quiz] Set Next Question',
+  props<{ nextQuestion: Radical }>()
+);
+
 export const setQuestions = createAction(
   '[Quiz] Set Questions',
   props<{ questions: Radical[] }>()

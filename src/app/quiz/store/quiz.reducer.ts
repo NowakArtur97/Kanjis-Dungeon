@@ -5,6 +5,7 @@ import * as QuizActions from './quiz.actions';
 
 export interface QuizStoreState {
   maxNumberOfQuestions: number;
+  nextQuestion: Radical;
   questions: Radical[];
   answers: Radical[];
   mistakes: Radical[];
@@ -12,6 +13,7 @@ export interface QuizStoreState {
 
 const initialState: QuizStoreState = {
   maxNumberOfQuestions: 30,
+  nextQuestion: null,
   questions: [],
   answers: [],
   mistakes: [],
@@ -19,6 +21,11 @@ const initialState: QuizStoreState = {
 
 const _quizReducer = createReducer(
   initialState,
+
+  on(QuizActions.setNextQuestion, (state, { nextQuestion }) => ({
+    ...state,
+    nextQuestion: { ...nextQuestion },
+  })),
 
   on(QuizActions.setQuestions, (state, { questions }) => ({
     ...state,

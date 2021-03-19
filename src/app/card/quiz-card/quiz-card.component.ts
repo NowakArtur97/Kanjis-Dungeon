@@ -31,10 +31,10 @@ export class QuizCardComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.characterSubscription$.add(
-      this.store.select('quiz').subscribe(({ questions }) => {
-        if (questions.length > 0) {
-          this.currentCharacter = questions[0];
-          this.charactersValue = this.currentCharacter.characters;
+      this.store.select('quiz').subscribe(({ nextQuestion }) => {
+        if (nextQuestion) {
+          this.currentCharacter = nextQuestion;
+          this.charactersValue = nextQuestion.characters;
         }
         this.initForm();
       })
