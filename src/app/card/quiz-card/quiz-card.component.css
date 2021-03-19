@@ -110,3 +110,8 @@
   background-color: white;
   color: royalblue;
 }
+
+.quiz_card__submit_button--red {
+  background-color: red;
+  color: white;
+}

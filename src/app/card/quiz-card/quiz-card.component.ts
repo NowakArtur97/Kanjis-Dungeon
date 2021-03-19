@@ -77,6 +77,7 @@ export class QuizCardComponent implements OnInit, OnDestroy {
     }
 
     if (this.quizFormGroup.invalid) {
+      this.answerIsWrong = true;
       this.quizFormGroup.updateValueAndValidity();
       this.store.dispatch(
         QuizActions.addMistake({ mistake: this.currentCharacter })
