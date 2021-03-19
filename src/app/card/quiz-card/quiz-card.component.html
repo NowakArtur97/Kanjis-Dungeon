@@ -30,6 +30,12 @@
         <div *ngIf="isKanji()" class="quiz_card__controls">
           <input
             formControlName="onyomi"
+            [attr.disabled]="
+              currentCharacter.onyomi === undefined ||
+              currentCharacter.onyomi[0] === ''
+                ? ''
+                : null
+            "
             class="quiz_card__input"
             type="text"
             name="onyomi"
@@ -39,6 +45,12 @@
         <div *ngIf="isKanji()" class="quiz_card__controls">
           <input
             formControlName="kunyomi"
+            [attr.disabled]="
+              currentCharacter.kunyomi === undefined ||
+              currentCharacter.kunyomi[0] === ''
+                ? ''
+                : null
+            "
             class="quiz_card__input"
             type="text"
             name="kunyomi"
@@ -48,6 +60,12 @@
         <div *ngIf="isKanji()" class="quiz_card__controls">
           <input
             formControlName="nanori"
+            [attr.disabled]="
+              currentCharacter.nanori === undefined ||
+              currentCharacter.nanori[0] === ''
+                ? ''
+                : null
+            "
             class="quiz_card__input"
             type="text"
             name="nanori"
@@ -57,6 +75,7 @@
         <div *ngIf="isVocabulary()" class="quiz_card__controls">
           <input
             formControlName="reading"
+            [attr.disabled]="currentCharacter.reading === '' ? '' : null"
             class="quiz_card__input"
             type="text"
             name="reading"

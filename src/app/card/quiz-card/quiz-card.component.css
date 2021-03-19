@@ -76,6 +76,10 @@
   color: royalblue;
 }
 
+.quiz_card__input:disabled {
+  background-color: gray;
+}
+
 .quiz_card__input--big {
   height: 100%;
   font-size: 2em;

@@ -49,9 +49,9 @@ export class QuizCardComponent implements OnInit, OnDestroy {
       meanings = this.currentCharacter.meanings[0];
 
       if (CharacterUtil.isKanji(this.currentCharacter)) {
-        onyomi = this.currentCharacter.onyomi;
-        kunyomi = this.currentCharacter.kunyomi;
-        nanori = this.currentCharacter.nanori;
+        onyomi = this.currentCharacter.onyomi || [''];
+        kunyomi = this.currentCharacter.kunyomi || [''];
+        nanori = this.currentCharacter.nanori || [''];
       } else if (CharacterUtil.isVocabulary(this.currentCharacter)) {
         reading = this.currentCharacter.reading;
       }
