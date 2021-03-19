@@ -3,8 +3,8 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 import { map, switchMap, withLatestFrom } from 'rxjs/operators';
-import QuizService from 'src/app/quiz/services/quiz.service';
 
+import QuizService from '../../quiz/services/quiz.service';
 import * as QuizActions from '../../quiz/store/quiz.actions';
 import AppStoreState from '../../store/app.state';
 import RADICALS from '../radical.data';

@@ -6,6 +6,9 @@ export default class QuizService {
   //TODO: Move to Quiz store
   private readonly NUMBER_OF_QUESTIONS_TYPES = 3;
 
+  getNextQuestion = (questions: Radical[]): Radical =>
+    questions[Math.floor(Math.random() * questions.length)];
+
   prepareQuestions = (
     characters: Radical[],
     numberOfQuestions: number,
