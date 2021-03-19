@@ -12,7 +12,7 @@ export interface QuizStoreState {
 }
 
 const initialState: QuizStoreState = {
-  maxNumberOfQuestions: 30,
+  maxNumberOfQuestions: 9,
   nextQuestion: null,
   questions: [],
   answers: [],
@@ -34,15 +34,12 @@ const _quizReducer = createReducer(
 
   on(QuizActions.addAnswer, (state, { answer }) => ({
     ...state,
-    questions: state.questions.filter(
-      (question) =>
-        question.id !== answer.id &&
-        question.characters !== answer.characters &&
-        JSON.stringify(question.meanings) !== JSON.stringify(answer.meanings)
+    questions: state.questions.filter((question) =>
+      question.id !== answer.id ? true : question.type !== answer.type
     ),
-    mistakes: state.mistakes.includes(answer)
-      ? state.mistakes.filter((question) => question !== answer)
-      : [...state.mistakes],
+    mistakes: state.mistakes.filter((mistake) =>
+      mistake.id !== answer.id ? true : mistake.type !== answer.type
+    ),
     answers: [...state.answers, answer],
   })),
 

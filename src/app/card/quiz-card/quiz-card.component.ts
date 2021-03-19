@@ -54,7 +54,7 @@ export class QuizCardComponent implements OnInit, OnDestroy {
     let reading = '';
     let cardColor = this.cardColors.radical;
 
-    if (this.currentCharacter) {
+    if (this.currentCharacter?.id) {
       characters = this.currentCharacter.characters;
       meanings = this.currentCharacter.meanings[0];
 
@@ -90,7 +90,6 @@ export class QuizCardComponent implements OnInit, OnDestroy {
     }
 
     if (this.quizFormGroup.invalid) {
-      console.log('MISTAKE');
       this.changeCardColor(this.cardColors.error);
       this.answerIsWrong = true;
       this.quizFormGroup.updateValueAndValidity();
@@ -98,9 +97,9 @@ export class QuizCardComponent implements OnInit, OnDestroy {
         QuizActions.addMistake({ mistake: this.currentCharacter })
       );
     } else {
-      // TODO: Dispatch next question
-      console.log('NEXT QUESTION');
-      // this.store.dispatch(QuizActions.nextQuestion())
+      this.store.dispatch(
+        QuizActions.addAnswer({ answer: this.currentCharacter })
+      );
     }
   }
 
