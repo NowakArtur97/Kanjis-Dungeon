@@ -17,6 +17,12 @@ import * as QuizActions from '../../quiz/store/quiz.actions';
 export class QuizCardComponent implements OnInit, OnDestroy {
   private characterSubscription$ = new Subscription();
   private currentCharacter: Radical;
+  private cardColors = {
+    radical: '#08c',
+    kanji: '#f0a',
+    vocabulary: '#a0f',
+    error: '#f03',
+  };
   charactersValue: string;
   quizFormGroup: FormGroup;
   answerIsWrong = false;
@@ -46,6 +52,7 @@ export class QuizCardComponent implements OnInit, OnDestroy {
     let kunyomi = [''];
     let nanori = [''];
     let reading = '';
+    let cardColor = this.cardColors.radical;
 
     if (this.currentCharacter) {
       characters = this.currentCharacter.characters;
@@ -55,8 +62,14 @@ export class QuizCardComponent implements OnInit, OnDestroy {
         onyomi = this.currentCharacter.onyomi || [''];
         kunyomi = this.currentCharacter.kunyomi || [''];
         nanori = this.currentCharacter.nanori || [''];
+        cardColor = this.cardColors.kanji;
       } else if (CharacterUtil.isVocabulary(this.currentCharacter)) {
         reading = this.currentCharacter.reading;
+        cardColor = this.cardColors.vocabulary;
+      }
+
+      if (!this.answerIsWrong) {
+        this.changeCardColor(cardColor);
       }
     }
 
@@ -77,6 +90,8 @@ export class QuizCardComponent implements OnInit, OnDestroy {
     }
 
     if (this.quizFormGroup.invalid) {
+      console.log('MISTAKE');
+      this.changeCardColor(this.cardColors.error);
       this.answerIsWrong = true;
       this.quizFormGroup.updateValueAndValidity();
       this.store.dispatch(
@@ -93,6 +108,9 @@ export class QuizCardComponent implements OnInit, OnDestroy {
 
   isVocabulary = (): boolean =>
     CharacterUtil.isVocabulary(this.currentCharacter);
+
+  private changeCardColor = (color: string): void =>
+    document.documentElement.style.setProperty('--main-card-color', color);
 
   get character(): AbstractControl {
     return this.quizFormGroup.get('characters');

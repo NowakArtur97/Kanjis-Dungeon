@@ -6,7 +6,7 @@
 
   border: 3px solid black;
   background-color: rgb(177, 177, 177);
-  box-shadow: 10px 10px 5px 0px rgba(0, 35, 173, 0.6);
+  box-shadow: 10px 10px 5px 0px var(--main-card-color);
 }
 
 .quiz_card {
@@ -60,7 +60,7 @@
   width: 100%;
 
   border: none;
-  background-color: royalblue;
+  background-color: var(--main-card-color);
 
   text-align: center;
   font-size: 0.8em;
@@ -73,7 +73,7 @@
 
 .quiz_card__input:focus {
   background-color: white;
-  color: royalblue;
+  color: var(--main-card-color);
 }
 
 .quiz_card__input:disabled {
@@ -98,7 +98,7 @@
   border: none;
 
   font-size: 1.5em;
-  background-color: royalblue;
+  background-color: var(--main-card-color);
   color: white;
   text-transform: uppercase;
   cursor: pointer;
@@ -108,10 +108,5 @@
 
 .quiz_card__submit_button:hover {
   background-color: white;
-  color: royalblue;
-}
-
-.quiz_card__submit_button--red {
-  background-color: red;
-  color: white;
+  color: var(--main-card-color);
 }
