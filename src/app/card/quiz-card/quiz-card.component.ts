@@ -15,7 +15,7 @@ import * as QuizActions from '../../quiz/store/quiz.actions';
   styleUrls: ['./quiz-card.component.css'],
 })
 export class QuizCardComponent implements OnInit, OnDestroy {
-  private characterSubscription$ = new Subscription();
+  private nextQuestionSubscription$ = new Subscription();
   private currentCharacter: Radical;
   private cardColors = {
     radical: '#08c',
@@ -30,7 +30,7 @@ export class QuizCardComponent implements OnInit, OnDestroy {
   constructor(private store: Store<AppStoreState>) {}
 
   ngOnInit(): void {
-    this.characterSubscription$.add(
+    this.nextQuestionSubscription$.add(
       this.store.select('quiz').subscribe(({ nextQuestion }) => {
         if (nextQuestion) {
           this.currentCharacter = nextQuestion;
@@ -42,7 +42,7 @@ export class QuizCardComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.characterSubscription$?.unsubscribe();
+    this.nextQuestionSubscription$?.unsubscribe();
   }
 
   private initForm(): void {
@@ -86,6 +86,9 @@ export class QuizCardComponent implements OnInit, OnDestroy {
   onValidateCard(): void {
     if (this.answerIsWrong) {
       this.answerIsWrong = false;
+      this.store.dispatch(
+        QuizActions.addMistake({ mistake: this.currentCharacter })
+      );
       return;
     }
 
@@ -93,9 +96,6 @@ export class QuizCardComponent implements OnInit, OnDestroy {
       this.changeCardColor(this.cardColors.error);
       this.answerIsWrong = true;
       this.quizFormGroup.updateValueAndValidity();
-      this.store.dispatch(
-        QuizActions.addMistake({ mistake: this.currentCharacter })
-      );
     } else {
       this.store.dispatch(
         QuizActions.addAnswer({ answer: this.currentCharacter })
