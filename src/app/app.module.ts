@@ -9,7 +9,6 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
 
 import { AppComponent } from './app.component';
-import CardModule from './card/card.module';
 import { AppCommonModule } from './common/app-common.module';
 import KanjiModule from './kanji/kanji.module';
 import { QuizModule } from './quiz/quiz.module';
@@ -32,7 +31,6 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
 
     AppCommonModule,
-    CardModule,
     RadicalModule,
     KanjiModule,
     VocabularyModule,
