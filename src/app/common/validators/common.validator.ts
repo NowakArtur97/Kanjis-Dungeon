@@ -1,10 +1,6 @@
 import { FormControl, ValidationErrors } from '@angular/forms';
 
 export default class CommonValidators {
-  // TODO: Remove if not used
-  static notBlank = ({ value }: FormControl): ValidationErrors =>
-    !value || value.length === 0 || !value.trim() ? { notBlank: true } : null;
-
   static equals = (expected: any) => ({
     value,
   }: FormControl): ValidationErrors =>
@@ -13,5 +9,5 @@ export default class CommonValidators {
   static includes = (array: any[]) => ({
     value,
   }: FormControl): ValidationErrors =>
-    !array.includes(value) ? { includes: true } : null;
+    array && !array.includes(value) ? { includes: true } : null;
 }
