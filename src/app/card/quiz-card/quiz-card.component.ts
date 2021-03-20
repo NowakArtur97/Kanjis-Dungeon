@@ -3,6 +3,7 @@ import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import CharacterUtil from 'src/app/common/utils/character.util';
+import CssUtil from 'src/app/common/utils/css.util';
 import CommonValidators from 'src/app/common/validators/common.validator';
 import Radical from 'src/app/radical/models/radical.model';
 import AppStoreState from 'src/app/store/app.state';
@@ -78,7 +79,7 @@ export class QuizCardComponent implements OnInit, OnDestroy {
       }
 
       if (this.answerConfirmed) {
-        this.changeCardColor(cardColor);
+        CssUtil.changeQuizCardColor(cardColor);
       }
     }
 
@@ -105,7 +106,7 @@ export class QuizCardComponent implements OnInit, OnDestroy {
     } else {
       this.cardStatus = CardStatus.CORRECT;
     }
-    this.changeCardColor(
+    CssUtil.changeQuizCardColor(
       this.cardStatus === CardStatus.CORRECT
         ? this.cardColors.correct
         : this.cardColors.wrong
@@ -126,10 +127,6 @@ export class QuizCardComponent implements OnInit, OnDestroy {
 
   isVocabulary = (): boolean =>
     CharacterUtil.isVocabulary(this.currentCharacter);
-
-  private changeCardColor(color: string): void {
-    document.documentElement.style.setProperty('--main-card-color', color);
-  }
 
   get character(): AbstractControl {
     return this.quizFormGroup.get('characters');
