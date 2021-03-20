@@ -3,7 +3,7 @@ import Radical from 'src/app/radical/models/radical.model';
 
 @Injectable({ providedIn: 'root' })
 export default class QuizService {
-  //TODO: Move to Quiz store
+  // TODO: Move to Quiz store
   private readonly NUMBER_OF_QUESTIONS_TYPES = 3;
 
   getNextQuestion = (questions: Radical[]): Radical =>
@@ -33,7 +33,7 @@ export default class QuizService {
     );
 
     while (questions.length < numberOfQuestions) {
-      let question =
+      const question =
         allQuestions[Math.floor(Math.random() * allQuestions.length)];
       if (!questions.includes(question)) {
         questions.push(question);

@@ -57,7 +57,7 @@ export class QuizCardComponent implements OnInit, OnDestroy {
 
   private initForm(): void {
     let characters = '';
-    let meanings = '';
+    let meanings = [''];
     let onyomi = [''];
     let kunyomi = [''];
     let nanori = [''];
@@ -66,7 +66,7 @@ export class QuizCardComponent implements OnInit, OnDestroy {
 
     if (this.currentCharacter?.id) {
       characters = this.currentCharacter.characters;
-      meanings = this.currentCharacter.meanings[0];
+      meanings = this.currentCharacter.meanings;
 
       if (CharacterUtil.isKanji(this.currentCharacter)) {
         onyomi = this.currentCharacter.onyomi || [''];
@@ -84,12 +84,44 @@ export class QuizCardComponent implements OnInit, OnDestroy {
     }
 
     this.quizFormGroup = new FormGroup({
-      characters: new FormControl(characters, [CommonValidators.notBlank]),
-      meaning: new FormControl(meanings, [CommonValidators.notBlank]),
-      onyomi: new FormControl(onyomi[0], []),
-      kunyomi: new FormControl(kunyomi[0], []),
-      nanori: new FormControl(nanori[0], []),
-      reading: new FormControl(reading, []),
+      characters: new FormControl(characters, [
+        CommonValidators.equals(
+          this.currentCharacter ? this.currentCharacter.characters : ''
+        ),
+      ]),
+      meaning: new FormControl(
+        meanings[0],
+        this.currentCharacter
+          ? [CommonValidators.includes(this.currentCharacter.meanings)]
+          : []
+      ),
+      onyomi: new FormControl(
+        onyomi[0],
+        CharacterUtil.isKanji(this.currentCharacter) &&
+        this.currentCharacter.onyomi
+          ? [CommonValidators.includes(this.currentCharacter.onyomi)]
+          : []
+      ),
+      kunyomi: new FormControl(
+        kunyomi[0],
+        CharacterUtil.isKanji(this.currentCharacter) &&
+        this.currentCharacter.kunyomi
+          ? [CommonValidators.includes(this.currentCharacter.kunyomi)]
+          : []
+      ),
+      nanori: new FormControl(
+        nanori[0],
+        CharacterUtil.isKanji(this.currentCharacter) &&
+        this.currentCharacter.nanori
+          ? [CommonValidators.includes(this.currentCharacter.nanori)]
+          : []
+      ),
+      reading: new FormControl(
+        reading,
+        CharacterUtil.isVocabulary(this.currentCharacter)
+          ? [CommonValidators.equals(this.currentCharacter.reading)]
+          : []
+      ),
     });
   }
 
