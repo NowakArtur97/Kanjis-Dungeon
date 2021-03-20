@@ -9,6 +9,12 @@ import AppStoreState from 'src/app/store/app.state';
 
 import * as QuizActions from '../../quiz/store/quiz.actions';
 
+enum CardStatus {
+  CHECK,
+  WRONG,
+  CORRECT,
+}
+
 @Component({
   selector: 'app-quiz-card',
   templateUrl: './quiz-card.component.html',
@@ -21,11 +27,14 @@ export class QuizCardComponent implements OnInit, OnDestroy {
     radical: '#08c',
     kanji: '#f0a',
     vocabulary: '#a0f',
-    error: '#f03',
+    correct: '#08c66c',
+    wrong: '#f03',
   };
+  answerConfirmed = false;
+  cardStatus = CardStatus.CHECK;
   charactersValue: string;
   quizFormGroup: FormGroup;
-  answerIsWrong = false;
+  CardStatus = CardStatus;
 
   constructor(private store: Store<AppStoreState>) {}
 
@@ -68,7 +77,7 @@ export class QuizCardComponent implements OnInit, OnDestroy {
         cardColor = this.cardColors.vocabulary;
       }
 
-      if (!this.answerIsWrong) {
+      if (this.answerConfirmed) {
         this.changeCardColor(cardColor);
       }
     }
@@ -84,23 +93,33 @@ export class QuizCardComponent implements OnInit, OnDestroy {
   }
 
   onValidateCard(): void {
-    if (this.answerIsWrong) {
-      this.answerIsWrong = false;
-      this.store.dispatch(
-        QuizActions.addMistake({ mistake: this.currentCharacter })
-      );
+    if (this.cardStatus !== CardStatus.CHECK) {
+      this.confirmAnswer();
       return;
     }
 
     if (this.quizFormGroup.invalid) {
-      this.changeCardColor(this.cardColors.error);
-      this.answerIsWrong = true;
       this.quizFormGroup.updateValueAndValidity();
+      this.cardStatus = CardStatus.WRONG;
+      this.answerConfirmed = false;
     } else {
-      this.store.dispatch(
-        QuizActions.addAnswer({ answer: this.currentCharacter })
-      );
+      this.cardStatus = CardStatus.CORRECT;
     }
+    this.changeCardColor(
+      this.cardStatus === CardStatus.CORRECT
+        ? this.cardColors.correct
+        : this.cardColors.wrong
+    );
+  }
+
+  private confirmAnswer(): void {
+    this.answerConfirmed = true;
+    this.store.dispatch(
+      this.cardStatus === CardStatus.CORRECT
+        ? QuizActions.addAnswer({ answer: this.currentCharacter })
+        : QuizActions.addMistake({ mistake: this.currentCharacter })
+    );
+    this.cardStatus = CardStatus.CHECK;
   }
 
   isKanji = (): boolean => CharacterUtil.isKanji(this.currentCharacter);
@@ -108,8 +127,9 @@ export class QuizCardComponent implements OnInit, OnDestroy {
   isVocabulary = (): boolean =>
     CharacterUtil.isVocabulary(this.currentCharacter);
 
-  private changeCardColor = (color: string): void =>
+  private changeCardColor(color: string): void {
     document.documentElement.style.setProperty('--main-card-color', color);
+  }
 
   get character(): AbstractControl {
     return this.quizFormGroup.get('characters');
