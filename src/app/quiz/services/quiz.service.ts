@@ -55,7 +55,7 @@ export default class QuizService {
     const questionsLeft =
       numberOfQuestions -
       (alreadyChosenQuestions.length + thisTypeNumberOfQuestions);
-    if (questionsLeft <= thisTypeNumberOfQuestions) {
+    if (questionsLeft < thisTypeNumberOfQuestions) {
       thisTypeNumberOfQuestions += questionsLeft;
     }
 
