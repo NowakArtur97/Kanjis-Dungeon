@@ -19,7 +19,7 @@
       </div>
       <div class="quiz_card__details">
         <div class="quiz_card__controls">
-          <label class="quiz_card__label" for="meaning">Meaning: </label>
+          <label class="quiz_card__label" for="meaning">Meaning</label>
           <input
             formControlName="meaning"
             class="quiz_card__input"
@@ -32,7 +32,7 @@
           *ngIf="isKanji() && hasProperty('onyomi')"
           class="quiz_card__controls"
         >
-          <label class="quiz_card__label" for="onyomi">Onyomi: </label>
+          <label class="quiz_card__label" for="onyomi">Onyomi</label>
           <input
             formControlName="onyomi"
             [ngModel]="charactersValue.onyomi | japanese"
@@ -47,7 +47,7 @@
           *ngIf="isKanji() && hasProperty('kunyomi')"
           class="quiz_card__controls"
         >
-          <label class="quiz_card__label" for="kunyomi">Kunyomi: </label>
+          <label class="quiz_card__label" for="kunyomi">Kunyomi</label>
           <input
             formControlName="kunyomi"
             [ngModel]="charactersValue.kunyomi | japanese"
@@ -62,7 +62,7 @@
           *ngIf="isKanji() && hasProperty('nanori')"
           class="quiz_card__controls"
         >
-          <label class="quiz_card__label" for="nanori">Nanori: </label>
+          <label class="quiz_card__label" for="nanori">Nanori</label>
           <input
             formControlName="nanori"
             [ngModel]="charactersValue.nanori | japanese"
@@ -77,7 +77,7 @@
           *ngIf="isVocabulary() && hasProperty('reading')"
           class="quiz_card__controls"
         >
-          <label class="quiz_card__label" for="reading">Reading: </label>
+          <label class="quiz_card__label" for="reading">Reading</label>
           <input
             formControlName="reading"
             [ngModel]="charactersValue.reading | japanese"

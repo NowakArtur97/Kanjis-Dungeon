@@ -42,9 +42,12 @@
 
 .quiz_card__controls {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: space-between;
 
   flex-basis: 25%;
+  max-height: 25%;
   width: 100%;
   padding: 0.1em;
 
@@ -53,12 +56,21 @@
 
 .quiz_card__controls--big {
   flex-basis: 60%;
+  min-height: 60%;
+}
+
+.quiz_card__label {
+  font-size: 0.6em;
+  text-align: center;
+  background-color: transparent;
+  color: black;
 }
 
 .quiz_card__input {
   display: block;
   width: 100%;
 
+  height: auto;
   border: none;
   background-color: var(--main-card-color);
 
@@ -97,10 +109,10 @@
   margin-bottom: 0.1em;
   border: none;
 
-  font-size: 1.5em;
+  font-size: 1.1em;
   background-color: var(--main-card-color);
   color: white;
-  text-transform: uppercase;
+  text-transform: capitalize;
   cursor: pointer;
 
   transition: 0.2s;
