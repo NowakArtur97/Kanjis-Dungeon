@@ -19,6 +19,7 @@
       </div>
       <div class="quiz_card__details">
         <div class="quiz_card__controls">
+          <label class="quiz_card__label" for="meaning">Meaning: </label>
           <input
             formControlName="meaning"
             class="quiz_card__input"
@@ -27,63 +28,60 @@
             id="meaning"
           />
         </div>
-        <div *ngIf="isKanji()" class="quiz_card__controls">
+        <div
+          *ngIf="isKanji() && hasProperty('onyomi')"
+          class="quiz_card__controls"
+        >
+          <label class="quiz_card__label" for="onyomi">Onyomi: </label>
           <input
             formControlName="onyomi"
             [ngModel]="charactersValue.onyomi | japanese"
             (ngModelChange)="charactersValue.onyomi = $event"
-            [attr.disabled]="
-              currentCharacter.onyomi === undefined ||
-              currentCharacter.onyomi[0] === ''
-                ? ''
-                : null
-            "
             class="quiz_card__input"
             type="text"
             name="onyomi"
             id="onyomi"
           />
         </div>
-        <div *ngIf="isKanji()" class="quiz_card__controls">
+        <div
+          *ngIf="isKanji() && hasProperty('kunyomi')"
+          class="quiz_card__controls"
+        >
+          <label class="quiz_card__label" for="kunyomi">Kunyomi: </label>
           <input
             formControlName="kunyomi"
             [ngModel]="charactersValue.kunyomi | japanese"
             (ngModelChange)="charactersValue.kunyomi = $event"
-            [attr.disabled]="
-              currentCharacter.kunyomi === undefined ||
-              currentCharacter.kunyomi[0] === ''
-                ? ''
-                : null
-            "
             class="quiz_card__input"
             type="text"
             name="kunyomi"
             id="kunyomi"
           />
         </div>
-        <div *ngIf="isKanji()" class="quiz_card__controls">
+        <div
+          *ngIf="isKanji() && hasProperty('nanori')"
+          class="quiz_card__controls"
+        >
+          <label class="quiz_card__label" for="nanori">Nanori: </label>
           <input
             formControlName="nanori"
             [ngModel]="charactersValue.nanori | japanese"
             (ngModelChange)="charactersValue.nanori = $event"
-            [attr.disabled]="
-              currentCharacter.nanori === undefined ||
-              currentCharacter.nanori[0] === ''
-                ? ''
-                : null
-            "
             class="quiz_card__input"
             type="text"
             name="nanori"
             id="nanori"
           />
         </div>
-        <div *ngIf="isVocabulary()" class="quiz_card__controls">
+        <div
+          *ngIf="isVocabulary() && hasProperty('reading')"
+          class="quiz_card__controls"
+        >
+          <label class="quiz_card__label" for="reading">Reading: </label>
           <input
             formControlName="reading"
             [ngModel]="charactersValue.reading | japanese"
             (ngModelChange)="charactersValue.reading = $event"
-            [attr.disabled]="currentCharacter.reading === '' ? '' : null"
             class="quiz_card__input"
             type="text"
             name="reading"

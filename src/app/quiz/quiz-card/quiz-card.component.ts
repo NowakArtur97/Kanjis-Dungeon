@@ -155,6 +155,9 @@ export class QuizCardComponent implements OnInit, OnDestroy {
   isVocabulary = (): boolean =>
     CharacterUtil.isVocabulary(this.currentCharacter);
 
+  hasProperty = (property: string) =>
+    this.currentCharacter[property] !== undefined;
+
   get character(): AbstractControl {
     return this.quizFormGroup.get('characters');
   }
