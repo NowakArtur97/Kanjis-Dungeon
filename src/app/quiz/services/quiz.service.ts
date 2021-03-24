@@ -11,7 +11,7 @@ export default class QuizService {
   private readonly NUMBER_OF_QUESTIONS_TYPES = 3;
 
   getNextQuestion = (questions: Radical[]): Radical =>
-    questions[MathUtil.getRandomIntValue(questions.length)];
+    questions[MathUtil.getRandomIndex(questions)];
 
   prepareQuestions = (
     characters: Radical[],
@@ -37,8 +37,7 @@ export default class QuizService {
     );
 
     while (questions.length < numberOfQuestions) {
-      const question =
-        allQuestions[MathUtil.getRandomIntValue(allQuestions.length)];
+      const question = allQuestions[MathUtil.getRandomIndex(allQuestions)];
       if (!questions.includes(question)) {
         questions.push(question);
       }
@@ -94,8 +93,7 @@ export default class QuizService {
 
     let propertiesCounter = 0;
     while (propertiesCounter < numberOfProperties) {
-      const property =
-        properties[MathUtil.getRandomIntValue(properties.length - 1)];
+      const property = properties[MathUtil.getRandomIndex(properties)];
 
       const isArray = Array.isArray(quizCard[property]);
       properties.splice(properties.indexOf(property), 1);
