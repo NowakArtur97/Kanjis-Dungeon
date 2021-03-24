@@ -1,5 +1,4 @@
 import Kanji from 'src/app/kanji/models/kanji.model';
-import QuizCard from 'src/app/quiz/models/quiz-card.model';
 import Radical from 'src/app/radical/models/radical.model';
 import Word from 'src/app/vocabulary/models/word.model';
 
@@ -15,21 +14,5 @@ export default class CharacterUtil {
 
   static isVocabulary(character: Radical): character is Word {
     return character !== undefined && (character as Word).reading !== undefined;
-  }
-
-  static setCharactersValues(question: Radical): QuizCard {
-    let charactersValue: QuizCard = (({ characters }) => ({
-      characters,
-    }))(question);
-    if (CharacterUtil.isKanji(question)) {
-      charactersValue = (({ characters, onyomi, kunyomi, nanori }) => ({
-        characters,
-        onyomi,
-        kunyomi,
-        nanori,
-      }))(question);
-    }
-
-    return charactersValue;
   }
 }

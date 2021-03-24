@@ -10,6 +10,7 @@ import Radical from 'src/app/radical/models/radical.model';
 import AppStoreState from 'src/app/store/app.state';
 
 import * as QuizActions from '../../quiz/store/quiz.actions';
+import QuizService from '../services/quiz.service';
 
 enum CardStatus {
   CHECK,
@@ -34,26 +35,27 @@ export class QuizCardComponent implements OnInit, OnDestroy {
   };
   answerConfirmed = false;
   cardStatus = CardStatus.CHECK;
-  charactersValue: QuizCard = {
-    characters: '',
-    onyomi: [''],
-    kunyomi: [''],
-    nanori: [''],
-  };
+  charactersValue: QuizCard;
   quizFormGroup: FormGroup;
   CardStatus = CardStatus;
 
-  constructor(private store: Store<AppStoreState>) {}
+  constructor(
+    private store: Store<AppStoreState>,
+    private quizService: QuizService
+  ) {}
 
   ngOnInit(): void {
+    this.charactersValue = this.quizService.choosePropertiesForQuestion(
+      this.currentCharacter
+    );
     this.nextQuestionSubscription$.add(
       this.store.select('quiz').subscribe(({ nextQuestion }) => {
         if (nextQuestion) {
           this.currentCharacter = nextQuestion;
-          this.charactersValue = CharacterUtil.setCharactersValues(
-            nextQuestion
-          );
         }
+        this.charactersValue = this.quizService.choosePropertiesForQuestion(
+          this.currentCharacter
+        );
         this.initForm();
       })
     );
@@ -64,25 +66,12 @@ export class QuizCardComponent implements OnInit, OnDestroy {
   }
 
   private initForm(): void {
-    let characters = '';
-    let meanings = [''];
-    let onyomi = [''];
-    let kunyomi = [''];
-    let nanori = [''];
-    let reading = '';
     let cardColor = this.cardColors.radical;
 
     if (this.currentCharacter?.id) {
-      characters = this.currentCharacter.characters;
-      meanings = this.currentCharacter.meanings;
-
       if (CharacterUtil.isKanji(this.currentCharacter)) {
-        onyomi = this.currentCharacter.onyomi || [''];
-        kunyomi = this.currentCharacter.kunyomi || [''];
-        nanori = this.currentCharacter.nanori || [''];
         cardColor = this.cardColors.kanji;
       } else if (CharacterUtil.isVocabulary(this.currentCharacter)) {
-        reading = this.currentCharacter.reading;
         cardColor = this.cardColors.vocabulary;
       }
 
@@ -90,40 +79,40 @@ export class QuizCardComponent implements OnInit, OnDestroy {
     }
 
     this.quizFormGroup = new FormGroup({
-      characters: new FormControl(characters, [
+      characters: new FormControl(this.charactersValue.characters, [
         CommonValidators.equals(
           this.currentCharacter ? this.currentCharacter.characters : ''
         ),
       ]),
       meaning: new FormControl(
-        meanings[0],
+        this.charactersValue.meanings[0],
         this.currentCharacter
           ? [CommonValidators.includes(this.currentCharacter.meanings)]
           : []
       ),
       onyomi: new FormControl(
-        onyomi[0],
+        this.charactersValue.onyomi[0],
         CharacterUtil.isKanji(this.currentCharacter) &&
         this.currentCharacter.onyomi
           ? [CommonValidators.includes(this.currentCharacter.onyomi)]
           : []
       ),
       kunyomi: new FormControl(
-        kunyomi[0],
+        this.charactersValue.kunyomi[0],
         CharacterUtil.isKanji(this.currentCharacter) &&
         this.currentCharacter.kunyomi
           ? [CommonValidators.includes(this.currentCharacter.kunyomi)]
           : []
       ),
       nanori: new FormControl(
-        nanori[0],
+        this.charactersValue.nanori[0],
         CharacterUtil.isKanji(this.currentCharacter) &&
         this.currentCharacter.nanori
           ? [CommonValidators.includes(this.currentCharacter.nanori)]
           : []
       ),
       reading: new FormControl(
-        reading,
+        this.charactersValue.reading,
         CharacterUtil.isVocabulary(this.currentCharacter)
           ? [CommonValidators.equals(this.currentCharacter.reading)]
           : []
