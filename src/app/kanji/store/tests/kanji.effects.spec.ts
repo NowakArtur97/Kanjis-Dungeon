@@ -8,7 +8,7 @@ import * as QuizActions from 'src/app/quiz/store/quiz.actions';
 import { QuizStoreState } from 'src/app/quiz/store/quiz.reducer';
 import AppStoreState from 'src/app/store/app.state';
 
-import RADICALS from '../../kanji.data';
+import KANJI from '../../kanji.data';
 import Kanji from '../../models/kanji.model';
 import KanjiService from '../../services/kanji.service';
 import * as KanjiActions from '../kanji.actions';
@@ -86,14 +86,12 @@ describe('KanjiEffects', () => {
     beforeEach(() => {
       actions$ = new ReplaySubject(1);
       actions$.next(KanjiActions.saveKanji());
-      (kanjiService.save as jasmine.Spy).and.returnValue(of(RADICALS));
+      (kanjiService.save as jasmine.Spy).and.returnValue(of(KANJI));
     });
 
     it('should return a setKanji action', () => {
       kanjiEffects.fetchKanji$.subscribe((resultAction) => {
-        expect(resultAction).toEqual(
-          KanjiActions.setKanji({ kanji: RADICALS })
-        );
+        expect(resultAction).toEqual(KanjiActions.setKanji({ kanji: KANJI }));
         expect(kanjiService.save).toHaveBeenCalled();
       });
     });
@@ -106,11 +104,9 @@ describe('KanjiEffects', () => {
     });
 
     it('when number of kanji on firebase is same or bigger than locally should return a setKanji action', () => {
-      (kanjiService.getAll as jasmine.Spy).and.returnValue(of(RADICALS));
+      (kanjiService.getAll as jasmine.Spy).and.returnValue(of(KANJI));
       kanjiEffects.fetchKanji$.subscribe((resultAction) => {
-        expect(resultAction).toEqual(
-          KanjiActions.setKanji({ kanji: RADICALS })
-        );
+        expect(resultAction).toEqual(KanjiActions.setKanji({ kanji: KANJI }));
         expect(kanjiService.getAll).toHaveBeenCalled();
       });
     });
@@ -137,7 +133,7 @@ describe('KanjiEffects', () => {
     });
 
     it('should return a setQuestions action', () => {
-      (kanjiService.getAll as jasmine.Spy).and.returnValue(of(RADICALS));
+      (kanjiService.getAll as jasmine.Spy).and.returnValue(of(KANJI));
       kanjiEffects.setQuestionsAboutKanji$.subscribe((resultAction) => {
         expect(resultAction).toEqual(
           QuizActions.setQuestions({ questions: mockKanji })
