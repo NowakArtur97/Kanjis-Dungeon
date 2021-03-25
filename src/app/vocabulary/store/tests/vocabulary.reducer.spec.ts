@@ -4,7 +4,7 @@ import Word from '../../models/word.model';
 import * as VocabularyActions from '../vocabulary.actions';
 import { vocabularyReducer, VocabularyStoreState } from '../vocabulary.reducer';
 
-const vocabulary1: Word = {
+const word1: Word = {
   id: 1,
   characters: '大人',
   meanings: ['adult', 'mature'],
@@ -12,14 +12,14 @@ const vocabulary1: Word = {
   type: CharacterType.VOCABULARY,
 };
 
-const vocabulary2: Word = {
+const word2: Word = {
   id: 2,
   characters: '一人',
   meanings: ['alone', 'one person'],
   reading: 'ひとり',
   type: CharacterType.VOCABULARY,
 };
-const vocabulary = [vocabulary1, vocabulary2];
+const vocabulary = [word1, word2];
 const initialState: VocabularyStoreState = {
   vocabulary: [],
 };
@@ -35,8 +35,8 @@ describe('vocabularyReducer', () => {
       const expectedState = { ...stateWithVocabulary };
 
       expect(actualState).toEqual(expectedState);
-      expect(actualState.vocabulary[0]).toBe(vocabulary1);
-      expect(actualState.vocabulary[1]).toBe(vocabulary2);
+      expect(actualState.vocabulary[0]).toEqual(word1);
+      expect(actualState.vocabulary[1]).toEqual(word2);
       expect(actualState.vocabulary.length).toBe(2);
     });
 
@@ -49,8 +49,8 @@ describe('vocabularyReducer', () => {
       const expectedState = { ...initialState };
 
       expect(actualState).toEqual(expectedState);
-      expect(actualState.vocabulary).not.toContain(vocabulary1);
-      expect(actualState.vocabulary).not.toContain(vocabulary2);
+      expect(actualState.vocabulary).not.toContain(word1);
+      expect(actualState.vocabulary).not.toContain(word2);
       expect(actualState.vocabulary.length).toBe(0);
     });
   });

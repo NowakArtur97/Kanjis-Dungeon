@@ -22,14 +22,14 @@ const initialState: QuizStoreState = {
 const _quizReducer = createReducer(
   initialState,
 
-  on(QuizActions.setNextQuestion, (state, { nextQuestion }) => ({
-    ...state,
-    nextQuestion: { ...nextQuestion },
-  })),
-
   on(QuizActions.setQuestions, (state, { questions }) => ({
     ...state,
     questions: [...questions],
+  })),
+
+  on(QuizActions.setNextQuestion, (state, { nextQuestion }) => ({
+    ...state,
+    nextQuestion: { ...nextQuestion },
   })),
 
   on(QuizActions.addAnswer, (state, { answer }) => ({
@@ -45,6 +45,7 @@ const _quizReducer = createReducer(
 
   on(QuizActions.clearAnswers, (state) => ({
     ...state,
+    questions: [],
     answers: [],
   })),
 
@@ -61,6 +62,7 @@ const _quizReducer = createReducer(
 
   on(QuizActions.clearMistakes, (state) => ({
     ...state,
+    questions: [],
     mistakes: [],
   }))
 );

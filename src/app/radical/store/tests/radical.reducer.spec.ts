@@ -32,8 +32,8 @@ describe('radicalReducer', () => {
       const expectedState = { ...stateWithRadicals };
 
       expect(actualState).toEqual(expectedState);
-      expect(actualState.radicals[0]).toBe(radical1);
-      expect(actualState.radicals[1]).toBe(radical2);
+      expect(actualState.radicals[0]).toEqual(radical1);
+      expect(actualState.radicals[1]).toEqual(radical2);
       expect(actualState.radicals.length).toBe(2);
     });
 

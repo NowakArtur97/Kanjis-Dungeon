@@ -36,8 +36,8 @@ describe('kanjiReducer', () => {
       const expectedState = { ...stateWithKanji };
 
       expect(actualState).toEqual(expectedState);
-      expect(actualState.kanji[0]).toBe(kanji1);
-      expect(actualState.kanji[1]).toBe(kanji2);
+      expect(actualState.kanji[0]).toEqual(kanji1);
+      expect(actualState.kanji[1]).toEqual(kanji2);
       expect(actualState.kanji.length).toBe(2);
     });
 
