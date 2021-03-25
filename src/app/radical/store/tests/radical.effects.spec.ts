@@ -48,11 +48,10 @@ describe('RadicalEffects', () => {
   let radicalEffects: RadicalEffects;
   let actions$: ReplaySubject<any>;
   let store: Store<AppStoreState>;
-  let storeSpy: jasmine.Spy;
   let radicalService: RadicalService;
   let quizService: QuizService;
 
-  beforeEach(() =>
+  beforeEach(async () =>
     TestBed.configureTestingModule({
       imports: [StoreModule.forRoot({})],
       providers: [
@@ -124,9 +123,7 @@ describe('RadicalEffects', () => {
     beforeEach(() => {
       actions$ = new ReplaySubject(1);
       actions$.next(RadicalActions.setRadicals);
-      storeSpy = spyOn(store, 'select').and.callFake((selector) =>
-        of(mockState)
-      );
+      spyOn(store, 'select').and.callFake((selector) => of(mockState));
       (quizService.prepareQuestions as jasmine.Spy).and.returnValue(
         of(mockRadicals)
       );
@@ -138,6 +135,7 @@ describe('RadicalEffects', () => {
         expect(resultAction).toEqual(
           QuizActions.setQuestions({ questions: mockRadicals })
         );
+        expect(store.select).toHaveBeenCalled();
         expect(quizService.prepareQuestions).toHaveBeenCalled();
       });
     });

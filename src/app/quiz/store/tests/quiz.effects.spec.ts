@@ -32,7 +32,6 @@ describe('QuizEffects', () => {
   let quizEffects: QuizEffects;
   let actions$: ReplaySubject<any>;
   let store: Store<AppStoreState>;
-  let storeSpy: jasmine.Spy;
   let quizService: QuizService;
 
   beforeEach(() =>
@@ -60,9 +59,7 @@ describe('QuizEffects', () => {
     beforeEach(() => {
       actions$ = new ReplaySubject(1);
       actions$.next(QuizActions.setQuestions);
-      storeSpy = spyOn(store, 'select').and.callFake((selector) =>
-        of(mockState)
-      );
+      spyOn(store, 'select').and.callFake((selector) => of(mockState));
       (quizService.getNextQuestion as jasmine.Spy).and.returnValue(radical);
     });
 
@@ -71,6 +68,7 @@ describe('QuizEffects', () => {
         expect(resultAction).toEqual(
           QuizActions.setNextQuestion({ nextQuestion: radical })
         );
+        expect(store.select).toHaveBeenCalled();
         expect(quizService.getNextQuestion).toHaveBeenCalled();
       });
     });

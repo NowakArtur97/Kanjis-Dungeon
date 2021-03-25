@@ -52,7 +52,6 @@ describe('KanjiEffects', () => {
   let kanjiEffects: KanjiEffects;
   let actions$: ReplaySubject<any>;
   let store: Store<AppStoreState>;
-  let storeSpy: jasmine.Spy;
   let kanjiService: KanjiService;
   let quizService: QuizService;
 
@@ -124,9 +123,7 @@ describe('KanjiEffects', () => {
     beforeEach(() => {
       actions$ = new ReplaySubject(1);
       actions$.next(KanjiActions.setKanji);
-      storeSpy = spyOn(store, 'select').and.callFake((selector) =>
-        of(mockState)
-      );
+      spyOn(store, 'select').and.callFake((selector) => of(mockState));
       (quizService.prepareQuestions as jasmine.Spy).and.returnValue(
         of(mockKanji)
       );

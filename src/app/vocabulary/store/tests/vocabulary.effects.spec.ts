@@ -50,7 +50,6 @@ describe('VocabularyEffects', () => {
   let vocabularyEffects: VocabularyEffects;
   let actions$: ReplaySubject<any>;
   let store: Store<AppStoreState>;
-  let storeSpy: jasmine.Spy;
   let vocabularyService: VocabularyService;
   let quizService: QuizService;
 
@@ -131,9 +130,7 @@ describe('VocabularyEffects', () => {
     beforeEach(() => {
       actions$ = new ReplaySubject(1);
       actions$.next(VocabularyActions.setVocabulary);
-      storeSpy = spyOn(store, 'select').and.callFake((selector) =>
-        of(mockState)
-      );
+      spyOn(store, 'select').and.callFake((selector) => of(mockState));
       (quizService.prepareQuestions as jasmine.Spy).and.returnValue(
         of(mockVocabulary)
       );
@@ -146,6 +143,7 @@ describe('VocabularyEffects', () => {
           expect(resultAction).toEqual(
             QuizActions.setQuestions({ questions: mockVocabulary })
           );
+          expect(store.select).toHaveBeenCalled();
           expect(quizService.prepareQuestions).toHaveBeenCalled();
         }
       );
