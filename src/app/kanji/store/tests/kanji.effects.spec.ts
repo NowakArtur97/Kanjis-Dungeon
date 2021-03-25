@@ -123,14 +123,10 @@ describe('KanjiEffects', () => {
     beforeEach(() => {
       actions$ = new ReplaySubject(1);
       actions$.next(KanjiActions.setKanji);
-      spyOn(store, 'select').and.callFake((selector) => of(mockState));
-      (quizService.prepareQuestions as jasmine.Spy).and.returnValue(
-        of(mockKanji)
-      );
+      (quizService.prepareQuestions as jasmine.Spy).and.returnValue(mockKanji);
     });
 
     it('should return a setQuestions action', () => {
-      (kanjiService.getAll as jasmine.Spy).and.returnValue(of(KANJI));
       kanjiEffects.setQuestionsAboutKanji$.subscribe((resultAction) => {
         expect(resultAction).toEqual(
           QuizActions.setQuestions({ questions: mockKanji })

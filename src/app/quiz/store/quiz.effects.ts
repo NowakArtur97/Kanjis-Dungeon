@@ -23,7 +23,7 @@ export default class QuizEffects {
         QuizActions.addAnswer,
         QuizActions.addMistake
       ),
-      withLatestFrom(this.store.select((state) => state.quiz.questions)),
+      withLatestFrom(this.store.select((state) => state.quiz?.questions)),
       switchMap(([action, questions]) =>
         of(this.quizService.getNextQuestion(questions))
       ),

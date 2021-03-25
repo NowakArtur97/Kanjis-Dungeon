@@ -5,7 +5,6 @@ import { of, ReplaySubject } from 'rxjs';
 import CharacterType from 'src/app/common/enums/character-type.enum';
 import QuizService from 'src/app/quiz/services/quiz.service';
 import * as QuizActions from 'src/app/quiz/store/quiz.actions';
-import { QuizStoreState } from 'src/app/quiz/store/quiz.reducer';
 import AppStoreState from 'src/app/store/app.state';
 
 import Radical from '../../models/radical.model';
@@ -13,7 +12,6 @@ import RADICALS from '../../radical.data';
 import RadicalService from '../../services/radical.service';
 import * as RadicalActions from '../radical.actions';
 import RadicalEffects from '../radical.effects';
-import { RadicalStoreState } from '../radical.reducer';
 
 const mockRadicals: Radical[] = [
   {
@@ -29,20 +27,6 @@ const mockRadicals: Radical[] = [
     type: CharacterType.RADICAL,
   },
 ];
-const radicalState: RadicalStoreState = {
-  radicals: mockRadicals,
-};
-const quizState: QuizStoreState = {
-  maxNumberOfQuestions: 12,
-  nextQuestion: null,
-  questions: [],
-  answers: [],
-  mistakes: [],
-};
-const mockState: Partial<AppStoreState> = {
-  radical: radicalState,
-  quiz: quizState,
-};
 
 describe('RadicalEffects', () => {
   let radicalEffects: RadicalEffects;
@@ -123,19 +107,16 @@ describe('RadicalEffects', () => {
     beforeEach(() => {
       actions$ = new ReplaySubject(1);
       actions$.next(RadicalActions.setRadicals);
-      spyOn(store, 'select').and.callFake((selector) => of(mockState));
       (quizService.prepareQuestions as jasmine.Spy).and.returnValue(
-        of(mockRadicals)
+        mockRadicals
       );
     });
 
     it('should return a setQuestions action', () => {
-      (radicalService.getAll as jasmine.Spy).and.returnValue(of(RADICALS));
       radicalEffects.setQuestionsAboutRadicals$.subscribe((resultAction) => {
         expect(resultAction).toEqual(
           QuizActions.setQuestions({ questions: mockRadicals })
         );
-        expect(store.select).toHaveBeenCalled();
         expect(quizService.prepareQuestions).toHaveBeenCalled();
       });
     });

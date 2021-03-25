@@ -49,9 +49,9 @@ export default class RadicalEffects {
     this.actions$.pipe(
       ofType(RadicalActions.setRadicals),
       withLatestFrom(
-        this.store.select((state) => state.radical.radicals),
-        this.store.select((state) => state.quiz.maxNumberOfQuestions),
-        this.store.select((state) => state.quiz.questions)
+        this.store.select((state) => state.radical?.radicals),
+        this.store.select((state) => state.quiz?.maxNumberOfQuestions),
+        this.store.select((state) => state.quiz?.questions)
       ),
       switchMap(
         ([action, radicals, maxNumberOfQuestions, alreadyChosenQuestions]) =>

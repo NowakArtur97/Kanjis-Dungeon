@@ -49,9 +49,9 @@ export default class KanjiEffects {
     this.actions$.pipe(
       ofType(KanjiActions.setKanji),
       withLatestFrom(
-        this.store.select((state) => state.kanji.kanji),
-        this.store.select((state) => state.quiz.maxNumberOfQuestions),
-        this.store.select((state) => state.quiz.questions)
+        this.store.select((state) => state.kanji?.kanji),
+        this.store.select((state) => state.quiz?.maxNumberOfQuestions),
+        this.store.select((state) => state.quiz?.questions)
       ),
       switchMap(
         ([action, kanji, maxNumberOfQuestions, alreadyChosenQuestions]) =>

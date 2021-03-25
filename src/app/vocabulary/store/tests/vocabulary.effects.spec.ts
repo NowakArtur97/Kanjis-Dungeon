@@ -130,20 +130,17 @@ describe('VocabularyEffects', () => {
     beforeEach(() => {
       actions$ = new ReplaySubject(1);
       actions$.next(VocabularyActions.setVocabulary);
-      spyOn(store, 'select').and.callFake((selector) => of(mockState));
       (quizService.prepareQuestions as jasmine.Spy).and.returnValue(
-        of(mockVocabulary)
+        mockVocabulary
       );
     });
 
     it('should return a setQuestions action', () => {
-      (vocabularyService.getAll as jasmine.Spy).and.returnValue(of(VOCABULARY));
       vocabularyEffects.setQuestionsAboutVocabulary$.subscribe(
         (resultAction) => {
           expect(resultAction).toEqual(
             QuizActions.setQuestions({ questions: mockVocabulary })
           );
-          expect(store.select).toHaveBeenCalled();
           expect(quizService.prepareQuestions).toHaveBeenCalled();
         }
       );
