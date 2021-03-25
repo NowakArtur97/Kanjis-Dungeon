@@ -2,26 +2,26 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { getTestBed, TestBed } from '@angular/core/testing';
 import { environment } from 'src/environments/environment.secret';
 
-import RADICALS from '../radical.data';
-import RadicalService from './radical.service';
+import VOCABULARY from '../vocabulary.data';
+import VocabularyService from './vocabulary.service';
 
-describe('radicalService', () => {
+describe('vocabularyService', () => {
   let injector: TestBed;
-  let radicalService: RadicalService;
+  let vocabularyService: VocabularyService;
   let httpMock: HttpTestingController;
 
-  const BASE_URL = `${environment.firebaseConfig.databaseURL}/radicals.json`;
+  const BASE_URL = `${environment.firebaseConfig.databaseURL}/vocabulary.json`;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [RadicalService],
+      providers: [VocabularyService],
     });
   });
 
   beforeEach(() => {
     injector = getTestBed();
-    radicalService = injector.inject(RadicalService);
+    vocabularyService = injector.inject(VocabularyService);
     httpMock = injector.inject(HttpTestingController);
   });
 
@@ -29,27 +29,27 @@ describe('radicalService', () => {
     httpMock.verify();
   });
 
-  describe('when save radicals', () => {
-    it('should return radicals', () => {
-      radicalService.save(RADICALS).subscribe((res) => {
-        expect(res).toEqual(RADICALS);
+  describe('when save vocabulary', () => {
+    it('should return vocabulary', () => {
+      vocabularyService.save(VOCABULARY).subscribe((res) => {
+        expect(res).toEqual(VOCABULARY);
       });
 
       const req = httpMock.expectOne(BASE_URL);
       expect(req.request.method).toBe('PUT');
-      req.flush(RADICALS);
+      req.flush(VOCABULARY);
     });
   });
 
-  describe('when get radicals', () => {
-    it('should return radicals', () => {
-      radicalService.getAll().subscribe((res) => {
-        expect(res).toEqual(RADICALS);
+  describe('when get vocabulary', () => {
+    it('should return vocabulary', () => {
+      vocabularyService.getAll().subscribe((res) => {
+        expect(res).toEqual(VOCABULARY);
       });
 
       const req = httpMock.expectOne(BASE_URL);
       expect(req.request.method).toBe('GET');
-      req.flush(RADICALS);
+      req.flush(VOCABULARY);
     });
   });
 });
