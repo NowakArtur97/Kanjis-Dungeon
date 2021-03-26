@@ -107,8 +107,8 @@ export default class QuizService {
 
   private getDefaultQuizCard(question: Radical): QuizCard {
     return {
-      characters: question?.id ? question.characters : '',
-      meanings: question?.id ? question.meanings : [''],
+      characters: question?.characters ? question.characters : '',
+      meanings: question?.meanings ? question.meanings : [''],
       onyomi:
         CharacterUtil.isKanji(question) && question.onyomi
           ? question.onyomi
