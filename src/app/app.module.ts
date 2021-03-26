@@ -26,7 +26,7 @@ const appRoutes: Routes = [
     HttpClientModule,
     BrowserModule,
     StoreModule.forRoot([]),
-    StoreDevtoolsModule.instrument({ logOnly: environment.production }),
+    StoreDevtoolsModule.instrument({ logOnly: !environment.production }),
     EffectsModule.forRoot([]),
     RouterModule.forRoot(appRoutes),
 
