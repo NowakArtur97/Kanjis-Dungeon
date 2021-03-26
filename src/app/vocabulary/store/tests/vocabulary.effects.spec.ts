@@ -89,7 +89,7 @@ describe('VocabularyEffects', () => {
       (vocabularyService.save as jasmine.Spy).and.returnValue(of(VOCABULARY));
     });
 
-    it('should return a setVocabulary action', () => {
+    it('should return setVocabulary action', () => {
       vocabularyEffects.fetchVocabulary$.subscribe((resultAction) => {
         expect(resultAction).toEqual(
           VocabularyActions.setVocabulary({ vocabulary: VOCABULARY })
@@ -105,7 +105,7 @@ describe('VocabularyEffects', () => {
       actions$.next(VocabularyActions.fetchVocabulary());
     });
 
-    it('when number of vocabulary on firebase is same or bigger than locally should return a setVocabulary action', () => {
+    it('when number of vocabulary on firebase is same or bigger than locally should return setVocabulary action', () => {
       (vocabularyService.getAll as jasmine.Spy).and.returnValue(of(VOCABULARY));
       vocabularyEffects.fetchVocabulary$.subscribe((resultAction) => {
         expect(resultAction).toEqual(
@@ -115,7 +115,7 @@ describe('VocabularyEffects', () => {
       });
     });
 
-    it('when number of vocabulary on firebase is smaller than locally should return a saveVocabulary action', () => {
+    it('when number of vocabulary on firebase is smaller than locally should return saveVocabulary action', () => {
       (vocabularyService.getAll as jasmine.Spy).and.returnValue(
         of(mockVocabulary)
       );
@@ -135,7 +135,7 @@ describe('VocabularyEffects', () => {
       );
     });
 
-    it('should return a setQuestions action', () => {
+    it('should return setQuestions action', () => {
       vocabularyEffects.setQuestionsAboutVocabulary$.subscribe(
         (resultAction) => {
           expect(resultAction).toEqual(

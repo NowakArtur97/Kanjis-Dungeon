@@ -68,7 +68,7 @@ describe('RadicalEffects', () => {
       (radicalService.save as jasmine.Spy).and.returnValue(of(RADICALS));
     });
 
-    it('should return a setRadicals action', () => {
+    it('should return setRadicals action', () => {
       radicalEffects.fetchRadicals$.subscribe((resultAction) => {
         expect(resultAction).toEqual(
           RadicalActions.setRadicals({ radicals: RADICALS })
@@ -84,7 +84,7 @@ describe('RadicalEffects', () => {
       actions$.next(RadicalActions.fetchRadicals());
     });
 
-    it('when number of radicals on firebase is same or bigger than locally should return a setRadicals action', () => {
+    it('when number of radicals on firebase is same or bigger than locally should return setRadicals action', () => {
       (radicalService.getAll as jasmine.Spy).and.returnValue(of(RADICALS));
       radicalEffects.fetchRadicals$.subscribe((resultAction) => {
         expect(resultAction).toEqual(
@@ -94,7 +94,7 @@ describe('RadicalEffects', () => {
       });
     });
 
-    it('when number of radicals on firebase is smaller than locally should return a saveRadicals action', () => {
+    it('when number of radicals on firebase is smaller than locally should return saveRadicals action', () => {
       (radicalService.getAll as jasmine.Spy).and.returnValue(of(mockRadicals));
       radicalEffects.fetchRadicals$.subscribe((resultAction) => {
         expect(resultAction).toEqual(RadicalActions.saveRadicals());
@@ -112,7 +112,7 @@ describe('RadicalEffects', () => {
       );
     });
 
-    it('should return a setQuestions action', () => {
+    it('should return setQuestions action', () => {
       radicalEffects.setQuestionsAboutRadicals$.subscribe((resultAction) => {
         expect(resultAction).toEqual(
           QuizActions.setQuestions({ questions: mockRadicals })

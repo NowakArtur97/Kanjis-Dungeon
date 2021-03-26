@@ -88,7 +88,7 @@ describe('KanjiEffects', () => {
       (kanjiService.save as jasmine.Spy).and.returnValue(of(KANJI));
     });
 
-    it('should return a setKanji action', () => {
+    it('should return setKanji action', () => {
       kanjiEffects.fetchKanji$.subscribe((resultAction) => {
         expect(resultAction).toEqual(KanjiActions.setKanji({ kanji: KANJI }));
         expect(kanjiService.save).toHaveBeenCalled();
@@ -102,7 +102,7 @@ describe('KanjiEffects', () => {
       actions$.next(KanjiActions.fetchKanji());
     });
 
-    it('when number of kanji on firebase is same or bigger than locally should return a setKanji action', () => {
+    it('when number of kanji on firebase is same or bigger than locally should return setKanji action', () => {
       (kanjiService.getAll as jasmine.Spy).and.returnValue(of(KANJI));
       kanjiEffects.fetchKanji$.subscribe((resultAction) => {
         expect(resultAction).toEqual(KanjiActions.setKanji({ kanji: KANJI }));
@@ -110,7 +110,7 @@ describe('KanjiEffects', () => {
       });
     });
 
-    it('when number of kanji on firebase is smaller than locally should return a saveKanji action', () => {
+    it('when number of kanji on firebase is smaller than locally should return saveKanji action', () => {
       (kanjiService.getAll as jasmine.Spy).and.returnValue(of(mockKanji));
       kanjiEffects.fetchKanji$.subscribe((resultAction) => {
         expect(resultAction).toEqual(KanjiActions.saveKanji());
@@ -126,7 +126,7 @@ describe('KanjiEffects', () => {
       (quizService.prepareQuestions as jasmine.Spy).and.returnValue(mockKanji);
     });
 
-    it('should return a setQuestions action', () => {
+    it('should return setQuestions action', () => {
       kanjiEffects.setQuestionsAboutKanji$.subscribe((resultAction) => {
         expect(resultAction).toEqual(
           QuizActions.setQuestions({ questions: mockKanji })
