@@ -31,7 +31,7 @@ jobs:
   deploy:
     docker:
       - image: circleci/buildpack-deps:trusty
-    working_directory: ~/global_terrorism_api/client
+    working_directory: ~/kanjis-dungeon
     steps:
       - checkout:
       - run:
