@@ -3,6 +3,7 @@
 ## Table of Contents
 
 - [General info](#general-info)
+- [Demo](#demo)
 - [Setup](#setup)
 - [Built With](#built-with)
 - [Features](#features)
@@ -14,7 +15,11 @@
 
 Application for learning Japanese.
 
-# Setup
+## Demo
+
+The application demo is available on the Firebase platform: https://kanjis-dungeon.web.app
+
+## Setup
 
 ## Development server
 
