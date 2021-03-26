@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import CharacterUtil from 'src/app/common/utils/character.util';
@@ -157,28 +157,4 @@ export class QuizCardComponent implements OnInit, OnDestroy {
 
   hasProperty = (property: string) =>
     this.currentCharacter[property] !== undefined;
-
-  get character(): AbstractControl {
-    return this.quizFormGroup.get('characters');
-  }
-
-  get meaning(): AbstractControl {
-    return this.quizFormGroup.get('meaning');
-  }
-
-  get reading(): AbstractControl {
-    return this.quizFormGroup.get('reading');
-  }
-
-  get onyomi(): AbstractControl {
-    return this.quizFormGroup.get('onyomi');
-  }
-
-  get kunyomi(): AbstractControl {
-    return this.quizFormGroup.get('kunyomi');
-  }
-
-  get nanori(): AbstractControl {
-    return this.quizFormGroup.get('nanori');
-  }
 }
