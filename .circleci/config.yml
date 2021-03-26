@@ -1,0 +1,53 @@
+version: 2
+jobs:
+  tests:
+    working_directory: ~/kanjis-dungeon
+    docker:
+      - image: circleci/node:10-browsers
+    steps:
+      - checkout:
+          path: ~/kanjis-dungeon
+      - setup_remote_docker
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package-lock.json" }}
+            - v1-dependencies-
+      - run:
+          name: Install local dependencies
+          command: npm install --ignore-scripts
+      - save_cache:
+          key: v1-dependencies-{{ checksum "package-lock.json" }}
+          paths:
+            - node_modules
+      - run:
+          name: Testing
+          command: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
+      - run:
+          name: Linting
+          command: npm run lint
+      - run:
+          name: End to End Test
+          command: npm run e2e -- --protractor-config=e2e/protractor-ci.conf.js
+  deploy:
+    docker:
+      - image: circleci/buildpack-deps:trusty
+    working_directory: ~/global_terrorism_api/client
+    steps:
+      - checkout:
+      - run:
+          name: Install Firebase
+          command: npm install --save-dev firebase-tools
+      - run:
+        name: Deploy app to Firebase
+        command: npm run firebase-deploy -- --token=$FIREBASE_TOKEN
+workflows:
+  version: 2
+  test_build_deploy:
+    jobs:
+      - tests
+      - deploy:
+          requires:
+            - tests
+          filters:
+            branches:
+              only: master
