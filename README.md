@@ -60,22 +60,22 @@ Project is: in progress
 
 ## Screenshots
 
-![Example radical card](../screenshots/radical.jpg)
+![Example radical card](./screenshots/radical.jpg)
 
 Example Radical Card
 
-![Example kanji card](../screenshots/kanji.jpg)
+![Example kanji card](./screenshots/kanji.jpg)
 
 Example Kanji Card
 
-![Example vocabulary card](../screenshots/vocabulary.jpg)
+![Example vocabulary card](./screenshots/vocabulary.jpg)
 
 Example Vocabulary Card
 
-![Example correct card](../screenshots/correct.jpg)
+![Example correct card](./screenshots/correct.jpg)
 
 Example Card with Correct Answer
 
-![Example correct card](../screenshots/wrong.jpg)
+![Example correct card](./screenshots/wrong.jpg)
 
 Example Card with Wrong Answer
