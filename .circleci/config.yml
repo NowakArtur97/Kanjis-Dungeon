@@ -38,8 +38,8 @@ jobs:
           name: Install Firebase
           command: npm install --save-dev firebase-tools
       - run:
-        name: Deploy app to Firebase
-        command: npm run firebase-deploy -- --token=$FIREBASE_TOKEN
+          name: Deploy app to Firebase
+          command: npm run firebase-deploy -- --token=$FIREBASE_TOKEN
 workflows:
   version: 2
   test_build_deploy:
