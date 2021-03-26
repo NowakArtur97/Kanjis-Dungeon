@@ -14,21 +14,10 @@ export default class QuizService {
     questions[MathUtil.getRandomIndex(questions)];
 
   prepareQuestions = (
-    characters: Radical[],
-    numberOfQuestions: number,
-    alreadyChosenQuestions: Radical[]
-  ): Radical[] =>
-    this.getRandomQuestions(
-      characters,
-      numberOfQuestions,
-      alreadyChosenQuestions
-    );
-
-  private getRandomQuestions(
     allQuestions: Radical[],
     numberOfQuestions: number,
     alreadyChosenQuestions: Radical[]
-  ): Radical[] {
+  ): Radical[] => {
     const questions: Radical[] = [];
     numberOfQuestions = this.setNumberOfQuestions(
       allQuestions,
@@ -44,7 +33,7 @@ export default class QuizService {
     }
 
     return [...alreadyChosenQuestions, ...questions];
-  }
+  };
 
   private setNumberOfQuestions(
     allQuestions: Radical[],

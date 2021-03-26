@@ -1,7 +1,10 @@
 import { getTestBed, TestBed } from '@angular/core/testing';
 import CharacterType from 'src/app/common/enums/character-type.enum';
 import MathUtil from 'src/app/common/utils/math.util';
+import KANJI from 'src/app/kanji/kanji.data';
 import Radical from 'src/app/radical/models/radical.model';
+import RADICALS from 'src/app/radical/radical.data';
+import VOCABULARY from 'src/app/vocabulary/vocabulary.data';
 
 import QuizCard from '../models/quiz-card.model';
 import QuizService from './quiz.service';
@@ -61,17 +64,70 @@ describe('quizService', () => {
 
   describe('when get next question', () => {
     it('should return question', () => {
+      spyOn(MathUtil, 'getRandomIndex').and.returnValues(0);
+
       const questions = [radical, kanji, word];
       const question = quizService.getNextQuestion(questions);
 
       expect(question).not.toBeNull();
       expect(questions).toContain(question);
+      expect(MathUtil.getRandomIndex).toHaveBeenCalledTimes(1);
     });
 
     it('with empty array should return undefined', () => {
+      spyOn(MathUtil, 'getRandomIndex').and.returnValues(0);
+
       const question = quizService.getNextQuestion([]);
 
       expect(question).toBeUndefined();
+      expect(MathUtil.getRandomIndex).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('when prepare questions', () => {
+    it('should return three questions', () => {
+      spyOn(MathUtil, 'getRandomIndex').and.returnValues(0, 1, 2);
+
+      const numberOfQuestions = 9;
+      const alreadyChosenQuestionsFromRadicals = [...RADICALS];
+      alreadyChosenQuestionsFromRadicals.length = 3;
+      const alreadyChosenQuestionsFromVocabulary = [...VOCABULARY];
+      alreadyChosenQuestionsFromVocabulary.length = 3;
+      const questions = quizService.prepareQuestions(KANJI, numberOfQuestions, [
+        ...alreadyChosenQuestionsFromRadicals,
+        ...alreadyChosenQuestionsFromVocabulary,
+      ]);
+
+      expect(questions.length).toEqual(numberOfQuestions);
+      expect(questions[6]).toEqual(KANJI[0]);
+      expect(questions[7]).toEqual(KANJI[1]);
+      expect(questions[8]).toEqual(KANJI[2]);
+      expect(MathUtil.getRandomIndex).toHaveBeenCalledTimes(3);
+    });
+
+    it('should return questions', () => {
+      spyOn(MathUtil, 'getRandomIndex').and.returnValues(0, 1, 2, 3);
+
+      const numberOfQuestions = 10;
+      const alreadyChosenQuestionsFromKanji = [...KANJI];
+      alreadyChosenQuestionsFromKanji.length = 3;
+      const alreadyChosenQuestionsFromVocabulary = [...VOCABULARY];
+      alreadyChosenQuestionsFromVocabulary.length = 3;
+      const questions = quizService.prepareQuestions(
+        RADICALS,
+        numberOfQuestions,
+        [
+          ...alreadyChosenQuestionsFromKanji,
+          ...alreadyChosenQuestionsFromVocabulary,
+        ]
+      );
+
+      expect(questions.length).toEqual(numberOfQuestions);
+      expect(questions[6]).toEqual(RADICALS[0]);
+      expect(questions[7]).toEqual(RADICALS[1]);
+      expect(questions[8]).toEqual(RADICALS[2]);
+      expect(questions[9]).toEqual(RADICALS[3]);
+      expect(MathUtil.getRandomIndex).toHaveBeenCalledTimes(4);
     });
   });
 
@@ -113,6 +169,8 @@ describe('quizService', () => {
         expect(
           numberOfEmptyPropertiesActual === numberOfEmptyPropertiesExpected
         ).toBeTrue();
+        expect(MathUtil.getRandomIntValue).toHaveBeenCalledTimes(1);
+        expect(MathUtil.getRandomIndex).toHaveBeenCalledTimes(2);
       });
 
       it('should return quiz card with three properties', () => {
@@ -138,6 +196,8 @@ describe('quizService', () => {
         expect(
           numberOfEmptyPropertiesActual === numberOfEmptyPropertiesExpected
         ).toBeTrue();
+        expect(MathUtil.getRandomIntValue).toHaveBeenCalledTimes(1);
+        expect(MathUtil.getRandomIndex).toHaveBeenCalledTimes(3);
       });
     });
 
@@ -165,6 +225,8 @@ describe('quizService', () => {
         expect(
           numberOfEmptyPropertiesActual === numberOfEmptyPropertiesExpected
         ).toBeTrue();
+        expect(MathUtil.getRandomIntValue).toHaveBeenCalledTimes(1);
+        expect(MathUtil.getRandomIndex).toHaveBeenCalledTimes(1);
       });
 
       it('should return quiz card with two properties', () => {
@@ -190,6 +252,8 @@ describe('quizService', () => {
         expect(
           numberOfEmptyPropertiesActual === numberOfEmptyPropertiesExpected
         ).toBeTrue();
+        expect(MathUtil.getRandomIntValue).toHaveBeenCalledTimes(1);
+        expect(MathUtil.getRandomIndex).toHaveBeenCalledTimes(2);
       });
     });
   });
