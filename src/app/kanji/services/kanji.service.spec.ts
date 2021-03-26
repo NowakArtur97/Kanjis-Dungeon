@@ -1,6 +1,6 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { getTestBed, TestBed } from '@angular/core/testing';
-import { environment } from 'src/environments/environment.secret';
+import { environment } from 'src/environments/environment';
 
 import KANJI from '../kanji.data';
 import KanjiService from './kanji.service';

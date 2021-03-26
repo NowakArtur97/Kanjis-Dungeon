@@ -6,6 +6,17 @@ export const environment = {
   production: false,
 
   shouldUpdateFirebase: false,
+
+  firebaseConfig: {
+    apiKey: '',
+    authDomain: '',
+    databaseURL: 'https://kanjis-dungeon-default-rtdb.firebaseio.com',
+    projectId: '',
+    storageBucket: '',
+    messagingSenderId: '',
+    appId: '',
+    measurementId: '',
+  },
 };
 
 /*

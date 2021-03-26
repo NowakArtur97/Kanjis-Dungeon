@@ -1,6 +1,6 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { getTestBed, TestBed } from '@angular/core/testing';
-import { environment } from 'src/environments/environment.secret';
+import { environment } from 'src/environments/environment';
 
 import VOCABULARY from '../vocabulary.data';
 import VocabularyService from './vocabulary.service';
