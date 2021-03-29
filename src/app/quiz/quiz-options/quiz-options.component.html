@@ -5,7 +5,10 @@
       (ngSubmit)="onChangeOptions()"
       class="quiz_options__form"
     >
-      <div class="quiz_options__option quiz_options__option--blue">
+      <div
+        formGroupName="radical"
+        class="quiz_options__option quiz_options__option--blue"
+      >
         <div class="quiz_options__controls">
           <label
             class="quiz_options__label quiz_options__label--big"
@@ -13,6 +16,7 @@
             >Radical</label
           >
           <input
+            formControlName="radical"
             class="quiz_options__input"
             type="checkbox"
             name="radical"
@@ -24,6 +28,7 @@
           <div class="quiz_options__controls">
             <label class="quiz_options__label" for="meanings">Meanings</label>
             <input
+              formControlName="meanings"
               class="quiz_options__input"
               type="checkbox"
               name="meanings"
@@ -33,7 +38,10 @@
           </div>
         </div>
       </div>
-      <div class="quiz_options__option quiz_options__option--pink">
+      <div
+        formGroupName="kanji"
+        class="quiz_options__option quiz_options__option--pink"
+      >
         <div class="quiz_options__controls">
           <label
             class="quiz_options__label quiz_options__label--big"
@@ -41,6 +49,7 @@
             >Kanji</label
           >
           <input
+            formControlName="kanji"
             class="quiz_options__input"
             type="checkbox"
             name="kanji"
@@ -52,6 +61,7 @@
           <div class="quiz_options__controls">
             <label class="quiz_options__label" for="meanings">Meanings</label>
             <input
+              formControlName="meanings"
               class="quiz_options__input"
               type="checkbox"
               name="meanings"
@@ -62,6 +72,7 @@
           <div class="quiz_options__controls">
             <label class="quiz_options__label" for="onyomi">Onyomi</label>
             <input
+              formControlName="onyomi"
               class="quiz_options__input"
               type="checkbox"
               name="onyomi"
@@ -72,6 +83,7 @@
           <div class="quiz_options__controls">
             <label class="quiz_options__label" for="kunyomi">Kunyomi</label>
             <input
+              formControlName="kunyomi"
               class="quiz_options__input"
               type="checkbox"
               name="kunyomi"
@@ -82,6 +94,7 @@
           <div class="quiz_options__controls">
             <label class="quiz_options__label" for="nanori">Nanori</label>
             <input
+              formControlName="nanori"
               class="quiz_options__input"
               type="checkbox"
               name="nanori"
@@ -91,7 +104,10 @@
           </div>
         </div>
       </div>
-      <div class="quiz_options__option quiz_options__option--violet">
+      <div
+        formGroupName="vocabulary"
+        class="quiz_options__option quiz_options__option--violet"
+      >
         <div class="quiz_options__controls">
           <label
             class="quiz_options__label quiz_options__label--big"
@@ -99,6 +115,7 @@
             >Vocabulary</label
           >
           <input
+            formControlName="vocabulary"
             class="quiz_options__input"
             type="checkbox"
             name="vocabulary"
@@ -110,6 +127,7 @@
           <div class="quiz_options__controls">
             <label class="quiz_options__label" for="meanings">Meanings</label>
             <input
+              formControlName="meanings"
               class="quiz_options__input"
               type="checkbox"
               name="meanings"

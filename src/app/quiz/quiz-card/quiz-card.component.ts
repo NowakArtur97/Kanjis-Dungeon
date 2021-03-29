@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs';
 import CharacterUtil from 'src/app/common/utils/character.util';
 import CssUtil from 'src/app/common/utils/css.util';
 import CommonValidators from 'src/app/common/validators/common.validator';
@@ -25,7 +24,7 @@ enum CardStatus {
   styleUrls: ['./quiz-card.component.css'],
 })
 export class QuizCardComponent implements OnInit, OnDestroy {
-  private nextQuestionSubscription$ = new Subscription();
+  private nextQuestionSubscription$;
   private currentCharacter: Radical;
   private cardColors = {
     radical: '#08c',
@@ -50,8 +49,9 @@ export class QuizCardComponent implements OnInit, OnDestroy {
       this.currentCharacter,
       initialState.quizOptions
     );
-    this.nextQuestionSubscription$.add(
-      this.store.select('quiz').subscribe(({ nextQuestion, quizOptions }) => {
+    this.nextQuestionSubscription$ = this.store
+      .select('quiz')
+      .subscribe(({ nextQuestion, quizOptions }) => {
         if (nextQuestion) {
           this.currentCharacter = nextQuestion;
         }
@@ -60,8 +60,7 @@ export class QuizCardComponent implements OnInit, OnDestroy {
           quizOptions
         );
         this.initForm();
-      })
-    );
+      });
   }
 
   ngOnDestroy(): void {
