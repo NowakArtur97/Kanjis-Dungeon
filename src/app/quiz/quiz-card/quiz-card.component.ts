@@ -10,6 +10,7 @@ import Radical from 'src/app/radical/models/radical.model';
 import AppStoreState from 'src/app/store/app.state';
 
 import * as QuizActions from '../../quiz/store/quiz.actions';
+import { initialState } from '../../quiz/store/quiz.reducer';
 import QuizService from '../services/quiz.service';
 
 enum CardStatus {
@@ -46,15 +47,17 @@ export class QuizCardComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.charactersValue = this.quizService.choosePropertiesForQuestion(
-      this.currentCharacter
+      this.currentCharacter,
+      initialState.quizOptions
     );
     this.nextQuestionSubscription$.add(
-      this.store.select('quiz').subscribe(({ nextQuestion }) => {
+      this.store.select('quiz').subscribe(({ nextQuestion, quizOptions }) => {
         if (nextQuestion) {
           this.currentCharacter = nextQuestion;
         }
         this.charactersValue = this.quizService.choosePropertiesForQuestion(
-          this.currentCharacter
+          this.currentCharacter,
+          quizOptions
         );
         this.initForm();
       })

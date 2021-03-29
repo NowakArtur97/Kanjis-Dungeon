@@ -1,6 +1,10 @@
 <section class="quiz_options__wrapper">
   <div class="quiz_options">
-    <form class="quiz_options__form">
+    <form
+      [formGroup]="quizOptionsFormGroup"
+      (ngSubmit)="onChangeOptions()"
+      class="quiz_options__form"
+    >
       <div class="quiz_options__option quiz_options__option--blue">
         <div class="quiz_options__controls">
           <label

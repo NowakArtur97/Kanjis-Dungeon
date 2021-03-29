@@ -1,10 +1,12 @@
 import { Action, createReducer, on } from '@ngrx/store';
+import CharacterType from 'src/app/common/enums/character-type.enum';
 import Radical from 'src/app/radical/models/radical.model';
 
+import QuizOptions from '../models/quiz-options.model';
 import * as QuizActions from './quiz.actions';
 
 export interface QuizStoreState {
-  maxNumberOfQuestions: number;
+  quizOptions: QuizOptions;
   nextQuestion: Radical;
   questions: Radical[];
   answers: Radical[];
@@ -12,12 +14,22 @@ export interface QuizStoreState {
 }
 
 const initialState: QuizStoreState = {
-  maxNumberOfQuestions: 12,
+  quizOptions: {
+    numberOfQuestions: 12,
+    minNumberOfProperties: 1,
+    excludedProperties: ['characters', 'type'],
+    questionTypes: [
+      CharacterType.RADICAL,
+      CharacterType.KANJI,
+      CharacterType.VOCABULARY,
+    ],
+  },
   nextQuestion: null,
   questions: [],
   answers: [],
   mistakes: [],
 };
+export { initialState };
 
 const _quizReducer = createReducer(
   initialState,

@@ -50,18 +50,17 @@ export default class VocabularyEffects {
       ofType(VocabularyActions.setVocabulary),
       withLatestFrom(
         this.store.select((state) => state.vocabulary?.vocabulary),
-        this.store.select((state) => state.quiz?.maxNumberOfQuestions),
+        this.store.select((state) => state.quiz?.quizOptions),
         this.store.select((state) => state.quiz?.questions)
       ),
-      switchMap(
-        ([action, vocabulary, maxNumberOfQuestions, alreadyChosenQuestions]) =>
-          of(
-            this.quizService.prepareQuestions(
-              vocabulary,
-              maxNumberOfQuestions,
-              alreadyChosenQuestions
-            )
+      switchMap(([action, vocabulary, quizOptions, alreadyChosenQuestions]) =>
+        of(
+          this.quizService.prepareQuestions(
+            vocabulary,
+            quizOptions,
+            alreadyChosenQuestions
           )
+        )
       ),
       map((questions) => QuizActions.setQuestions({ questions }))
     )
