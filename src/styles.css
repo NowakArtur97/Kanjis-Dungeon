@@ -1,9 +1,3 @@
-:root {
-  --correct-answer-color: green;
-  --incorrect-answer-color: red;
-  --main-card-color: #08c;
-}
-
 * {
   margin: 0;
   padding: 0;

@@ -1,6 +1,6 @@
 .quiz_card__wrapper {
   height: 70vh;
-  min-height: 500px;
+  min-height: 560px;
   width: 80vw;
   max-width: 300px;
 
@@ -10,14 +10,8 @@
 }
 
 .quiz_card {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
   height: 100%;
   width: 100%;
-
-  font-size: 3em;
 }
 
 .quiz_card__form {
@@ -28,13 +22,15 @@
 
   height: 100%;
   width: 100%;
+
+  font-size: 3em;
 }
 
 .quiz_card__details {
   display: flex;
   flex-direction: column;
 
-  flex-basis: 30%;
+  flex-basis: 40%;
   width: 100%;
 
   color: white;
@@ -47,7 +43,7 @@
   justify-content: space-between;
 
   flex-basis: 25%;
-  max-height: 25%;
+  min-height: 25%;
   width: 100%;
   padding: 0.1em;
 
@@ -55,11 +51,13 @@
 }
 
 .quiz_card__controls--big {
-  flex-basis: 60%;
-  min-height: 60%;
+  flex-basis: 50%;
+  height: 100%;
 }
 
 .quiz_card__label {
+  flex-basis: 30%;
+
   font-size: 0.6em;
   text-align: center;
   background-color: transparent;
@@ -67,6 +65,8 @@
 }
 
 .quiz_card__input {
+  flex-basis: 70%;
+
   display: block;
   width: 100%;
 
@@ -94,6 +94,7 @@
 
 .quiz_card__input--big {
   height: 100%;
+  flex-basis: 100%;
   font-size: 2em;
 }
 
