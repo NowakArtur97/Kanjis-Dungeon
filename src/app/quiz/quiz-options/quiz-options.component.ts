@@ -88,7 +88,9 @@ export class QuizOptionsComponent implements OnInit, OnDestroy {
       [CharacterType.KANJI, this.getExcludedProperties('kanji')],
       [CharacterType.VOCABULARY, this.getExcludedProperties('vocabulary')],
     ]);
-
+    const questionTypes = ['radical', 'kanji', 'vocabulary']
+      .filter((value) => this.getFormGroupValueWithSameNameAsGroup(value))
+      .map((value) => CharacterType[value.toUpperCase()]);
     // TODO: Dispatch Action to change Quiz Options
   }
 
@@ -103,7 +105,7 @@ export class QuizOptionsComponent implements OnInit, OnDestroy {
     return this.quizOptionsFormGroup.get(groupName).value;
   }
 
-  private getFormGroupValueWithNameAsGroup(groupName: string): any {
+  private getFormGroupValueWithSameNameAsGroup(groupName: string): any {
     return this.quizOptionsFormGroup.get(groupName).value[groupName];
   }
 }
