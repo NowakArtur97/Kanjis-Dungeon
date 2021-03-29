@@ -29,21 +29,60 @@ const word: Word = {
 };
 const questions = [radical, kanji, word];
 const initialState: QuizStoreState = {
-  maxNumberOfQuestions: 12,
+  quizOptions: {
+    numberOfQuestions: 12,
+    minNumberOfProperties: 1,
+    excludedProperties: new Map([
+      [CharacterType.RADICAL, ['characters', 'type']],
+      [CharacterType.KANJI, ['characters', 'type']],
+      [CharacterType.VOCABULARY, ['characters', 'type']],
+    ]),
+    questionTypes: [
+      CharacterType.RADICAL,
+      CharacterType.KANJI,
+      CharacterType.VOCABULARY,
+    ],
+  },
   nextQuestion: null,
   questions: [],
   answers: [],
   mistakes: [],
 };
 const stateWithQuestions: QuizStoreState = {
-  maxNumberOfQuestions: 12,
+  quizOptions: {
+    numberOfQuestions: 12,
+    minNumberOfProperties: 1,
+    excludedProperties: new Map([
+      [CharacterType.RADICAL, ['characters', 'type']],
+      [CharacterType.KANJI, ['characters', 'type']],
+      [CharacterType.VOCABULARY, ['characters', 'type']],
+    ]),
+    questionTypes: [
+      CharacterType.RADICAL,
+      CharacterType.KANJI,
+      CharacterType.VOCABULARY,
+    ],
+  },
   nextQuestion: null,
   questions,
   answers: [],
   mistakes: [],
 };
 const stateWithMistakes: QuizStoreState = {
-  maxNumberOfQuestions: 12,
+  quizOptions: {
+    numberOfQuestions: 12,
+    minNumberOfProperties: 1,
+    excludedProperties: new Map([
+      [CharacterType.RADICAL, ['characters', 'type']],
+      [CharacterType.KANJI, ['characters', 'type']],
+      [CharacterType.VOCABULARY, ['characters', 'type']],
+    ]),
+    questionTypes: [
+      CharacterType.RADICAL,
+      CharacterType.KANJI,
+      CharacterType.VOCABULARY,
+    ],
+  },
   nextQuestion: null,
   questions,
   answers: [],
@@ -81,7 +120,20 @@ describe('quizReducer', () => {
   describe('QuizActions.setNextQuestion', () => {
     it('should set next question', () => {
       const stateWithNextQuestion: QuizStoreState = {
-        maxNumberOfQuestions: 12,
+        quizOptions: {
+          numberOfQuestions: 12,
+          minNumberOfProperties: 1,
+          excludedProperties: new Map([
+            [CharacterType.RADICAL, ['characters', 'type']],
+            [CharacterType.KANJI, ['characters', 'type']],
+            [CharacterType.VOCABULARY, ['characters', 'type']],
+          ]),
+          questionTypes: [
+            CharacterType.RADICAL,
+            CharacterType.KANJI,
+            CharacterType.VOCABULARY,
+          ],
+        },
         nextQuestion: radical,
         questions,
         answers: [],
@@ -99,7 +151,20 @@ describe('quizReducer', () => {
   describe('QuizActions.addAnswer', () => {
     it('should add answer', () => {
       const stateWithAnswer: QuizStoreState = {
-        maxNumberOfQuestions: 12,
+        quizOptions: {
+          numberOfQuestions: 12,
+          minNumberOfProperties: 1,
+          excludedProperties: new Map([
+            [CharacterType.RADICAL, ['characters', 'type']],
+            [CharacterType.KANJI, ['characters', 'type']],
+            [CharacterType.VOCABULARY, ['characters', 'type']],
+          ]),
+          questionTypes: [
+            CharacterType.RADICAL,
+            CharacterType.KANJI,
+            CharacterType.VOCABULARY,
+          ],
+        },
         nextQuestion: null,
         questions: [kanji, word],
         answers: [radical],
@@ -115,7 +180,20 @@ describe('quizReducer', () => {
     });
     it('should add answer and remove from mistakes', () => {
       const stateWithAnswerAndMistakes: QuizStoreState = {
-        maxNumberOfQuestions: 12,
+        quizOptions: {
+          numberOfQuestions: 12,
+          minNumberOfProperties: 1,
+          excludedProperties: new Map([
+            [CharacterType.RADICAL, ['characters', 'type']],
+            [CharacterType.KANJI, ['characters', 'type']],
+            [CharacterType.VOCABULARY, ['characters', 'type']],
+          ]),
+          questionTypes: [
+            CharacterType.RADICAL,
+            CharacterType.KANJI,
+            CharacterType.VOCABULARY,
+          ],
+        },
         nextQuestion: null,
         questions: [kanji, word],
         answers: [radical],
@@ -133,7 +211,20 @@ describe('quizReducer', () => {
 
   describe('QuizActions.addMistake', () => {
     const stateWithMistake: QuizStoreState = {
-      maxNumberOfQuestions: 12,
+      quizOptions: {
+        numberOfQuestions: 12,
+        minNumberOfProperties: 1,
+        excludedProperties: new Map([
+          [CharacterType.RADICAL, ['characters', 'type']],
+          [CharacterType.KANJI, ['characters', 'type']],
+          [CharacterType.VOCABULARY, ['characters', 'type']],
+        ]),
+        questionTypes: [
+          CharacterType.RADICAL,
+          CharacterType.KANJI,
+          CharacterType.VOCABULARY,
+        ],
+      },
       nextQuestion: null,
       questions,
       answers: [],
@@ -163,7 +254,20 @@ describe('quizReducer', () => {
   describe('QuizActions.clearAnswers', () => {
     it('should clear answers', () => {
       const stateWithAnswers: QuizStoreState = {
-        maxNumberOfQuestions: 12,
+        quizOptions: {
+          numberOfQuestions: 12,
+          minNumberOfProperties: 1,
+          excludedProperties: new Map([
+            [CharacterType.RADICAL, ['characters', 'type']],
+            [CharacterType.KANJI, ['characters', 'type']],
+            [CharacterType.VOCABULARY, ['characters', 'type']],
+          ]),
+          questionTypes: [
+            CharacterType.RADICAL,
+            CharacterType.KANJI,
+            CharacterType.VOCABULARY,
+          ],
+        },
         nextQuestion: null,
         questions,
         answers: questions,

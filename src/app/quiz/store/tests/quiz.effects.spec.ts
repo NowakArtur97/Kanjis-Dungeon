@@ -18,7 +18,20 @@ const radical: Radical = {
   type: CharacterType.RADICAL,
 };
 const quizState: QuizStoreState = {
-  maxNumberOfQuestions: 12,
+  quizOptions: {
+    numberOfQuestions: 12,
+    minNumberOfProperties: 1,
+    excludedProperties: new Map([
+      [CharacterType.RADICAL, ['characters', 'type']],
+      [CharacterType.KANJI, ['characters', 'type']],
+      [CharacterType.VOCABULARY, ['characters', 'type']],
+    ]),
+    questionTypes: [
+      CharacterType.RADICAL,
+      CharacterType.KANJI,
+      CharacterType.VOCABULARY,
+    ],
+  },
   nextQuestion: null,
   questions: [],
   answers: [],

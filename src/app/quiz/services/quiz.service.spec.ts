@@ -7,6 +7,7 @@ import RADICALS from 'src/app/radical/radical.data';
 import VOCABULARY from 'src/app/vocabulary/vocabulary.data';
 
 import QuizCard from '../models/quiz-card.model';
+import QuizOptions from '../models/quiz-options.model';
 import QuizService from './quiz.service';
 
 describe('quizService', () => {
@@ -35,6 +36,21 @@ describe('quizService', () => {
     reading: 'おとな',
     type: CharacterType.VOCABULARY,
   };
+  const quizOptions: QuizOptions = {
+    numberOfQuestions: 12,
+    minNumberOfProperties: 1,
+    excludedProperties: new Map([
+      [CharacterType.RADICAL, ['characters', 'type']],
+      [CharacterType.KANJI, ['characters', 'type']],
+      [CharacterType.VOCABULARY, ['characters', 'type']],
+    ]),
+    questionTypes: [
+      CharacterType.RADICAL,
+      CharacterType.KANJI,
+      CharacterType.VOCABULARY,
+    ],
+  };
+
   const getNumberOfEmptyProperties = (
     character: Radical,
     quizCard: QuizCard
@@ -88,17 +104,17 @@ describe('quizService', () => {
     it('should return three questions', () => {
       spyOn(MathUtil, 'getRandomIndex').and.returnValues(0, 1, 2);
 
-      const numberOfQuestions = 9;
+      const options = { ...quizOptions, numberOfQuestions: 9 };
       const alreadyChosenQuestionsFromRadicals = [...RADICALS];
       alreadyChosenQuestionsFromRadicals.length = 3;
       const alreadyChosenQuestionsFromVocabulary = [...VOCABULARY];
       alreadyChosenQuestionsFromVocabulary.length = 3;
-      const questions = quizService.prepareQuestions(KANJI, numberOfQuestions, [
+      const questions = quizService.prepareQuestions(KANJI, options, [
         ...alreadyChosenQuestionsFromRadicals,
         ...alreadyChosenQuestionsFromVocabulary,
       ]);
 
-      expect(questions.length).toEqual(numberOfQuestions);
+      expect(questions.length).toEqual(options.numberOfQuestions);
       expect(questions[6]).toEqual(KANJI[0]);
       expect(questions[7]).toEqual(KANJI[1]);
       expect(questions[8]).toEqual(KANJI[2]);
@@ -108,21 +124,17 @@ describe('quizService', () => {
     it('should return questions', () => {
       spyOn(MathUtil, 'getRandomIndex').and.returnValues(0, 1, 2, 3);
 
-      const numberOfQuestions = 10;
+      const options = { ...quizOptions, numberOfQuestions: 10 };
       const alreadyChosenQuestionsFromKanji = [...KANJI];
       alreadyChosenQuestionsFromKanji.length = 3;
       const alreadyChosenQuestionsFromVocabulary = [...VOCABULARY];
       alreadyChosenQuestionsFromVocabulary.length = 3;
-      const questions = quizService.prepareQuestions(
-        RADICALS,
-        numberOfQuestions,
-        [
-          ...alreadyChosenQuestionsFromKanji,
-          ...alreadyChosenQuestionsFromVocabulary,
-        ]
-      );
+      const questions = quizService.prepareQuestions(RADICALS, options, [
+        ...alreadyChosenQuestionsFromKanji,
+        ...alreadyChosenQuestionsFromVocabulary,
+      ]);
 
-      expect(questions.length).toEqual(numberOfQuestions);
+      expect(questions.length).toEqual(options.numberOfQuestions);
       expect(questions[6]).toEqual(RADICALS[0]);
       expect(questions[7]).toEqual(RADICALS[1]);
       expect(questions[8]).toEqual(RADICALS[2]);
@@ -134,7 +146,10 @@ describe('quizService', () => {
   describe('when choose properties for question', () => {
     describe('as radical', () => {
       it('should return quiz card with properties', () => {
-        const quizCard = quizService.choosePropertiesForQuestion(radical);
+        const quizCard = quizService.choosePropertiesForQuestion(
+          radical,
+          quizOptions
+        );
 
         expect(quizCard.characters).toEqual(radical.characters);
         expect(quizCard.meanings).toEqual(['']);
@@ -153,7 +168,10 @@ describe('quizService', () => {
         );
         spyOn(MathUtil, 'getRandomIndex').and.returnValues(0, 0);
 
-        const quizCard = quizService.choosePropertiesForQuestion(kanji);
+        const quizCard = quizService.choosePropertiesForQuestion(
+          kanji,
+          quizOptions
+        );
 
         const numberOfEmptyPropertiesActual = getNumberOfEmptyProperties(
           kanji,
@@ -180,7 +198,10 @@ describe('quizService', () => {
         );
         spyOn(MathUtil, 'getRandomIndex').and.returnValues(1, 1, 1);
 
-        const quizCard = quizService.choosePropertiesForQuestion(kanji);
+        const quizCard = quizService.choosePropertiesForQuestion(
+          kanji,
+          quizOptions
+        );
 
         const numberOfEmptyPropertiesActual = getNumberOfEmptyProperties(
           kanji,
@@ -209,7 +230,10 @@ describe('quizService', () => {
         );
         spyOn(MathUtil, 'getRandomIndex').and.returnValues(0);
 
-        const quizCard = quizService.choosePropertiesForQuestion(word);
+        const quizCard = quizService.choosePropertiesForQuestion(
+          word,
+          quizOptions
+        );
 
         const numberOfEmptyPropertiesActual = getNumberOfEmptyProperties(
           word,
@@ -236,7 +260,10 @@ describe('quizService', () => {
         );
         spyOn(MathUtil, 'getRandomIndex').and.returnValues(0, 0);
 
-        const quizCard = quizService.choosePropertiesForQuestion(word);
+        const quizCard = quizService.choosePropertiesForQuestion(
+          word,
+          quizOptions
+        );
 
         const numberOfEmptyPropertiesActual = getNumberOfEmptyProperties(
           word,
