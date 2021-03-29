@@ -1,3 +1,9 @@
+:root {
+  --correct-answer-color: #08c66c;
+  --incorrect-answer-color: red;
+  --main-card-color: #08c;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -10,7 +16,8 @@ html {
 
 body {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
 
   min-height: 100vh;
