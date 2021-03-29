@@ -10,6 +10,7 @@ import KanjiResolver from '../kanji/kanji.resolver';
 import RadicalResolver from '../radical/radical.resolver';
 import VocabularyResolver from '../vocabulary/vocabulary.resolver';
 import { QuizCardComponent } from './quiz-card/quiz-card.component';
+import { QuizOptionsComponent } from './quiz-options/quiz-options.component';
 import QuizEffects from './store/quiz.effects';
 import { quizReducer } from './store/quiz.reducer';
 
@@ -22,7 +23,7 @@ const cardRoutes: Routes = [
 ];
 
 @NgModule({
-  declarations: [QuizCardComponent],
+  declarations: [QuizCardComponent, QuizOptionsComponent],
   imports: [
     CommonModule,
     StoreModule.forFeature('quiz', quizReducer),
@@ -32,6 +33,6 @@ const cardRoutes: Routes = [
 
     AppCommonModule,
   ],
-  exports: [QuizCardComponent],
+  exports: [QuizCardComponent, QuizOptionsComponent],
 })
 export class QuizModule {}
