@@ -45,12 +45,11 @@ describe('QuizOptionsComponent', () => {
     store = TestBed.inject(Store);
 
     spyOn(store, 'dispatch');
+    spyOn(store, 'select').and.callFake(() => of(initialState));
   });
 
   describe('when initialize component', () => {
     it('should select quiz options from store', () => {
-      spyOn(store, 'select').and.callFake(() => of(initialState));
-
       fixture.detectChanges();
       component.ngOnInit();
 
@@ -58,8 +57,6 @@ describe('QuizOptionsComponent', () => {
     });
 
     it('should form have default values', () => {
-      spyOn(store, 'select').and.callFake(() => of(initialState));
-
       fixture.detectChanges();
       component.ngOnInit();
 

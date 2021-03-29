@@ -82,5 +82,28 @@ export class QuizOptionsComponent implements OnInit, OnDestroy {
     });
   }
 
-  onChangeOptions(): void {}
+  onChangeOptions(): void {
+    const excludedProperties = new Map([
+      [CharacterType.RADICAL, this.getExcludedProperties('radical')],
+      [CharacterType.KANJI, this.getExcludedProperties('kanji')],
+      [CharacterType.VOCABULARY, this.getExcludedProperties('vocabulary')],
+    ]);
+
+    // TODO: Dispatch Action to change Quiz Options
+  }
+
+  private getExcludedProperties(characterType: string): string[] {
+    const formGroupValue = this.getFormGroupValue(characterType);
+    return Object.getOwnPropertyNames(formGroupValue).filter(
+      (property) => !formGroupValue[property] && property !== characterType
+    );
+  }
+
+  private getFormGroupValue(groupName: string): any {
+    return this.quizOptionsFormGroup.get(groupName).value;
+  }
+
+  private getFormGroupValueWithNameAsGroup(groupName: string): any {
+    return this.quizOptionsFormGroup.get(groupName).value[groupName];
+  }
 }
