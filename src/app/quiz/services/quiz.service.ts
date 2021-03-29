@@ -66,9 +66,12 @@ export default class QuizService {
       return quizCard;
     }
 
+    const excludedProperties = quizOptions.excludedProperties.get(
+      question.type
+    );
     const properties = Object.getOwnPropertyNames(question).filter(
       (property) =>
-        !quizOptions.excludedProperties.includes(property) &&
+        !excludedProperties.includes(property) &&
         quizCard[property] !== undefined
     );
 

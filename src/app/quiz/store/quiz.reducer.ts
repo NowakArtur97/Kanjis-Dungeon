@@ -17,7 +17,11 @@ const initialState: QuizStoreState = {
   quizOptions: {
     numberOfQuestions: 12,
     minNumberOfProperties: 1,
-    excludedProperties: ['characters', 'type'],
+    excludedProperties: new Map([
+      [CharacterType.RADICAL, ['characters', 'type']],
+      [CharacterType.KANJI, ['characters', 'type']],
+      [CharacterType.VOCABULARY, ['characters', 'type']],
+    ]),
     questionTypes: [
       CharacterType.RADICAL,
       CharacterType.KANJI,
