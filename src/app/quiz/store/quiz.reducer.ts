@@ -13,14 +13,15 @@ export interface QuizStoreState {
   mistakes: Radical[];
 }
 
+const DEFAULT_EXCLUDED_PROPERTIES = ['characters', 'type'];
 const initialState: QuizStoreState = {
   quizOptions: {
     numberOfQuestions: 12,
     minNumberOfProperties: 1,
     excludedProperties: new Map([
-      [CharacterType.RADICAL, ['characters', 'type']],
-      [CharacterType.KANJI, ['characters', 'type']],
-      [CharacterType.VOCABULARY, ['characters', 'type']],
+      [CharacterType.RADICAL, DEFAULT_EXCLUDED_PROPERTIES],
+      [CharacterType.KANJI, DEFAULT_EXCLUDED_PROPERTIES],
+      [CharacterType.VOCABULARY, DEFAULT_EXCLUDED_PROPERTIES],
     ]),
     questionTypes: [
       CharacterType.RADICAL,
@@ -33,7 +34,7 @@ const initialState: QuizStoreState = {
   answers: [],
   mistakes: [],
 };
-export { initialState };
+export { initialState, DEFAULT_EXCLUDED_PROPERTIES };
 
 const _quizReducer = createReducer(
   initialState,

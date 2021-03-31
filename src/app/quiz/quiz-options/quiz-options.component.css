@@ -46,6 +46,10 @@
   background-color: #a0f;
 }
 
+.quiz_options__option-disabled {
+  background-color: rgb(116, 116, 116);
+}
+
 .quiz_options__details {
   display: flex;
   align-items: center;

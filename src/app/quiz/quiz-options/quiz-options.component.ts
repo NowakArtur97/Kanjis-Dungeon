@@ -6,6 +6,7 @@ import CharacterType from 'src/app/common/enums/character-type.enum';
 import AppStoreState from 'src/app/store/app.state';
 
 import QuizOptions from '../models/quiz-options.model';
+import { DEFAULT_EXCLUDED_PROPERTIES } from '../store/quiz.reducer';
 
 @Component({
   selector: 'app-quiz-options',
@@ -84,30 +85,41 @@ export class QuizOptionsComponent implements OnInit, OnDestroy {
 
   onChangeOptions(): void {
     const excludedProperties = new Map([
-      [CharacterType.RADICAL, this.getExcludedProperties('radical')],
-      [CharacterType.KANJI, this.getExcludedProperties('kanji')],
-      [CharacterType.VOCABULARY, this.getExcludedProperties('vocabulary')],
+      [
+        CharacterType.RADICAL,
+        [
+          ...this.getExcludedProperties('radical'),
+          ...DEFAULT_EXCLUDED_PROPERTIES,
+        ],
+      ],
+      [
+        CharacterType.KANJI,
+        [
+          ...this.getExcludedProperties('kanji'),
+          ...DEFAULT_EXCLUDED_PROPERTIES,
+        ],
+      ],
+      [
+        CharacterType.VOCABULARY,
+        [
+          ...this.getExcludedProperties('vocabulary'),
+          ...DEFAULT_EXCLUDED_PROPERTIES,
+        ],
+      ],
     ]);
-    const questionTypes = ['radical', 'kanji', 'vocabulary']
-      .filter((value) => this.getActiveType(value))
+    const questionTypes = Object.values(CharacterType)
+      .filter((value) => this.isTypeActive(value.toLowerCase()))
       .map((value) => CharacterType[value.toUpperCase()]);
     console.log(questionTypes);
+    console.log(excludedProperties);
     // TODO: Dispatch Action to change Quiz Options
   }
 
   private getExcludedProperties(characterType: string): string[] {
-    const formGroupValue = this.getFormGroupValue(characterType);
+    const formGroupValue = this.quizOptionsFormGroup.get(characterType).value;
     return Object.getOwnPropertyNames(formGroupValue).filter(
-      (property) => !formGroupValue[property] && property !== characterType
+      (property) => !formGroupValue[property] && property !== 'active'
     );
-  }
-
-  private getActiveType(type: string): any {
-    return this.quizOptionsFormGroup.get(type).value.active;
-  }
-
-  private getFormGroupValue(groupName: string): any {
-    return this.quizOptionsFormGroup.get(groupName).value;
   }
 
   isTypeActive(type: string): boolean {
