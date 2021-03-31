@@ -31,12 +31,12 @@
   align-items: center;
   flex-direction: column;
 
-  height: 62%;
+  height: 55%;
 }
 
 .quiz_options__option--wide {
   flex-basis: 100%;
-  height: 23%;
+  height: 30%;
 
   border-bottom: 3px solid #000;
 }
@@ -99,6 +99,12 @@
 .quiz_options__input:focus {
   background-color: white;
   color: #097e47;
+}
+
+.quiz_options__input.ng-invalid.ng-touched {
+  border: 3px rgb(218, 1, 1) solid;
+  background-color: var(--incorrect-answer-color);
+  color: white;
 }
 
 .quiz_options__submit_button {

@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import CharacterType from 'src/app/common/enums/character-type.enum';
@@ -36,7 +36,9 @@ export class QuizOptionsComponent implements OnInit, OnDestroy {
   private initForm(): void {
     this.quizOptionsFormGroup = new FormGroup({
       general: new FormGroup({
-        numberOfQuestions: new FormControl(this.quizOptions.numberOfQuestions),
+        numberOfQuestions: new FormControl(this.quizOptions.numberOfQuestions, [
+          Validators.min(1),
+        ]),
       }),
       radical: new FormGroup({
         active: new FormControl(
@@ -95,6 +97,12 @@ export class QuizOptionsComponent implements OnInit, OnDestroy {
       excludedProperties: this.getExcludedProperties(),
       questionTypes: this.getSelectedCharacterTypes(),
     };
+    if (
+      this.quizOptionsFormGroup.invalid ||
+      quizOptions.questionTypes.length == 0
+    ) {
+      return;
+    }
     console.log(quizOptions);
     // TODO: Dispatch Action to change Quiz Options
   }
