@@ -60,12 +60,6 @@ const _quizReducer = createReducer(
     answers: [...state.answers, answer],
   })),
 
-  on(QuizActions.clearAnswers, (state) => ({
-    ...state,
-    questions: [],
-    answers: [],
-  })),
-
   on(QuizActions.addMistake, (state, { mistake }) => ({
     ...state,
     mistakes: state.mistakes.find(
@@ -77,9 +71,10 @@ const _quizReducer = createReducer(
       : [...state.mistakes, mistake],
   })),
 
-  on(QuizActions.clearMistakes, (state) => ({
+  on(QuizActions.clearQuiz, (state) => ({
     ...state,
     questions: [],
+    answers: [],
     mistakes: [],
   }))
 );

@@ -16,11 +16,9 @@ export const addAnswer = createAction(
   props<{ answer: Radical }>()
 );
 
-export const clearAnswers = createAction('[Quiz] Clear Answers');
-
 export const addMistake = createAction(
   '[Quiz] Add Mistake',
   props<{ mistake: Radical }>()
 );
 
-export const clearMistakes = createAction('[Quiz] Clear Mistakes');
+export const clearQuiz = createAction('[Quiz] Clear Quiz');

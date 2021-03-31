@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import CharacterType from 'src/app/common/enums/character-type.enum';
 import AppStoreState from 'src/app/store/app.state';
 
+import * as QuizActions from '../../quiz/store/quiz.actions';
 import QuizOptions from '../models/quiz-options.model';
 import { DEFAULT_EXCLUDED_PROPERTIES } from '../store/quiz.reducer';
 
@@ -98,13 +99,11 @@ export class QuizOptionsComponent implements OnInit, OnDestroy {
       questionTypes: this.getSelectedCharacterTypes(),
     };
     if (
-      this.quizOptionsFormGroup.invalid ||
-      quizOptions.questionTypes.length == 0
+      this.quizOptionsFormGroup.valid ||
+      quizOptions.questionTypes.length !== 0
     ) {
-      return;
+      this.store.dispatch(QuizActions.clearQuiz());
     }
-    console.log(quizOptions);
-    // TODO: Dispatch Action to change Quiz Options
   }
 
   private getExcludedProperties(): Map<CharacterType, string[]> {
