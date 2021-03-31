@@ -6,9 +6,33 @@
       class="quiz_options__form"
     >
       <div
+        formGroupName="general"
+        class="quiz_options__option quiz_options__option--wide quiz_options__option--green"
+      >
+        <div class="quiz_options__controls">
+          <label
+            class="quiz_options__label quiz_options__label--big"
+            for="radical"
+            >Number of questions</label
+          >
+          <input
+            formControlName="numberOfQuestions"
+            class="quiz_options__input"
+            type="number"
+            name="numberOfQuestions"
+            id="numberOfQuestions"
+            value="numberOfQuestions"
+            min="1"
+            max="20"
+          />
+        </div>
+      </div>
+      <div
         formGroupName="radical"
         [ngClass]="{
-          'quiz_options__option-disabled': isTypeActive('radical') ? null : true
+          'quiz_options__option-disabled': isTypeSelected('radical')
+            ? null
+            : true
         }"
         class="quiz_options__option quiz_options__option--blue"
       >
@@ -32,7 +56,7 @@
             <label class="quiz_options__label" for="meanings">Meanings</label>
             <input
               formControlName="meanings"
-              [attr.disabled]="isTypeActive('radical') ? null : true"
+              [attr.disabled]="isTypeSelected('radical') ? null : true"
               class="quiz_options__input"
               type="checkbox"
               name="meanings"
@@ -45,7 +69,7 @@
       <div
         formGroupName="kanji"
         [ngClass]="{
-          'quiz_options__option-disabled': isTypeActive('kanji') ? null : true
+          'quiz_options__option-disabled': isTypeSelected('kanji') ? null : true
         }"
         class="quiz_options__option quiz_options__option--pink"
       >
@@ -69,7 +93,7 @@
             <label class="quiz_options__label" for="meanings">Meanings</label>
             <input
               formControlName="meanings"
-              [attr.disabled]="isTypeActive('kanji') ? null : true"
+              [attr.disabled]="isTypeSelected('kanji') ? null : true"
               class="quiz_options__input"
               type="checkbox"
               name="meanings"
@@ -81,7 +105,7 @@
             <label class="quiz_options__label" for="onyomi">Onyomi</label>
             <input
               formControlName="onyomi"
-              [attr.disabled]="isTypeActive('kanji') ? null : true"
+              [attr.disabled]="isTypeSelected('kanji') ? null : true"
               class="quiz_options__input"
               type="checkbox"
               name="onyomi"
@@ -93,7 +117,7 @@
             <label class="quiz_options__label" for="kunyomi">Kunyomi</label>
             <input
               formControlName="kunyomi"
-              [attr.disabled]="isTypeActive('kanji') ? null : true"
+              [attr.disabled]="isTypeSelected('kanji') ? null : true"
               class="quiz_options__input"
               type="checkbox"
               name="kunyomi"
@@ -105,7 +129,7 @@
             <label class="quiz_options__label" for="nanori">Nanori</label>
             <input
               formControlName="nanori"
-              [attr.disabled]="isTypeActive('kanji') ? null : true"
+              [attr.disabled]="isTypeSelected('kanji') ? null : true"
               class="quiz_options__input"
               type="checkbox"
               name="nanori"
@@ -118,7 +142,7 @@
       <div
         formGroupName="vocabulary"
         [ngClass]="{
-          'quiz_options__option-disabled': isTypeActive('vocabulary')
+          'quiz_options__option-disabled': isTypeSelected('vocabulary')
             ? null
             : true
         }"
@@ -143,7 +167,7 @@
             <label class="quiz_options__label" for="meanings">Meanings</label>
             <input
               formControlName="meanings"
-              [attr.disabled]="isTypeActive('vocabulary') ? null : true"
+              [attr.disabled]="isTypeSelected('vocabulary') ? null : true"
               class="quiz_options__input"
               type="checkbox"
               name="meanings"

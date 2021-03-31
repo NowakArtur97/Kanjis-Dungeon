@@ -33,8 +33,11 @@ export class QuizOptionsComponent implements OnInit, OnDestroy {
     this.quizOptionsSubscription$?.unsubscribe();
   }
 
-  initForm(): void {
+  private initForm(): void {
     this.quizOptionsFormGroup = new FormGroup({
+      general: new FormGroup({
+        numberOfQuestions: new FormControl(this.quizOptions.numberOfQuestions),
+      }),
       radical: new FormGroup({
         active: new FormControl(
           this.quizOptions.questionTypes.includes(CharacterType.RADICAL)
@@ -84,45 +87,56 @@ export class QuizOptionsComponent implements OnInit, OnDestroy {
   }
 
   onChangeOptions(): void {
-    const excludedProperties = new Map([
+    const quizOptions: QuizOptions = {
+      numberOfQuestions: this.quizOptionsFormGroup.get([
+        'general',
+        'numberOfQuestions',
+      ]).value,
+      excludedProperties: this.getExcludedProperties(),
+      questionTypes: this.getSelectedCharacterTypes(),
+    };
+    console.log(quizOptions);
+    // TODO: Dispatch Action to change Quiz Options
+  }
+
+  private getExcludedProperties(): Map<CharacterType, string[]> {
+    return new Map([
       [
         CharacterType.RADICAL,
         [
-          ...this.getExcludedProperties('radical'),
+          ...this.getTypeExcludedProperties('radical'),
           ...DEFAULT_EXCLUDED_PROPERTIES,
         ],
       ],
       [
         CharacterType.KANJI,
         [
-          ...this.getExcludedProperties('kanji'),
+          ...this.getTypeExcludedProperties('kanji'),
           ...DEFAULT_EXCLUDED_PROPERTIES,
         ],
       ],
       [
         CharacterType.VOCABULARY,
         [
-          ...this.getExcludedProperties('vocabulary'),
+          ...this.getTypeExcludedProperties('vocabulary'),
           ...DEFAULT_EXCLUDED_PROPERTIES,
         ],
       ],
     ]);
-    const questionTypes = Object.values(CharacterType)
-      .filter((value) => this.isTypeActive(value.toLowerCase()))
-      .map((value) => CharacterType[value.toUpperCase()]);
-    console.log(questionTypes);
-    console.log(excludedProperties);
-    // TODO: Dispatch Action to change Quiz Options
   }
 
-  private getExcludedProperties(characterType: string): string[] {
+  private getSelectedCharacterTypes = (): CharacterType[] =>
+    Object.values(CharacterType)
+      .filter((value) => this.isTypeSelected(value.toLowerCase()))
+      .map((value) => CharacterType[value.toUpperCase()]);
+
+  private getTypeExcludedProperties(characterType: string): string[] {
     const formGroupValue = this.quizOptionsFormGroup.get(characterType).value;
     return Object.getOwnPropertyNames(formGroupValue).filter(
       (property) => !formGroupValue[property] && property !== 'active'
     );
   }
 
-  isTypeActive(type: string): boolean {
-    return this.quizOptionsFormGroup.get(type).value.active;
-  }
+  isTypeSelected = (type: string): boolean =>
+    this.quizOptionsFormGroup.get(type).value.active;
 }
