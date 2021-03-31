@@ -1,6 +1,8 @@
 import { createAction, props } from '@ngrx/store';
 import Radical from 'src/app/radical/models/radical.model';
 
+import QuizOptions from '../models/quiz-options.model';
+
 export const setNextQuestion = createAction(
   '[Quiz] Set Next Question',
   props<{ nextQuestion: Radical }>()
@@ -21,4 +23,7 @@ export const addMistake = createAction(
   props<{ mistake: Radical }>()
 );
 
-export const clearQuiz = createAction('[Quiz] Clear Quiz');
+export const changeQuizOptions = createAction(
+  '[Quiz] Change Quiz Options',
+  props<{ quizOptions: QuizOptions }>()
+);

@@ -99,10 +99,10 @@ export class QuizOptionsComponent implements OnInit, OnDestroy {
       questionTypes: this.getSelectedCharacterTypes(),
     };
     if (
-      this.quizOptionsFormGroup.valid ||
+      this.quizOptionsFormGroup.valid &&
       quizOptions.questionTypes.length !== 0
     ) {
-      this.store.dispatch(QuizActions.clearQuiz());
+      this.store.dispatch(QuizActions.changeQuizOptions({ quizOptions }));
     }
   }
 

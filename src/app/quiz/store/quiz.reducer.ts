@@ -71,8 +71,9 @@ const _quizReducer = createReducer(
       : [...state.mistakes, mistake],
   })),
 
-  on(QuizActions.clearQuiz, (state) => ({
+  on(QuizActions.changeQuizOptions, (state, { quizOptions }) => ({
     ...state,
+    quizOptions,
     questions: [],
     answers: [],
     mistakes: [],

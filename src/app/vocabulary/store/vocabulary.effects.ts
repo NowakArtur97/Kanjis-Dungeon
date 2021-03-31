@@ -47,7 +47,7 @@ export default class VocabularyEffects {
 
   setQuestionsAboutVocabulary$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(VocabularyActions.setVocabulary),
+      ofType(VocabularyActions.setVocabulary, QuizActions.changeQuizOptions),
       withLatestFrom(
         this.store.select((state) => state.vocabulary?.vocabulary),
         this.store.select((state) => state.quiz?.quizOptions),
