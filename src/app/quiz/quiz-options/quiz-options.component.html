@@ -16,7 +16,7 @@
             >Radical</label
           >
           <input
-            formControlName="radical"
+            formControlName="active"
             class="quiz_options__input"
             type="checkbox"
             name="radical"
@@ -29,6 +29,7 @@
             <label class="quiz_options__label" for="meanings">Meanings</label>
             <input
               formControlName="meanings"
+              [attr.disabled]="isTypeActive('radical') ? null : true"
               class="quiz_options__input"
               type="checkbox"
               name="meanings"
@@ -49,7 +50,7 @@
             >Kanji</label
           >
           <input
-            formControlName="kanji"
+            formControlName="active"
             class="quiz_options__input"
             type="checkbox"
             name="kanji"
@@ -62,6 +63,7 @@
             <label class="quiz_options__label" for="meanings">Meanings</label>
             <input
               formControlName="meanings"
+              [attr.disabled]="isTypeActive('kanji') ? null : true"
               class="quiz_options__input"
               type="checkbox"
               name="meanings"
@@ -73,6 +75,7 @@
             <label class="quiz_options__label" for="onyomi">Onyomi</label>
             <input
               formControlName="onyomi"
+              [attr.disabled]="isTypeActive('kanji') ? null : true"
               class="quiz_options__input"
               type="checkbox"
               name="onyomi"
@@ -84,6 +87,7 @@
             <label class="quiz_options__label" for="kunyomi">Kunyomi</label>
             <input
               formControlName="kunyomi"
+              [attr.disabled]="isTypeActive('kanji') ? null : true"
               class="quiz_options__input"
               type="checkbox"
               name="kunyomi"
@@ -95,6 +99,7 @@
             <label class="quiz_options__label" for="nanori">Nanori</label>
             <input
               formControlName="nanori"
+              [attr.disabled]="isTypeActive('kanji') ? null : true"
               class="quiz_options__input"
               type="checkbox"
               name="nanori"
@@ -115,8 +120,7 @@
             >Vocabulary</label
           >
           <input
-            formControlName="vocabulary"
-            class="quiz_options__input"
+            formControlName="active"
             type="checkbox"
             name="vocabulary"
             id="vocabulary"
@@ -128,6 +132,7 @@
             <label class="quiz_options__label" for="meanings">Meanings</label>
             <input
               formControlName="meanings"
+              [attr.disabled]="isTypeActive('vocabulary') ? null : true"
               class="quiz_options__input"
               type="checkbox"
               name="meanings"

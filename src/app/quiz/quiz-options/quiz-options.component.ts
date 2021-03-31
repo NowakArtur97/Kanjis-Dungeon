@@ -35,7 +35,7 @@ export class QuizOptionsComponent implements OnInit, OnDestroy {
   initForm(): void {
     this.quizOptionsFormGroup = new FormGroup({
       radical: new FormGroup({
-        radical: new FormControl(
+        active: new FormControl(
           this.quizOptions.questionTypes.includes(CharacterType.RADICAL)
         ),
         meanings: new FormControl(
@@ -45,7 +45,7 @@ export class QuizOptionsComponent implements OnInit, OnDestroy {
         ),
       }),
       kanji: new FormGroup({
-        kanji: new FormControl(
+        active: new FormControl(
           this.quizOptions.questionTypes.includes(CharacterType.KANJI)
         ),
         meanings: new FormControl(
@@ -70,7 +70,7 @@ export class QuizOptionsComponent implements OnInit, OnDestroy {
         ),
       }),
       vocabulary: new FormGroup({
-        vocabulary: new FormControl(
+        active: new FormControl(
           this.quizOptions.questionTypes.includes(CharacterType.VOCABULARY)
         ),
         meanings: new FormControl(
@@ -89,8 +89,9 @@ export class QuizOptionsComponent implements OnInit, OnDestroy {
       [CharacterType.VOCABULARY, this.getExcludedProperties('vocabulary')],
     ]);
     const questionTypes = ['radical', 'kanji', 'vocabulary']
-      .filter((value) => this.getFormGroupValueWithSameNameAsGroup(value))
+      .filter((value) => this.getActiveType(value))
       .map((value) => CharacterType[value.toUpperCase()]);
+    console.log(questionTypes);
     // TODO: Dispatch Action to change Quiz Options
   }
 
@@ -101,11 +102,15 @@ export class QuizOptionsComponent implements OnInit, OnDestroy {
     );
   }
 
+  private getActiveType(type: string): any {
+    return this.quizOptionsFormGroup.get(type).value.active;
+  }
+
   private getFormGroupValue(groupName: string): any {
     return this.quizOptionsFormGroup.get(groupName).value;
   }
 
-  private getFormGroupValueWithSameNameAsGroup(groupName: string): any {
-    return this.quizOptionsFormGroup.get(groupName).value[groupName];
+  isTypeActive(type: string): boolean {
+    return this.quizOptionsFormGroup.get(type).value.active;
   }
 }
