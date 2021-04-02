@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { of } from 'rxjs';
-import { map, switchMap, withLatestFrom } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 
+import * as KanjiActions from '../../kanji/store/kanji.actions';
 import QuizService from '../../quiz/services/quiz.service';
-import * as QuizActions from '../../quiz/store/quiz.actions';
 import AppStoreState from '../../store/app.state';
 import VocabularyService from '../services/vocabulary.service';
 import VOCABULARY from '../vocabulary.data';
@@ -30,7 +29,7 @@ export default class VocabularyEffects {
 
   fetchVocabulary$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(VocabularyActions.fetchVocabulary),
+      ofType(KanjiActions.setKanji),
       switchMap(() =>
         this.vocabularyService
           .getAll()
@@ -42,27 +41,6 @@ export default class VocabularyEffects {
             )
           )
       )
-    )
-  );
-
-  setQuestionsAboutVocabulary$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(VocabularyActions.setVocabulary),
-      withLatestFrom(
-        this.store.select((state) => state.vocabulary?.vocabulary),
-        this.store.select((state) => state.quiz?.quizOptions),
-        this.store.select((state) => state.quiz?.questions)
-      ),
-      switchMap(([action, vocabulary, quizOptions, alreadyChosenQuestions]) =>
-        of(
-          this.quizService.prepareQuestions(
-            vocabulary,
-            quizOptions,
-            alreadyChosenQuestions
-          )
-        )
-      ),
-      map((questions) => QuizActions.setQuestions({ questions }))
     )
   );
 }

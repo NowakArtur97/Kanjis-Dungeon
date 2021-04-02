@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
-import { flatMap, map, switchMap, withLatestFrom } from 'rxjs/operators';
+import { map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
 
 import AppStoreState from '../../store/app.state';
+import * as VocabularyActions from '../../vocabulary/store/vocabulary.actions';
 import QuizService from '../services/quiz.service';
 import * as QuizActions from './quiz.actions';
 
@@ -31,9 +32,9 @@ export default class QuizEffects {
     )
   );
 
-  setQuestionsAfterQuizOptionsChanged$ = createEffect(() =>
+  setQuestions$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(QuizActions.changeQuizOptions),
+      ofType(QuizActions.changeQuizOptions, VocabularyActions.setVocabulary),
       withLatestFrom(
         this.store.select((state) => state.quiz),
         this.store.select((state) => state.radical?.radicals),
@@ -69,8 +70,8 @@ export default class QuizEffects {
           )
         )
       ),
-      flatMap((questions) => questions),
-      flatMap((questions) => questions),
+      mergeMap((questions) => questions),
+      mergeMap((questions) => questions),
       map((questions) => QuizActions.setQuestions({ questions }))
     )
   );

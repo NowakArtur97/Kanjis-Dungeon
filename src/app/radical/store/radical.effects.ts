@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { of } from 'rxjs';
-import { map, switchMap, withLatestFrom } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 
 import QuizService from '../../quiz/services/quiz.service';
-import * as QuizActions from '../../quiz/store/quiz.actions';
 import AppStoreState from '../../store/app.state';
 import RADICALS from '../radical.data';
 import RadicalService from '../services/radical.service';
@@ -42,27 +40,6 @@ export default class RadicalEffects {
             )
           )
       )
-    )
-  );
-
-  setQuestionsAboutRadicals$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(RadicalActions.setRadicals),
-      withLatestFrom(
-        this.store.select((state) => state.radical?.radicals),
-        this.store.select((state) => state.quiz?.quizOptions),
-        this.store.select((state) => state.quiz?.questions)
-      ),
-      switchMap(([action, radicals, quizOptions, alreadyChosenQuestions]) =>
-        of(
-          this.quizService.prepareQuestions(
-            radicals,
-            quizOptions,
-            alreadyChosenQuestions
-          )
-        )
-      ),
-      map((questions) => QuizActions.setQuestions({ questions }))
     )
   );
 }

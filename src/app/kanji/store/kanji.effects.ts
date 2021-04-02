@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { of } from 'rxjs';
-import { map, switchMap, withLatestFrom } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 
 import KanjiService from '../../kanji/services/kanji.service';
 import * as KanjiActions from '../../kanji/store/kanji.actions';
 import QuizService from '../../quiz/services/quiz.service';
-import * as QuizActions from '../../quiz/store/quiz.actions';
+import * as RadicalActions from '../../radical/store/radical.actions';
 import AppStoreState from '../../store/app.state';
 import KANJI from '../kanji.data';
 
@@ -30,7 +29,7 @@ export default class KanjiEffects {
 
   fetchKanji$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(KanjiActions.fetchKanji),
+      ofType(RadicalActions.setRadicals),
       switchMap(() =>
         this.kanjiService
           .getAll()
@@ -42,27 +41,6 @@ export default class KanjiEffects {
             )
           )
       )
-    )
-  );
-
-  setQuestionsAboutKanji$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(KanjiActions.setKanji),
-      withLatestFrom(
-        this.store.select((state) => state.kanji?.kanji),
-        this.store.select((state) => state.quiz?.quizOptions),
-        this.store.select((state) => state.quiz?.questions)
-      ),
-      switchMap(([action, kanji, quizOptions, alreadyChosenQuestions]) =>
-        of(
-          this.quizService.prepareQuestions(
-            kanji,
-            quizOptions,
-            alreadyChosenQuestions
-          )
-        )
-      ),
-      map((questions) => QuizActions.setQuestions({ questions }))
     )
   );
 }
