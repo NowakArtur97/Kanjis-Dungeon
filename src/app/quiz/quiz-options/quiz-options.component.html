@@ -52,14 +52,16 @@
         </div>
         <div class="quiz_options__details">
           <div class="quiz_options__controls">
-            <label class="quiz_options__label" for="meanings">Meanings</label>
+            <label class="quiz_options__label" for="radical-meanings"
+              >Meanings</label
+            >
             <input
               formControlName="meanings"
               [attr.disabled]="isTypeSelected('radical') ? null : true"
               class="quiz_options__input"
               type="checkbox"
               name="meanings"
-              id="meanings"
+              id="radical-meanings"
               value="meanings"
             />
           </div>
@@ -89,14 +91,16 @@
         </div>
         <div class="quiz_options__details">
           <div class="quiz_options__controls">
-            <label class="quiz_options__label" for="meanings">Meanings</label>
+            <label class="quiz_options__label" for="kanji-meanings"
+              >Meanings</label
+            >
             <input
               formControlName="meanings"
               [attr.disabled]="isTypeSelected('kanji') ? null : true"
               class="quiz_options__input"
               type="checkbox"
               name="meanings"
-              id="meanings"
+              id="kanji-meanings"
               value="meanings"
             />
           </div>
@@ -163,15 +167,29 @@
         </div>
         <div class="quiz_options__details">
           <div class="quiz_options__controls">
-            <label class="quiz_options__label" for="meanings">Meanings</label>
+            <label class="quiz_options__label" for="vocabulary-meanings"
+              >Meanings</label
+            >
             <input
               formControlName="meanings"
               [attr.disabled]="isTypeSelected('vocabulary') ? null : true"
               class="quiz_options__input"
               type="checkbox"
               name="meanings"
-              id="meanings"
+              id="vocabulary-meanings"
               value="meanings"
+            />
+          </div>
+          <div class="quiz_options__controls">
+            <label class="quiz_options__label" for="reading">Reading</label>
+            <input
+              formControlName="reading"
+              [attr.disabled]="isTypeSelected('vocabulary') ? null : true"
+              class="quiz_options__input"
+              type="checkbox"
+              name="reading"
+              id="reading"
+              value="reading"
             />
           </div>
         </div>

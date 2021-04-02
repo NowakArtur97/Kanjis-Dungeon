@@ -57,22 +57,22 @@ export class QuizOptionsComponent implements OnInit, OnDestroy {
         ),
         meanings: new FormControl(
           !this.quizOptions.excludedProperties
-            .get(CharacterType.RADICAL)
+            .get(CharacterType.KANJI)
             .includes('meanings')
         ),
         onyomi: new FormControl(
           !this.quizOptions.excludedProperties
-            .get(CharacterType.RADICAL)
+            .get(CharacterType.KANJI)
             .includes('onyomi')
         ),
         kunyomi: new FormControl(
           !this.quizOptions.excludedProperties
-            .get(CharacterType.RADICAL)
+            .get(CharacterType.KANJI)
             .includes('kunyomi')
         ),
         nanori: new FormControl(
           !this.quizOptions.excludedProperties
-            .get(CharacterType.RADICAL)
+            .get(CharacterType.KANJI)
             .includes('nanori')
         ),
       }),
@@ -82,8 +82,13 @@ export class QuizOptionsComponent implements OnInit, OnDestroy {
         ),
         meanings: new FormControl(
           !this.quizOptions.excludedProperties
-            .get(CharacterType.RADICAL)
+            .get(CharacterType.VOCABULARY)
             .includes('meanings')
+        ),
+        reading: new FormControl(
+          !this.quizOptions.excludedProperties
+            .get(CharacterType.VOCABULARY)
+            .includes('reading')
         ),
       }),
     });
@@ -102,6 +107,7 @@ export class QuizOptionsComponent implements OnInit, OnDestroy {
       this.quizOptionsFormGroup.valid &&
       quizOptions.questionTypes.length !== 0
     ) {
+      console.log(quizOptions);
       this.store.dispatch(QuizActions.changeQuizOptions({ quizOptions }));
     }
   }
