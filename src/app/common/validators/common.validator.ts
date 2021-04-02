@@ -9,5 +9,5 @@ export default class CommonValidators {
   static includes = (array: any[]) => ({
     value,
   }: FormControl): ValidationErrors =>
-    array && !array.includes(value) ? { includes: true } : null;
+    array && !array.includes(value + '') ? { includes: true } : null;
 }

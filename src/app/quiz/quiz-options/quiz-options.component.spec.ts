@@ -93,6 +93,9 @@ describe('QuizOptionsComponent', () => {
       expect(
         component.quizOptionsFormGroup.get(['vocabulary', 'meanings']).value
       ).toBe(true);
+      expect(
+        component.quizOptionsFormGroup.get(['vocabulary', 'reading']).value
+      ).toBe(true);
 
       expect(component.quizOptionsFormGroup.valid).toBeTrue();
       expect(store.select).toHaveBeenCalled();
