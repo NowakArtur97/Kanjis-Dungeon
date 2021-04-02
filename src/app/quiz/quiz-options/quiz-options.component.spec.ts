@@ -6,6 +6,8 @@ import { AppCommonModule } from 'src/app/common/app-common.module';
 import CharacterType from 'src/app/common/enums/character-type.enum';
 import AppStoreState from 'src/app/store/app.state';
 
+import * as QuizActions from '../../quiz/store/quiz.actions';
+import QuizOptions from '../models/quiz-options.model';
 import { QuizStoreState } from '../store/quiz.reducer';
 import { QuizOptionsComponent } from './quiz-options.component';
 
@@ -61,7 +63,17 @@ describe('QuizOptionsComponent', () => {
       component.ngOnInit();
 
       expect(
+        component.quizOptionsFormGroup.get(['general', 'numberOfQuestions'])
+          .value
+      ).toBe(initialState.quizOptions.numberOfQuestions);
+      expect(
+        component.quizOptionsFormGroup.get(['radical', 'active']).value
+      ).toBe(true);
+      expect(
         component.quizOptionsFormGroup.get(['radical', 'meanings']).value
+      ).toBe(true);
+      expect(
+        component.quizOptionsFormGroup.get(['kanji', 'active']).value
       ).toBe(true);
       expect(
         component.quizOptionsFormGroup.get(['kanji', 'meanings']).value
@@ -70,10 +82,13 @@ describe('QuizOptionsComponent', () => {
         component.quizOptionsFormGroup.get(['kanji', 'onyomi']).value
       ).toBe(true);
       expect(
-        component.quizOptionsFormGroup.get(['kanji', 'onyomi']).value
+        component.quizOptionsFormGroup.get(['kanji', 'kunyomi']).value
       ).toBe(true);
       expect(
         component.quizOptionsFormGroup.get(['kanji', 'nanori']).value
+      ).toBe(true);
+      expect(
+        component.quizOptionsFormGroup.get(['vocabulary', 'active']).value
       ).toBe(true);
       expect(
         component.quizOptionsFormGroup.get(['vocabulary', 'meanings']).value
@@ -81,6 +96,127 @@ describe('QuizOptionsComponent', () => {
 
       expect(component.quizOptionsFormGroup.valid).toBeTrue();
       expect(store.select).toHaveBeenCalled();
+    });
+  });
+
+  describe('when change options', () => {
+    it('with default values should dispatch changeQuizOptions action', () => {
+      fixture.detectChanges();
+      component.ngOnInit();
+
+      const quizOptionsWithoutMinNumberOfProperties: QuizOptions = {
+        numberOfQuestions: 12,
+        excludedProperties: new Map([
+          [CharacterType.RADICAL, ['characters', 'type']],
+          [CharacterType.KANJI, ['characters', 'type']],
+          [CharacterType.VOCABULARY, ['characters', 'type']],
+        ]),
+        questionTypes: [
+          CharacterType.RADICAL,
+          CharacterType.KANJI,
+          CharacterType.VOCABULARY,
+        ],
+      };
+
+      component.onChangeOptions();
+
+      expect(store.select).toHaveBeenCalled();
+      expect(store.dispatch).toHaveBeenCalledWith(
+        QuizActions.changeQuizOptions({
+          quizOptions: quizOptionsWithoutMinNumberOfProperties,
+        })
+      );
+    });
+
+    it('with changed values should dispatch changeQuizOptions action', () => {
+      fixture.detectChanges();
+      component.ngOnInit();
+
+      const quizOptions: QuizOptions = {
+        numberOfQuestions: 21,
+        excludedProperties: new Map([
+          [CharacterType.RADICAL, ['characters', 'type']],
+          [CharacterType.KANJI, ['kunyomi', 'characters', 'type']],
+          [CharacterType.VOCABULARY, ['reading', 'characters', 'type']],
+        ]),
+        questionTypes: [CharacterType.KANJI, CharacterType.VOCABULARY],
+      };
+      console.log(quizOptions);
+
+      component.quizOptionsFormGroup
+        .get(['general', 'numberOfQuestions'])
+        .setValue(quizOptions.numberOfQuestions);
+      component.quizOptionsFormGroup.get(['radical', 'active']).setValue(false);
+      component.quizOptionsFormGroup
+        .get(['radical', 'meanings'])
+        .setValue(true);
+      component.quizOptionsFormGroup.get(['kanji', 'active']).setValue(true);
+      component.quizOptionsFormGroup.get(['kanji', 'meanings']).setValue(true);
+      component.quizOptionsFormGroup.get(['kanji', 'onyomi']).setValue(true);
+      component.quizOptionsFormGroup.get(['kanji', 'kunyomi']).setValue(false);
+      component.quizOptionsFormGroup.get(['kanji', 'nanori']).setValue(true);
+      component.quizOptionsFormGroup
+        .get(['vocabulary', 'active'])
+        .setValue(true);
+      component.quizOptionsFormGroup
+        .get(['vocabulary', 'meanings'])
+        .setValue(true);
+      component.quizOptionsFormGroup
+        .get(['vocabulary', 'reading'])
+        .setValue(false);
+
+      component.onChangeOptions();
+
+      expect(store.select).toHaveBeenCalled();
+      expect(store.dispatch).toHaveBeenCalledWith(
+        QuizActions.changeQuizOptions({
+          quizOptions,
+        })
+      );
+    });
+
+    it('with zero number of questions should not dispatch changeQuizOptions action', () => {
+      fixture.detectChanges();
+      component.ngOnInit();
+
+      component.quizOptionsFormGroup
+        .get(['general', 'numberOfQuestions'])
+        .setValue(0);
+
+      component.onChangeOptions();
+
+      expect(store.select).toHaveBeenCalled();
+      expect(store.dispatch).not.toHaveBeenCalled();
+    });
+
+    it('with negative number of questions should not dispatch changeQuizOptions action', () => {
+      fixture.detectChanges();
+      component.ngOnInit();
+
+      component.quizOptionsFormGroup
+        .get(['general', 'numberOfQuestions'])
+        .setValue(-10);
+
+      component.onChangeOptions();
+
+      expect(store.select).toHaveBeenCalled();
+      expect(store.dispatch).not.toHaveBeenCalled();
+    });
+
+    it('with zero number of character types should not dispatch changeQuizOptions action', () => {
+      fixture.detectChanges();
+      component.ngOnInit();
+
+      component.quizOptionsFormGroup.get(['radical', 'active']).setValue(false);
+      component.quizOptionsFormGroup.get(['kanji', 'active']).setValue(false);
+      component.quizOptionsFormGroup
+        .get(['vocabulary', 'active'])
+        .setValue(false);
+
+      component.onChangeOptions();
+
+      expect(store.select).toHaveBeenCalled();
+      expect(store.dispatch).not.toHaveBeenCalled();
     });
   });
 });
