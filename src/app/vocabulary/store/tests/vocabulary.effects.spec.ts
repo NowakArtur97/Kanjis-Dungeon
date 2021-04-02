@@ -4,8 +4,6 @@ import { Store, StoreModule } from '@ngrx/store';
 import { of, ReplaySubject } from 'rxjs';
 import CharacterType from 'src/app/common/enums/character-type.enum';
 import QuizService from 'src/app/quiz/services/quiz.service';
-import * as QuizActions from 'src/app/quiz/store/quiz.actions';
-import { QuizStoreState } from 'src/app/quiz/store/quiz.reducer';
 import AppStoreState from 'src/app/store/app.state';
 
 import Word from '../../models/word.model';
@@ -13,51 +11,6 @@ import VocabularyService from '../../services/vocabulary.service';
 import VOCABULARY from '../../vocabulary.data';
 import * as VocabularyActions from '../vocabulary.actions';
 import VocabularyEffects from '../vocabulary.effects';
-import { VocabularyStoreState } from '../vocabulary.reducer';
-
-const mockVocabulary: Word[] = [
-  {
-    id: 1,
-    characters: '大人',
-    meanings: ['adult', 'mature'],
-    reading: 'おとな',
-    type: CharacterType.VOCABULARY,
-  },
-  {
-    id: 2,
-    characters: '一人',
-    meanings: ['alone', 'one person'],
-    reading: 'ひとり',
-    type: CharacterType.VOCABULARY,
-  },
-];
-const vocabularyState: VocabularyStoreState = {
-  vocabulary: mockVocabulary,
-};
-const quizState: QuizStoreState = {
-  quizOptions: {
-    numberOfQuestions: 12,
-    minNumberOfProperties: 1,
-    excludedProperties: new Map([
-      [CharacterType.RADICAL, ['characters', 'type']],
-      [CharacterType.KANJI, ['characters', 'type']],
-      [CharacterType.VOCABULARY, ['characters', 'type']],
-    ]),
-    questionTypes: [
-      CharacterType.RADICAL,
-      CharacterType.KANJI,
-      CharacterType.VOCABULARY,
-    ],
-  },
-  nextQuestion: null,
-  questions: [],
-  answers: [],
-  mistakes: [],
-};
-const mockState: Partial<AppStoreState> = {
-  vocabulary: vocabularyState,
-  quiz: quizState,
-};
 
 describe('VocabularyEffects', () => {
   let vocabularyEffects: VocabularyEffects;
@@ -129,6 +82,23 @@ describe('VocabularyEffects', () => {
     });
 
     it('when number of vocabulary on firebase is smaller than locally should return saveVocabulary action', () => {
+      const mockVocabulary: Word[] = [
+        {
+          id: 1,
+          characters: '大人',
+          meanings: ['adult', 'mature'],
+          reading: 'おとな',
+          type: CharacterType.VOCABULARY,
+        },
+        {
+          id: 2,
+          characters: '一人',
+          meanings: ['alone', 'one person'],
+          reading: 'ひとり',
+          type: CharacterType.VOCABULARY,
+        },
+      ];
+
       (vocabularyService.getAll as jasmine.Spy).and.returnValue(
         of(mockVocabulary)
       );
@@ -136,27 +106,6 @@ describe('VocabularyEffects', () => {
         expect(resultAction).toEqual(VocabularyActions.saveVocabulary());
         expect(vocabularyService.getAll).toHaveBeenCalled();
       });
-    });
-  });
-
-  describe('setQuestionsAboutVocabulary$', () => {
-    beforeEach(() => {
-      actions$ = new ReplaySubject(1);
-      actions$.next(VocabularyActions.setVocabulary);
-      (quizService.prepareQuestions as jasmine.Spy).and.returnValue(
-        mockVocabulary
-      );
-    });
-
-    it('should return setQuestions action', () => {
-      vocabularyEffects.setQuestionsAboutVocabulary$.subscribe(
-        (resultAction) => {
-          expect(resultAction).toEqual(
-            QuizActions.setQuestions({ questions: mockVocabulary })
-          );
-          expect(quizService.prepareQuestions).toHaveBeenCalled();
-        }
-      );
     });
   });
 });

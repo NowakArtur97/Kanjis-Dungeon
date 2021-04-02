@@ -49,20 +49,20 @@ export default class QuizEffects {
             quizStore.questions
           )
         ).pipe(
-          map((questions) =>
+          map((questionsFromRadicals) =>
             of(
               this.quizService.prepareQuestions(
                 kanji,
                 quizStore.quizOptions,
-                questions
+                questionsFromRadicals
               )
             ).pipe(
-              map((questions) =>
+              map((questionsFromRadicalsAndKanji) =>
                 of(
                   this.quizService.prepareQuestions(
                     vocabulary,
                     quizStore.quizOptions,
-                    questions
+                    questionsFromRadicalsAndKanji
                   )
                 )
               )

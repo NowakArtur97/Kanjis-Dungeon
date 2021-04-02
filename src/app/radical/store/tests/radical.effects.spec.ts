@@ -4,7 +4,6 @@ import { Store, StoreModule } from '@ngrx/store';
 import { of, ReplaySubject } from 'rxjs';
 import CharacterType from 'src/app/common/enums/character-type.enum';
 import QuizService from 'src/app/quiz/services/quiz.service';
-import * as QuizActions from 'src/app/quiz/store/quiz.actions';
 import AppStoreState from 'src/app/store/app.state';
 
 import Radical from '../../models/radical.model';
@@ -12,21 +11,6 @@ import RADICALS from '../../radical.data';
 import RadicalService from '../../services/radical.service';
 import * as RadicalActions from '../radical.actions';
 import RadicalEffects from '../radical.effects';
-
-const mockRadicals: Radical[] = [
-  {
-    id: 1,
-    characters: '一',
-    meanings: ['ground'],
-    type: CharacterType.RADICAL,
-  },
-  {
-    id: 2,
-    characters: '二',
-    meanings: ['two'],
-    type: CharacterType.RADICAL,
-  },
-];
 
 describe('RadicalEffects', () => {
   let radicalEffects: RadicalEffects;
@@ -95,29 +79,25 @@ describe('RadicalEffects', () => {
     });
 
     it('when number of radicals on firebase is smaller than locally should return saveRadicals action', () => {
+      const mockRadicals: Radical[] = [
+        {
+          id: 1,
+          characters: '一',
+          meanings: ['ground'],
+          type: CharacterType.RADICAL,
+        },
+        {
+          id: 2,
+          characters: '二',
+          meanings: ['two'],
+          type: CharacterType.RADICAL,
+        },
+      ];
+
       (radicalService.getAll as jasmine.Spy).and.returnValue(of(mockRadicals));
       radicalEffects.fetchRadicals$.subscribe((resultAction) => {
         expect(resultAction).toEqual(RadicalActions.saveRadicals());
         expect(radicalService.getAll).toHaveBeenCalled();
-      });
-    });
-  });
-
-  describe('setQuestionsAboutRadicals$', () => {
-    beforeEach(() => {
-      actions$ = new ReplaySubject(1);
-      actions$.next(RadicalActions.setRadicals);
-      (quizService.prepareQuestions as jasmine.Spy).and.returnValue(
-        mockRadicals
-      );
-    });
-
-    it('should return setQuestions action', () => {
-      radicalEffects.setQuestionsAboutRadicals$.subscribe((resultAction) => {
-        expect(resultAction).toEqual(
-          QuizActions.setQuestions({ questions: mockRadicals })
-        );
-        expect(quizService.prepareQuestions).toHaveBeenCalled();
       });
     });
   });

@@ -250,48 +250,4 @@ describe('quizReducer', () => {
       expect(actualState.answers).not.toContain(radical);
     });
   });
-
-  describe('QuizActions.clearAnswers', () => {
-    it('should clear answers', () => {
-      const stateWithAnswers: QuizStoreState = {
-        quizOptions: {
-          numberOfQuestions: 12,
-          minNumberOfProperties: 1,
-          excludedProperties: new Map([
-            [CharacterType.RADICAL, ['characters', 'type']],
-            [CharacterType.KANJI, ['characters', 'type']],
-            [CharacterType.VOCABULARY, ['characters', 'type']],
-          ]),
-          questionTypes: [
-            CharacterType.RADICAL,
-            CharacterType.KANJI,
-            CharacterType.VOCABULARY,
-          ],
-        },
-        nextQuestion: null,
-        questions,
-        answers: questions,
-        mistakes: [],
-      };
-      const action = QuizActions.clearAnswers();
-      const actualState = quizReducer(stateWithAnswers, action);
-      const expectedState = { ...initialState };
-
-      expect(actualState).toEqual(expectedState);
-      expect(actualState.questions).toEqual([]);
-      expect(actualState.answers).toEqual([]);
-    });
-  });
-
-  describe('QuizActions.clearMistakes', () => {
-    it('should clear mistakes', () => {
-      const action = QuizActions.clearMistakes();
-      const actualState = quizReducer(stateWithMistakes, action);
-      const expectedState = { ...initialState };
-
-      expect(actualState).toEqual(expectedState);
-      expect(actualState.questions).toEqual([]);
-      expect(actualState.mistakes).toEqual([]);
-    });
-  });
 });

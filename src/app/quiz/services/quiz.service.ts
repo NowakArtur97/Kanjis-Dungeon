@@ -16,7 +16,7 @@ export default class QuizService {
     quizOptions: QuizOptions,
     alreadyChosenQuestions: Radical[]
   ): Radical[] => {
-    if (!quizOptions.questionTypes.includes(allQuestions[0].type)) {
+    if (this.isTypeExcluded(quizOptions, allQuestions)) {
       return alreadyChosenQuestions;
     }
 
@@ -36,6 +36,11 @@ export default class QuizService {
 
     return [...alreadyChosenQuestions, ...questions];
   };
+
+  private isTypeExcluded = (
+    quizOptions: QuizOptions,
+    allQuestions: Radical[]
+  ): boolean => !quizOptions.questionTypes.includes(allQuestions[0].type);
 
   private setNumberOfQuestions(
     allQuestions: Radical[],
