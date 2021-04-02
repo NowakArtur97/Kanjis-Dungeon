@@ -36,39 +36,37 @@ export default class QuizEffects {
     this.actions$.pipe(
       ofType(QuizActions.changeQuizOptions, VocabularyActions.setVocabulary),
       withLatestFrom(
-        this.store.select((state) => state.quiz),
+        this.store.select((state) => state.quiz?.quizOptions),
+        this.store.select((state) => state.quiz?.questions),
         this.store.select((state) => state.radical?.radicals),
         this.store.select((state) => state.kanji?.kanji),
         this.store.select((state) => state.vocabulary?.vocabulary)
       ),
-      switchMap(([action, quizStore, radicals, kanji, vocabulary]) =>
-        of(
-          this.quizService.prepareQuestions(
-            radicals,
-            quizStore.quizOptions,
-            quizStore.questions
-          )
-        ).pipe(
-          map((questionsFromRadicals) =>
-            of(
-              this.quizService.prepareQuestions(
-                kanji,
-                quizStore.quizOptions,
-                questionsFromRadicals
-              )
-            ).pipe(
-              map((questionsFromRadicalsAndKanji) =>
-                of(
-                  this.quizService.prepareQuestions(
-                    vocabulary,
-                    quizStore.quizOptions,
-                    questionsFromRadicalsAndKanji
+      switchMap(
+        ([action, quizOptions, questions, radicals, kanji, vocabulary]) =>
+          of(
+            this.quizService.prepareQuestions(radicals, quizOptions, questions)
+          ).pipe(
+            map((questionsFromRadicals) =>
+              of(
+                this.quizService.prepareQuestions(
+                  kanji,
+                  quizOptions,
+                  questionsFromRadicals
+                )
+              ).pipe(
+                map((questionsFromRadicalsAndKanji) =>
+                  of(
+                    this.quizService.prepareQuestions(
+                      vocabulary,
+                      quizOptions,
+                      questionsFromRadicalsAndKanji
+                    )
                   )
                 )
               )
             )
           )
-        )
       ),
       mergeMap((questions) => questions),
       mergeMap((questions) => questions),

@@ -3,10 +3,11 @@ import { provideMockActions } from '@ngrx/effects/testing';
 import { Store, StoreModule } from '@ngrx/store';
 import { ReplaySubject } from 'rxjs';
 import CharacterType from 'src/app/common/enums/character-type.enum';
+import Kanji from 'src/app/kanji/models/kanji.model';
 import QuizService from 'src/app/quiz/services/quiz.service';
-import { QuizStoreState } from 'src/app/quiz/store/quiz.reducer';
 import Radical from 'src/app/radical/models/radical.model';
 import AppStoreState from 'src/app/store/app.state';
+import Word from 'src/app/vocabulary/models/word.model';
 
 import * as QuizActions from '../quiz.actions';
 import QuizEffects from '../quiz.effects';
@@ -17,29 +18,49 @@ const radical: Radical = {
   meanings: ['ground'],
   type: CharacterType.RADICAL,
 };
-const quizState: QuizStoreState = {
-  quizOptions: {
-    numberOfQuestions: 12,
-    minNumberOfProperties: 1,
-    excludedProperties: new Map([
-      [CharacterType.RADICAL, ['characters', 'type']],
-      [CharacterType.KANJI, ['characters', 'type']],
-      [CharacterType.VOCABULARY, ['characters', 'type']],
-    ]),
-    questionTypes: [
-      CharacterType.RADICAL,
-      CharacterType.KANJI,
-      CharacterType.VOCABULARY,
-    ],
+const radicals: Radical[] = [
+  radical,
+  {
+    id: 2,
+    characters: '二',
+    meanings: ['two'],
+    type: CharacterType.RADICAL,
   },
-  nextQuestion: null,
-  questions: [],
-  answers: [],
-  mistakes: [],
-};
-const mockState: Partial<AppStoreState> = {
-  quiz: quizState,
-};
+];
+const kanji: Kanji[] = [
+  {
+    id: 1,
+    characters: '上',
+    meanings: ['above', 'up', 'over'],
+    onyomi: ['じょう'],
+    kunyomi: ['うえ', 'あ', 'のぼ', 'うわ', 'かみ'],
+    type: CharacterType.KANJI,
+  },
+  {
+    id: 2,
+    characters: '下',
+    meanings: ['below', 'down', 'under', 'beneath'],
+    onyomi: ['か', 'げ'],
+    kunyomi: ['した', 'さ', 'くだ', 'お'],
+    type: CharacterType.KANJI,
+  },
+];
+const vocabulary: Word[] = [
+  {
+    id: 1,
+    characters: '大人',
+    meanings: ['adult', 'mature'],
+    reading: 'おとな',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    id: 2,
+    characters: '一人',
+    meanings: ['alone', 'one person'],
+    reading: 'ひとり',
+    type: CharacterType.VOCABULARY,
+  },
+];
 
 describe('QuizEffects', () => {
   let quizEffects: QuizEffects;
@@ -56,7 +77,10 @@ describe('QuizEffects', () => {
         provideMockActions(() => actions$),
         {
           provide: QuizService,
-          useValue: jasmine.createSpyObj('quizService', ['getNextQuestion']),
+          useValue: jasmine.createSpyObj('quizService', [
+            'getNextQuestion',
+            'prepareQuestions',
+          ]),
         },
       ],
     })
@@ -81,6 +105,29 @@ describe('QuizEffects', () => {
           QuizActions.setNextQuestion({ nextQuestion: radical })
         );
         expect(quizService.getNextQuestion).toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe('setQuestions$', () => {
+    beforeEach(() => {
+      actions$ = new ReplaySubject(1);
+      actions$.next(QuizActions.changeQuizOptions);
+      (quizService.prepareQuestions as jasmine.Spy).and.returnValues(
+        radicals,
+        [...radicals, ...kanji],
+        [...radicals, ...kanji, ...vocabulary]
+      );
+    });
+
+    it('should return setQuestions action', () => {
+      quizEffects.setQuestions$.subscribe((resultAction) => {
+        expect(resultAction).toEqual(
+          QuizActions.setQuestions({
+            questions: [...radicals, ...kanji, ...vocabulary],
+          })
+        );
+        expect(quizService.prepareQuestions).toHaveBeenCalledTimes(3);
       });
     });
   });
