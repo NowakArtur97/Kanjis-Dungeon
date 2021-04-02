@@ -16,6 +16,10 @@ export default class QuizService {
     quizOptions: QuizOptions,
     alreadyChosenQuestions: Radical[]
   ): Radical[] => {
+    if (!quizOptions.questionTypes.includes(allQuestions[0].type)) {
+      return alreadyChosenQuestions;
+    }
+
     const questions: Radical[] = [];
     const numberOfQuestions = this.setNumberOfQuestions(
       allQuestions,

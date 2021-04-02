@@ -47,7 +47,7 @@ export default class KanjiEffects {
 
   setQuestionsAboutKanji$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(KanjiActions.setKanji, QuizActions.changeQuizOptions),
+      ofType(KanjiActions.setKanji),
       withLatestFrom(
         this.store.select((state) => state.kanji?.kanji),
         this.store.select((state) => state.quiz?.quizOptions),

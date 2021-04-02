@@ -47,7 +47,7 @@ export default class RadicalEffects {
 
   setQuestionsAboutRadicals$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(RadicalActions.setRadicals, QuizActions.changeQuizOptions),
+      ofType(RadicalActions.setRadicals),
       withLatestFrom(
         this.store.select((state) => state.radical?.radicals),
         this.store.select((state) => state.quiz?.quizOptions),
