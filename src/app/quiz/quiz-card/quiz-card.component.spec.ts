@@ -60,6 +60,20 @@ describe('QuizCardComponent', () => {
     reading: 'おとな',
     type: CharacterType.VOCABULARY,
   };
+  const quizStateWithOnlyVocabularyType: Partial<QuizStoreState> = {
+    quizOptions: {
+      numberOfQuestions: 12,
+      minNumberOfProperties: 1,
+      excludedProperties: new Map([
+        [CharacterType.RADICAL, ['characters', 'type']],
+        [CharacterType.KANJI, ['characters', 'type']],
+        [CharacterType.VOCABULARY, ['characters', 'type', 'meanings']],
+      ]),
+      questionTypes: [CharacterType.VOCABULARY],
+    },
+    nextQuestion: word,
+    questions: [word],
+  };
   const quizStateWithRadicalAsQuestion: Partial<QuizStoreState> = {
     quizOptions: {
       numberOfQuestions: 12,
@@ -380,6 +394,48 @@ describe('QuizCardComponent', () => {
         expect(store.dispatch).toHaveBeenCalledWith(
           QuizActions.addAnswer({
             answer: radical,
+          })
+        );
+      });
+
+      it('with correct answer should display all fields', () => {
+        spyOn(store, 'select').and.callFake(() =>
+          of(quizStateWithOnlyVocabularyType)
+        );
+        spyOn(quizService, 'choosePropertiesForQuestion').and.returnValue({
+          characters: word.characters,
+          meanings: word.meanings,
+          reading: '',
+        });
+
+        fixture.detectChanges();
+        component.ngOnInit();
+
+        component.quizFormGroup.get('characters').setValue(word.characters);
+        component.quizFormGroup.get('reading').setValue(word.reading);
+
+        component.onValidateCard();
+        component.onValidateCard();
+
+        expect(component.cardStatus.toString()).toBe('0');
+        expect(component.quizFormGroup.valid).toBeTrue();
+
+        expect(component.quizFormGroup.get('characters').value).toBe(
+          word.characters
+        );
+        expect(component.quizFormGroup.get('meaning').value).toEqual(
+          word.meanings[0]
+        );
+        expect(component.quizFormGroup.get('onyomi').value).toEqual('');
+        expect(component.quizFormGroup.get('kunyomi').value).toEqual('');
+        expect(component.quizFormGroup.get('nanori').value).toEqual('');
+        expect(component.quizFormGroup.get('reading').value).toBe(word.reading);
+
+        expect(store.select).toHaveBeenCalled();
+        expect(quizService.choosePropertiesForQuestion).toHaveBeenCalled();
+        expect(store.dispatch).toHaveBeenCalledWith(
+          QuizActions.addAnswer({
+            answer: word,
           })
         );
       });
