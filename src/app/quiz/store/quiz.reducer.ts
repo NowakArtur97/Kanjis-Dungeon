@@ -17,6 +17,7 @@ const DEFAULT_EXCLUDED_PROPERTIES = ['characters', 'type'];
 const initialState: QuizStoreState = {
   quizOptions: {
     numberOfQuestions: 12,
+    minNumberOfProperties: 1,
     excludedProperties: new Map([
       [CharacterType.RADICAL, DEFAULT_EXCLUDED_PROPERTIES],
       [CharacterType.KANJI, DEFAULT_EXCLUDED_PROPERTIES],

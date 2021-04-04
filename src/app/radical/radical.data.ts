@@ -73,8 +73,8 @@ const RADICALS: Radical[] = [
   },
   {
     id: 20,
-    characters: 'stick',
-    meanings: ['|'],
+    characters: '|',
+    meanings: ['stick'],
     type: CharacterType.RADICAL,
   },
   { id: 21, characters: '日', meanings: ['sun'], type: CharacterType.RADICAL },

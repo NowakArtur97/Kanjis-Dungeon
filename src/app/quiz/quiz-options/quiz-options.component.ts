@@ -107,7 +107,6 @@ export class QuizOptionsComponent implements OnInit, OnDestroy {
       this.quizOptionsFormGroup.valid &&
       quizOptions.questionTypes.length !== 0
     ) {
-      console.log(quizOptions);
       this.store.dispatch(QuizActions.changeQuizOptions({ quizOptions }));
     }
   }

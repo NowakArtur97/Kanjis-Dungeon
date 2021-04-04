@@ -83,11 +83,13 @@ export default class QuizService {
         !excludedProperties.includes(property) &&
         quizCard[property] !== undefined
     );
-
-    const numberOfProperties = MathUtil.getRandomIntValue(
-      properties.length,
-      quizOptions.minNumberOfProperties
-    );
+    const numberOfProperties =
+      properties.length === 1
+        ? 1
+        : MathUtil.getRandomIntValue(
+            properties.length,
+            quizOptions.minNumberOfProperties
+          );
 
     let propertiesCounter = 0;
     while (propertiesCounter < numberOfProperties) {
