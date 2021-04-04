@@ -93,21 +93,21 @@ export class QuizCardComponent implements OnInit, OnDestroy {
           : []
       ),
       onyomi: new FormControl(
-        this.charactersValue.onyomi[0],
+        this.charactersValue.onyomi ? this.charactersValue.onyomi[0] : '',
         CharacterUtil.isKanji(this.currentCharacter) &&
         this.currentCharacter.onyomi
           ? [CommonValidators.includes(this.currentCharacter.onyomi)]
           : []
       ),
       kunyomi: new FormControl(
-        this.charactersValue.kunyomi[0],
+        this.charactersValue.kunyomi ? this.charactersValue.kunyomi[0] : '',
         CharacterUtil.isKanji(this.currentCharacter) &&
         this.currentCharacter.kunyomi
           ? [CommonValidators.includes(this.currentCharacter.kunyomi)]
           : []
       ),
       nanori: new FormControl(
-        this.charactersValue.nanori[0],
+        this.charactersValue.nanori ? this.charactersValue.nanori[0] : '',
         CharacterUtil.isKanji(this.currentCharacter) &&
         this.currentCharacter.nanori
           ? [CommonValidators.includes(this.currentCharacter.nanori)]
@@ -130,6 +130,10 @@ export class QuizCardComponent implements OnInit, OnDestroy {
 
     if (this.quizFormGroup.invalid) {
       this.quizFormGroup.updateValueAndValidity();
+      // TODO: Check if should display correct answer
+      this.charactersValue = { ...this.currentCharacter };
+      this.initForm();
+      //
       this.cardStatus = CardStatus.WRONG;
       this.answerConfirmed = false;
     } else {

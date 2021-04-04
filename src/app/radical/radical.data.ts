@@ -255,7 +255,7 @@ const RADICALS: Radical[] = [
     type: CharacterType.RADICAL,
   },
   { id: 68, characters: '生', meanings: ['life'], type: CharacterType.RADICAL },
-  { id: 69, characters: '今', meanings: ['hat'], type: CharacterType.RADICAL },
+  { id: 69, characters: '𠆢', meanings: ['hat'], type: CharacterType.RADICAL },
   { id: 70, characters: '今', meanings: ['now'], type: CharacterType.RADICAL },
   { id: 71, characters: '古', meanings: ['old'], type: CharacterType.RADICAL },
   {
