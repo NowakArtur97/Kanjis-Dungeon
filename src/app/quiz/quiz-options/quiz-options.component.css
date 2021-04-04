@@ -91,6 +91,7 @@
   border: none;
   text-align: center;
   font-size: 0.8em;
+  font-family: "Source Sans Pro", Arial, Helvetica, sans-serif;
 
   background-color: transparent;
   color: white;
@@ -118,6 +119,7 @@
   color: white;
   text-transform: capitalize;
   cursor: pointer;
+  font-family: "Source Sans Pro", Arial, Helvetica, sans-serif;
 
   transition: 0.2s;
 }
