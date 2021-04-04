@@ -114,7 +114,7 @@ export class QuizCardComponent implements OnInit, OnDestroy {
           : []
       ),
       reading: new FormControl(
-        this.charactersValue.reading,
+        this.charactersValue.reading ? this.charactersValue.reading : '',
         CharacterUtil.isVocabulary(this.currentCharacter)
           ? [CommonValidators.equals(this.currentCharacter.reading)]
           : []

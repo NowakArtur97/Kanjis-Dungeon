@@ -349,7 +349,7 @@ describe('QuizCardComponent', () => {
         component.onValidateCard();
 
         expect(component.cardStatus.toString()).toBe('1');
-        expect(component.quizFormGroup.valid).toBeFalse();
+        expect(component.quizFormGroup.valid).toBeTrue();
 
         expect(store.select).toHaveBeenCalled();
         expect(quizService.choosePropertiesForQuestion).toHaveBeenCalled();
@@ -400,7 +400,45 @@ describe('QuizCardComponent', () => {
         component.onValidateCard();
 
         expect(component.cardStatus.toString()).toBe('0');
-        expect(component.quizFormGroup.valid).toBeFalse();
+        expect(component.quizFormGroup.valid).toBeTrue();
+
+        expect(store.select).toHaveBeenCalled();
+        expect(quizService.choosePropertiesForQuestion).toHaveBeenCalled();
+        expect(store.dispatch).toHaveBeenCalledWith(
+          QuizActions.addMistake({
+            mistake: radical,
+          })
+        );
+      });
+
+      it('with incorrect answer should display correct answer', () => {
+        spyOn(store, 'select').and.callFake(() =>
+          of(quizStateWithRadicalAsQuestion)
+        );
+        spyOn(quizService, 'choosePropertiesForQuestion').and.callThrough();
+
+        fixture.detectChanges();
+        component.ngOnInit();
+
+        component.quizFormGroup.get('characters').setValue('something wrong');
+        component.quizFormGroup.get('meaning').setValue('something wrong');
+
+        component.onValidateCard();
+        component.onValidateCard();
+
+        expect(component.cardStatus.toString()).toBe('0');
+        expect(component.quizFormGroup.valid).toBeTrue();
+
+        expect(component.quizFormGroup.get('characters').value).toBe(
+          radical.characters
+        );
+        expect(component.quizFormGroup.get('meaning').value).toEqual(
+          radical.meanings[0]
+        );
+        expect(component.quizFormGroup.get('onyomi').value).toEqual('');
+        expect(component.quizFormGroup.get('kunyomi').value).toEqual('');
+        expect(component.quizFormGroup.get('nanori').value).toEqual('');
+        expect(component.quizFormGroup.get('reading').value).toBe('');
 
         expect(store.select).toHaveBeenCalled();
         expect(quizService.choosePropertiesForQuestion).toHaveBeenCalled();
@@ -413,7 +451,7 @@ describe('QuizCardComponent', () => {
     });
 
     describe('form validation', () => {
-      it('with empty answer should form be invalid (radical)', () => {
+      it('with empty answer should form show correct answer (radical)', () => {
         spyOn(store, 'select').and.callFake(() =>
           of(quizStateWithRadicalAsQuestion)
         );
@@ -427,21 +465,25 @@ describe('QuizCardComponent', () => {
 
         component.onValidateCard();
 
-        expect(
-          component.quizFormGroup.get('characters').errors.equals
-        ).toBeTruthy();
-        expect(
-          component.quizFormGroup.get('meaning').errors.includes
-        ).toBeTruthy();
+        expect(component.quizFormGroup.get('characters').value).toBe(
+          radical.characters
+        );
+        expect(component.quizFormGroup.get('meaning').value).toEqual(
+          radical.meanings[0]
+        );
+        expect(component.quizFormGroup.get('onyomi').value).toEqual('');
+        expect(component.quizFormGroup.get('kunyomi').value).toEqual('');
+        expect(component.quizFormGroup.get('nanori').value).toEqual('');
+        expect(component.quizFormGroup.get('reading').value).toBe('');
 
         expect(component.cardStatus.toString()).toBe('1');
-        expect(component.quizFormGroup.valid).toBeFalse();
+        expect(component.quizFormGroup.valid).toBeTrue();
 
         expect(store.select).toHaveBeenCalled();
         expect(quizService.choosePropertiesForQuestion).toHaveBeenCalled();
       });
 
-      it('with empty answer should form be invalid (kanji)', () => {
+      it('with empty answer should form show correct answer (kanji)', () => {
         spyOn(store, 'select').and.callFake(() =>
           of(quizStateWithKanjiAsQuestion)
         );
@@ -458,30 +500,31 @@ describe('QuizCardComponent', () => {
 
         component.onValidateCard();
 
-        expect(
-          component.quizFormGroup.get('characters').errors.equals
-        ).toBeTruthy();
-        expect(
-          component.quizFormGroup.get('meaning').errors.includes
-        ).toBeTruthy();
-        expect(
-          component.quizFormGroup.get('onyomi').errors.includes
-        ).toBeTruthy();
-        expect(
-          component.quizFormGroup.get('kunyomi').errors.includes
-        ).toBeTruthy();
-        expect(
-          component.quizFormGroup.get('nanori').errors.includes
-        ).toBeTruthy();
+        expect(component.quizFormGroup.get('characters').value).toBe(
+          kanji.characters
+        );
+        expect(component.quizFormGroup.get('meaning').value).toEqual(
+          kanji.meanings[0]
+        );
+        expect(component.quizFormGroup.get('onyomi').value).toEqual(
+          kanji.onyomi[0]
+        );
+        expect(component.quizFormGroup.get('kunyomi').value).toEqual(
+          kanji.kunyomi[0]
+        );
+        expect(component.quizFormGroup.get('nanori').value).toEqual(
+          kanji.nanori[0]
+        );
+        expect(component.quizFormGroup.get('reading').value).toBe('');
 
         expect(component.cardStatus.toString()).toBe('1');
-        expect(component.quizFormGroup.valid).toBeFalse();
+        expect(component.quizFormGroup.valid).toBeTrue();
 
         expect(store.select).toHaveBeenCalled();
         expect(quizService.choosePropertiesForQuestion).toHaveBeenCalled();
       });
 
-      it('with empty answer should form be invalid (word)', () => {
+      it('with empty answer should form show correct answer (word)', () => {
         spyOn(store, 'select').and.callFake(() =>
           of(quizStateWithWordAsQuestion)
         );
@@ -496,18 +539,19 @@ describe('QuizCardComponent', () => {
 
         component.onValidateCard();
 
-        expect(
-          component.quizFormGroup.get('characters').errors.equals
-        ).toBeTruthy();
-        expect(
-          component.quizFormGroup.get('meaning').errors.includes
-        ).toBeTruthy();
-        expect(
-          component.quizFormGroup.get('reading').errors.equals
-        ).toBeTruthy();
+        expect(component.quizFormGroup.get('characters').value).toBe(
+          word.characters
+        );
+        expect(component.quizFormGroup.get('meaning').value).toEqual(
+          word.meanings[0]
+        );
+        expect(component.quizFormGroup.get('onyomi').value).toEqual('');
+        expect(component.quizFormGroup.get('kunyomi').value).toEqual('');
+        expect(component.quizFormGroup.get('nanori').value).toEqual('');
+        expect(component.quizFormGroup.get('reading').value).toBe(word.reading);
 
         expect(component.cardStatus.toString()).toBe('1');
-        expect(component.quizFormGroup.valid).toBeFalse();
+        expect(component.quizFormGroup.valid).toBeTrue();
 
         expect(store.select).toHaveBeenCalled();
         expect(quizService.choosePropertiesForQuestion).toHaveBeenCalled();
