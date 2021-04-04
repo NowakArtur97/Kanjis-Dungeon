@@ -130,15 +130,15 @@ export class QuizCardComponent implements OnInit, OnDestroy {
 
     if (this.quizFormGroup.invalid) {
       this.quizFormGroup.updateValueAndValidity();
-      // TODO: Check if should display correct answer
-      this.charactersValue = { ...this.currentCharacter };
-      this.initForm();
-      //
       this.cardStatus = CardStatus.WRONG;
       this.answerConfirmed = false;
     } else {
       this.cardStatus = CardStatus.CORRECT;
     }
+    // TODO: Check if should display correct answer
+    this.charactersValue = { ...this.currentCharacter };
+    this.initForm();
+    //
     CssUtil.changeQuizCardColor(
       this.cardStatus === CardStatus.CORRECT
         ? this.cardColors.correct
