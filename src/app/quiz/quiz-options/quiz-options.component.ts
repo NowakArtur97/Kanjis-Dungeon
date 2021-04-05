@@ -7,7 +7,7 @@ import AppStoreState from 'src/app/store/app.state';
 
 import * as QuizActions from '../../quiz/store/quiz.actions';
 import QuizOptions from '../models/quiz-options.model';
-import { DEFAULT_EXCLUDED_PROPERTIES } from '../store/quiz.reducer';
+import { DEFAULT_EXCLUDED_PROPERTIES, DEFAULT_MIN_NUMBER_OF_PROPERTIES } from '../store/quiz.reducer';
 
 @Component({
   selector: 'app-quiz-options',
@@ -47,7 +47,7 @@ export class QuizOptionsComponent implements OnInit, OnDestroy {
           this.quizOptions.questionTypes.includes(CharacterType.RADICAL)
         ),
         meanings: new FormControl(
-          !this.quizOptions.excludedProperties
+          this.quizOptions.excludedProperties
             .get(CharacterType.RADICAL)
             .includes('meanings')
         ),
@@ -57,22 +57,22 @@ export class QuizOptionsComponent implements OnInit, OnDestroy {
           this.quizOptions.questionTypes.includes(CharacterType.KANJI)
         ),
         meanings: new FormControl(
-          !this.quizOptions.excludedProperties
+          this.quizOptions.excludedProperties
             .get(CharacterType.KANJI)
             .includes('meanings')
         ),
         onyomi: new FormControl(
-          !this.quizOptions.excludedProperties
+          this.quizOptions.excludedProperties
             .get(CharacterType.KANJI)
             .includes('onyomi')
         ),
         kunyomi: new FormControl(
-          !this.quizOptions.excludedProperties
+          this.quizOptions.excludedProperties
             .get(CharacterType.KANJI)
             .includes('kunyomi')
         ),
         nanori: new FormControl(
-          !this.quizOptions.excludedProperties
+          this.quizOptions.excludedProperties
             .get(CharacterType.KANJI)
             .includes('nanori')
         ),
@@ -82,12 +82,12 @@ export class QuizOptionsComponent implements OnInit, OnDestroy {
           this.quizOptions.questionTypes.includes(CharacterType.VOCABULARY)
         ),
         meanings: new FormControl(
-          !this.quizOptions.excludedProperties
+          this.quizOptions.excludedProperties
             .get(CharacterType.VOCABULARY)
             .includes('meanings')
         ),
         reading: new FormControl(
-          !this.quizOptions.excludedProperties
+          this.quizOptions.excludedProperties
             .get(CharacterType.VOCABULARY)
             .includes('reading')
         ),
@@ -101,10 +101,13 @@ export class QuizOptionsComponent implements OnInit, OnDestroy {
         'general',
         'numberOfQuestions',
       ]).value,
+      minNumberOfProperties: DEFAULT_MIN_NUMBER_OF_PROPERTIES,
       shouldShowAnswer: this.quizOptionsFormGroup.get([
         'general',
         'shouldShowAnswer',
       ]).value,
+      // TODO: Add to options
+      shouldHideRandomProperties: false,
       excludedProperties: this.getExcludedProperties(),
       questionTypes: this.getSelectedCharacterTypes(),
     };
@@ -150,7 +153,7 @@ export class QuizOptionsComponent implements OnInit, OnDestroy {
   private getTypeExcludedProperties(characterType: string): string[] {
     const formGroupValue = this.quizOptionsFormGroup.get(characterType).value;
     return Object.getOwnPropertyNames(formGroupValue).filter(
-      (property) => !formGroupValue[property] && property !== 'active'
+      (property) => formGroupValue[property] && property !== 'active'
     );
   }
 

@@ -78,31 +78,32 @@ export default class QuizService {
     const excludedProperties = quizOptions.excludedProperties.get(
       question.type
     );
-    const properties = Object.getOwnPropertyNames(question).filter(
-      (property) =>
-        !excludedProperties.includes(property) &&
-        quizCard[property] !== undefined
+    const properties = this.getRandomPropertiesToHide(
+      question,
+      excludedProperties,
+      quizCard
     );
-    const numberOfProperties =
-      properties.length === 1
-        ? 1
-        : MathUtil.getRandomIntValue(
-            properties.length,
-            quizOptions.minNumberOfProperties
-          );
+    const numberOfProperties = this.getNumberOfPropertiesToHide(
+      properties,
+      excludedProperties,
+      quizOptions
+    );
 
     let propertiesCounter = 0;
     while (propertiesCounter < numberOfProperties) {
-      const property = properties[MathUtil.getRandomIndex(properties)];
-
-      const isArray = Array.isArray(quizCard[property]);
-      properties.splice(properties.indexOf(property), 1);
-      quizCard[property] = isArray ? [''] : '';
+      this.hideProperty(properties, quizCard);
 
       propertiesCounter++;
     }
 
     return quizCard;
+  }
+
+  private hideProperty(properties: string[], quizCard: QuizCard) {
+    const property = properties[MathUtil.getRandomIndex(properties)];
+    const isArray = Array.isArray(quizCard[property]);
+    properties.splice(properties.indexOf(property), 1);
+    quizCard[property] = isArray ? [''] : '';
   }
 
   private getDefaultQuizCard(question: Radical): QuizCard {
@@ -126,5 +127,32 @@ export default class QuizService {
           ? question.reading
           : '',
     };
+  }
+
+  private getRandomPropertiesToHide = (
+    question: Radical,
+    excludedProperties: string[],
+    quizCard: QuizCard
+  ) =>
+    Object.getOwnPropertyNames(question).filter(
+      (property) =>
+        !excludedProperties.includes(property) &&
+        quizCard[property] !== undefined
+    );
+
+  private getNumberOfPropertiesToHide(
+    properties: string[],
+    excludedProperties: string[],
+    quizOptions: QuizOptions
+  ) {
+    if (properties.length === 1) {
+      return 1;
+    } else if (properties.length === excludedProperties.length) {
+      return properties.length;
+    }
+    return MathUtil.getRandomIntValue(
+      properties.length,
+      quizOptions.minNumberOfProperties
+    );
   }
 }
