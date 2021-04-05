@@ -40,6 +40,7 @@ export class QuizOptionsComponent implements OnInit, OnDestroy {
         numberOfQuestions: new FormControl(this.quizOptions.numberOfQuestions, [
           Validators.min(1),
         ]),
+        shouldShowAnswer: new FormControl(this.quizOptions.shouldShowAnswer),
       }),
       radical: new FormGroup({
         active: new FormControl(
@@ -99,6 +100,10 @@ export class QuizOptionsComponent implements OnInit, OnDestroy {
       numberOfQuestions: this.quizOptionsFormGroup.get([
         'general',
         'numberOfQuestions',
+      ]).value,
+      shouldShowAnswer: this.quizOptionsFormGroup.get([
+        'general',
+        'shouldShowAnswer',
       ]).value,
       excludedProperties: this.getExcludedProperties(),
       questionTypes: this.getSelectedCharacterTypes(),

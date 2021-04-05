@@ -18,6 +18,7 @@ const initialState: QuizStoreState = {
   quizOptions: {
     numberOfQuestions: 12,
     minNumberOfProperties: 1,
+    shouldShowAnswer: true,
     excludedProperties: new Map([
       [CharacterType.RADICAL, DEFAULT_EXCLUDED_PROPERTIES],
       [CharacterType.KANJI, DEFAULT_EXCLUDED_PROPERTIES],
