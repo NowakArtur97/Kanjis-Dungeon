@@ -9,13 +9,13 @@
         formGroupName="general"
         class="quiz_options__option quiz_options__option--wide quiz_options__option--green"
       >
-        <div class="quiz_options__controls">
+        <div class="quiz_options__controls quiz_options__controls--row">
           <label class="quiz_options__label" for="radical"
             >Number of questions</label
           >
           <input
             formControlName="numberOfQuestions"
-            class="quiz_options__input"
+            class="quiz_options__input quiz_options__input--wide"
             type="number"
             name="numberOfQuestions"
             id="numberOfQuestions"
@@ -23,8 +23,8 @@
             min="1"
           />
         </div>
-        <div class="quiz_options__controls">
-          <label class="quiz_options__label" for="radical"
+        <div class="quiz_options__controls quiz_options__controls--row">
+          <label class="quiz_options__label" for="shouldShowAnswer"
             >Show answer after answering</label
           >
           <input
@@ -35,19 +35,19 @@
             id="shouldShowAnswer"
             value="shouldShowAnswer"
           />
-          <div class="quiz_options__controls">
-            <label class="quiz_options__label" for="shouldHideRandomProperties"
-              >Should hide random properties</label
-            >
-            <input
-              formControlName="shouldHideRandomProperties"
-              class="quiz_options__input"
-              type="checkbox"
-              name="shouldHideRandomProperties"
-              id="shouldHideRandomProperties"
-              value="shouldHideRandomProperties"
-            />
-          </div>
+        </div>
+        <div class="quiz_options__controls quiz_options__controls--row">
+          <label class="quiz_options__label" for="shouldHideRandomProperties"
+            >Should hide random properties</label
+          >
+          <input
+            formControlName="shouldHideRandomProperties"
+            class="quiz_options__input"
+            type="checkbox"
+            name="shouldHideRandomProperties"
+            id="shouldHideRandomProperties"
+            value="shouldHideRandomProperties"
+          />
         </div>
       </div>
       <div

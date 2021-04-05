@@ -77,6 +77,10 @@
   text-align: center;
 }
 
+.quiz_options__controls--row {
+  width: 33%;
+}
+
 .quiz_options__label {
   margin-right: 6px;
 
@@ -95,6 +99,11 @@
 
   background-color: transparent;
   color: white;
+}
+
+.quiz_options__input--wide {
+  display: block;
+  width: 100%;
 }
 
 .quiz_options__input:focus {
@@ -137,11 +146,11 @@
 
   .quiz_options__label,
   .quiz_options__input {
-    font-size: 2em;
+    font-size: 1.6em;
   }
 
   .quiz_options__label--big,
   .quiz_options__submit_button {
-    font-size: 2.4em;
+    font-size: 2.2em;
   }
 }
