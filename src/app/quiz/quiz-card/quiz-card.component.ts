@@ -10,6 +10,7 @@ import AppStoreState from 'src/app/store/app.state';
 
 import * as QuizActions from '../../quiz/store/quiz.actions';
 import { initialState } from '../../quiz/store/quiz.reducer';
+import QuizOptions from '../models/quiz-options.model';
 import QuizService from '../services/quiz.service';
 
 enum CardStatus {
@@ -26,6 +27,7 @@ enum CardStatus {
 export class QuizCardComponent implements OnInit, OnDestroy {
   private nextQuestionSubscription$;
   private currentCharacter: Radical;
+  private quizOptions: QuizOptions;
   private cardColors = {
     radical: '#08c',
     kanji: '#f0a',
@@ -55,9 +57,10 @@ export class QuizCardComponent implements OnInit, OnDestroy {
         if (nextQuestion) {
           this.currentCharacter = nextQuestion;
         }
+        this.quizOptions = quizOptions;
         this.charactersValue = this.quizService.choosePropertiesForQuestion(
           this.currentCharacter,
-          quizOptions
+          this.quizOptions
         );
         this.initForm();
       });
@@ -135,10 +138,10 @@ export class QuizCardComponent implements OnInit, OnDestroy {
     } else {
       this.cardStatus = CardStatus.CORRECT;
     }
-    // TODO: Check if should display correct answer
-    this.charactersValue = { ...this.currentCharacter };
-    this.initForm();
-    //
+    if (this.quizOptions.shouldShowAnswer) {
+      this.charactersValue = { ...this.currentCharacter };
+      this.initForm();
+    }
     CssUtil.changeQuizCardColor(
       this.cardStatus === CardStatus.CORRECT
         ? this.cardColors.correct
