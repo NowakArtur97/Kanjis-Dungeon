@@ -35,6 +35,19 @@
             id="shouldShowAnswer"
             value="shouldShowAnswer"
           />
+          <div class="quiz_options__controls">
+            <label class="quiz_options__label" for="shouldHideRandomProperties"
+              >Should hide random properties</label
+            >
+            <input
+              formControlName="shouldHideRandomProperties"
+              class="quiz_options__input"
+              type="checkbox"
+              name="shouldHideRandomProperties"
+              id="shouldHideRandomProperties"
+              value="shouldHideRandomProperties"
+            />
+          </div>
         </div>
       </div>
       <div
@@ -68,7 +81,11 @@
             >
             <input
               formControlName="meanings"
-              [attr.disabled]="isTypeSelected('radical') ? null : true"
+              [attr.disabled]="
+                isTypeSelected('radical') && !shouldHideRandomProperties()
+                  ? null
+                  : true
+              "
               class="quiz_options__input"
               type="checkbox"
               name="meanings"
@@ -107,7 +124,11 @@
             >
             <input
               formControlName="meanings"
-              [attr.disabled]="isTypeSelected('kanji') ? null : true"
+              [attr.disabled]="
+                isTypeSelected('kanji') && !shouldHideRandomProperties()
+                  ? null
+                  : true
+              "
               class="quiz_options__input"
               type="checkbox"
               name="meanings"
@@ -119,7 +140,11 @@
             <label class="quiz_options__label" for="onyomi">Onyomi</label>
             <input
               formControlName="onyomi"
-              [attr.disabled]="isTypeSelected('kanji') ? null : true"
+              [attr.disabled]="
+                isTypeSelected('kanji') && !shouldHideRandomProperties()
+                  ? null
+                  : true
+              "
               class="quiz_options__input"
               type="checkbox"
               name="onyomi"
@@ -131,7 +156,11 @@
             <label class="quiz_options__label" for="kunyomi">Kunyomi</label>
             <input
               formControlName="kunyomi"
-              [attr.disabled]="isTypeSelected('kanji') ? null : true"
+              [attr.disabled]="
+                isTypeSelected('kanji') && !shouldHideRandomProperties()
+                  ? null
+                  : true
+              "
               class="quiz_options__input"
               type="checkbox"
               name="kunyomi"
@@ -143,7 +172,11 @@
             <label class="quiz_options__label" for="nanori">Nanori</label>
             <input
               formControlName="nanori"
-              [attr.disabled]="isTypeSelected('kanji') ? null : true"
+              [attr.disabled]="
+                isTypeSelected('kanji') && !shouldHideRandomProperties()
+                  ? null
+                  : true
+              "
               class="quiz_options__input"
               type="checkbox"
               name="nanori"
@@ -183,7 +216,11 @@
             >
             <input
               formControlName="meanings"
-              [attr.disabled]="isTypeSelected('vocabulary') ? null : true"
+              [attr.disabled]="
+                isTypeSelected('vocabulary') && !shouldHideRandomProperties()
+                  ? null
+                  : true
+              "
               class="quiz_options__input"
               type="checkbox"
               name="meanings"
@@ -195,7 +232,11 @@
             <label class="quiz_options__label" for="reading">Reading</label>
             <input
               formControlName="reading"
-              [attr.disabled]="isTypeSelected('vocabulary') ? null : true"
+              [attr.disabled]="
+                isTypeSelected('vocabulary') && !shouldHideRandomProperties()
+                  ? null
+                  : true
+              "
               class="quiz_options__input"
               type="checkbox"
               name="reading"

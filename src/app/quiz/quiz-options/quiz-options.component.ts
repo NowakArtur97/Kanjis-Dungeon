@@ -41,6 +41,9 @@ export class QuizOptionsComponent implements OnInit, OnDestroy {
           Validators.min(1),
         ]),
         shouldShowAnswer: new FormControl(this.quizOptions.shouldShowAnswer),
+        shouldHideRandomProperties: new FormControl(
+          this.quizOptions.shouldHideRandomProperties
+        ),
       }),
       radical: new FormGroup({
         active: new FormControl(
@@ -106,7 +109,10 @@ export class QuizOptionsComponent implements OnInit, OnDestroy {
         'general',
         'shouldShowAnswer',
       ]).value,
-      shouldHideRandomProperties: true,
+      shouldHideRandomProperties: this.quizOptionsFormGroup.get([
+        'general',
+        'shouldHideRandomProperties',
+      ]).value,
       excludedProperties: this.getExcludedProperties(),
       questionTypes: this.getSelectedCharacterTypes(),
     };
@@ -158,4 +164,11 @@ export class QuizOptionsComponent implements OnInit, OnDestroy {
 
   isTypeSelected = (type: string): boolean =>
     this.quizOptionsFormGroup.get(type).value.active;
+
+  shouldHideRandomProperties(): boolean {
+    return this.quizOptionsFormGroup.get([
+      'general',
+      'shouldHideRandomProperties',
+    ]).value;
+  }
 }
