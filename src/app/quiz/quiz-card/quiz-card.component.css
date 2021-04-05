@@ -23,8 +23,6 @@
 
   height: 100%;
   width: 100%;
-
-  font-size: 3em;
 }
 
 .quiz_card__details {
@@ -46,7 +44,7 @@
   flex-basis: 25%;
   min-height: 25%;
   width: 100%;
-  padding: 0.1em;
+  padding: 0.2em;
 
   color: white;
 }
@@ -59,7 +57,7 @@
 .quiz_card__label {
   flex-basis: 30%;
 
-  font-size: 0.6em;
+  font-size: 2em;
   text-align: center;
   background-color: transparent;
   color: black;
@@ -76,7 +74,7 @@
   background-color: var(--main-card-color);
 
   text-align: center;
-  font-size: 0.8em;
+  font-size: 2.4em;
   font-family: "Source Sans Pro", Arial, Helvetica, sans-serif;
   text-transform: uppercase;
   color: white;
@@ -97,7 +95,7 @@
 .quiz_card__input--big {
   height: 100%;
   flex-basis: 100%;
-  font-size: 2em;
+  font-size: 6em;
 }
 
 .quiz_card__input--lowercase {
@@ -112,7 +110,7 @@
   margin-bottom: 0.1em;
   border: none;
 
-  font-size: 1.1em;
+  font-size: 3.3em;
   background-color: var(--main-card-color);
   color: white;
   text-transform: capitalize;

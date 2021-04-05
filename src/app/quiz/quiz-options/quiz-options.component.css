@@ -19,8 +19,6 @@
   flex-wrap: wrap;
 
   height: 100%;
-
-  font-size: 2em;
 }
 
 .quiz_options__option {
@@ -80,17 +78,17 @@
 .quiz_options__label {
   margin-right: 6px;
 
-  font-size: 0.7em;
+  font-size: 1.5em;
 }
 
 .quiz_options__label--big {
-  font-size: 0.8em;
+  font-size: 1.6em;
 }
 
 .quiz_options__input {
   border: none;
   text-align: center;
-  font-size: 0.8em;
+  font-size: 1.6em;
   font-family: "Source Sans Pro", Arial, Helvetica, sans-serif;
 
   background-color: transparent;
@@ -115,7 +113,7 @@
   border: none;
   background-color: var(--correct-answer-color);
 
-  font-size: 0.8em;
+  font-size: 1.8em;
   color: white;
   text-transform: capitalize;
   cursor: pointer;
@@ -136,18 +134,12 @@
   }
 
   .quiz_options__label {
-    font-size: 1em;
+    font-size: 2em;
   }
 
-  .quiz_options__label--big {
-    font-size: 1.2em;
-  }
-
-  .quiz_options__input {
-    font-size: 1.2em;
-  }
-
+  .quiz_options__label--big,
+  .quiz_options__input,
   .quiz_options__submit_button {
-    font-size: 1.2em;
+    font-size: 2.4em;
   }
 }
