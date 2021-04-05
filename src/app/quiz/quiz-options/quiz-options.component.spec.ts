@@ -69,35 +69,45 @@ describe('QuizOptionsComponent', () => {
           .value
       ).toBe(initialState.quizOptions.numberOfQuestions);
       expect(
+        component.quizOptionsFormGroup.get(['general', 'shouldShowAnswer'])
+          .value
+      ).toBe(initialState.quizOptions.shouldShowAnswer);
+      expect(
+        component.quizOptionsFormGroup.get([
+          'general',
+          'shouldHideRandomProperties',
+        ]).value
+      ).toBe(initialState.quizOptions.shouldHideRandomProperties);
+      expect(
         component.quizOptionsFormGroup.get(['radical', 'active']).value
       ).toBe(true);
       expect(
         component.quizOptionsFormGroup.get(['radical', 'meanings']).value
-      ).toBe(true);
+      ).toBe(false);
       expect(
         component.quizOptionsFormGroup.get(['kanji', 'active']).value
       ).toBe(true);
       expect(
         component.quizOptionsFormGroup.get(['kanji', 'meanings']).value
-      ).toBe(true);
+      ).toBe(false);
       expect(
         component.quizOptionsFormGroup.get(['kanji', 'onyomi']).value
-      ).toBe(true);
+      ).toBe(false);
       expect(
         component.quizOptionsFormGroup.get(['kanji', 'kunyomi']).value
-      ).toBe(true);
+      ).toBe(false);
       expect(
         component.quizOptionsFormGroup.get(['kanji', 'nanori']).value
-      ).toBe(true);
+      ).toBe(false);
       expect(
         component.quizOptionsFormGroup.get(['vocabulary', 'active']).value
       ).toBe(true);
       expect(
         component.quizOptionsFormGroup.get(['vocabulary', 'meanings']).value
-      ).toBe(true);
+      ).toBe(false);
       expect(
         component.quizOptionsFormGroup.get(['vocabulary', 'reading']).value
-      ).toBe(true);
+      ).toBe(false);
 
       expect(component.quizOptionsFormGroup.valid).toBeTrue();
       expect(store.select).toHaveBeenCalled();
@@ -143,12 +153,18 @@ describe('QuizOptionsComponent', () => {
       const quizOptions: QuizOptions = {
         numberOfQuestions: 21,
         minNumberOfProperties: 1,
-        shouldShowAnswer: true,
-        shouldHideRandomProperties: true,
+        shouldShowAnswer: false,
+        shouldHideRandomProperties: false,
         excludedProperties: new Map([
-          [CharacterType.RADICAL, ['characters', 'type']],
-          [CharacterType.KANJI, ['kunyomi', 'characters', 'type']],
-          [CharacterType.VOCABULARY, ['reading', 'characters', 'type']],
+          [CharacterType.RADICAL, ['meanings', 'characters', 'type']],
+          [
+            CharacterType.KANJI,
+            ['meanings', 'onyomi', 'nanori', 'characters', 'type'],
+          ],
+          [
+            CharacterType.VOCABULARY,
+            ['meanings', 'reading', 'characters', 'type'],
+          ],
         ]),
         questionTypes: [CharacterType.KANJI, CharacterType.VOCABULARY],
       };
@@ -156,6 +172,12 @@ describe('QuizOptionsComponent', () => {
       component.quizOptionsFormGroup
         .get(['general', 'numberOfQuestions'])
         .setValue(quizOptions.numberOfQuestions);
+      component.quizOptionsFormGroup
+        .get(['general', 'shouldShowAnswer'])
+        .setValue(quizOptions.shouldShowAnswer);
+      component.quizOptionsFormGroup
+        .get(['general', 'shouldHideRandomProperties'])
+        .setValue(quizOptions.shouldHideRandomProperties);
       component.quizOptionsFormGroup.get(['radical', 'active']).setValue(false);
       component.quizOptionsFormGroup
         .get(['radical', 'meanings'])
@@ -173,7 +195,7 @@ describe('QuizOptionsComponent', () => {
         .setValue(true);
       component.quizOptionsFormGroup
         .get(['vocabulary', 'reading'])
-        .setValue(false);
+        .setValue(true);
 
       component.onChangeOptions();
 

@@ -16,8 +16,8 @@ import { DEFAULT_EXCLUDED_PROPERTIES, DEFAULT_MIN_NUMBER_OF_PROPERTIES } from '.
 })
 export class QuizOptionsComponent implements OnInit, OnDestroy {
   private quizOptionsSubscription$: Subscription;
+  private quizOptions: QuizOptions;
   quizOptionsFormGroup: FormGroup;
-  quizOptions: QuizOptions;
 
   constructor(private store: Store<AppStoreState>) {}
 
@@ -99,7 +99,15 @@ export class QuizOptionsComponent implements OnInit, OnDestroy {
   }
 
   onChangeOptions(): void {
-    const quizOptions: QuizOptions = {
+    const quizOptions: QuizOptions = this.extractQuizOptionsFromForm();
+    const isAnyTypeSelected = quizOptions.questionTypes.length !== 0;
+    if (this.quizOptionsFormGroup.valid && isAnyTypeSelected) {
+      this.store.dispatch(QuizActions.changeQuizOptions({ quizOptions }));
+    }
+  }
+
+  private extractQuizOptionsFromForm(): QuizOptions {
+    return {
       numberOfQuestions: this.quizOptionsFormGroup.get([
         'general',
         'numberOfQuestions',
@@ -116,12 +124,6 @@ export class QuizOptionsComponent implements OnInit, OnDestroy {
       excludedProperties: this.getExcludedProperties(),
       questionTypes: this.getSelectedCharacterTypes(),
     };
-    if (
-      this.quizOptionsFormGroup.valid &&
-      quizOptions.questionTypes.length !== 0
-    ) {
-      this.store.dispatch(QuizActions.changeQuizOptions({ quizOptions }));
-    }
   }
 
   private getExcludedProperties(): Map<CharacterType, string[]> {

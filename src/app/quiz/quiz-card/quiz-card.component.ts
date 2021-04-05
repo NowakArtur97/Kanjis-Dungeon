@@ -35,7 +35,6 @@ export class QuizCardComponent implements OnInit, OnDestroy {
     correct: '#08c66c',
     wrong: '#f03',
   };
-  answerConfirmed = false;
   cardStatus = CardStatus.CHECK;
   charactersValue: QuizCard;
   quizFormGroup: FormGroup;
@@ -134,7 +133,6 @@ export class QuizCardComponent implements OnInit, OnDestroy {
     if (this.quizFormGroup.invalid) {
       this.quizFormGroup.updateValueAndValidity();
       this.cardStatus = CardStatus.WRONG;
-      this.answerConfirmed = false;
     } else {
       this.cardStatus = CardStatus.CORRECT;
     }
@@ -150,7 +148,6 @@ export class QuizCardComponent implements OnInit, OnDestroy {
   }
 
   private confirmAnswer(): void {
-    this.answerConfirmed = true;
     this.store.dispatch(
       this.cardStatus === CardStatus.CORRECT
         ? QuizActions.addAnswer({ answer: this.currentCharacter })

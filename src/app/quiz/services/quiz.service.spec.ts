@@ -36,7 +36,7 @@ describe('quizService', () => {
     reading: 'おとな',
     type: CharacterType.VOCABULARY,
   };
-  const quizOptions: QuizOptions = {
+  const quizOptionsWithHiddenRandomProperties: QuizOptions = {
     numberOfQuestions: 12,
     minNumberOfProperties: 1,
     shouldShowAnswer: true,
@@ -51,6 +51,15 @@ describe('quizService', () => {
       CharacterType.KANJI,
       CharacterType.VOCABULARY,
     ],
+  };
+  const quizOptionsWithoutHiddenRandomProperties: QuizOptions = {
+    ...quizOptionsWithHiddenRandomProperties,
+    shouldHideRandomProperties: false,
+    excludedProperties: new Map([
+      [CharacterType.RADICAL, ['meanings', 'characters', 'type']],
+      [CharacterType.KANJI, ['onyomi', 'kunyomi', 'characters', 'type']],
+      [CharacterType.VOCABULARY, ['reading', 'characters', 'type']],
+    ]),
   };
 
   const getNumberOfEmptyProperties = (
@@ -82,22 +91,24 @@ describe('quizService', () => {
 
   describe('when get next question', () => {
     it('should return question', () => {
-      spyOn(MathUtil, 'getRandomIndex').and.returnValues(0);
+      spyOn(MathUtil, 'getRandomIndex').and.returnValue(0);
 
       const questions = [radical, kanji, word];
       const question = quizService.getNextQuestion(questions);
 
       expect(question).not.toBeNull();
       expect(questions).toContain(question);
+
       expect(MathUtil.getRandomIndex).toHaveBeenCalledTimes(1);
     });
 
     it('with empty array should return undefined', () => {
-      spyOn(MathUtil, 'getRandomIndex').and.returnValues(0);
+      spyOn(MathUtil, 'getRandomIndex').and.returnValue(0);
 
       const question = quizService.getNextQuestion([]);
 
       expect(question).toBeUndefined();
+
       expect(MathUtil.getRandomIndex).toHaveBeenCalledTimes(1);
     });
   });
@@ -106,7 +117,10 @@ describe('quizService', () => {
     it('should return three questions', () => {
       spyOn(MathUtil, 'getRandomIndex').and.returnValues(0, 1, 2);
 
-      const options = { ...quizOptions, numberOfQuestions: 9 };
+      const options = {
+        ...quizOptionsWithHiddenRandomProperties,
+        numberOfQuestions: 9,
+      };
       const alreadyChosenQuestionsFromRadicals = [...RADICALS];
       alreadyChosenQuestionsFromRadicals.length = 3;
       const alreadyChosenQuestionsFromVocabulary = [...VOCABULARY];
@@ -120,13 +134,17 @@ describe('quizService', () => {
       expect(questions[6]).toEqual(KANJI[0]);
       expect(questions[7]).toEqual(KANJI[1]);
       expect(questions[8]).toEqual(KANJI[2]);
+
       expect(MathUtil.getRandomIndex).toHaveBeenCalledTimes(3);
     });
 
     it('should return questions', () => {
       spyOn(MathUtil, 'getRandomIndex').and.returnValues(0, 1, 2, 3);
 
-      const options = { ...quizOptions, numberOfQuestions: 10 };
+      const options = {
+        ...quizOptionsWithHiddenRandomProperties,
+        numberOfQuestions: 10,
+      };
       const alreadyChosenQuestionsFromKanji = [...KANJI];
       alreadyChosenQuestionsFromKanji.length = 3;
       const alreadyChosenQuestionsFromVocabulary = [...VOCABULARY];
@@ -141,16 +159,28 @@ describe('quizService', () => {
       expect(questions[7]).toEqual(RADICALS[1]);
       expect(questions[8]).toEqual(RADICALS[2]);
       expect(questions[9]).toEqual(RADICALS[3]);
+
       expect(MathUtil.getRandomIndex).toHaveBeenCalledTimes(4);
     });
   });
 
-  describe('when choose properties for question', () => {
+  describe('when choose random properties for question', () => {
     describe('as radical', () => {
       it('should return quiz card with properties', () => {
+        const numberOfEmptyPropertiesExpected = 1;
+        spyOn(MathUtil, 'getRandomIntValue').and.returnValue(
+          numberOfEmptyPropertiesExpected
+        );
+        spyOn(MathUtil, 'getRandomIndex').and.returnValues(0, 0);
+
         const quizCard = quizService.choosePropertiesForQuestion(
           radical,
-          quizOptions
+          quizOptionsWithHiddenRandomProperties
+        );
+
+        const numberOfEmptyPropertiesActual = getNumberOfEmptyProperties(
+          radical,
+          quizCard
         );
 
         expect(quizCard.characters).toEqual(radical.characters);
@@ -159,20 +189,27 @@ describe('quizService', () => {
         expect(quizCard.kunyomi).toEqual(['']);
         expect(quizCard.nanori).toEqual(['']);
         expect(quizCard.reading).toEqual('');
+
+        expect(numberOfEmptyPropertiesExpected).toBe(
+          numberOfEmptyPropertiesActual
+        );
+
+        expect(MathUtil.getRandomIntValue).not.toHaveBeenCalled();
+        expect(MathUtil.getRandomIndex).toHaveBeenCalledTimes(1);
       });
     });
 
     describe('as kanji', () => {
       it('should return quiz card with two properties', () => {
         const numberOfEmptyPropertiesExpected = 2;
-        spyOn(MathUtil, 'getRandomIntValue').and.returnValues(
+        spyOn(MathUtil, 'getRandomIntValue').and.returnValue(
           numberOfEmptyPropertiesExpected
         );
         spyOn(MathUtil, 'getRandomIndex').and.returnValues(0, 0);
 
         const quizCard = quizService.choosePropertiesForQuestion(
           kanji,
-          quizOptions
+          quizOptionsWithHiddenRandomProperties
         );
 
         const numberOfEmptyPropertiesActual = getNumberOfEmptyProperties(
@@ -186,23 +223,25 @@ describe('quizService', () => {
         expect(quizCard.kunyomi).toEqual(kanji.kunyomi);
         expect(quizCard.nanori).toEqual(kanji.nanori);
         expect(quizCard.reading).toEqual('');
-        expect(
-          numberOfEmptyPropertiesActual === numberOfEmptyPropertiesExpected
-        ).toBeTrue();
+
+        expect(numberOfEmptyPropertiesExpected).toBe(
+          numberOfEmptyPropertiesActual
+        );
+
         expect(MathUtil.getRandomIntValue).toHaveBeenCalledTimes(1);
         expect(MathUtil.getRandomIndex).toHaveBeenCalledTimes(2);
       });
 
       it('should return quiz card with three properties', () => {
         const numberOfEmptyPropertiesExpected = 3;
-        spyOn(MathUtil, 'getRandomIntValue').and.returnValues(
+        spyOn(MathUtil, 'getRandomIntValue').and.returnValue(
           numberOfEmptyPropertiesExpected
         );
         spyOn(MathUtil, 'getRandomIndex').and.returnValues(1, 1, 1);
 
         const quizCard = quizService.choosePropertiesForQuestion(
           kanji,
-          quizOptions
+          quizOptionsWithHiddenRandomProperties
         );
 
         const numberOfEmptyPropertiesActual = getNumberOfEmptyProperties(
@@ -216,25 +255,27 @@ describe('quizService', () => {
         expect(quizCard.kunyomi).toEqual(['']);
         expect(quizCard.nanori).toEqual(['']);
         expect(quizCard.reading).toEqual('');
-        expect(
-          numberOfEmptyPropertiesActual === numberOfEmptyPropertiesExpected
-        ).toBeTrue();
+
+        expect(numberOfEmptyPropertiesExpected).toBe(
+          numberOfEmptyPropertiesActual
+        );
+
         expect(MathUtil.getRandomIntValue).toHaveBeenCalledTimes(1);
         expect(MathUtil.getRandomIndex).toHaveBeenCalledTimes(3);
       });
     });
 
-    describe('as word', () => {
+    describe('as vocabulary', () => {
       it('should return quiz card with one property', () => {
         const numberOfEmptyPropertiesExpected = 1;
-        spyOn(MathUtil, 'getRandomIntValue').and.returnValues(
+        spyOn(MathUtil, 'getRandomIntValue').and.returnValue(
           numberOfEmptyPropertiesExpected
         );
-        spyOn(MathUtil, 'getRandomIndex').and.returnValues(0);
+        spyOn(MathUtil, 'getRandomIndex').and.returnValue(0);
 
         const quizCard = quizService.choosePropertiesForQuestion(
           word,
-          quizOptions
+          quizOptionsWithHiddenRandomProperties
         );
 
         const numberOfEmptyPropertiesActual = getNumberOfEmptyProperties(
@@ -248,23 +289,25 @@ describe('quizService', () => {
         expect(quizCard.kunyomi).toEqual(['']);
         expect(quizCard.nanori).toEqual(['']);
         expect(quizCard.reading).toEqual(word.reading);
-        expect(
-          numberOfEmptyPropertiesActual === numberOfEmptyPropertiesExpected
-        ).toBeTrue();
+
+        expect(numberOfEmptyPropertiesExpected).toBe(
+          numberOfEmptyPropertiesActual
+        );
+
         expect(MathUtil.getRandomIntValue).toHaveBeenCalledTimes(1);
         expect(MathUtil.getRandomIndex).toHaveBeenCalledTimes(1);
       });
 
       it('should return quiz card with two properties', () => {
         const numberOfEmptyPropertiesExpected = 2;
-        spyOn(MathUtil, 'getRandomIntValue').and.returnValues(
+        spyOn(MathUtil, 'getRandomIntValue').and.returnValue(
           numberOfEmptyPropertiesExpected
         );
         spyOn(MathUtil, 'getRandomIndex').and.returnValues(0, 0);
 
         const quizCard = quizService.choosePropertiesForQuestion(
           word,
-          quizOptions
+          quizOptionsWithHiddenRandomProperties
         );
 
         const numberOfEmptyPropertiesActual = getNumberOfEmptyProperties(
@@ -278,12 +321,106 @@ describe('quizService', () => {
         expect(quizCard.kunyomi).toEqual(['']);
         expect(quizCard.nanori).toEqual(['']);
         expect(quizCard.reading).toEqual('');
-        expect(
-          numberOfEmptyPropertiesActual === numberOfEmptyPropertiesExpected
-        ).toBeTrue();
+
+        expect(numberOfEmptyPropertiesExpected).toBe(
+          numberOfEmptyPropertiesActual
+        );
+
         expect(MathUtil.getRandomIntValue).toHaveBeenCalledTimes(1);
         expect(MathUtil.getRandomIndex).toHaveBeenCalledTimes(2);
       });
+    });
+  });
+
+  describe('when choose specific properties for question', () => {
+    it('should return radical quiz card with specific properties', () => {
+      const numberOfEmptyPropertiesExpected = 1;
+      spyOn(MathUtil, 'getRandomIntValue');
+      spyOn(MathUtil, 'getRandomIndex');
+
+      const quizCard = quizService.choosePropertiesForQuestion(
+        radical,
+        quizOptionsWithoutHiddenRandomProperties
+      );
+
+      const numberOfEmptyPropertiesActual = getNumberOfEmptyProperties(
+        word,
+        quizCard
+      );
+
+      expect(quizCard.characters).toEqual(radical.characters);
+      expect(quizCard.meanings).toEqual(radical.meanings);
+      expect(quizCard.onyomi).toEqual(['']);
+      expect(quizCard.kunyomi).toEqual(['']);
+      expect(quizCard.nanori).toEqual(['']);
+      expect(quizCard.reading).toEqual('');
+
+      expect(numberOfEmptyPropertiesExpected).toBe(
+        numberOfEmptyPropertiesActual
+      );
+
+      expect(MathUtil.getRandomIntValue).not.toHaveBeenCalled();
+      expect(MathUtil.getRandomIndex).not.toHaveBeenCalled();
+    });
+
+    it('should return kanji quiz card with specific properties', () => {
+      const numberOfEmptyPropertiesExpected = 2;
+      spyOn(MathUtil, 'getRandomIntValue');
+      spyOn(MathUtil, 'getRandomIndex').and.returnValues(0, 0);
+
+      const quizCard = quizService.choosePropertiesForQuestion(
+        kanji,
+        quizOptionsWithoutHiddenRandomProperties
+      );
+
+      const numberOfEmptyPropertiesActual = getNumberOfEmptyProperties(
+        kanji,
+        quizCard
+      );
+
+      expect(quizCard.characters).toEqual(kanji.characters);
+      expect(quizCard.meanings).toEqual(['']);
+      expect(quizCard.onyomi).toEqual(kanji.onyomi);
+      expect(quizCard.kunyomi).toEqual(kanji.kunyomi);
+      expect(quizCard.nanori).toEqual(['']);
+      expect(quizCard.reading).toEqual('');
+
+      expect(numberOfEmptyPropertiesExpected).toBe(
+        numberOfEmptyPropertiesActual
+      );
+
+      expect(MathUtil.getRandomIntValue).not.toHaveBeenCalled();
+      expect(MathUtil.getRandomIndex).toHaveBeenCalledTimes(2);
+    });
+
+    it('should return vocabulary quiz card with specific properties', () => {
+      const numberOfEmptyPropertiesExpected = 1;
+      spyOn(MathUtil, 'getRandomIntValue');
+      spyOn(MathUtil, 'getRandomIndex').and.returnValue(0);
+
+      const quizCard = quizService.choosePropertiesForQuestion(
+        word,
+        quizOptionsWithoutHiddenRandomProperties
+      );
+
+      const numberOfEmptyPropertiesActual = getNumberOfEmptyProperties(
+        word,
+        quizCard
+      );
+
+      expect(quizCard.characters).toEqual(word.characters);
+      expect(quizCard.meanings).toEqual(['']);
+      expect(quizCard.onyomi).toEqual(['']);
+      expect(quizCard.kunyomi).toEqual(['']);
+      expect(quizCard.nanori).toEqual(['']);
+      expect(quizCard.reading).toEqual(word.reading);
+
+      expect(numberOfEmptyPropertiesExpected).toBe(
+        numberOfEmptyPropertiesActual
+      );
+
+      expect(MathUtil.getRandomIntValue).not.toHaveBeenCalled();
+      expect(MathUtil.getRandomIndex).toHaveBeenCalledTimes(1);
     });
   });
 });
