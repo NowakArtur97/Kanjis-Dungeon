@@ -106,8 +106,7 @@ export class QuizOptionsComponent implements OnInit, OnDestroy {
         'general',
         'shouldShowAnswer',
       ]).value,
-      // TODO: Add to options
-      shouldHideRandomProperties: false,
+      shouldHideRandomProperties: true,
       excludedProperties: this.getExcludedProperties(),
       questionTypes: this.getSelectedCharacterTypes(),
     };

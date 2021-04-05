@@ -78,21 +78,19 @@ export default class QuizService {
     const excludedProperties = quizOptions.excludedProperties.get(
       question.type
     );
-    const properties = this.getRandomPropertiesToHide(
+    const properties = this.getPropertiesToHide(
       question,
       excludedProperties,
       quizCard
     );
     const numberOfProperties = this.getNumberOfPropertiesToHide(
       properties,
-      excludedProperties,
       quizOptions
     );
 
     let propertiesCounter = 0;
     while (propertiesCounter < numberOfProperties) {
       this.hideProperty(properties, quizCard);
-
       propertiesCounter++;
     }
 
@@ -129,7 +127,7 @@ export default class QuizService {
     };
   }
 
-  private getRandomPropertiesToHide = (
+  private getPropertiesToHide = (
     question: Radical,
     excludedProperties: string[],
     quizCard: QuizCard
@@ -142,13 +140,12 @@ export default class QuizService {
 
   private getNumberOfPropertiesToHide(
     properties: string[],
-    excludedProperties: string[],
     quizOptions: QuizOptions
   ) {
-    if (properties.length === 1) {
-      return 1;
-    } else if (properties.length === excludedProperties.length) {
+    if (!quizOptions.shouldHideRandomProperties) {
       return properties.length;
+    } else if (properties.length === 1) {
+      return 1;
     }
     return MathUtil.getRandomIntValue(
       properties.length,
