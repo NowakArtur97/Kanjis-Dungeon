@@ -32,6 +32,8 @@ const initialState: QuizStoreState = {
   quizOptions: {
     numberOfQuestions: 12,
     minNumberOfProperties: 1,
+    shouldShowAnswer: true,
+    shouldHideRandomProperties: true,
     excludedProperties: new Map([
       [CharacterType.RADICAL, ['characters', 'type']],
       [CharacterType.KANJI, ['characters', 'type']],
@@ -52,6 +54,8 @@ const stateWithQuestions: QuizStoreState = {
   quizOptions: {
     numberOfQuestions: 12,
     minNumberOfProperties: 1,
+    shouldShowAnswer: true,
+    shouldHideRandomProperties: true,
     excludedProperties: new Map([
       [CharacterType.RADICAL, ['characters', 'type']],
       [CharacterType.KANJI, ['characters', 'type']],
@@ -72,6 +76,8 @@ const stateWithMistakes: QuizStoreState = {
   quizOptions: {
     numberOfQuestions: 12,
     minNumberOfProperties: 1,
+    shouldShowAnswer: true,
+    shouldHideRandomProperties: true,
     excludedProperties: new Map([
       [CharacterType.RADICAL, ['characters', 'type']],
       [CharacterType.KANJI, ['characters', 'type']],
@@ -123,6 +129,8 @@ describe('quizReducer', () => {
         quizOptions: {
           numberOfQuestions: 12,
           minNumberOfProperties: 1,
+          shouldShowAnswer: true,
+          shouldHideRandomProperties: true,
           excludedProperties: new Map([
             [CharacterType.RADICAL, ['characters', 'type']],
             [CharacterType.KANJI, ['characters', 'type']],
@@ -154,6 +162,8 @@ describe('quizReducer', () => {
         quizOptions: {
           numberOfQuestions: 12,
           minNumberOfProperties: 1,
+          shouldShowAnswer: true,
+          shouldHideRandomProperties: true,
           excludedProperties: new Map([
             [CharacterType.RADICAL, ['characters', 'type']],
             [CharacterType.KANJI, ['characters', 'type']],
@@ -183,6 +193,8 @@ describe('quizReducer', () => {
         quizOptions: {
           numberOfQuestions: 12,
           minNumberOfProperties: 1,
+          shouldShowAnswer: true,
+          shouldHideRandomProperties: true,
           excludedProperties: new Map([
             [CharacterType.RADICAL, ['characters', 'type']],
             [CharacterType.KANJI, ['characters', 'type']],
@@ -214,6 +226,8 @@ describe('quizReducer', () => {
       quizOptions: {
         numberOfQuestions: 12,
         minNumberOfProperties: 1,
+        shouldShowAnswer: true,
+        shouldHideRandomProperties: true,
         excludedProperties: new Map([
           [CharacterType.RADICAL, ['characters', 'type']],
           [CharacterType.KANJI, ['characters', 'type']],

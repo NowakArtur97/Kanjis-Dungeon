@@ -22,6 +22,8 @@ describe('QuizCardComponent', () => {
     quizOptions: {
       numberOfQuestions: 12,
       minNumberOfProperties: 1,
+      shouldShowAnswer: true,
+      shouldHideRandomProperties: true,
       excludedProperties: new Map([
         [CharacterType.RADICAL, ['characters', 'type']],
         [CharacterType.KANJI, ['characters', 'type']],
@@ -64,6 +66,8 @@ describe('QuizCardComponent', () => {
     quizOptions: {
       numberOfQuestions: 12,
       minNumberOfProperties: 1,
+      shouldShowAnswer: true,
+      shouldHideRandomProperties: true,
       excludedProperties: new Map([
         [CharacterType.RADICAL, ['characters', 'type']],
         [CharacterType.KANJI, ['characters', 'type']],
@@ -78,6 +82,8 @@ describe('QuizCardComponent', () => {
     quizOptions: {
       numberOfQuestions: 12,
       minNumberOfProperties: 1,
+      shouldShowAnswer: true,
+      shouldHideRandomProperties: true,
       excludedProperties: new Map([
         [CharacterType.RADICAL, ['characters', 'type']],
         [CharacterType.KANJI, ['characters', 'type']],
@@ -96,6 +102,8 @@ describe('QuizCardComponent', () => {
     quizOptions: {
       numberOfQuestions: 12,
       minNumberOfProperties: 1,
+      shouldShowAnswer: true,
+      shouldHideRandomProperties: true,
       excludedProperties: new Map([
         [CharacterType.RADICAL, ['characters', 'type']],
         [CharacterType.KANJI, ['characters', 'type']],
@@ -114,6 +122,8 @@ describe('QuizCardComponent', () => {
     quizOptions: {
       numberOfQuestions: 12,
       minNumberOfProperties: 1,
+      shouldShowAnswer: true,
+      shouldHideRandomProperties: true,
       excludedProperties: new Map([
         [CharacterType.RADICAL, ['characters', 'type']],
         [CharacterType.KANJI, ['characters', 'type']],

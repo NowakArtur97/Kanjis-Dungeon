@@ -20,6 +20,8 @@ describe('QuizOptionsComponent', () => {
     quizOptions: {
       numberOfQuestions: 12,
       minNumberOfProperties: 1,
+      shouldShowAnswer: true,
+      shouldHideRandomProperties: true,
       excludedProperties: new Map([
         [CharacterType.RADICAL, ['characters', 'type']],
         [CharacterType.KANJI, ['characters', 'type']],
@@ -109,6 +111,9 @@ describe('QuizOptionsComponent', () => {
 
       const quizOptionsWithoutMinNumberOfProperties: QuizOptions = {
         numberOfQuestions: 12,
+        minNumberOfProperties: 1,
+        shouldShowAnswer: true,
+        shouldHideRandomProperties: true,
         excludedProperties: new Map([
           [CharacterType.RADICAL, ['characters', 'type']],
           [CharacterType.KANJI, ['characters', 'type']],
@@ -137,6 +142,9 @@ describe('QuizOptionsComponent', () => {
 
       const quizOptions: QuizOptions = {
         numberOfQuestions: 21,
+        minNumberOfProperties: 1,
+        shouldShowAnswer: true,
+        shouldHideRandomProperties: true,
         excludedProperties: new Map([
           [CharacterType.RADICAL, ['characters', 'type']],
           [CharacterType.KANJI, ['kunyomi', 'characters', 'type']],
@@ -144,7 +152,6 @@ describe('QuizOptionsComponent', () => {
         ]),
         questionTypes: [CharacterType.KANJI, CharacterType.VOCABULARY],
       };
-      console.log(quizOptions);
 
       component.quizOptionsFormGroup
         .get(['general', 'numberOfQuestions'])
