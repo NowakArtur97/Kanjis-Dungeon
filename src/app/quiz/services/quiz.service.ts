@@ -97,7 +97,7 @@ export default class QuizService {
     return quizCard;
   }
 
-  private hideProperty(properties: string[], quizCard: QuizCard) {
+  private hideProperty(properties: string[], quizCard: QuizCard): void {
     const property = properties[MathUtil.getRandomIndex(properties)];
     const isArray = Array.isArray(quizCard[property]);
     properties.splice(properties.indexOf(property), 1);
@@ -141,7 +141,7 @@ export default class QuizService {
   private getNumberOfPropertiesToHide(
     properties: string[],
     quizOptions: QuizOptions
-  ) {
+  ): number {
     if (!quizOptions.shouldHideRandomProperties) {
       return properties.length;
     } else if (properties.length === 1) {
