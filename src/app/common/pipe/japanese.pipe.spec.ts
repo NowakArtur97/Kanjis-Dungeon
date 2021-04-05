@@ -19,7 +19,7 @@ describe('JapanesePipe', () => {
     });
 
     it('should return text as hiragana with n letter', () => {
-      const hiragana = pipe.transform('nin');
+      const hiragana = pipe.transform('ninn');
       expect(hiragana).toEqual('にん');
     });
   });
@@ -36,7 +36,7 @@ describe('JapanesePipe', () => {
     });
 
     it('should return text as katakana with n letter', () => {
-      const hiragana = pipe.transform('NIN');
+      const hiragana = pipe.transform('NINN');
       expect(hiragana).toEqual('ニン');
     });
   });
