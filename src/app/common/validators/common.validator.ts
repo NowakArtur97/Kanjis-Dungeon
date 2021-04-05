@@ -8,13 +8,16 @@ export default class CommonValidators {
 
   static includes = (array: any[]) => ({
     value,
-  }: FormControl): ValidationErrors =>
-    array &&
-    array.findIndex(
-      (item) => (value + '').toLowerCase() === item.toLowerCase()
-    ) === -1 &&
-    JSON.stringify(array.slice().sort()) !==
-      JSON.stringify((value + '').toLowerCase().split(',').sort())
+  }: FormControl): ValidationErrors => {
+    const containsInLowerCase =
+      array.findIndex(
+        (item) => (value + '').toLowerCase() === item.toLowerCase()
+      ) === -1;
+    const isSameArray =
+      JSON.stringify(array.slice().sort()) !==
+      JSON.stringify((value + '').toLowerCase().split(',').sort());
+    return array && containsInLowerCase && isSameArray
       ? { includes: true }
       : null;
+  };
 }
