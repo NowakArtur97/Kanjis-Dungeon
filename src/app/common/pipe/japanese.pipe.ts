@@ -58,9 +58,9 @@ export class JapanesePipe implements PipeTransform {
     ['zu', 'ず'],
     ['ze', 'ぜ'],
     ['zo', 'ぞ'],
-    ['ja', 'じゃ'],
-    ['ju', 'じゅ'],
-    ['jo', 'じょ'],
+    ['jya', 'じゃ'],
+    ['jyu', 'じゅ'],
+    ['jyo', 'じょ'],
 
     ['na', 'な'],
     ['ni', 'に'],
@@ -105,10 +105,6 @@ export class JapanesePipe implements PipeTransform {
     ['myu', 'みゅ'],
     ['myo', 'みょ'],
 
-    ['ya', 'や'],
-    ['yu', 'ゆ'],
-    ['yo', 'よ'],
-
     ['ra', 'ら'],
     ['ri', 'り'],
     ['ru', 'る'],
@@ -117,6 +113,10 @@ export class JapanesePipe implements PipeTransform {
     ['rya', 'りゃ'],
     ['ryu', 'りゅ'],
     ['ryo', 'りょ'],
+
+    ['ya', 'や'],
+    ['yu', 'ゆ'],
+    ['yo', 'よ'],
 
     ['wa', 'わ'],
     ['wi', 'ゐ'],
@@ -180,9 +180,9 @@ export class JapanesePipe implements PipeTransform {
     ['ZU', 'ズ'],
     ['ZE', 'ゼ'],
     ['ZO', 'ゾ'],
-    ['JA', 'ジゃ'],
-    ['JU', 'ジゅ'],
-    ['JO', 'ジょ'],
+    ['JYA', 'ジゃ'],
+    ['JYU', 'ジゅ'],
+    ['JYO', 'ジょ'],
 
     ['NA', 'ナ'],
     ['NI', 'ニ'],
@@ -227,10 +227,6 @@ export class JapanesePipe implements PipeTransform {
     ['MYU', 'ミュ'],
     ['MYO', 'ミョ'],
 
-    ['YA', 'ヤ'],
-    ['YU', 'ユ'],
-    ['YO', 'ヨ'],
-
     ['RA', 'ラ'],
     ['RI', 'リ'],
     ['RU', 'ル'],
@@ -239,6 +235,10 @@ export class JapanesePipe implements PipeTransform {
     ['RYA', 'リャ'],
     ['RYU', 'リュ'],
     ['RYO', 'リョ'],
+
+    ['YA', 'ヤ'],
+    ['YU', 'ユ'],
+    ['YO', 'ヨ'],
 
     ['WA', 'ワ'],
     ['WI', 'ヰ'],
@@ -262,9 +262,9 @@ export class JapanesePipe implements PipeTransform {
       return value;
     }
 
-    let afterConversion = this.convertDoubleLowerCaseLetters(value);
+    let afterConversion = this.convertToJapanese(value);
+    afterConversion = this.convertDoubleLowerCaseLetters(afterConversion);
     afterConversion = this.convertDoubleUpperCaseLetters(afterConversion);
-    afterConversion = this.convertToJapanese(afterConversion);
 
     return this.convertToJapanese(afterConversion);
   }

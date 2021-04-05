@@ -17,6 +17,11 @@ describe('JapanesePipe', () => {
       const hiragana = pipe.transform('yatttsu');
       expect(hiragana).toEqual('やっつ');
     });
+
+    it('should return text as hiragana with n letter', () => {
+      const hiragana = pipe.transform('nin');
+      expect(hiragana).toEqual('にん');
+    });
   });
 
   describe('with katakana', () => {
@@ -28,6 +33,11 @@ describe('JapanesePipe', () => {
     it('should return text as katakana with double letter', () => {
       const katakana = pipe.transform('ROKKKU');
       expect(katakana).toEqual('ロック');
+    });
+
+    it('should return text as katakana with n letter', () => {
+      const hiragana = pipe.transform('NIN');
+      expect(hiragana).toEqual('ニン');
     });
   });
 
