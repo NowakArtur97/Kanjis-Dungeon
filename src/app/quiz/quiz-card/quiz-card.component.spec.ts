@@ -181,10 +181,10 @@ describe('QuizCardComponent', () => {
       component.ngOnInit();
 
       expect(component.quizFormGroup.get('characters').value).toBe('');
-      expect(component.quizFormGroup.get('meaning').value).toEqual('');
-      expect(component.quizFormGroup.get('onyomi').value).toEqual('');
-      expect(component.quizFormGroup.get('kunyomi').value).toEqual('');
-      expect(component.quizFormGroup.get('nanori').value).toEqual('');
+      expect(component.quizFormGroup.get('meaning').value).toEqual(['']);
+      expect(component.quizFormGroup.get('onyomi').value).toEqual(['']);
+      expect(component.quizFormGroup.get('kunyomi').value).toEqual(['']);
+      expect(component.quizFormGroup.get('nanori').value).toEqual(['']);
       expect(component.quizFormGroup.get('reading').value).toBe('');
       expect(component.quizFormGroup.valid).toBeTrue();
       expect(component.cardStatus.toString()).toBe('0');
@@ -213,11 +213,11 @@ describe('QuizCardComponent', () => {
           radical.characters
         );
         expect(component.quizFormGroup.get('meaning').value).toEqual(
-          radical.meanings[0]
+          radical.meanings
         );
-        expect(component.quizFormGroup.get('onyomi').value).toEqual('');
-        expect(component.quizFormGroup.get('kunyomi').value).toEqual('');
-        expect(component.quizFormGroup.get('nanori').value).toEqual('');
+        expect(component.quizFormGroup.get('onyomi').value).toEqual(['']);
+        expect(component.quizFormGroup.get('kunyomi').value).toEqual(['']);
+        expect(component.quizFormGroup.get('nanori').value).toEqual(['']);
         expect(component.quizFormGroup.get('reading').value).toBe('');
         expect(component.quizFormGroup.valid).toBeTrue();
         expect(component.cardStatus.toString()).toBe('0');
@@ -242,16 +242,16 @@ describe('QuizCardComponent', () => {
           kanji.characters
         );
         expect(component.quizFormGroup.get('meaning').value).toEqual(
-          kanji.meanings[0]
+          kanji.meanings
         );
         expect(component.quizFormGroup.get('onyomi').value).toEqual(
-          kanji.onyomi[0]
+          kanji.onyomi
         );
         expect(component.quizFormGroup.get('kunyomi').value).toEqual(
-          kanji.kunyomi[0]
+          kanji.kunyomi
         );
         expect(component.quizFormGroup.get('nanori').value).toEqual(
-          kanji.nanori[0]
+          kanji.nanori
         );
         expect(component.quizFormGroup.get('reading').value).toBe('');
         expect(component.quizFormGroup.valid).toBeTrue();
@@ -279,11 +279,11 @@ describe('QuizCardComponent', () => {
           word.characters
         );
         expect(component.quizFormGroup.get('meaning').value).toEqual(
-          word.meanings[0]
+          word.meanings
         );
-        expect(component.quizFormGroup.get('onyomi').value).toEqual('');
-        expect(component.quizFormGroup.get('kunyomi').value).toEqual('');
-        expect(component.quizFormGroup.get('nanori').value).toEqual('');
+        expect(component.quizFormGroup.get('onyomi').value).toEqual(['']);
+        expect(component.quizFormGroup.get('kunyomi').value).toEqual(['']);
+        expect(component.quizFormGroup.get('nanori').value).toEqual(['']);
         expect(component.quizFormGroup.get('reading').value).toBe(word.reading);
         expect(component.quizFormGroup.valid).toBeTrue();
         expect(component.cardStatus.toString()).toBe('0');
@@ -434,7 +434,7 @@ describe('QuizCardComponent', () => {
           word.characters
         );
         expect(component.quizFormGroup.get('meaning').value).toEqual(
-          word.meanings[0]
+          word.meanings
         );
         expect(component.quizFormGroup.get('onyomi').value).toEqual('');
         expect(component.quizFormGroup.get('kunyomi').value).toEqual('');
@@ -446,6 +446,110 @@ describe('QuizCardComponent', () => {
         expect(store.dispatch).toHaveBeenCalledWith(
           QuizActions.addAnswer({
             answer: word,
+          })
+        );
+      });
+
+      it('with correct upper case answer should display all fields and dispatch addAnswer action', () => {
+        spyOn(store, 'select').and.callFake(() =>
+          of(quizStateWithKanjiAsQuestion)
+        );
+        spyOn(quizService, 'choosePropertiesForQuestion').and.returnValue({
+          characters: word.characters,
+          meanings: word.meanings,
+          reading: '',
+        });
+
+        fixture.detectChanges();
+        component.ngOnInit();
+
+        component.quizFormGroup.get('characters').setValue(kanji.characters);
+        component.quizFormGroup
+          .get('meaning')
+          .setValue(kanji.meanings[0].toUpperCase());
+        component.quizFormGroup.get('onyomi').setValue(kanji.onyomi[0]);
+        component.quizFormGroup.get('kunyomi').setValue(kanji.kunyomi[0]);
+        component.quizFormGroup.get('nanori').setValue(kanji.nanori[0]);
+
+        component.onValidateCard();
+        component.onValidateCard();
+
+        expect(component.cardStatus.toString()).toBe('0');
+        expect(component.quizFormGroup.valid).toBeTrue();
+
+        expect(component.quizFormGroup.get('characters').value).toBe(
+          kanji.characters
+        );
+        expect(component.quizFormGroup.get('meaning').value).toEqual(
+          kanji.meanings
+        );
+        expect(component.quizFormGroup.get('onyomi').value).toEqual(
+          kanji.onyomi
+        );
+        expect(component.quizFormGroup.get('kunyomi').value).toEqual(
+          kanji.kunyomi
+        );
+        expect(component.quizFormGroup.get('nanori').value).toEqual(
+          kanji.nanori
+        );
+        expect(component.quizFormGroup.get('reading').value).toBe('');
+
+        expect(store.select).toHaveBeenCalled();
+        expect(quizService.choosePropertiesForQuestion).toHaveBeenCalled();
+        expect(store.dispatch).toHaveBeenCalledWith(
+          QuizActions.addAnswer({
+            answer: kanji,
+          })
+        );
+      });
+
+      it('with correct answer with array should display all fields and dispatch addAnswer action', () => {
+        spyOn(store, 'select').and.callFake(() =>
+          of(quizStateWithKanjiAsQuestion)
+        );
+        spyOn(quizService, 'choosePropertiesForQuestion').and.returnValue({
+          characters: word.characters,
+          meanings: word.meanings,
+          reading: '',
+        });
+
+        fixture.detectChanges();
+        component.ngOnInit();
+
+        component.quizFormGroup.get('characters').setValue(kanji.characters);
+        component.quizFormGroup.get('meaning').setValue(kanji.meanings);
+        component.quizFormGroup.get('onyomi').setValue(kanji.onyomi);
+        component.quizFormGroup.get('kunyomi').setValue(kanji.kunyomi);
+        component.quizFormGroup.get('nanori').setValue(kanji.nanori);
+
+        component.onValidateCard();
+        component.onValidateCard();
+
+        expect(component.cardStatus.toString()).toBe('0');
+        expect(component.quizFormGroup.valid).toBeTrue();
+
+        expect(component.quizFormGroup.get('characters').value).toBe(
+          kanji.characters
+        );
+        expect(component.quizFormGroup.get('meaning').value).toEqual(
+          kanji.meanings
+        );
+        expect(component.quizFormGroup.get('onyomi').value).toEqual(
+          kanji.onyomi
+        );
+        expect(component.quizFormGroup.get('kunyomi').value).toEqual(
+          kanji.kunyomi
+        );
+        expect(component.quizFormGroup.get('nanori').value).toEqual(
+          kanji.nanori
+        );
+        expect(component.quizFormGroup.get('reading').value).toBe('');
+
+        expect(store.select).toHaveBeenCalled();
+        expect(quizService.choosePropertiesForQuestion).toHaveBeenCalled();
+        expect(store.dispatch).toHaveBeenCalledWith(
+          QuizActions.addAnswer({
+            answer: kanji,
           })
         );
       });
@@ -499,7 +603,7 @@ describe('QuizCardComponent', () => {
           radical.characters
         );
         expect(component.quizFormGroup.get('meaning').value).toEqual(
-          radical.meanings[0]
+          radical.meanings
         );
         expect(component.quizFormGroup.get('onyomi').value).toEqual('');
         expect(component.quizFormGroup.get('kunyomi').value).toEqual('');
@@ -535,7 +639,7 @@ describe('QuizCardComponent', () => {
           radical.characters
         );
         expect(component.quizFormGroup.get('meaning').value).toEqual(
-          radical.meanings[0]
+          radical.meanings
         );
         expect(component.quizFormGroup.get('onyomi').value).toEqual('');
         expect(component.quizFormGroup.get('kunyomi').value).toEqual('');
@@ -570,16 +674,16 @@ describe('QuizCardComponent', () => {
           kanji.characters
         );
         expect(component.quizFormGroup.get('meaning').value).toEqual(
-          kanji.meanings[0]
+          kanji.meanings
         );
         expect(component.quizFormGroup.get('onyomi').value).toEqual(
-          kanji.onyomi[0]
+          kanji.onyomi
         );
         expect(component.quizFormGroup.get('kunyomi').value).toEqual(
-          kanji.kunyomi[0]
+          kanji.kunyomi
         );
         expect(component.quizFormGroup.get('nanori').value).toEqual(
-          kanji.nanori[0]
+          kanji.nanori
         );
         expect(component.quizFormGroup.get('reading').value).toBe('');
 
@@ -609,7 +713,7 @@ describe('QuizCardComponent', () => {
           word.characters
         );
         expect(component.quizFormGroup.get('meaning').value).toEqual(
-          word.meanings[0]
+          word.meanings
         );
         expect(component.quizFormGroup.get('onyomi').value).toEqual('');
         expect(component.quizFormGroup.get('kunyomi').value).toEqual('');
