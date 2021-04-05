@@ -89,27 +89,27 @@ export class QuizCardComponent implements OnInit, OnDestroy {
         ),
       ]),
       meaning: new FormControl(
-        this.charactersValue.meanings[0],
+        this.charactersValue.meanings,
         this.currentCharacter
           ? [CommonValidators.includes(this.currentCharacter.meanings)]
           : []
       ),
       onyomi: new FormControl(
-        this.charactersValue.onyomi ? this.charactersValue.onyomi[0] : '',
+        this.charactersValue.onyomi ? this.charactersValue.onyomi : '',
         CharacterUtil.isKanji(this.currentCharacter) &&
         this.currentCharacter.onyomi
           ? [CommonValidators.includes(this.currentCharacter.onyomi)]
           : []
       ),
       kunyomi: new FormControl(
-        this.charactersValue.kunyomi ? this.charactersValue.kunyomi[0] : '',
+        this.charactersValue.kunyomi ? this.charactersValue.kunyomi : '',
         CharacterUtil.isKanji(this.currentCharacter) &&
         this.currentCharacter.kunyomi
           ? [CommonValidators.includes(this.currentCharacter.kunyomi)]
           : []
       ),
       nanori: new FormControl(
-        this.charactersValue.nanori ? this.charactersValue.nanori[0] : '',
+        this.charactersValue.nanori ? this.charactersValue.nanori : '',
         CharacterUtil.isKanji(this.currentCharacter) &&
         this.currentCharacter.nanori
           ? [CommonValidators.includes(this.currentCharacter.nanori)]
@@ -130,12 +130,10 @@ export class QuizCardComponent implements OnInit, OnDestroy {
       return;
     }
 
-    if (this.quizFormGroup.invalid) {
-      this.quizFormGroup.updateValueAndValidity();
-      this.cardStatus = CardStatus.WRONG;
-    } else {
-      this.cardStatus = CardStatus.CORRECT;
-    }
+    this.cardStatus = this.quizFormGroup.invalid
+      ? CardStatus.WRONG
+      : CardStatus.CORRECT;
+
     if (this.quizOptions.shouldShowAnswer) {
       this.charactersValue = { ...this.currentCharacter };
       this.initForm();
