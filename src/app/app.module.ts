@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 
 import { AppComponent } from './app.component';
 import { AppCommonModule } from './common/app-common.module';
+import { GameModule } from './game/game.module';
 import KanjiModule from './kanji/kanji.module';
 import { QuizModule } from './quiz/quiz.module';
 import RadicalModule from './radical/radical.module';
@@ -35,6 +36,7 @@ const appRoutes: Routes = [
     KanjiModule,
     VocabularyModule,
     QuizModule,
+    GameModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
