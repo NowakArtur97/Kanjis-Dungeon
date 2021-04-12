@@ -562,7 +562,7 @@ const KANJI: Kanji[] = [
     id: 71,
     characters: '台',
     meanings: ['machine'],
-    onyomi: ['だい, たい'],
+    onyomi: ['だい', 'たい'],
     type: CharacterType.KANJI,
   },
   {
