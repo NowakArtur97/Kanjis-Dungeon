@@ -1,0 +1,71 @@
+.game_card__wrapper {
+  position: relative;
+  height: 120px;
+  width: 75px;
+
+  border: 3px solid black;
+  border-radius: 5%;
+  box-shadow: 0 0 2px 1px rgb(91, 135, 192), 0 0 2px 1px rgb(32, 1, 168),
+    0 0 2px 1px rgb(18, 3, 85);
+  background-color: rgb(34, 182, 91);
+  padding: 5%;
+  transition: 0.2s linear;
+}
+
+.game_card__wrapper:hover {
+  transform: translateY(-70%) scale(1.5);
+  z-index: 1;
+}
+
+.game_card__content * {
+  text-align: center;
+}
+
+.game_card__title {
+  flex-basis: 10%;
+
+  padding: 0.2em;
+  background-color: rgb(163, 163, 163);
+
+  font-size: 1em;
+  color: rgb(236, 236, 236);
+}
+
+.game_card__image_container {
+  flex-basis: 30%;
+  display: flex;
+}
+
+.game_card__image {
+  width: 100%;
+  height: 100%;
+}
+
+.game_card__type {
+  flex-basis: 10%;
+  font-size: 0.8em;
+}
+
+.game_card__description {
+  flex-basis: 50%;
+  padding: 0.2em;
+  background-color: yellow;
+  font-size: 0.85em;
+}
+
+.game_card__cost {
+  position: absolute;
+  top: -1.3em;
+  left: -1.3em;
+  width: 2em;
+  height: 2em;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border: 2px solid black;
+  border-radius: 50%;
+  background-color: lawngreen;
+  font-size: 1.1em;
+}

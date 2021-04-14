@@ -1,0 +1,22 @@
+.game_layout {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  /* overflow-y: hidden; */
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) and (orientation: portrait) {
+  .game_layout {
+    position: absolute;
+    top: 100%;
+    left: 0;
+
+    width: 100vh;
+    height: 100vw;
+
+    transform: rotate(-90deg);
+    transform-origin: left top;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+}
