@@ -34,6 +34,12 @@
   }
 }
 
+@media (min-width: 850px) {
+  .hand {
+    height: 35vh;
+  }
+}
+
 @media (min-width: 1024px) {
   .hand {
     bottom: -12vh;
@@ -41,8 +47,14 @@
   }
 }
 
-@media (min-width: 1366px) {
+@media (orientation: portrait) {
   .hand {
-    height: 38vh;
+    height: 30vh;
+  }
+}
+
+@media (orientation: portrait) and (min-width: 1024px) {
+  .hand {
+    height: 25vh;
   }
 }

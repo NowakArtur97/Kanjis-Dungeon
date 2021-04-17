@@ -116,7 +116,7 @@
   }
 
   .game_card {
-    font-size: 1.1em;
+    font-size: 1.15em;
   }
 }
 
@@ -136,7 +136,7 @@
   }
 
   .game_card {
-    font-size: 1.3em;
+    font-size: 1.25em;
   }
 }
 
@@ -146,7 +146,17 @@
   }
 
   .game_card {
-    font-size: 1.4em;
+    font-size: 1.35em;
+  }
+}
+
+@media (min-width: 850px) {
+  .game_card__wrapper {
+    width: 125px;
+  }
+
+  .game_card {
+    font-size: 1.5em;
   }
 }
 
@@ -156,7 +166,7 @@
   }
 
   .game_card {
-    font-size: 1.85em;
+    font-size: 1.8em;
   }
 }
 
