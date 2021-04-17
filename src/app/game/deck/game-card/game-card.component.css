@@ -1,38 +1,41 @@
 .game_card__wrapper {
   position: relative;
-  height: 120px;
-  width: 75px;
+  height: 100%;
+  width: 80px;
 
   border: 3px solid black;
   border-radius: 5%;
   box-shadow: 0 0 2px 1px rgb(91, 135, 192), 0 0 2px 1px rgb(32, 1, 168),
     0 0 2px 1px rgb(18, 3, 85);
-  background-color: rgb(34, 182, 91);
-  padding: 5%;
-  transition: 0.2s linear;
+  background-color: hsl(0, 51%, 46%);
+  padding: 4%;
+  transition: transform 0.2s linear;
+
+  color: hsl(0, 0%, 90%);
 }
 
 .game_card__wrapper:hover {
-  transform: translateY(-70%) scale(1.5);
-  z-index: 1;
+  transform: translateY(-70%) scale(1.2);
 }
 
-.game_card__content * {
-  text-align: center;
+.game_card__content {
+  display: flex;
+  flex-direction: column;
+  background-color: hsl(0, 0%, 30%);
 }
 
 .game_card__title {
-  flex-basis: 10%;
+  flex-basis: 12%;
 
   padding: 0.2em;
-  background-color: rgb(163, 163, 163);
+  background-color: hsl(0, 0%, 60%);
 
+  text-align: center;
   font-size: 1em;
-  color: rgb(236, 236, 236);
 }
 
 .game_card__image_container {
-  flex-basis: 30%;
+  flex-basis: 28%;
   display: flex;
 }
 
@@ -43,20 +46,35 @@
 
 .game_card__type {
   flex-basis: 10%;
+
+  display: flex;
+  justify-content: center;
+  margin: -10% 0 0;
+
+  text-align: center;
   font-size: 0.8em;
+
+  z-index: 1;
+}
+
+.game_card__type_name {
+  width: 60%;
+  border-radius: 50%;
+  background-color: hsl(0, 0%, 90%);
+  color: hsl(0, 0%, 20%);
 }
 
 .game_card__description {
   flex-basis: 50%;
   padding: 0.2em;
-  background-color: yellow;
+  text-align: center;
   font-size: 0.85em;
 }
 
 .game_card__cost {
   position: absolute;
-  top: -1.3em;
-  left: -1.3em;
+  top: -0.9em;
+  left: -0.9em;
   width: 2em;
   height: 2em;
 
@@ -66,6 +84,7 @@
 
   border: 2px solid black;
   border-radius: 50%;
-  background-color: lawngreen;
+  background-color: hsl(42, 66%, 35%);
+  text-align: center;
   font-size: 1.1em;
 }
