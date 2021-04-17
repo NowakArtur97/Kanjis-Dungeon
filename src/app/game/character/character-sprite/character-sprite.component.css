@@ -3,20 +3,22 @@
   top: 20%;
   left: 20%;
 
-  width: 96px;
-  height: 96px;
+  width: calc(var(--sprite-base-size) * var(--sprite-size-multiplier));
+  height: calc(var(--sprite-base-size) * var(--sprite-size-multiplier));
 }
 
 .character_sprite__image {
   height: 100%;
   width: 100%;
-  background: url("../../../../assets/characters/example-character_3x.png") 0 0
-    no-repeat;
-  animation: character-sprite 1s steps(4) infinite;
+  background: var(--sprite-image) 0 0 no-repeat;
+  animation: character-sprite 600ms steps(var(--sprite-frames)) infinite;
 }
 
 @keyframes character-sprite {
   100% {
-    background-position: -384px;
+    background-position: calc(
+      var(--sprite-base-size) * var(--sprite-size-multiplier) *
+        var(--sprite-frames) * (-1)
+    );
   }
 }

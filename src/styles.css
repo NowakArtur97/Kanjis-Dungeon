@@ -2,6 +2,13 @@
   --correct-answer-color: #08c66c;
   --incorrect-answer-color: rgb(146, 3, 3);
   --main-card-color: #08c;
+
+  --sprite-base-size: 32px;
+  --sprite-size-multiplier: 3;
+  --sprite-src: ../../../../assets/characters/;
+  --sprite-extension: x.png;
+  --sprite-image: "";
+  --sprite-frames: 4;
 }
 
 * {
@@ -19,8 +26,19 @@ body {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-
   min-height: 100vh;
 
   font-family: "Source Sans Pro", Arial, Helvetica, sans-serif;
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --sprite-size-multiplier: 6;
+  }
+}
+
+@media (min-width: 1366px) {
+  :root {
+    --sprite-size-multiplier: 9;
+  }
 }
