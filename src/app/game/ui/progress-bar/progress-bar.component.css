@@ -2,13 +2,15 @@
   position: relative;
   height: 100%;
   background-color: hsl(0, 0%, 35%);
-  border-radius: 4%;
+  border-radius: 10px;
   border: black solid 1px;
 }
 
 .progress_bar {
   height: 100%;
   width: 0;
+
+  border-radius: 10px;
   background-image: linear-gradient(
     -45deg,
     rgba(255, 255, 255, 0.2) 25%,
@@ -26,9 +28,60 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  margin: 0 auto;
-  transform: translate(-50%, -50%);
 
+  margin: 0 auto;
+
+  transform: translate(-50%, -50%);
+}
+
+.progress_bar__value {
   font-weight: 600;
   color: hsl(0, 0%, 950%);
+}
+
+@media (min-width: 736px) {
+  .progress_bar__value {
+    font-size: 1.25em;
+  }
+}
+
+@media (min-width: 823px) {
+  .progress_bar__container {
+    border-radius: 20px;
+    border: black solid 1.5px;
+  }
+
+  .progress_bar {
+    border-radius: 20px;
+  }
+
+  .progress_bar__value {
+    font-size: 1.3em;
+  }
+}
+
+@media (min-width: 850px) {
+  .progress_bar__value {
+    font-size: 1.5em;
+  }
+}
+
+@media (min-width: 1024px) {
+  .progress_bar__container {
+    border: black solid 2.1px;
+  }
+
+  .progress_bar__value {
+    font-size: 1.8em;
+  }
+}
+
+@media (min-width: 1366px) {
+  .progress_bar__container {
+    border: black solid 2.7px;
+  }
+
+  .progress_bar__value {
+    font-size: 2.3em;
+  }
 }

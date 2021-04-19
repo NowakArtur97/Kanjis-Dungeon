@@ -31,14 +31,20 @@ body {
   font-family: "Source Sans Pro", Arial, Helvetica, sans-serif;
 }
 
+@media (min-width: 736px) {
+  :root {
+    --sprite-size-multiplier: 4;
+  }
+}
+
 @media (min-width: 1024px) {
   :root {
-    --sprite-size-multiplier: 6;
+    --sprite-size-multiplier: 5;
   }
 }
 
 @media (min-width: 1366px) {
   :root {
-    --sprite-size-multiplier: 9;
+    --sprite-size-multiplier: 7;
   }
 }
