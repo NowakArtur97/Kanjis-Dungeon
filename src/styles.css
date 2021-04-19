@@ -5,10 +5,10 @@
 
   --sprite-base-size: 32px;
   --sprite-size-multiplier: 3;
-  --sprite-src: ../../../../assets/characters/;
-  --sprite-extension: x.png;
   --sprite-image: "";
-  --sprite-frames: 4;
+  --sprite-number-of-frames: 4;
+  --sprite-animation-time: 600ms;
+  --sprite-animation-iteration-count: Infinite;
 }
 
 * {

@@ -11,14 +11,16 @@
   height: 100%;
   width: 100%;
   background: var(--sprite-image) 0 0 no-repeat;
-  animation: character-sprite 600ms steps(var(--sprite-frames)) infinite;
+  animation: character-sprite var(--sprite-animation-time)
+    steps(var(--sprite-number-of-frames))
+    var(--sprite-animation-iteration-count);
 }
 
 @keyframes character-sprite {
   100% {
     background-position: calc(
       var(--sprite-base-size) * var(--sprite-size-multiplier) *
-        var(--sprite-frames) * (-1)
+        var(--sprite-number-of-frames) * (-1)
     );
   }
 }

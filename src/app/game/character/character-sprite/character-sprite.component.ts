@@ -1,5 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import CssUtil from 'src/app/common/utils/css.util';
+
+import AnimationOptions from '../../models/animation-options.model';
+import AnimationService from '../../services/animation.service';
 
 @Component({
   selector: 'app-character-sprite',
@@ -7,21 +9,17 @@ import CssUtil from 'src/app/common/utils/css.util';
   styleUrls: ['./character-sprite.component.css'],
 })
 export class CharacterSpriteComponent implements OnInit, AfterViewInit {
-  private characterImage = 'example-character';
-  private numberOfFrames = 4;
-
-  constructor() {}
+  constructor(protected animationService: AnimationService) {}
 
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    const characterImage: string =
-      CssUtil.getCSSVariable('--sprite-src') +
-      this.characterImage +
-      '_' +
-      CssUtil.getCSSVariable('--sprite-size-multiplier') +
-      CssUtil.getCSSVariable('--sprite-extension');
-    CssUtil.changeCSSVariable('--sprite-image', `url(${characterImage})`);
-    CssUtil.changeCSSVariable('--sprite-frames', this.numberOfFrames);
+    const exampleAnimationOptions: AnimationOptions = {
+      image: 'example-character',
+      numberOfFrames: 4,
+      animationTimeInMiliseconds: 600,
+      animationIterationCount: 'Infinite',
+    };
+    this.animationService.changeAnimation(exampleAnimationOptions);
   }
 }
