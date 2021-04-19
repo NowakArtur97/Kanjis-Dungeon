@@ -1,9 +1,34 @@
-.progress-bar-container {
+.progress_bar__container {
+  position: relative;
   height: 100%;
-  background-color: #eee;
+  background-color: hsl(0, 0%, 35%);
+  border-radius: 4%;
+  border: black solid 1px;
 }
 
-.progress-bar {
+.progress_bar {
   height: 100%;
   width: 0;
+  background-image: linear-gradient(
+    -45deg,
+    rgba(255, 255, 255, 0.2) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0.2) 75%,
+    transparent 75%,
+    transparent
+  );
+  transition: width 1s ease-out;
+}
+
+.progress_bar__progress {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: 0 auto;
+  transform: translate(-50%, -50%);
+
+  font-weight: 600;
+  color: hsl(0, 0%, 950%);
 }
