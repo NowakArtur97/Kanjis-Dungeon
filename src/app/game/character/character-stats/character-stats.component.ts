@@ -6,7 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./character-stats.component.css'],
 })
 export class CharacterStatsComponent implements OnInit {
+  health: number;
+  maxHealth: number;
+
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.health = 90;
+    this.maxHealth = 100;
+  }
 }

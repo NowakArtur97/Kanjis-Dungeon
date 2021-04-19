@@ -15,7 +15,7 @@
 }
 
 .game_card__wrapper:hover {
-  transform: translateY(-70%) scale(1.2);
+  transform: translateY(-45%) scale(1.2);
   cursor: pointer;
 }
 
