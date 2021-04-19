@@ -1,7 +1,7 @@
 .character_layout__wrapper {
   position: absolute;
-  top: 20%;
-  left: 10%;
+  top: 0;
+  left: 0;
 
   height: calc(var(--sprite-base-size) * var(--sprite-size-multiplier) + 8%);
 }

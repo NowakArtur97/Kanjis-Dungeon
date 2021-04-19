@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+
+import Character from '../models/character.model';
 
 @Component({
   selector: 'app-character-stats',
@@ -6,21 +8,24 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./character-stats.component.css'],
 })
 export class CharacterStatsComponent implements OnInit {
+  @Input() characterStats: Character;
+
   health: number;
   maxHealth: number;
 
   constructor() {}
 
   ngOnInit(): void {
-    // TODO: CharacterStats: Get health from Store
-    this.health = 90;
-    this.maxHealth = 100;
-
+    this.health = this.characterStats.currentHealth;
+    this.maxHealth == this.characterStats.maxHealth;
     // TODO: CharacterStats: Change on damage
     setInterval(() => {
-      this.health = 45;
+      this.health =
+        this.characterStats.currentHealth -
+        0.2 * this.characterStats.currentHealth;
       setInterval(() => {
-        this.health = 20;
+        this.characterStats.currentHealth -
+          0.2 * this.characterStats.currentHealth;
       }, 1000);
     }, 1000);
   }

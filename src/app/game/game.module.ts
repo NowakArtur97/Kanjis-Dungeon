@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { CharacterModule } from './character/character.module';
 import { DeckModule } from './deck/deck.module';
+import { EnemyModule } from './enemy/enemy.module';
 import { GameLayoutComponent } from './game-layout/game-layout.component';
 
 const gameRoutes: Routes = [
@@ -20,6 +21,7 @@ const gameRoutes: Routes = [
     RouterModule.forRoot(gameRoutes),
     DeckModule,
     CharacterModule,
+    EnemyModule,
   ],
   exports: [GameLayoutComponent],
 })

@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+
+import Character from '../models/character.model';
 
 @Component({
   selector: 'app-character-layout',
@@ -6,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./character-layout.component.css'],
 })
 export class CharacterLayoutComponent implements OnInit {
+  @Input() characterStats: Character;
+
   constructor() {}
 
   ngOnInit(): void {}

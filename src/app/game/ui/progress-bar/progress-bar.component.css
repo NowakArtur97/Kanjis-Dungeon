@@ -35,13 +35,14 @@
 }
 
 .progress_bar__value {
+  font-size: 0.7em;
   font-weight: 600;
   color: hsl(0, 0%, 950%);
 }
 
 @media (min-width: 736px) {
   .progress_bar__value {
-    font-size: 1.25em;
+    font-size: 1.2em;
   }
 }
 
@@ -72,7 +73,7 @@
   }
 
   .progress_bar__value {
-    font-size: 1.8em;
+    font-size: 1.7em;
   }
 }
 
@@ -82,6 +83,6 @@
   }
 
   .progress_bar__value {
-    font-size: 2.3em;
+    font-size: 2em;
   }
 }

@@ -6,31 +6,33 @@ import { Component, Input, OnChanges, OnInit } from '@angular/core';
   styleUrls: ['./progress-bar.component.css'],
 })
 export class ProgressBarComponent implements OnInit, OnChanges {
-  @Input() currentValue = 0;
-  @Input() totalValue = 100;
-  @Input() progress = 100;
+  @Input() currentValue: number;
+  @Input() totalValue: number;
+  @Input() progress: number;
   backgroundColor = 'green';
 
   constructor() {}
 
-  ngOnInit(): void {
-    this.progress = (this.currentValue / this.totalValue) * 100;
-    this.setBackgroundColor();
-  }
+  ngOnInit(): void {}
 
   ngOnChanges(): void {
+    this.updateValues();
+  }
+
+  private updateValues(): void {
+    if (!this.currentValue) {
+      this.currentValue = 100;
+    }
+    if (!this.totalValue) {
+      this.totalValue = 100;
+    }
+
     this.progress = (this.currentValue / this.totalValue) * 100;
     this.setBackgroundColor();
   }
 
-  getStyles(): { width: string; 'background-color': string } {
-    return {
-      width: `${this.progress}%`,
-      'background-color': this.backgroundColor,
-    };
-  }
-
-  private setBackgroundColor() {
+  private setBackgroundColor(): void {
+    // TODO: ProgressBar: Move to some properties file / retrieve by Input?
     if (this.progress <= 25) {
       this.backgroundColor = 'hsl(0deg 100% 40%)';
     } else if (this.progress <= 50) {
@@ -38,5 +40,12 @@ export class ProgressBarComponent implements OnInit, OnChanges {
     } else {
       this.backgroundColor = 'hsl(120deg 70% 40%)';
     }
+  }
+
+  getProgressStyles(): { width: string; 'background-color': string } {
+    return {
+      width: `${this.progress}%`,
+      'background-color': this.backgroundColor,
+    };
   }
 }
