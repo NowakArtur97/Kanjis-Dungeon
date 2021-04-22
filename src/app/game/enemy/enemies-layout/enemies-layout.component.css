@@ -1,14 +1,12 @@
 .enemies_layout__wrapper {
   position: relative;
-  top: 6%;
+  top: 10%;
   left: 45%;
   width: 55%;
   height: 40%;
 
   display: flex;
   justify-content: space-around;
-
-  background-color: aqua;
 }
 
 @media (min-width: 667px) {
@@ -20,7 +18,7 @@
 
 @media (min-width: 731px) {
   .enemies_layout__wrapper {
-    top: 12%;
+    top: 16%;
     left: 46%;
     width: 54%;
   }
@@ -36,7 +34,7 @@
 
 @media (min-width: 1024px) {
   .enemies_layout__wrapper {
-    top: 20%;
+    top: 17%;
   }
 }
 

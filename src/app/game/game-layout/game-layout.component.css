@@ -1,8 +1,29 @@
 .game_layout {
+  --walls-height: 42%;
+
   position: relative;
   width: 100vw;
   height: 100vh;
   overflow-y: hidden;
+}
+
+.game_layout__walls {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--walls-height);
+
+  background-color: hsl(0, 10%, 30%);
+}
+
+.game_layout__floors {
+  position: absolute;
+  top: var(--walls-height);
+  left: 0;
+  width: 100%;
+  height: calc(100% - var(--walls-height));
+  background-color: hsl(198, 8%, 44%);
 }
 
 @media screen and (orientation: portrait) {
@@ -17,5 +38,17 @@
     transform: rotate(-90deg);
     transform-origin: left top;
     overflow: hidden;
+  }
+}
+
+@media (min-width: 812px) {
+  .game_layout {
+    --walls-height: 35%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .game_layout {
+    --walls-height: 40%;
   }
 }
