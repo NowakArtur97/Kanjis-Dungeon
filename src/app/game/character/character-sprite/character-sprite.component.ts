@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 
 import AnimationOptions from '../../models/animation-options.model';
 import AnimationService from '../../services/animation.service';
@@ -11,18 +11,23 @@ import Character from '../models/character.model';
 })
 export class CharacterSpriteComponent implements OnInit, AfterViewInit {
   @Input() characterStats: Character;
+  @ViewChild('characterSpriteImage') spriteImage: ElementRef;
 
   constructor(protected animationService: AnimationService) {}
 
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
+    // TODO: CharacterSpriteComponent: Move to Character Animations property
     const exampleAnimationOptions: AnimationOptions = {
-      image: 'example-character',
+      image: this.characterStats.imageName,
       numberOfFrames: 4,
       animationTimeInMiliseconds: 600,
       animationIterationCount: 'Infinite',
     };
-    this.animationService.changeAnimation(exampleAnimationOptions);
+    this.animationService.changeAnimation(
+      this.spriteImage,
+      exampleAnimationOptions
+    );
   }
 }

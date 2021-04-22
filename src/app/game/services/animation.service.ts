@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { ElementRef, Injectable } from '@angular/core';
 import CssUtil from 'src/app/common/utils/css.util';
 
 import AnimationOptions from '../models/animation-options.model';
@@ -7,42 +7,34 @@ import AnimationOptions from '../models/animation-options.model';
 export default class AnimationService {
   ANIMATION_VARIABLES = {
     sizeMultiplier: '--sprite-size-multiplier',
-    image: '--sprite-image',
-    numberOfFrames: '--sprite-number-of-frames',
-    animationTimeInMiliseconds: '--sprite-animation-time',
-    animationIterationCount: '--sprite-animation-iteration-count',
   };
   ANIMATION_CONSTANTS = {
     imagesSrc: '../../../../assets/characters/',
     imageExtension: 'x.png',
+    imagePathSeparator: '/',
     multiplierSeparator: '_',
     animationTimeUnit: 'ms',
   };
 
-  changeAnimation(animationOptions: AnimationOptions): void {
+  changeAnimation(
+    spriteImage: ElementRef,
+    animationOptions: AnimationOptions
+  ): void {
     const characterImage: string =
       this.ANIMATION_CONSTANTS.imagesSrc +
+      animationOptions.image +
+      this.ANIMATION_CONSTANTS.imagePathSeparator +
       animationOptions.image +
       this.ANIMATION_CONSTANTS.multiplierSeparator +
       CssUtil.getCSSVariable(this.ANIMATION_VARIABLES.sizeMultiplier) +
       this.ANIMATION_CONSTANTS.imageExtension;
 
-    CssUtil.changeCSSVariable(
-      this.ANIMATION_VARIABLES.image,
-      `url(${characterImage})`
-    );
-    CssUtil.changeCSSVariable(
-      this.ANIMATION_VARIABLES.numberOfFrames,
-      animationOptions.numberOfFrames
-    );
-    CssUtil.changeCSSVariable(
-      this.ANIMATION_VARIABLES.animationTimeInMiliseconds,
+    spriteImage.nativeElement.style.background = `url(${characterImage}) 0 0 no-repeat`;
+    spriteImage.nativeElement.style.animationTimingFunction = `steps(${animationOptions.numberOfFrames})`;
+    spriteImage.nativeElement.style.animationIterationCount =
+      animationOptions.animationIterationCount;
+    spriteImage.nativeElement.style.animationDuration =
       animationOptions.animationTimeInMiliseconds +
-        this.ANIMATION_CONSTANTS.animationTimeUnit
-    );
-    CssUtil.changeCSSVariable(
-      this.ANIMATION_VARIABLES.animationIterationCount,
-      animationOptions.animationIterationCount
-    );
+      this.ANIMATION_CONSTANTS.animationTimeUnit;
   }
 }

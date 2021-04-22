@@ -5,10 +5,6 @@
 
   --sprite-base-size: 32px;
   --sprite-size-multiplier: 3;
-  --sprite-image: "";
-  --sprite-number-of-frames: 4;
-  --sprite-animation-time: 600ms;
-  --sprite-animation-iteration-count: Infinite;
 }
 
 * {

@@ -8,10 +8,7 @@
 .character_sprite__image {
   height: 100%;
   width: 100%;
-  background: var(--sprite-image) 0 0 no-repeat;
-  animation: character-sprite var(--sprite-animation-time)
-    steps(var(--sprite-number-of-frames))
-    var(--sprite-animation-iteration-count);
+  animation-name: character-sprite;
 }
 
 .character_sprite__image--rotated {
@@ -21,8 +18,7 @@
 @keyframes character-sprite {
   100% {
     background-position: calc(
-      var(--sprite-base-size) * var(--sprite-size-multiplier) *
-        var(--sprite-number-of-frames) * (-1)
+      var(--sprite-base-size) * var(--sprite-size-multiplier) * 4 * (-1)
     );
   }
 }

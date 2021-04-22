@@ -11,6 +11,7 @@ export class EnemiesLayoutComponent implements OnInit {
   // TODO: EnemiesLayout: Get enemies from Store
   enemies: Character[] = [
     {
+      imageName: 'goblin-archer',
       currentHealth: 70,
       maxHealth: 70,
       damage: 10,
@@ -18,6 +19,7 @@ export class EnemiesLayoutComponent implements OnInit {
       isEnemy: true,
     },
     {
+      imageName: 'goblin-archer',
       currentHealth: 45,
       maxHealth: 50,
       damage: 7,
@@ -25,6 +27,7 @@ export class EnemiesLayoutComponent implements OnInit {
       isEnemy: true,
     },
     {
+      imageName: 'goblin-archer',
       currentHealth: 30,
       maxHealth: 40,
       damage: 7,

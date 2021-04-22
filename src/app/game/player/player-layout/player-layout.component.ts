@@ -9,6 +9,7 @@ import Character from '../../character/models/character.model';
 })
 export class PlayerLayoutComponent implements OnInit {
   player: Character = {
+    imageName: 'example-character',
     currentHealth: 100,
     maxHealth: 100,
     damage: 20,
