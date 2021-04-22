@@ -1,16 +1,22 @@
 .enemies_layout__wrapper {
   position: relative;
-  top: 10%;
+  top: 13%;
   left: 45%;
   width: 55%;
-  height: 40%;
 
   display: flex;
   justify-content: space-around;
 }
 
+@media (min-width: 640px) {
+  .enemies_layout__wrapper {
+    top: 18%;
+  }
+}
+
 @media (min-width: 667px) {
   .enemies_layout__wrapper {
+    top: 20%;
     left: 50%;
     width: 50%;
   }
@@ -18,7 +24,7 @@
 
 @media (min-width: 731px) {
   .enemies_layout__wrapper {
-    top: 16%;
+    top: 23%;
     left: 46%;
     width: 54%;
   }
@@ -34,14 +40,14 @@
 
 @media (min-width: 1024px) {
   .enemies_layout__wrapper {
-    top: 17%;
+    top: 26%;
   }
 }
 
 @media (min-width: 1366px) {
   .enemies_layout__wrapper {
-    top: 18%;
-    left: 50%;
-    width: 50%;
+    top: 27%;
+    left: 45%;
+    width: 55%;
   }
 }

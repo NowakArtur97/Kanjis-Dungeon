@@ -48,12 +48,12 @@
 
 @media (min-width: 823px) {
   .progress_bar__container {
-    border-radius: 20px;
+    border-radius: 25px;
     border: black solid 1.5px;
   }
 
   .progress_bar {
-    border-radius: 20px;
+    border-radius: 25px;
   }
 
   .progress_bar__value {
