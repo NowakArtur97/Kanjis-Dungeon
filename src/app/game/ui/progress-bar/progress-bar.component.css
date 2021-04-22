@@ -79,10 +79,12 @@
 
 @media (min-width: 1366px) {
   .progress_bar__container {
-    border: black solid 2.7px;
+    border-radius: 35px;
+    border: black solid 2.9px;
   }
 
   .progress_bar__value {
+    border-radius: 35px;
     font-size: 2em;
   }
 }

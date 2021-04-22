@@ -13,6 +13,7 @@ export class PlayerLayoutComponent implements OnInit {
     maxHealth: 100,
     damage: 20,
     maxDamage: 22,
+    isEnemy: false,
   };
 
   constructor() {}

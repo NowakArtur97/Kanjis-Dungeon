@@ -14,6 +14,12 @@
   }
 }
 
+@media (min-width: 653px) and (max-height: 320px) {
+  .enemies_layout__wrapper {
+    top: 7%;
+  }
+}
+
 @media (min-width: 667px) {
   .enemies_layout__wrapper {
     top: 20%;

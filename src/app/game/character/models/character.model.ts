@@ -3,4 +3,5 @@ export default interface Character {
   currentHealth: number;
   maxDamage: number;
   damage: number;
+  isEnemy: boolean;
 }

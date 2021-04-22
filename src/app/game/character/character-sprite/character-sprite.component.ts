@@ -1,7 +1,8 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 
 import AnimationOptions from '../../models/animation-options.model';
 import AnimationService from '../../services/animation.service';
+import Character from '../models/character.model';
 
 @Component({
   selector: 'app-character-sprite',
@@ -9,6 +10,8 @@ import AnimationService from '../../services/animation.service';
   styleUrls: ['./character-sprite.component.css'],
 })
 export class CharacterSpriteComponent implements OnInit, AfterViewInit {
+  @Input() characterStats: Character;
+
   constructor(protected animationService: AnimationService) {}
 
   ngOnInit(): void {}

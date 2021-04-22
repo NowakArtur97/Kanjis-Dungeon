@@ -14,6 +14,10 @@
     var(--sprite-animation-iteration-count);
 }
 
+.character_sprite__image--rotated {
+  transform: rotateY(180deg);
+}
+
 @keyframes character-sprite {
   100% {
     background-position: calc(
