@@ -1,5 +1,49 @@
 .enemies_layout__wrapper {
-  position: absolute;
-  top: 20%;
-  right: 20%;
+  position: relative;
+  top: 6%;
+  left: 45%;
+  width: 55%;
+  height: 40%;
+
+  display: flex;
+  justify-content: space-around;
+
+  background-color: aqua;
+}
+
+@media (min-width: 667px) {
+  .enemies_layout__wrapper {
+    left: 50%;
+    width: 50%;
+  }
+}
+
+@media (min-width: 731px) {
+  .enemies_layout__wrapper {
+    top: 12%;
+    left: 46%;
+    width: 54%;
+  }
+}
+
+@media (min-width: 812px) {
+  .enemies_layout__wrapper {
+    top: 2%;
+    left: 46%;
+    width: 54%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .enemies_layout__wrapper {
+    top: 20%;
+  }
+}
+
+@media (min-width: 1366px) {
+  .enemies_layout__wrapper {
+    top: 18%;
+    left: 50%;
+    width: 50%;
+  }
 }

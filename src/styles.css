@@ -31,7 +31,7 @@ body {
   font-family: "Source Sans Pro", Arial, Helvetica, sans-serif;
 }
 
-@media (min-width: 736px) {
+@media (min-width: 812px) {
   :root {
     --sprite-size-multiplier: 4;
   }

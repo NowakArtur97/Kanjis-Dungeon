@@ -1,4 +1,7 @@
-<div class="character_layout__wrapper">
+<div
+  [ngStyle]="{ top: randomTopOffset + '%' }"
+  class="character_layout__wrapper"
+>
   <app-character-sprite></app-character-sprite>
   <app-character-stats [characterStats]="characterStats"></app-character-stats>
 </div>
