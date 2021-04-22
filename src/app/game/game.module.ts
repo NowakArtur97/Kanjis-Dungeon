@@ -6,6 +6,7 @@ import { CharacterModule } from './character/character.module';
 import { DeckModule } from './deck/deck.module';
 import { EnemyModule } from './enemy/enemy.module';
 import { GameLayoutComponent } from './game-layout/game-layout.component';
+import { PlayerModule } from './player/player.module';
 
 const gameRoutes: Routes = [
   {
@@ -22,6 +23,7 @@ const gameRoutes: Routes = [
     DeckModule,
     CharacterModule,
     EnemyModule,
+    PlayerModule,
   ],
   exports: [GameLayoutComponent],
 })
