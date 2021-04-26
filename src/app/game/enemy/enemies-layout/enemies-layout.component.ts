@@ -11,28 +11,55 @@ export class EnemiesLayoutComponent implements OnInit {
   // TODO: EnemiesLayout: Get enemies from Store
   enemies: Character[] = [
     {
-      imageName: 'goblin-archer',
-      currentHealth: 70,
-      maxHealth: 70,
-      damage: 10,
-      maxDamage: 12,
-      isEnemy: true,
+      stats: {
+        maxHealth: 70,
+        currentHealth: 70,
+        maxDamage: 12,
+        damage: 10,
+        isEnemy: true,
+      },
+      animations: [
+        {
+          imageName: 'goblin-archer',
+          numberOfFrames: 4,
+          animationTimeInMiliseconds: 600,
+          animationIterationCount: 'Infinite',
+        },
+      ],
     },
     {
-      imageName: 'goblin-archer',
-      currentHealth: 45,
-      maxHealth: 50,
-      damage: 7,
-      maxDamage: 10,
-      isEnemy: true,
+      stats: {
+        maxHealth: 60,
+        currentHealth: 30,
+        maxDamage: 12,
+        damage: 10,
+        isEnemy: true,
+      },
+      animations: [
+        {
+          imageName: 'goblin-archer',
+          numberOfFrames: 4,
+          animationTimeInMiliseconds: 600,
+          animationIterationCount: 'Infinite',
+        },
+      ],
     },
     {
-      imageName: 'goblin-archer',
-      currentHealth: 30,
-      maxHealth: 40,
-      damage: 7,
-      maxDamage: 15,
-      isEnemy: true,
+      stats: {
+        maxHealth: 50,
+        currentHealth: 30,
+        damage: 10,
+        maxDamage: 12,
+        isEnemy: true,
+      },
+      animations: [
+        {
+          imageName: 'goblin-archer',
+          numberOfFrames: 4,
+          animationTimeInMiliseconds: 600,
+          animationIterationCount: 'Infinite',
+        },
+      ],
     },
   ];
   constructor() {}

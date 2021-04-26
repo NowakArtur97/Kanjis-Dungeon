@@ -8,7 +8,7 @@ import Character from '../models/character.model';
   styleUrls: ['./character-stats.component.css'],
 })
 export class CharacterStatsComponent implements OnInit {
-  @Input() characterStats: Character;
+  @Input() character: Character;
 
   health: number;
   maxHealth: number;
@@ -16,16 +16,16 @@ export class CharacterStatsComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    this.health = this.characterStats.currentHealth;
-    this.maxHealth == this.characterStats.maxHealth;
+    this.health = this.character.stats.currentHealth;
+    this.maxHealth == this.character.stats.maxHealth;
     // TODO: CharacterStats: Change on damage
     setInterval(() => {
       this.health =
-        this.characterStats.currentHealth -
-        0.2 * this.characterStats.currentHealth;
+        this.character.stats.currentHealth -
+        0.2 * this.character.stats.currentHealth;
       setInterval(() => {
-        this.characterStats.currentHealth -
-          0.2 * this.characterStats.currentHealth;
+        this.character.stats.currentHealth -
+          0.2 * this.character.stats.currentHealth;
       }, 1000);
     }, 1000);
   }

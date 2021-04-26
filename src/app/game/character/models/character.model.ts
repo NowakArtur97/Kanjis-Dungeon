@@ -1,8 +1,7 @@
+import CharacterAnimation from './character-animation.model';
+import CharacterStats from './character-stats.mode';
+
 export default interface Character {
-  imageName: string;
-  maxHealth: number;
-  currentHealth: number;
-  maxDamage: number;
-  damage: number;
-  isEnemy: boolean;
+  stats: CharacterStats;
+  animations: CharacterAnimation[];
 }

@@ -9,12 +9,21 @@ import Character from '../../character/models/character.model';
 })
 export class PlayerLayoutComponent implements OnInit {
   player: Character = {
-    imageName: 'example-character',
-    currentHealth: 100,
-    maxHealth: 100,
-    damage: 20,
-    maxDamage: 22,
-    isEnemy: false,
+    stats: {
+      currentHealth: 100,
+      maxHealth: 100,
+      damage: 20,
+      maxDamage: 22,
+      isEnemy: false,
+    },
+    animations: [
+      {
+        imageName: 'example-character',
+        numberOfFrames: 4,
+        animationTimeInMiliseconds: 600,
+        animationIterationCount: 'Infinite',
+      },
+    ],
   };
 
   constructor() {}

@@ -1,7 +1,7 @@
 import { ElementRef, Injectable } from '@angular/core';
 import CssUtil from 'src/app/common/utils/css.util';
 
-import AnimationOptions from '../models/animation-options.model';
+import CharacterAnimation from '../character/models/character-animation.model';
 
 @Injectable({ providedIn: 'root' })
 export default class AnimationService {
@@ -18,13 +18,13 @@ export default class AnimationService {
 
   changeAnimation(
     spriteImage: ElementRef,
-    animationOptions: AnimationOptions
+    animationOptions: CharacterAnimation
   ): void {
     const characterImage: string =
       this.ANIMATION_CONSTANTS.imagesSrc +
-      animationOptions.image +
+      animationOptions.imageName +
       this.ANIMATION_CONSTANTS.imagePathSeparator +
-      animationOptions.image +
+      animationOptions.imageName +
       this.ANIMATION_CONSTANTS.multiplierSeparator +
       CssUtil.getCSSVariable(this.ANIMATION_VARIABLES.sizeMultiplier) +
       this.ANIMATION_CONSTANTS.imageExtension;

@@ -9,7 +9,7 @@ import Character from '../models/character.model';
   styleUrls: ['./character-layout.component.css'],
 })
 export class CharacterLayoutComponent implements OnInit {
-  @Input() characterStats: Character;
+  @Input() character: Character;
 
   randomTopOffset: number;
 
