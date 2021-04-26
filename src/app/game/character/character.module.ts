@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { UIModule } from '../ui/ui.module';
 import { CharacterLayoutComponent } from './character-layout/character-layout.component';
@@ -12,7 +13,7 @@ import { CharacterStatsComponent } from './character-stats/character-stats.compo
     CharacterSpriteComponent,
     CharacterStatsComponent,
   ],
-  imports: [CommonModule, UIModule],
+  imports: [CommonModule, BrowserAnimationsModule, UIModule],
   exports: [CharacterLayoutComponent],
 })
 export class CharacterModule {}

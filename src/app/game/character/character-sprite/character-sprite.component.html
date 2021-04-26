@@ -2,6 +2,11 @@
   <div
     #characterSpriteImage
     [ngClass]="{ 'character_sprite__image--rotated': character.stats.isEnemy }"
+    [@animate]="{
+      value: animationState,
+      params: { spriteOffset: spriteOffset, animationSteps: animationSteps }
+    }"
+    (@animate.done)="onEndAnimation($event)"
     class="character_sprite__image"
   ></div>
 </div>

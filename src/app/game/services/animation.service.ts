@@ -6,6 +6,7 @@ import CharacterAnimation from '../character/models/character-animation.model';
 @Injectable({ providedIn: 'root' })
 export default class AnimationService {
   ANIMATION_VARIABLES = {
+    spriteBaseSize: '--sprite-base-size',
     sizeMultiplier: '--sprite-size-multiplier',
   };
   ANIMATION_CONSTANTS = {
@@ -30,11 +31,27 @@ export default class AnimationService {
       this.ANIMATION_CONSTANTS.imageExtension;
 
     spriteImage.nativeElement.style.background = `url(${characterImage}) 0 0 no-repeat`;
-    spriteImage.nativeElement.style.animationTimingFunction = `steps(${animationOptions.numberOfFrames})`;
-    spriteImage.nativeElement.style.animationIterationCount =
-      animationOptions.animationIterationCount;
-    spriteImage.nativeElement.style.animationDuration =
-      animationOptions.animationTimeInMiliseconds +
-      this.ANIMATION_CONSTANTS.animationTimeUnit;
+    // spriteImage.nativeElement.style.animationTimingFunction = `steps(${animationOptions.numberOfFrames})`;
+    // spriteImage.nativeElement.style.animationIterationCount =
+    // animationOptions.animationIterationCount;
+    // spriteImage.nativeElement.style.animationDuration =
+    // animationOptions.animationTimeInMiliseconds +
+    // this.ANIMATION_CONSTANTS.animationTimeUnit;
+  }
+
+  getAnimationSpriteOffset(animationOptions: CharacterAnimation): number {
+    const spriteBaseSize = CssUtil.getCSSVariable(
+      this.ANIMATION_VARIABLES.spriteBaseSize
+    );
+    const spriteBaseSizeAsNumber = +spriteBaseSize.substring(
+      0,
+      spriteBaseSize.length - 2
+    );
+    return (
+      animationOptions.numberOfFrames *
+      spriteBaseSizeAsNumber *
+      +CssUtil.getCSSVariable(this.ANIMATION_VARIABLES.sizeMultiplier) *
+      -1
+    );
   }
 }
