@@ -11,6 +11,7 @@ export class EnemiesLayoutComponent implements OnInit {
   // TODO: EnemiesLayout: Get enemies from Store
   enemies: Character[] = [
     {
+      name: 'goblin-archer',
       stats: {
         maxHealth: 70,
         currentHealth: 70,
@@ -20,7 +21,7 @@ export class EnemiesLayoutComponent implements OnInit {
       },
       animations: [
         {
-          imageName: 'goblin-archer',
+          spriteSheet: 'idle',
           numberOfFrames: 4,
           animationTimeInMiliseconds: 600,
           animationIterationCount: 'Infinite',
@@ -28,6 +29,7 @@ export class EnemiesLayoutComponent implements OnInit {
       ],
     },
     {
+      name: 'goblin-archer',
       stats: {
         maxHealth: 60,
         currentHealth: 30,
@@ -37,7 +39,7 @@ export class EnemiesLayoutComponent implements OnInit {
       },
       animations: [
         {
-          imageName: 'goblin-archer',
+          spriteSheet: 'idle',
           numberOfFrames: 4,
           animationTimeInMiliseconds: 600,
           animationIterationCount: 'Infinite',
@@ -45,6 +47,7 @@ export class EnemiesLayoutComponent implements OnInit {
       ],
     },
     {
+      name: 'goblin-archer',
       stats: {
         maxHealth: 50,
         currentHealth: 30,
@@ -54,7 +57,7 @@ export class EnemiesLayoutComponent implements OnInit {
       },
       animations: [
         {
-          imageName: 'goblin-archer',
+          spriteSheet: 'idle',
           numberOfFrames: 4,
           animationTimeInMiliseconds: 600,
           animationIterationCount: 'Infinite',

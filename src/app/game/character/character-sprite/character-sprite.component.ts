@@ -26,7 +26,7 @@ import Character from '../models/character.model';
 })
 export class CharacterSpriteComponent implements OnInit, AfterViewChecked {
   @Input() character: Character;
-  @ViewChild('characterSpriteImage') spriteImage: ElementRef;
+  @ViewChild('characterSpriteImage') private spriteImage: ElementRef;
   spriteOffset: string;
   animationSteps: string;
   animationState = 'firstFrame';
@@ -36,26 +36,28 @@ export class CharacterSpriteComponent implements OnInit, AfterViewChecked {
   constructor(protected animationService: AnimationService) {}
 
   ngOnInit(): void {
-    this.spriteOffset =
-      this.animationService.getAnimationSpriteOffset(
-        this.character.animations[0]
-      ) + 'px';
-    this.animationSteps = `steps(${this.character.animations[0].numberOfFrames})`;
+    // TODO: CharacterSpriteComponent: Get animation from store
+    if (this.character) {
+      this.spriteOffset =
+        this.animationService.getAnimationSpriteOffset(
+          this.character.animations[0]
+        ) + 'px';
+      this.animationSteps = `steps(${this.character.animations[0].numberOfFrames})`;
+    }
   }
 
   ngAfterViewChecked(): void {
-    // TODO: Try to replace with @HostBinding('style.--target-width')
-    // private targetWidth: string = '60%';
-    if (!this.wasAnimationSet) {
+    if (!this.wasAnimationSet && this.character) {
       this.wasAnimationSet = true;
-      this.animationService.changeAnimation(
-        this.spriteImage,
+      this.spriteImage.nativeElement.style.background = this.animationService.getSprite(
+        this.character.name,
         this.character.animations[0]
       );
     }
   }
 
   onEndAnimation(event): void {
+    // Loop animation
     this.animationState = 'firstFrame';
     if (event.toState === 'firstFrame') {
       setTimeout(() => {

@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./game-card.component.css'],
 })
 export class GameCardComponent implements OnInit {
+  // TODO: GameCardComponent: Get Card as @Input
   constructor() {}
 
   ngOnInit(): void {}

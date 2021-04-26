@@ -8,7 +8,9 @@ import Character from '../../character/models/character.model';
   styleUrls: ['./player-layout.component.css'],
 })
 export class PlayerLayoutComponent implements OnInit {
+  // TODO: PlayerLayoutComponent: Get Player from store
   player: Character = {
+    name: 'example-character',
     stats: {
       currentHealth: 100,
       maxHealth: 100,
@@ -18,7 +20,7 @@ export class PlayerLayoutComponent implements OnInit {
     },
     animations: [
       {
-        imageName: 'example-character',
+        spriteSheet: 'idle',
         numberOfFrames: 4,
         animationTimeInMiliseconds: 600,
         animationIterationCount: 'Infinite',

@@ -1,5 +1,5 @@
 export default interface CharacterAnimation {
-  imageName: string;
+  spriteSheet: string;
   numberOfFrames: number;
   animationTimeInMiliseconds: number;
   animationIterationCount: string;

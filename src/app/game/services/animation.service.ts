@@ -1,57 +1,55 @@
-import { ElementRef, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import CssUtil from 'src/app/common/utils/css.util';
 
 import CharacterAnimation from '../character/models/character-animation.model';
 
 @Injectable({ providedIn: 'root' })
 export default class AnimationService {
-  ANIMATION_VARIABLES = {
+  private ANIMATION_VARIABLES = {
     spriteBaseSize: '--sprite-base-size',
     sizeMultiplier: '--sprite-size-multiplier',
   };
-  ANIMATION_CONSTANTS = {
+  private ANIMATION_CONSTANTS = {
     imagesSrc: '../../../../assets/characters/',
     imageExtension: 'x.png',
     imagePathSeparator: '/',
     multiplierSeparator: '_',
-    animationTimeUnit: 'ms',
+    negativeImageOffset: -1,
   };
 
-  changeAnimation(
-    spriteImage: ElementRef,
+  getSprite(
+    characterName: string,
     animationOptions: CharacterAnimation
-  ): void {
+  ): string {
     const characterImage: string =
       this.ANIMATION_CONSTANTS.imagesSrc +
-      animationOptions.imageName +
+      characterName +
       this.ANIMATION_CONSTANTS.imagePathSeparator +
-      animationOptions.imageName +
+      animationOptions.spriteSheet +
       this.ANIMATION_CONSTANTS.multiplierSeparator +
       CssUtil.getCSSVariable(this.ANIMATION_VARIABLES.sizeMultiplier) +
       this.ANIMATION_CONSTANTS.imageExtension;
 
-    spriteImage.nativeElement.style.background = `url(${characterImage}) 0 0 no-repeat`;
-    // spriteImage.nativeElement.style.animationTimingFunction = `steps(${animationOptions.numberOfFrames})`;
-    // spriteImage.nativeElement.style.animationIterationCount =
-    // animationOptions.animationIterationCount;
-    // spriteImage.nativeElement.style.animationDuration =
-    // animationOptions.animationTimeInMiliseconds +
-    // this.ANIMATION_CONSTANTS.animationTimeUnit;
+    return `url(${characterImage}) 0 0 no-repeat`;
   }
 
   getAnimationSpriteOffset(animationOptions: CharacterAnimation): number {
     const spriteBaseSize = CssUtil.getCSSVariable(
       this.ANIMATION_VARIABLES.spriteBaseSize
     );
+    // Get value without px unit
     const spriteBaseSizeAsNumber = +spriteBaseSize.substring(
       0,
       spriteBaseSize.length - 2
     );
+    const sizeMultiplier = +CssUtil.getCSSVariable(
+      this.ANIMATION_VARIABLES.sizeMultiplier
+    );
     return (
       animationOptions.numberOfFrames *
       spriteBaseSizeAsNumber *
-      +CssUtil.getCSSVariable(this.ANIMATION_VARIABLES.sizeMultiplier) *
-      -1
+      sizeMultiplier *
+      this.ANIMATION_CONSTANTS.negativeImageOffset
     );
   }
 }

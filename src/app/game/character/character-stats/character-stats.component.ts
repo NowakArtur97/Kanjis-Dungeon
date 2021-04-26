@@ -16,17 +16,20 @@ export class CharacterStatsComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    this.health = this.character.stats.currentHealth;
-    this.maxHealth == this.character.stats.maxHealth;
-    // TODO: CharacterStats: Change on damage
-    setInterval(() => {
-      this.health =
-        this.character.stats.currentHealth -
-        0.2 * this.character.stats.currentHealth;
+    if (this.character) {
+      this.health = this.character.stats.currentHealth;
+      this.maxHealth = this.character.stats.maxHealth;
+      // TODO: CharacterStats: Change on damage
       setInterval(() => {
-        this.character.stats.currentHealth -
+        this.health =
+          this.character.stats.currentHealth -
           0.2 * this.character.stats.currentHealth;
+        setInterval(() => {
+          this.health =
+            this.character.stats.currentHealth -
+            0.2 * this.character.stats.currentHealth;
+        }, 1000);
       }, 1000);
-    }, 1000);
+    }
   }
 }

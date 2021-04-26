@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./hand.component.css'],
 })
 export class HandComponent implements OnInit {
+  // TODO: HandComponent: Get Cards from store
   constructor() {}
 
   ngOnInit(): void {}
