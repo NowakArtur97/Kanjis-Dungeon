@@ -14,9 +14,13 @@ import Character from '../models/character.model';
       state('lastFrame', style({ backgroundPosition: '{{spriteOffset}}' }), {
         params: { spriteOffset: 0 },
       }),
-      transition('firstFrame => lastFrame', animate('600ms'), {
-        params: { animationSteps: '' },
-      }),
+      transition(
+        'firstFrame => lastFrame',
+        animate('600ms {{animationSteps}}'),
+        {
+          params: { animationSteps: '', spriteOffset: '' },
+        }
+      ),
     ]),
   ],
 })
@@ -37,11 +41,9 @@ export class CharacterSpriteComponent implements OnInit, AfterViewChecked {
         this.character.animations[0]
       ) + 'px';
     this.animationSteps = `steps(${this.character.animations[0].numberOfFrames})`;
-    console.log(this.spriteOffset);
   }
 
   ngAfterViewChecked(): void {
-    // TODO: CharacterSpriteComponent: Move to Character Animations property
     // TODO: Try to replace with @HostBinding('style.--target-width')
     // private targetWidth: string = '60%';
     if (!this.wasAnimationSet) {
