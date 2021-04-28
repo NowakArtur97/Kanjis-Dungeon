@@ -35,14 +35,14 @@
 }
 
 .progress_bar__value {
-  font-size: 0.7em;
+  font-size: 0.9em;
   font-weight: 600;
-  color: hsl(0, 0%, 950%);
+  color: hsl(0, 0%, 95%);
 }
 
 @media (min-width: 736px) {
   .progress_bar__value {
-    font-size: 1.2em;
+    font-size: 1.3em;
   }
 }
 
@@ -57,13 +57,13 @@
   }
 
   .progress_bar__value {
-    font-size: 1.3em;
+    font-size: 1.5em;
   }
 }
 
 @media (min-width: 850px) {
   .progress_bar__value {
-    font-size: 1.5em;
+    font-size: 1.7em;
   }
 }
 
@@ -73,18 +73,18 @@
   }
 
   .progress_bar__value {
-    font-size: 1.7em;
+    font-size: 1.9em;
   }
 }
 
 @media (min-width: 1366px) {
   .progress_bar__container {
-    border-radius: 35px;
+    border-radius: 38px;
     border: black solid 2.9px;
   }
 
   .progress_bar__value {
     border-radius: 35px;
-    font-size: 2em;
+    font-size: 2.2em;
   }
 }

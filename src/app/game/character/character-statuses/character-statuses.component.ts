@@ -18,11 +18,35 @@ export class CharacterStatusesComponent implements OnInit {
     // TODO: CharacterStatusesComponent: Get by Input
     this.statuses = [
       {
-        spriteSheet: `${this.STATUSES_PATH}/heart${this.STATUS_IMAGE_EXTENSION}`,
+        spriteSheet: `${this.STATUSES_PATH}/heart_2x${this.STATUS_IMAGE_EXTENSION}`,
         remainingNumberOfActiveRounds: 2,
       },
       {
-        spriteSheet: `${this.STATUSES_PATH}/book${this.STATUS_IMAGE_EXTENSION}`,
+        spriteSheet: `${this.STATUSES_PATH}/book_2x${this.STATUS_IMAGE_EXTENSION}`,
+        remainingNumberOfActiveRounds: 3,
+      },
+      {
+        spriteSheet: `${this.STATUSES_PATH}/heart_2x${this.STATUS_IMAGE_EXTENSION}`,
+        remainingNumberOfActiveRounds: 2,
+      },
+      {
+        spriteSheet: `${this.STATUSES_PATH}/book_2x${this.STATUS_IMAGE_EXTENSION}`,
+        remainingNumberOfActiveRounds: 3,
+      },
+      {
+        spriteSheet: `${this.STATUSES_PATH}/heart_2x${this.STATUS_IMAGE_EXTENSION}`,
+        remainingNumberOfActiveRounds: 2,
+      },
+      {
+        spriteSheet: `${this.STATUSES_PATH}/book_2x${this.STATUS_IMAGE_EXTENSION}`,
+        remainingNumberOfActiveRounds: 3,
+      },
+      {
+        spriteSheet: `${this.STATUSES_PATH}/heart_2x${this.STATUS_IMAGE_EXTENSION}`,
+        remainingNumberOfActiveRounds: 2,
+      },
+      {
+        spriteSheet: `${this.STATUSES_PATH}/book_2x${this.STATUS_IMAGE_EXTENSION}`,
         remainingNumberOfActiveRounds: 3,
       },
     ];
