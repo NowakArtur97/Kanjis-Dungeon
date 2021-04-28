@@ -3,5 +3,8 @@
   top: 0;
   left: 0;
 
-  height: calc(var(--sprite-base-size) * var(--sprite-size-multiplier) + 8%);
+  height: calc(
+    var(--sprite-base-size) * var(--sprite-size-multiplier) +
+      var(--small-sprite-base-size) * var(--small-sprite-size-multiplier) + 10%
+  );
 }

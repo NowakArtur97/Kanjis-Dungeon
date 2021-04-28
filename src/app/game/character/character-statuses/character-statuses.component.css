@@ -1,0 +1,24 @@
+.character_statuses__wrapper {
+  display: flex;
+  justify-content: start;
+
+  height: calc(
+    var(--small-sprite-base-size) * var(--small-sprite-size-multiplier)
+  );
+}
+
+.character_status {
+  flex-basis: calc(
+    var(--small-sprite-base-size) * var(--small-sprite-size-multiplier)
+  );
+  margin: 2% 2% 0;
+}
+
+.character_status__image {
+  height: 100%;
+}
+
+.character_status__image {
+  height: 100%;
+  width: 100%;
+}
