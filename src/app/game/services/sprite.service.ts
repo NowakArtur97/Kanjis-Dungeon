@@ -44,7 +44,7 @@ export default class AnimationService {
     spriteFolder: string,
     spriteName: string,
     sizeMultiplierVariable: string
-  ) {
+  ): string {
     const sprite: string =
       spriteFolder +
       spriteName +
