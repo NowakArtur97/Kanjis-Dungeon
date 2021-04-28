@@ -1,7 +1,7 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { AfterViewChecked, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 
-import AnimationService from '../../services/animation.service';
+import SpriteService from '../../services/sprite.service';
 import Character from '../models/character.model';
 
 @Component({
@@ -33,13 +33,12 @@ export class CharacterSpriteComponent implements OnInit, AfterViewChecked {
 
   private wasAnimationSet = false;
 
-  constructor(protected animationService: AnimationService) {}
+  constructor(protected spriteService: SpriteService) {}
 
   ngOnInit(): void {
-    // TODO: CharacterSpriteComponent: Get animation from store
     if (this.character) {
       this.spriteOffset =
-        this.animationService.getAnimationSpriteOffset(
+        this.spriteService.getAnimationSpriteOffset(
           this.character.animations[0]
         ) + 'px';
       this.animationSteps = `steps(${this.character.animations[0].numberOfFrames})`;
@@ -49,9 +48,9 @@ export class CharacterSpriteComponent implements OnInit, AfterViewChecked {
   ngAfterViewChecked(): void {
     if (!this.wasAnimationSet && this.character) {
       this.wasAnimationSet = true;
-      this.spriteImage.nativeElement.style.background = this.animationService.getSprite(
-        this.character.name,
-        this.character.animations[0]
+      this.spriteImage.nativeElement.style.background = this.spriteService.getCharacterSprite(
+        this.character.animations[0].spriteSheet,
+        this.character.name
       );
     }
   }

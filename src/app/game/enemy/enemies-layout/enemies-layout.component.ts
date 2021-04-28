@@ -27,12 +27,46 @@ export class EnemiesLayoutComponent implements OnInit {
           animationIterationCount: 'Infinite',
         },
       ],
+      statuses: [
+        {
+          spriteSheet: 'heart',
+          remainingNumberOfActiveRounds: 2,
+        },
+        {
+          spriteSheet: 'book',
+          remainingNumberOfActiveRounds: 3,
+        },
+        {
+          spriteSheet: 'heart',
+          remainingNumberOfActiveRounds: 2,
+        },
+        {
+          spriteSheet: 'book',
+          remainingNumberOfActiveRounds: 3,
+        },
+        {
+          spriteSheet: 'heart',
+          remainingNumberOfActiveRounds: 2,
+        },
+        {
+          spriteSheet: 'book',
+          remainingNumberOfActiveRounds: 3,
+        },
+        {
+          spriteSheet: 'heart',
+          remainingNumberOfActiveRounds: 2,
+        },
+        {
+          spriteSheet: 'book',
+          remainingNumberOfActiveRounds: 3,
+        },
+      ],
     },
     {
       name: 'goblin-archer',
       stats: {
         maxHealth: 60,
-        currentHealth: 30,
+        currentHealth: 15,
         maxDamage: 12,
         damage: 10,
         isEnemy: true,
@@ -43,6 +77,40 @@ export class EnemiesLayoutComponent implements OnInit {
           numberOfFrames: 4,
           animationTimeInMiliseconds: 600,
           animationIterationCount: 'Infinite',
+        },
+      ],
+      statuses: [
+        {
+          spriteSheet: 'heart',
+          remainingNumberOfActiveRounds: 2,
+        },
+        {
+          spriteSheet: 'book',
+          remainingNumberOfActiveRounds: 3,
+        },
+        {
+          spriteSheet: 'heart',
+          remainingNumberOfActiveRounds: 2,
+        },
+        {
+          spriteSheet: 'book',
+          remainingNumberOfActiveRounds: 3,
+        },
+        {
+          spriteSheet: 'heart',
+          remainingNumberOfActiveRounds: 2,
+        },
+        {
+          spriteSheet: 'book',
+          remainingNumberOfActiveRounds: 3,
+        },
+        {
+          spriteSheet: 'heart',
+          remainingNumberOfActiveRounds: 2,
+        },
+        {
+          spriteSheet: 'book',
+          remainingNumberOfActiveRounds: 3,
         },
       ],
     },
@@ -61,6 +129,40 @@ export class EnemiesLayoutComponent implements OnInit {
           numberOfFrames: 4,
           animationTimeInMiliseconds: 600,
           animationIterationCount: 'Infinite',
+        },
+      ],
+      statuses: [
+        {
+          spriteSheet: 'heart',
+          remainingNumberOfActiveRounds: 2,
+        },
+        {
+          spriteSheet: 'book',
+          remainingNumberOfActiveRounds: 3,
+        },
+        {
+          spriteSheet: 'heart',
+          remainingNumberOfActiveRounds: 2,
+        },
+        {
+          spriteSheet: 'book',
+          remainingNumberOfActiveRounds: 3,
+        },
+        {
+          spriteSheet: 'heart',
+          remainingNumberOfActiveRounds: 2,
+        },
+        {
+          spriteSheet: 'book',
+          remainingNumberOfActiveRounds: 3,
+        },
+        {
+          spriteSheet: 'heart',
+          remainingNumberOfActiveRounds: 2,
+        },
+        {
+          spriteSheet: 'book',
+          remainingNumberOfActiveRounds: 3,
         },
       ],
     },

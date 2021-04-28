@@ -2,7 +2,7 @@
   <div *ngFor="let status of statuses" class="character_status">
     <div
       [ngStyle]="{
-        background: 'url(' + status.spriteSheet + ') 0 0 no-repeat'
+        background: status.spriteSheet
       }"
       class="character_status__image"
     >

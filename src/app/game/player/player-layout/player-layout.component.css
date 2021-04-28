@@ -40,9 +40,3 @@
     top: 18%;
   }
 }
-
-@media (min-width: 1366px) {
-  .player_layout__wrapper {
-    top: 23%;
-  }
-}

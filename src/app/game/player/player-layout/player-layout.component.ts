@@ -26,6 +26,40 @@ export class PlayerLayoutComponent implements OnInit {
         animationIterationCount: 'Infinite',
       },
     ],
+    statuses: [
+      {
+        spriteSheet: 'heart',
+        remainingNumberOfActiveRounds: 2,
+      },
+      {
+        spriteSheet: 'book',
+        remainingNumberOfActiveRounds: 3,
+      },
+      {
+        spriteSheet: 'heart',
+        remainingNumberOfActiveRounds: 2,
+      },
+      {
+        spriteSheet: 'book',
+        remainingNumberOfActiveRounds: 3,
+      },
+      {
+        spriteSheet: 'heart',
+        remainingNumberOfActiveRounds: 2,
+      },
+      {
+        spriteSheet: 'book',
+        remainingNumberOfActiveRounds: 3,
+      },
+      {
+        spriteSheet: 'heart',
+        remainingNumberOfActiveRounds: 2,
+      },
+      {
+        spriteSheet: 'book',
+        remainingNumberOfActiveRounds: 3,
+      },
+    ],
   };
 
   constructor() {}
