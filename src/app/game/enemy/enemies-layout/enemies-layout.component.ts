@@ -62,6 +62,10 @@ export class EnemiesLayoutComponent implements OnInit {
           remainingNumberOfActiveRounds: 3,
         },
       ],
+      action: {
+        action: 'sword',
+        value: 5,
+      },
     },
     {
       name: 'goblin-archer',
@@ -115,6 +119,10 @@ export class EnemiesLayoutComponent implements OnInit {
           remainingNumberOfActiveRounds: 3,
         },
       ],
+      action: {
+        action: 'sword',
+        value: 5,
+      },
     },
     {
       name: 'goblin-archer',
@@ -168,6 +176,10 @@ export class EnemiesLayoutComponent implements OnInit {
           remainingNumberOfActiveRounds: 3,
         },
       ],
+      action: {
+        action: 'sword',
+        value: 5,
+      },
     },
   ];
   constructor() {}

@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+
+import SpriteService from '../../services/sprite.service';
+import CharacterAction from '../models/character-action.model';
+import Character from '../models/character.model';
 
 @Component({
   selector: 'app-character-action',
@@ -6,7 +10,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./character-action.component.css'],
 })
 export class CharacterActionComponent implements OnInit {
-  constructor() {}
+  @Input() character: Character;
+  characterAction: CharacterAction;
+  actionImage: string;
 
-  ngOnInit(): void {}
+  constructor(private spriteService: SpriteService) {}
+
+  ngOnInit(): void {
+    if (this.character) {
+      this.characterAction = this.character.action;
+      this.actionImage = this.spriteService.getActionSprite(
+        this.characterAction.action
+      );
+    }
+  }
 }

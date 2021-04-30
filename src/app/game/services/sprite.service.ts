@@ -4,7 +4,7 @@ import CssUtil from 'src/app/common/utils/css.util';
 import CharacterAnimation from '../character/models/character-animation.model';
 
 @Injectable({ providedIn: 'root' })
-export default class AnimationService {
+export default class SpriteService {
   private SPRITESHEET_VARIABLES = {
     spriteBaseSize: '--sprite-base-size',
     sizeMultiplier: '--sprite-size-multiplier',
@@ -16,6 +16,10 @@ export default class AnimationService {
     imagePathSeparator: '/',
     multiplierSeparator: '_',
     negativeImageOffset: -1,
+  };
+  private MEDIUM_SPRITESHEET_VARIABLES = {
+    spriteBaseSize: '--medium-sprite-base-size',
+    sizeMultiplier: '--medium-sprite-size-multiplier',
   };
   private SMALL_SPRITESHEET_VARIABLES = {
     spriteBaseSize: '--small-sprite-base-size',
@@ -37,6 +41,22 @@ export default class AnimationService {
       this.SPRITESHEET_CONSTANTS.statusesSrc,
       spriteName,
       this.SMALL_SPRITESHEET_VARIABLES.sizeMultiplier
+    );
+  }
+
+  getShieldSprite(): string {
+    return this.getSprite(
+      this.SPRITESHEET_CONSTANTS.statusesSrc,
+      'shield',
+      this.SMALL_SPRITESHEET_VARIABLES.sizeMultiplier
+    );
+  }
+
+  getActionSprite(spriteName: string): string {
+    return this.getSprite(
+      this.SPRITESHEET_CONSTANTS.statusesSrc,
+      spriteName,
+      this.MEDIUM_SPRITESHEET_VARIABLES.sizeMultiplier
     );
   }
 

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 
+import SpriteService from '../../services/sprite.service';
 import CharacterStats from '../models/character-stats.mode';
 import Character from '../models/character.model';
 
@@ -12,12 +13,14 @@ export class CharacterStatsComponent implements OnInit {
   @Input() character: Character;
 
   characterStats: CharacterStats;
+  shieldImage: string;
 
-  constructor() {}
+  constructor(private spriteService: SpriteService) {}
 
   ngOnInit(): void {
     if (this.character) {
       this.characterStats = this.character.stats;
+      this.shieldImage = this.spriteService.getShieldSprite();
     }
   }
 }

@@ -1,6 +1,14 @@
 <div class="character_action__wrapper">
   <div class="character_action">
-    <div class="character_action__image"></div>
-    <div class="character_action__value">8</div>
+    <div
+      [ngStyle]="{
+        background: actionImage
+      }"
+      class="character_action__image"
+    >
+      <div *ngIf="characterAction.value" class="character_action__value">
+        {{ characterAction.value }}
+      </div>
+    </div>
   </div>
 </div>
