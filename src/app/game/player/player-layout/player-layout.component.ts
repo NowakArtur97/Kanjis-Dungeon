@@ -16,6 +16,7 @@ export class PlayerLayoutComponent implements OnInit {
       maxHealth: 100,
       damage: 20,
       maxDamage: 22,
+      currentShield: 10,
       isEnemy: false,
     },
     animations: [

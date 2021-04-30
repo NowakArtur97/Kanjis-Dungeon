@@ -1,6 +1,7 @@
 <div class="character_stats__wrapper">
   <app-progress-bar
-    [currentValue]="health"
-    [totalValue]="maxHealth"
+    [currentValue]="characterStats.currentHealth"
+    [totalValue]="characterStats.maxHealth"
   ></app-progress-bar>
+  <div class="character_stats__shield">{{ characterStats.currentShield }}</div>
 </div>

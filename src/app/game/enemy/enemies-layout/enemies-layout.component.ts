@@ -17,6 +17,7 @@ export class EnemiesLayoutComponent implements OnInit {
         currentHealth: 70,
         maxDamage: 12,
         damage: 10,
+        currentShield: 0,
         isEnemy: true,
       },
       animations: [
@@ -69,6 +70,7 @@ export class EnemiesLayoutComponent implements OnInit {
         currentHealth: 15,
         maxDamage: 12,
         damage: 10,
+        currentShield: 8,
         isEnemy: true,
       },
       animations: [
@@ -121,6 +123,7 @@ export class EnemiesLayoutComponent implements OnInit {
         currentHealth: 30,
         damage: 10,
         maxDamage: 12,
+        currentShield: 2,
         isEnemy: true,
       },
       animations: [

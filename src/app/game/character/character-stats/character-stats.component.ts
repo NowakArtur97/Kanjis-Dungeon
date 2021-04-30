@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 
+import CharacterStats from '../models/character-stats.mode';
 import Character from '../models/character.model';
 
 @Component({
@@ -10,22 +11,20 @@ import Character from '../models/character.model';
 export class CharacterStatsComponent implements OnInit {
   @Input() character: Character;
 
-  health: number;
-  maxHealth: number;
+  characterStats: CharacterStats;
 
   constructor() {}
 
   ngOnInit(): void {
     if (this.character) {
-      this.health = this.character.stats.currentHealth;
-      this.maxHealth = this.character.stats.maxHealth;
+      this.characterStats = this.character.stats;
       // TODO: CharacterStats: Change on damage
       setInterval(() => {
-        this.health =
+        this.characterStats.currentHealth =
           this.character.stats.currentHealth -
           0.2 * this.character.stats.currentHealth;
         setInterval(() => {
-          this.health =
+          this.characterStats.currentHealth =
             this.character.stats.currentHealth -
             0.2 * this.character.stats.currentHealth;
         }, 1000);

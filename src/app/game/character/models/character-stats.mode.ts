@@ -3,5 +3,6 @@ export default interface CharacterStats {
   currentHealth: number;
   maxDamage: number;
   damage: number;
+  currentShield: number;
   isEnemy: boolean;
 }
