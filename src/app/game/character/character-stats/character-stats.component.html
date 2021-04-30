@@ -1,11 +1,11 @@
 <div class="character_stats__wrapper">
   <app-progress-bar
-    [currentValue]="characterStats.currentHealth"
-    [totalValue]="characterStats.maxHealth"
+    [currentValue]="characterStats?.currentHealth"
+    [totalValue]="characterStats?.maxHealth"
   ></app-progress-bar>
 
   <div
-    *ngIf="characterStats.currentShield > 0"
+    *ngIf="characterStats?.currentShield > 0"
     [ngStyle]="{
       background: shieldImage
     }"

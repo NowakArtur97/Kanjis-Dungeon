@@ -3,7 +3,7 @@
   class="character_layout__wrapper"
 >
   <app-character-action
-    *ngIf="character.stats.isEnemy"
+    *ngIf="character?.stats.isEnemy"
     [character]="character"
   ></app-character-action>
   <app-character-sprite [character]="character"></app-character-sprite>
