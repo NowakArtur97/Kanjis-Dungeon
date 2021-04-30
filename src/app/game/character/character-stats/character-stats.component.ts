@@ -20,6 +20,7 @@ export class CharacterStatsComponent implements OnInit {
   ngOnInit(): void {
     if (this.character) {
       this.characterStats = this.character.stats;
+      console.log(this.spriteService.getShieldSprite());
       this.shieldImage = this.spriteService.getShieldSprite();
     }
   }

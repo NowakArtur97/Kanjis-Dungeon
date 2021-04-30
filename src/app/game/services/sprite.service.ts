@@ -12,6 +12,7 @@ export default class SpriteService {
   private SPRITESHEET_CONSTANTS = {
     charactersSrc: '../../../../assets/characters/',
     statusesSrc: '../../../../assets/statuses/',
+    actionsSrc: '../../../../assets/actions/',
     imageExtension: 'x.png',
     imagePathSeparator: '/',
     multiplierSeparator: '_',
@@ -46,7 +47,9 @@ export default class SpriteService {
 
   getShieldSprite(): string {
     return this.getSprite(
-      this.SPRITESHEET_CONSTANTS.statusesSrc,
+      this.SPRITESHEET_CONSTANTS.actionsSrc +
+        'shield' +
+        this.SPRITESHEET_CONSTANTS.imagePathSeparator,
       'shield',
       this.SMALL_SPRITESHEET_VARIABLES.sizeMultiplier
     );
@@ -54,7 +57,9 @@ export default class SpriteService {
 
   getActionSprite(spriteName: string): string {
     return this.getSprite(
-      this.SPRITESHEET_CONSTANTS.statusesSrc,
+      this.SPRITESHEET_CONSTANTS.actionsSrc +
+        spriteName +
+        this.SPRITESHEET_CONSTANTS.imagePathSeparator,
       spriteName,
       this.MEDIUM_SPRITESHEET_VARIABLES.sizeMultiplier
     );

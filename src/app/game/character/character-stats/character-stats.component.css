@@ -15,16 +15,14 @@
   width: calc(
     var(--small-sprite-base-size) * var(--small-sprite-size-multiplier)
   );
-
-  background: url(../../../../assets/statuses/shield_1x.png) 0 0 no-repeat;
 }
 
 .character_stats__shield_value {
   position: absolute;
-  top: 12%;
+  top: 9%;
   left: 50%;
 
-  font-size: 0.9em;
+  font-size: 1em;
   font-weight: 600;
   color: hsl(0, 0%, 95%);
 
@@ -32,31 +30,45 @@
 }
 
 @media (min-width: 736px) {
-  .character_stats__shield {
-    font-size: 1.3em;
+  .character_stats__shield_value {
+    top: 7.5%;
+    left: 50%;
+
+    font-size: 1.15em;
   }
 }
 
 @media (min-width: 823px) {
   .character_stats__shield {
-    font-size: 1.5em;
+    top: -17%;
+    left: -6%;
   }
 }
 
 @media (min-width: 850px) {
-  .character_stats__shield {
+  .character_stats__shield_value {
     font-size: 1.7em;
   }
 }
 
 @media (min-width: 1024px) {
   .character_stats__shield {
+    top: -42%;
+    left: -10%;
+  }
+
+  .character_stats__shield_value {
     font-size: 1.9em;
   }
 }
 
 @media (min-width: 1366px) {
   .character_stats__shield {
-    font-size: 2.2em;
+    top: -30%;
+    left: -7%;
+  }
+
+  .character_stats__shield_value {
+    font-size: 2.1em;
   }
 }

@@ -177,8 +177,8 @@ export class EnemiesLayoutComponent implements OnInit {
         },
       ],
       action: {
-        action: 'sword',
-        value: 5,
+        action: 'shield',
+        value: 11,
       },
     },
   ];

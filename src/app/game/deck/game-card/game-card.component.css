@@ -88,10 +88,10 @@
 
 .game_card__cost {
   position: absolute;
-  top: -7%;
+  top: -5%;
   left: -10%;
-  width: 2em;
-  height: 2em;
+  width: 1.6em;
+  height: 1.6em;
 
   display: flex;
   justify-content: center;

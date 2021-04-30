@@ -40,12 +40,14 @@ body {
 @media (min-width: 1024px) {
   :root {
     --sprite-size-multiplier: 5;
+    --medium-sprite-size-multiplier: 3;
     --small-sprite-size-multiplier: 2;
   }
 }
 
 @media (min-width: 1366px) {
   :root {
+    --medium-sprite-size-multiplier: 4;
     --sprite-size-multiplier: 7;
   }
 }

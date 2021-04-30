@@ -17,8 +17,8 @@ export class CharacterLayoutComponent implements OnInit {
 
   ngOnInit(): void {
     // Move to some constants/properties file (?)
-    const minTopOffset = 30;
-    const maxTopOffset = 50;
+    const minTopOffset = 40;
+    const maxTopOffset = 55;
     this.randomTopOffset = MathUtil.getRandomIntValue(
       maxTopOffset,
       minTopOffset

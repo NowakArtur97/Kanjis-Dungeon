@@ -18,6 +18,7 @@ import VocabularyModule from './vocabulary/vocabulary.module';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/quiz', pathMatch: 'full' },
+  { path: '**', redirectTo: '/quiz', pathMatch: 'full' },
 ];
 
 @NgModule({

@@ -84,3 +84,7 @@ Example Card with Correct Answer
 ![Example correct card](./screenshots/wrong.jpg)
 
 Example Card with Wrong Answer
+
+![Game version](./screenshots/game.jpg)
+
+A preliminary version of the game mode
