@@ -18,17 +18,6 @@ export class CharacterStatsComponent implements OnInit {
   ngOnInit(): void {
     if (this.character) {
       this.characterStats = this.character.stats;
-      // TODO: CharacterStats: Change on damage
-      setInterval(() => {
-        this.characterStats.currentHealth =
-          this.character.stats.currentHealth -
-          0.2 * this.character.stats.currentHealth;
-        setInterval(() => {
-          this.characterStats.currentHealth =
-            this.character.stats.currentHealth -
-            0.2 * this.character.stats.currentHealth;
-        }, 1000);
-      }, 1000);
     }
   }
 }

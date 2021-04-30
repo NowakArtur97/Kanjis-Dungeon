@@ -5,6 +5,8 @@
 
   --sprite-base-size: 32px;
   --sprite-size-multiplier: 3;
+  --medium-sprite-base-size: 16px;
+  --medium-sprite-size-multiplier: 2;
   --small-sprite-base-size: 16px;
   --small-sprite-size-multiplier: 1;
 }

@@ -1,0 +1,59 @@
+.character_action__wrapper {
+  position: relative;
+  width: calc(
+    var(--medium-sprite-base-size) * var(--medium-sprite-size-multiplier)
+  );
+  height: calc(
+    var(--medium-sprite-base-size) * var(--medium-sprite-size-multiplier)
+  );
+  margin: 0 auto;
+}
+
+.character_action {
+  height: 100%;
+}
+
+.character_action__image {
+  height: 100%;
+  background: url(../../../../assets/statuses/sword_2x.png) 0 0 no-repeat;
+}
+
+.character_action__value {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  font-size: 0.9em;
+  font-weight: 600;
+  color: hsl(0, 0%, 95%);
+}
+
+@media (min-width: 736px) {
+  .character_action__value {
+    font-size: 1.3em;
+  }
+}
+
+@media (min-width: 823px) {
+  .character_action__value {
+    font-size: 1.5em;
+  }
+}
+
+@media (min-width: 850px) {
+  .character_action__value {
+    font-size: 1.7em;
+  }
+}
+
+@media (min-width: 1024px) {
+  .character_action__value {
+    font-size: 1.9em;
+  }
+}
+
+@media (min-width: 1366px) {
+  .character_action__value {
+    font-size: 2.2em;
+  }
+}

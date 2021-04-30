@@ -3,5 +3,10 @@
     [currentValue]="characterStats.currentHealth"
     [totalValue]="characterStats.maxHealth"
   ></app-progress-bar>
-  <div class="character_stats__shield">{{ characterStats.currentShield }}</div>
+
+  <div *ngIf="characterStats.currentShield > 0" class="character_stats__shield">
+    <div class="character_stats__shield_value">
+      {{ characterStats.currentShield }}
+    </div>
+  </div>
 </div>

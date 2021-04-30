@@ -1,4 +1,62 @@
 .character_stats__wrapper {
+  position: relative;
   width: 100%;
   height: 8%;
+}
+
+.character_stats__shield {
+  position: absolute;
+  top: -25%;
+  left: -7%;
+
+  height: calc(
+    var(--small-sprite-base-size) * var(--small-sprite-size-multiplier)
+  );
+  width: calc(
+    var(--small-sprite-base-size) * var(--small-sprite-size-multiplier)
+  );
+
+  background: url(../../../../assets/statuses/shield_1x.png) 0 0 no-repeat;
+}
+
+.character_stats__shield_value {
+  position: absolute;
+  top: 12%;
+  left: 50%;
+
+  font-size: 0.9em;
+  font-weight: 600;
+  color: hsl(0, 0%, 95%);
+
+  transform: translateX(-50%);
+}
+
+@media (min-width: 736px) {
+  .character_stats__shield {
+    font-size: 1.3em;
+  }
+}
+
+@media (min-width: 823px) {
+  .character_stats__shield {
+    font-size: 1.5em;
+  }
+}
+
+@media (min-width: 850px) {
+  .character_stats__shield {
+    font-size: 1.7em;
+  }
+}
+
+@media (min-width: 1024px) {
+  .character_stats__shield {
+    font-size: 1.9em;
+  }
+}
+
+@media (min-width: 1366px) {
+  .character_stats__shield {
+    font-size: 2.2em;
+  }
 }

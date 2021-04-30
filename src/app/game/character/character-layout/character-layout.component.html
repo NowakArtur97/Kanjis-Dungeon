@@ -2,6 +2,10 @@
   [ngStyle]="{ top: randomTopOffset + '%' }"
   class="character_layout__wrapper"
 >
+  <app-character-action
+    *ngIf="character.stats.isEnemy"
+    [character]="character"
+  ></app-character-action>
   <app-character-sprite [character]="character"></app-character-sprite>
   <app-character-stats [character]="character"></app-character-stats>
   <app-character-statuses [character]="character"></app-character-statuses>

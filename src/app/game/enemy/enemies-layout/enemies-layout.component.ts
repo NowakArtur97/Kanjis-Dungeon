@@ -120,7 +120,7 @@ export class EnemiesLayoutComponent implements OnInit {
       name: 'goblin-archer',
       stats: {
         maxHealth: 50,
-        currentHealth: 30,
+        currentHealth: 20,
         damage: 10,
         maxDamage: 12,
         currentShield: 2,

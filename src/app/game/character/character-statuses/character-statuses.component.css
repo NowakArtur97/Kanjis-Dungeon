@@ -17,7 +17,6 @@
 
 .character_status__image {
   height: 100%;
-  width: 100%;
 }
 
 .character_status__remaining_rounds {
@@ -38,12 +37,9 @@
 
 @media (min-width: 823px) {
   .character_status__remaining_rounds {
-    font-size: 1.05em;
-  }
-
-  .character_status__remaining_rounds {
     bottom: -9%;
     right: -8%;
+    font-size: 1.05em;
   }
 }
 
@@ -56,10 +52,6 @@
 @media (min-width: 1024px) {
   .character_status {
     margin: 2% 1% 0;
-  }
-
-  .character_status__remaining_rounds {
-    font-size: 1.5em;
   }
 }
 
