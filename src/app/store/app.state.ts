@@ -1,3 +1,4 @@
+import * as fromEnemy from '../game/enemy/store/enemy.reducer';
 import * as fromPlayer from '../game/player/store/player.reducer';
 import * as fromGame from '../game/store/game.reducer';
 import * as fromKanji from '../japanese/kanji/store/kanji.reducer';
@@ -14,4 +15,5 @@ export default interface AppStoreState {
 
   game: fromGame.GameStoreState;
   player: fromPlayer.PlayerStoreState;
+  enemy: fromEnemy.EnemyStoreState;
 }
