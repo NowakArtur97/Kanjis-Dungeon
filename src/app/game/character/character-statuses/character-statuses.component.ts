@@ -21,7 +21,7 @@ export class CharacterStatusesComponent implements OnInit {
     if (!this.wasSpriteSet && this.character) {
       this.wasSpriteSet = true;
       this.statuses = [...this.character.statuses].map((status) => {
-        let newStatus = { ...status };
+        const newStatus = { ...status };
         newStatus.spriteSheet = this.spriteService.getStatusSprite(
           status.spriteSheet
         );
