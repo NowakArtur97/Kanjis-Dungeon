@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
+import AppStoreState from 'src/app/store/app.state';
 
 import Character from '../../character/models/character.model';
 
@@ -8,181 +11,22 @@ import Character from '../../character/models/character.model';
   styleUrls: ['./enemies-layout.component.css'],
 })
 export class EnemiesLayoutComponent implements OnInit {
-  // TODO: EnemiesLayout: Get enemies from Store
-  enemies: Character[] = [
-    {
-      name: 'goblin-archer',
-      stats: {
-        maxHealth: 70,
-        currentHealth: 70,
-        maxDamage: 12,
-        damage: 10,
-        currentShield: 0,
-        isEnemy: true,
-      },
-      animations: [
-        {
-          spriteSheet: 'idle',
-          numberOfFrames: 4,
-          animationTimeInMiliseconds: 600,
-          animationIterationCount: 'Infinite',
-        },
-      ],
-      statuses: [
-        {
-          spriteSheet: 'heart',
-          remainingNumberOfActiveRounds: 2,
-        },
-        {
-          spriteSheet: 'book',
-          remainingNumberOfActiveRounds: 3,
-        },
-        {
-          spriteSheet: 'heart',
-          remainingNumberOfActiveRounds: 2,
-        },
-        {
-          spriteSheet: 'book',
-          remainingNumberOfActiveRounds: 3,
-        },
-        {
-          spriteSheet: 'heart',
-          remainingNumberOfActiveRounds: 2,
-        },
-        {
-          spriteSheet: 'book',
-          remainingNumberOfActiveRounds: 3,
-        },
-        {
-          spriteSheet: 'heart',
-          remainingNumberOfActiveRounds: 2,
-        },
-        {
-          spriteSheet: 'book',
-          remainingNumberOfActiveRounds: 3,
-        },
-      ],
-      action: {
-        action: 'sword',
-        value: 5,
-      },
-    },
-    {
-      name: 'goblin-archer',
-      stats: {
-        maxHealth: 60,
-        currentHealth: 15,
-        maxDamage: 12,
-        damage: 10,
-        currentShield: 8,
-        isEnemy: true,
-      },
-      animations: [
-        {
-          spriteSheet: 'idle',
-          numberOfFrames: 4,
-          animationTimeInMiliseconds: 600,
-          animationIterationCount: 'Infinite',
-        },
-      ],
-      statuses: [
-        {
-          spriteSheet: 'heart',
-          remainingNumberOfActiveRounds: 2,
-        },
-        {
-          spriteSheet: 'book',
-          remainingNumberOfActiveRounds: 3,
-        },
-        {
-          spriteSheet: 'heart',
-          remainingNumberOfActiveRounds: 2,
-        },
-        {
-          spriteSheet: 'book',
-          remainingNumberOfActiveRounds: 3,
-        },
-        {
-          spriteSheet: 'heart',
-          remainingNumberOfActiveRounds: 2,
-        },
-        {
-          spriteSheet: 'book',
-          remainingNumberOfActiveRounds: 3,
-        },
-        {
-          spriteSheet: 'heart',
-          remainingNumberOfActiveRounds: 2,
-        },
-        {
-          spriteSheet: 'book',
-          remainingNumberOfActiveRounds: 3,
-        },
-      ],
-      action: {
-        action: 'sword',
-        value: 5,
-      },
-    },
-    {
-      name: 'goblin-archer',
-      stats: {
-        maxHealth: 50,
-        currentHealth: 20,
-        damage: 10,
-        maxDamage: 12,
-        currentShield: 2,
-        isEnemy: true,
-      },
-      animations: [
-        {
-          spriteSheet: 'idle',
-          numberOfFrames: 4,
-          animationTimeInMiliseconds: 600,
-          animationIterationCount: 'Infinite',
-        },
-      ],
-      statuses: [
-        {
-          spriteSheet: 'heart',
-          remainingNumberOfActiveRounds: 2,
-        },
-        {
-          spriteSheet: 'book',
-          remainingNumberOfActiveRounds: 3,
-        },
-        {
-          spriteSheet: 'heart',
-          remainingNumberOfActiveRounds: 2,
-        },
-        {
-          spriteSheet: 'book',
-          remainingNumberOfActiveRounds: 3,
-        },
-        {
-          spriteSheet: 'heart',
-          remainingNumberOfActiveRounds: 2,
-        },
-        {
-          spriteSheet: 'book',
-          remainingNumberOfActiveRounds: 3,
-        },
-        {
-          spriteSheet: 'heart',
-          remainingNumberOfActiveRounds: 2,
-        },
-        {
-          spriteSheet: 'book',
-          remainingNumberOfActiveRounds: 3,
-        },
-      ],
-      action: {
-        action: 'shield',
-        value: 11,
-      },
-    },
-  ];
-  constructor() {}
+  private enemiesSubscription$: Subscription;
+  enemies: Character[];
 
-  ngOnInit(): void {}
+  constructor(private store: Store<AppStoreState>) {}
+
+  ngOnInit(): void {
+    this.enemiesSubscription$ = this.store
+      .select('enemy')
+      .subscribe(({ enemies }) => {
+        if (enemies) {
+          this.enemies = enemies;
+        }
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.enemiesSubscription$?.unsubscribe();
+  }
 }

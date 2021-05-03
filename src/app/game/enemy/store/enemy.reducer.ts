@@ -11,7 +11,7 @@ const initialState: EnemyStoreState = {
   enemies: [],
 };
 
-const _gameReducer = createReducer(
+const _enemyReducer = createReducer(
   initialState,
 
   on(EnemyActions.chooseEnemies, (state, { enemies }) => ({
@@ -20,9 +20,9 @@ const _gameReducer = createReducer(
   }))
 );
 
-export function gameReducer(
+export function enemyReducer(
   state: EnemyStoreState,
   action: Action
 ): EnemyStoreState {
-  return _gameReducer(state, action);
+  return _enemyReducer(state, action);
 }
