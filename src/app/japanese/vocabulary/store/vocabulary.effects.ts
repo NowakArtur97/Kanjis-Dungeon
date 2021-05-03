@@ -3,9 +3,9 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { map, switchMap } from 'rxjs/operators';
 
+import QuizService from '../../../quiz/services/quiz.service';
+import AppStoreState from '../../../store/app.state';
 import * as KanjiActions from '../../kanji/store/kanji.actions';
-import QuizService from '../../quiz/services/quiz.service';
-import AppStoreState from '../../store/app.state';
 import VocabularyService from '../services/vocabulary.service';
 import VOCABULARY from '../vocabulary.data';
 import * as VocabularyActions from './vocabulary.actions';

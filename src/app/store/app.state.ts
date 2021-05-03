@@ -1,7 +1,7 @@
-import * as fromKanji from '../kanji/store/kanji.reducer';
+import * as fromKanji from '../japanese/kanji/store/kanji.reducer';
+import * as fromRadical from '../japanese/radical/store/radical.reducer';
+import * as fromVocabulary from '../japanese/vocabulary/store/vocabulary.reducer';
 import * as fromQuiz from '../quiz/store/quiz.reducer';
-import * as fromRadical from '../radical/store/radical.reducer';
-import * as fromVocabulary from '../vocabulary/store/vocabulary.reducer';
 
 export default interface AppStoreState {
   radical: fromRadical.RadicalStoreState;

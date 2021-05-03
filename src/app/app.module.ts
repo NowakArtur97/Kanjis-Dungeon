@@ -11,10 +11,8 @@ import { environment } from 'src/environments/environment';
 import { AppComponent } from './app.component';
 import { AppCommonModule } from './common/app-common.module';
 import { GameModule } from './game/game.module';
-import KanjiModule from './kanji/kanji.module';
+import { JapaneseModule } from './japanese/japanese.module';
 import { QuizModule } from './quiz/quiz.module';
-import RadicalModule from './radical/radical.module';
-import VocabularyModule from './vocabulary/vocabulary.module';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/quiz', pathMatch: 'full' },
@@ -33,9 +31,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
 
     AppCommonModule,
-    RadicalModule,
-    KanjiModule,
-    VocabularyModule,
+    JapaneseModule,
     QuizModule,
     GameModule,
   ],

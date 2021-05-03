@@ -5,11 +5,11 @@ import { EffectsModule } from '@ngrx/effects';
 import { Store, StoreModule } from '@ngrx/store';
 
 import { AppComponent } from './app.component';
-import * as KanjiActions from './kanji/store/kanji.actions';
+import * as KanjiActions from './japanese/kanji/store/kanji.actions';
+import * as RadicalActions from './japanese/radical/store/radical.actions';
+import * as VocabularyActions from './japanese/vocabulary/store/vocabulary.actions';
 import { QuizModule } from './quiz/quiz.module';
-import * as RadicalActions from './radical/store/radical.actions';
 import AppStoreState from './store/app.state';
-import * as VocabularyActions from './vocabulary/store/vocabulary.actions';
 
 describe('AppComponent', () => {
   let component: AppComponent;

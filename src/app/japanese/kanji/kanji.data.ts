@@ -1,4 +1,4 @@
-import CharacterType from '../common/enums/character-type.enum';
+import CharacterType from '../../common/enums/character-type.enum';
 import Kanji from './models/kanji.model';
 
 const KANJI: Kanji[] = [

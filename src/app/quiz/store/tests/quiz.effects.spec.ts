@@ -3,11 +3,11 @@ import { provideMockActions } from '@ngrx/effects/testing';
 import { Store, StoreModule } from '@ngrx/store';
 import { ReplaySubject } from 'rxjs';
 import CharacterType from 'src/app/common/enums/character-type.enum';
-import Kanji from 'src/app/kanji/models/kanji.model';
+import Kanji from 'src/app/japanese/kanji/models/kanji.model';
+import Radical from 'src/app/japanese/radical/models/radical.model';
+import Word from 'src/app/japanese/vocabulary/models/word.model';
 import QuizService from 'src/app/quiz/services/quiz.service';
-import Radical from 'src/app/radical/models/radical.model';
 import AppStoreState from 'src/app/store/app.state';
-import Word from 'src/app/vocabulary/models/word.model';
 
 import * as QuizActions from '../quiz.actions';
 import QuizEffects from '../quiz.effects';

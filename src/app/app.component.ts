@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { environment } from 'src/environments/environment';
 
-import * as KanjiActions from './kanji/store/kanji.actions';
-import * as RadicalActions from './radical/store/radical.actions';
+import * as KanjiActions from './japanese/kanji/store/kanji.actions';
+import * as RadicalActions from './japanese/radical/store/radical.actions';
+import * as VocabularyActions from './japanese/vocabulary/store/vocabulary.actions';
 import AppStoreState from './store/app.state';
-import * as VocabularyActions from './vocabulary/store/vocabulary.actions';
 
 @Component({
   selector: 'app-root',

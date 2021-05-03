@@ -4,8 +4,8 @@ import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 import { map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
 
+import * as VocabularyActions from '../../japanese/vocabulary/store/vocabulary.actions';
 import AppStoreState from '../../store/app.state';
-import * as VocabularyActions from '../../vocabulary/store/vocabulary.actions';
 import QuizService from '../services/quiz.service';
 import * as QuizActions from './quiz.actions';
 

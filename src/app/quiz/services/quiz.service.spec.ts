@@ -1,10 +1,10 @@
 import { getTestBed, TestBed } from '@angular/core/testing';
 import CharacterType from 'src/app/common/enums/character-type.enum';
 import MathUtil from 'src/app/common/utils/math.util';
-import KANJI from 'src/app/kanji/kanji.data';
-import Radical from 'src/app/radical/models/radical.model';
-import RADICALS from 'src/app/radical/radical.data';
-import VOCABULARY from 'src/app/vocabulary/vocabulary.data';
+import KANJI from 'src/app/japanese/kanji/kanji.data';
+import Radical from 'src/app/japanese/radical/models/radical.model';
+import RADICALS from 'src/app/japanese/radical/radical.data';
+import VOCABULARY from 'src/app/japanese/vocabulary/vocabulary.data';
 
 import QuizCard from '../models/quiz-card.model';
 import QuizOptions from '../models/quiz-options.model';

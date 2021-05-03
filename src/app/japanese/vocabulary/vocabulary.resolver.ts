@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { switchMap, take } from 'rxjs/operators';
 
-import AppStoreState from '../store/app.state';
+import AppStoreState from '../../store/app.state';
 import * as VocabularyActions from '../vocabulary/store/vocabulary.actions';
 import Word from './models/word.model';
 

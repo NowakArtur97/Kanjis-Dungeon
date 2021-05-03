@@ -4,8 +4,8 @@ import { Store } from '@ngrx/store';
 import CharacterUtil from 'src/app/common/utils/character.util';
 import CssUtil from 'src/app/common/utils/css.util';
 import CommonValidators from 'src/app/common/validators/common.validator';
+import Radical from 'src/app/japanese/radical/models/radical.model';
 import QuizCard from 'src/app/quiz/models/quiz-card.model';
-import Radical from 'src/app/radical/models/radical.model';
 import AppStoreState from 'src/app/store/app.state';
 
 import * as QuizActions from '../../quiz/store/quiz.actions';

@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 
-import { AppCommonModule } from '../common/app-common.module';
+import { AppCommonModule } from '../../common/app-common.module';
 import VocabularyEffects from '../vocabulary/store/vocabulary.effects';
 import { vocabularyReducer } from '../vocabulary/store/vocabulary.reducer';
 

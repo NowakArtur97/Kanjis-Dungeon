@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import CharacterUtil from 'src/app/common/utils/character.util';
 import MathUtil from 'src/app/common/utils/math.util';
-import Radical from 'src/app/radical/models/radical.model';
+import Radical from 'src/app/japanese/radical/models/radical.model';
 
 import QuizCard from '../models/quiz-card.model';
 import QuizOptions from '../models/quiz-options.model';

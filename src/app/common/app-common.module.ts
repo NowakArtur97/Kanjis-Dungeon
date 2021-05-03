@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { JapanesePipe } from './pipe/japanese.pipe';
 
 @NgModule({
-  declarations: [JapanesePipe, JapanesePipe],
+  declarations: [JapanesePipe],
   imports: [CommonModule],
   exports: [JapanesePipe],
 })

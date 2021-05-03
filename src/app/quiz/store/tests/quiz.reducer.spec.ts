@@ -1,7 +1,7 @@
 import CharacterType from 'src/app/common/enums/character-type.enum';
-import Kanji from 'src/app/kanji/models/kanji.model';
-import Radical from 'src/app/radical/models/radical.model';
-import Word from 'src/app/vocabulary/models/word.model';
+import Kanji from 'src/app/japanese/kanji/models/kanji.model';
+import Radical from 'src/app/japanese/radical/models/radical.model';
+import Word from 'src/app/japanese/vocabulary/models/word.model';
 
 import * as QuizActions from '../quiz.actions';
 import { quizReducer, QuizStoreState } from '../quiz.reducer';
