@@ -2,7 +2,7 @@ import * as GameActions from '../game.actions';
 import { gameReducer, GameStoreState } from '../game.reducer';
 
 const initialState: GameStoreState = {
-  level: 1,
+  level: 0,
 };
 
 describe('gameReducer', () => {

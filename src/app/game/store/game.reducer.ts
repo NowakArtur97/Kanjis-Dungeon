@@ -6,7 +6,7 @@ export interface GameStoreState {
   level: number;
 }
 const initialState: GameStoreState = {
-  level: 1,
+  level: 0,
 };
 
 const _gameReducer = createReducer(
