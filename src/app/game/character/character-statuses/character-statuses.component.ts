@@ -20,11 +20,12 @@ export class CharacterStatusesComponent implements OnInit {
   ngOnInit(): void {
     if (!this.wasSpriteSet && this.character) {
       this.wasSpriteSet = true;
-      this.statuses = this.character.statuses.map((status) => {
-        status.spriteSheet = this.spriteService.getStatusSprite(
+      this.statuses = [...this.character.statuses].map((status) => {
+        let newStatus = { ...status };
+        newStatus.spriteSheet = this.spriteService.getStatusSprite(
           status.spriteSheet
         );
-        return status;
+        return newStatus;
       });
     }
   }
