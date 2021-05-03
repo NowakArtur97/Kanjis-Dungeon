@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
+import AppStoreState from 'src/app/store/app.state';
 
 import Character from '../../character/models/character.model';
 
@@ -7,63 +10,23 @@ import Character from '../../character/models/character.model';
   templateUrl: './player-layout.component.html',
   styleUrls: ['./player-layout.component.css'],
 })
-export class PlayerLayoutComponent implements OnInit {
-  // TODO: PlayerLayoutComponent: Get Player from store
-  player: Character = {
-    name: 'example-character',
-    stats: {
-      currentHealth: 100,
-      maxHealth: 100,
-      damage: 20,
-      maxDamage: 22,
-      currentShield: 10,
-      isEnemy: false,
-    },
-    animations: [
-      {
-        spriteSheet: 'idle',
-        numberOfFrames: 4,
-        animationTimeInMiliseconds: 600,
-        animationIterationCount: 'Infinite',
-      },
-    ],
-    statuses: [
-      {
-        spriteSheet: 'heart',
-        remainingNumberOfActiveRounds: 2,
-      },
-      {
-        spriteSheet: 'book',
-        remainingNumberOfActiveRounds: 3,
-      },
-      {
-        spriteSheet: 'heart',
-        remainingNumberOfActiveRounds: 2,
-      },
-      {
-        spriteSheet: 'book',
-        remainingNumberOfActiveRounds: 3,
-      },
-      {
-        spriteSheet: 'heart',
-        remainingNumberOfActiveRounds: 2,
-      },
-      {
-        spriteSheet: 'book',
-        remainingNumberOfActiveRounds: 3,
-      },
-      {
-        spriteSheet: 'heart',
-        remainingNumberOfActiveRounds: 2,
-      },
-      {
-        spriteSheet: 'book',
-        remainingNumberOfActiveRounds: 3,
-      },
-    ],
-  };
+export class PlayerLayoutComponent implements OnInit, OnDestroy {
+  private playerSubscription$: Subscription;
+  player: Character;
 
-  constructor() {}
+  constructor(private store: Store<AppStoreState>) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.playerSubscription$ = this.store
+      .select('player')
+      .subscribe(({ player }) => {
+        if (player) {
+          this.player = player;
+        }
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.playerSubscription$?.unsubscribe();
+  }
 }

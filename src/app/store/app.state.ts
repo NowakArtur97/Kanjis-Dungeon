@@ -1,3 +1,4 @@
+import * as fromPlayer from '../game/player/store/player.reducer';
 import * as fromKanji from '../japanese/kanji/store/kanji.reducer';
 import * as fromRadical from '../japanese/radical/store/radical.reducer';
 import * as fromVocabulary from '../japanese/vocabulary/store/vocabulary.reducer';
@@ -8,4 +9,5 @@ export default interface AppStoreState {
   kanji: fromKanji.KanjiStoreState;
   vocabulary: fromVocabulary.VocabularyStoreState;
   quiz: fromQuiz.QuizStoreState;
+  player: fromPlayer.PlayerStoreState;
 }
