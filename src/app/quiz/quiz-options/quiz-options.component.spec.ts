@@ -3,7 +3,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { Store, StoreModule } from '@ngrx/store';
 import { of } from 'rxjs';
 import { AppCommonModule } from 'src/app/common/app-common.module';
-import CharacterType from 'src/app/common/enums/character-type.enum';
+import CharacterType from 'src/app/japanese/common/enums/character-type.enum';
 import AppStoreState from 'src/app/store/app.state';
 
 import * as QuizActions from '../../quiz/store/quiz.actions';

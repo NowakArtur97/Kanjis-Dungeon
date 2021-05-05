@@ -1,6 +1,6 @@
 import { getTestBed, TestBed } from '@angular/core/testing';
-import CharacterType from 'src/app/common/enums/character-type.enum';
 import MathUtil from 'src/app/common/utils/math.util';
+import CharacterType from 'src/app/japanese/common/enums/character-type.enum';
 import KANJI from 'src/app/japanese/kanji/kanji.data';
 import Radical from 'src/app/japanese/radical/models/radical.model';
 import RADICALS from 'src/app/japanese/radical/radical.data';

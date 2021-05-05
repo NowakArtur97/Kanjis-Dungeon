@@ -1,4 +1,8 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { JapaneseModule } from 'src/app/japanese/japanese.module';
 
 import { GameCardComponent } from './game-card.component';
 
@@ -8,9 +12,15 @@ describe('GameCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GameCardComponent ]
-    })
-    .compileComponents();
+      declarations: [GameCardComponent],
+      imports: [
+        HttpClientTestingModule,
+        StoreModule.forRoot({}),
+        EffectsModule.forRoot([]),
+
+        JapaneseModule,
+      ],
+    }).compileComponents();
   });
 
   beforeEach(() => {

@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Store, StoreModule } from '@ngrx/store';
 import { ReplaySubject } from 'rxjs';
-import CharacterType from 'src/app/common/enums/character-type.enum';
+import CharacterType from 'src/app/japanese/common/enums/character-type.enum';
 import Kanji from 'src/app/japanese/kanji/models/kanji.model';
 import Radical from 'src/app/japanese/radical/models/radical.model';
 import Word from 'src/app/japanese/vocabulary/models/word.model';

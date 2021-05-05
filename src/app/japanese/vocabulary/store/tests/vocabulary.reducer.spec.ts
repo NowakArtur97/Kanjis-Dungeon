@@ -1,4 +1,4 @@
-import CharacterType from 'src/app/common/enums/character-type.enum';
+import CharacterType from 'src/app/japanese/common/enums/character-type.enum';
 
 import Word from '../../models/word.model';
 import * as VocabularyActions from '../vocabulary.actions';

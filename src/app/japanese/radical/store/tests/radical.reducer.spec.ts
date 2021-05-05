@@ -1,4 +1,4 @@
-import CharacterType from 'src/app/common/enums/character-type.enum';
+import CharacterType from 'src/app/japanese/common/enums/character-type.enum';
 
 import Radical from '../../models/radical.model';
 import * as RadicalActions from '../radical.actions';

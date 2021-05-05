@@ -1,4 +1,4 @@
-import CharacterType from 'src/app/common/enums/character-type.enum';
+import CharacterType from 'src/app/japanese/common/enums/character-type.enum';
 
 import Kanji from '../../models/kanji.model';
 import * as KanjiActions from '../kanji.actions';
