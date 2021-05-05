@@ -7,7 +7,6 @@ import Kanji from 'src/app/japanese/kanji/models/kanji.model';
 import Radical from 'src/app/japanese/radical/models/radical.model';
 import Word from 'src/app/japanese/vocabulary/models/word.model';
 import QuizService from 'src/app/quiz/services/quiz.service';
-import AppStoreState from 'src/app/store/app.state';
 
 import * as QuizActions from '../quiz.actions';
 import QuizEffects from '../quiz.effects';
@@ -65,7 +64,6 @@ const vocabulary: Word[] = [
 describe('QuizEffects', () => {
   let quizEffects: QuizEffects;
   let actions$: ReplaySubject<any>;
-  let store: Store<AppStoreState>;
   let quizService: QuizService;
 
   beforeEach(() =>
@@ -88,7 +86,6 @@ describe('QuizEffects', () => {
 
   beforeEach(() => {
     quizEffects = TestBed.inject(QuizEffects);
-    store = TestBed.inject(Store);
     quizService = TestBed.inject(QuizService);
   });
 
