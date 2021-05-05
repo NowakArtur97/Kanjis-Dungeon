@@ -7,12 +7,14 @@ export interface DeckStoreState {
   allCards: GameCard[];
   hand: GameCard[];
   chosenCard: GameCard;
+  numberOfCards: number;
 }
 
 const initialState: DeckStoreState = {
   allCards: [],
   hand: [],
   chosenCard: null,
+  numberOfCards: 6,
 };
 
 const _deckReducer = createReducer(

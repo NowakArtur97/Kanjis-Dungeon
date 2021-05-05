@@ -25,6 +25,7 @@ const initialState: DeckStoreState = {
   allCards: [],
   hand: [],
   chosenCard: null,
+  numberOfCards: 6,
 };
 const stateWithHand: DeckStoreState = {
   ...initialState,
