@@ -1,8 +1,3 @@
 <div class="hand">
-  <app-game-card></app-game-card>
-  <app-game-card></app-game-card>
-  <app-game-card></app-game-card>
-  <app-game-card></app-game-card>
-  <app-game-card></app-game-card>
-  <app-game-card></app-game-card>
+  <app-game-card *ngFor="let card of hand" [card]="card"></app-game-card>
 </div>

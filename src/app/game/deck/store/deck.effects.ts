@@ -32,7 +32,7 @@ export default class DeckEffects {
       switchMap(([{ allCards }, deckState]) =>
         of(this.deckService.getHand(allCards, deckState.numberOfCards))
       ),
-      map((allCards) => DeckActions.setAllCards({ allCards }))
+      map((hand) => DeckActions.getCardsToHand({ hand }))
     )
   );
 }

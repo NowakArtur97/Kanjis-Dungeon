@@ -1,7 +1,7 @@
 <div class="game_card__wrapper">
-  <div class="game_card">
+  <div *ngIf="card" class="game_card">
     <div class="game_card__content">
-      <h1 class="game_card__title">Piercing wail</h1>
+      <h1 class="game_card__title">{{ card.name }}</h1>
       <div class="game_card__image_container">
         <img
           class="game_card__image"
@@ -10,12 +10,12 @@
         />
       </div>
       <div class="game_card__type">
-        <p class="game_card__type_name">Power</p>
+        <p class="game_card__type_name">{{ card.type }}</p>
       </div>
       <div class="game_card__description">
-        <p>All enemies lose Strength this turn.</p>
+        <p>{{ card.description }}</p>
       </div>
-      <div class="game_card__cost">1</div>
+      <div class="game_card__cost">{{ card.cost }}</div>
     </div>
   </div>
 </div>

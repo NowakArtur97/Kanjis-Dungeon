@@ -1,6 +1,6 @@
 enum GameCardType {
-  ATTACK,
-  SKILL,
-  POWER,
+  ATTACK = 'Attack',
+  SKILL = 'Skill',
+  POWER = 'Power',
 }
 export default GameCardType;

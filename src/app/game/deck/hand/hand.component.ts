@@ -1,13 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
+import AppStoreState from 'src/app/store/app.state';
+
+import GameCard from '../models/game-card.model';
 
 @Component({
   selector: 'app-hand',
   templateUrl: './hand.component.html',
   styleUrls: ['./hand.component.css'],
 })
-export class HandComponent implements OnInit {
+export class HandComponent implements OnInit, OnDestroy {
   // TODO: HandComponent: Get Cards from store
-  constructor() {}
+  private handSubscription$: Subscription;
+  hand: GameCard[];
 
-  ngOnInit(): void {}
+  constructor(private store: Store<AppStoreState>) {}
+
+  ngOnInit(): void {
+    this.handSubscription$ = this.store.select('deck').subscribe(({ hand }) => {
+      if (hand) {
+        this.hand = hand;
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.handSubscription$?.unsubscribe();
+  }
 }
