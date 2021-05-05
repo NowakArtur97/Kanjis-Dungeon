@@ -12,3 +12,7 @@
 .character_sprite__image--rotated {
   transform: rotateY(180deg);
 }
+
+.character_sprite__wrapper--selectable {
+  border: 3px white solid;
+}

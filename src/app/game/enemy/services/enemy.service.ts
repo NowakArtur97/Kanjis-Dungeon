@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 
+import CharacterType from '../../character/enums/character-type.enum';
 import Character from '../../character/models/character.model';
 
 @Injectable({ providedIn: 'root' })
@@ -15,7 +16,7 @@ export default class EnemyService {
           maxDamage: 12,
           damage: 10,
           currentShield: 0,
-          isEnemy: true,
+          type: CharacterType.ENEMY,
         },
         animations: [
           {
@@ -44,7 +45,7 @@ export default class EnemyService {
           maxDamage: 12,
           damage: 10,
           currentShield: 8,
-          isEnemy: true,
+          type: CharacterType.ENEMY,
         },
         animations: [
           {
@@ -77,7 +78,7 @@ export default class EnemyService {
           damage: 10,
           maxDamage: 12,
           currentShield: 2,
-          isEnemy: true,
+          type: CharacterType.ENEMY,
         },
         animations: [
           {

@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import MathUtil from 'src/app/common/utils/math.util';
 
+import CharacterType from '../enums/character-type.enum';
 import Character from '../models/character.model';
 
 @Component({
@@ -10,7 +11,6 @@ import Character from '../models/character.model';
 })
 export class CharacterLayoutComponent implements OnInit {
   @Input() character: Character;
-
   randomTopOffset: number;
 
   constructor() {}
@@ -24,4 +24,6 @@ export class CharacterLayoutComponent implements OnInit {
       minTopOffset
     );
   }
+
+  isEnemy = (): boolean => this.character.stats.type === CharacterType.ENEMY;
 }

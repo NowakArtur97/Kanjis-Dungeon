@@ -1,5 +1,6 @@
 import { Action, createReducer } from '@ngrx/store';
 
+import CharacterType from '../../character/enums/character-type.enum';
 import Character from '../../character/models/character.model';
 
 export interface PlayerStoreState {
@@ -15,7 +16,7 @@ const initialState: PlayerStoreState = {
       damage: 20,
       maxDamage: 22,
       currentShield: 10,
-      isEnemy: false,
+      type: CharacterType.PLAYER,
     },
     animations: [
       {

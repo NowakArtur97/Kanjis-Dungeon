@@ -1,7 +1,10 @@
-<div class="character_sprite__wrapper">
+<div
+  [ngClass]="{ 'character_sprite__wrapper--selectable': isSelectable }"
+  class="character_sprite__wrapper"
+>
   <div
     #characterSpriteImage
-    [ngClass]="{ 'character_sprite__image--rotated': character?.stats.isEnemy }"
+    [ngClass]="{ 'character_sprite__image--rotated': isEnemy() }"
     [@animate]="{
       value: animationState,
       params: { spriteOffset: spriteOffset, animationSteps: animationSteps }
