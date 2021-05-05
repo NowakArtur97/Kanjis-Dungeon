@@ -2,7 +2,8 @@ import { TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Store, StoreModule } from '@ngrx/store';
 import { ReplaySubject } from 'rxjs';
-import AppStoreState from 'src/app/store/app.state';
+import CharacterType from 'src/app/game/character/enums/character-type.enum';
+import Character from 'src/app/game/character/models/character.model';
 
 import * as GameActions from '../../../store/game.actions';
 import EnemyService from '../../services/enemy.service';
@@ -12,9 +13,8 @@ import EnemyEffects from '../enemy.effects';
 describe('EnemyEffects', () => {
   let enemyEffects: EnemyEffects;
   let actions$: ReplaySubject<any>;
-  let store: Store<AppStoreState>;
   let enemyService: EnemyService;
-  const enemies = [
+  const enemies: Character[] = [
     {
       name: 'goblin-archer',
       stats: {
@@ -23,7 +23,7 @@ describe('EnemyEffects', () => {
         maxDamage: 12,
         damage: 10,
         currentShield: 0,
-        isEnemy: true,
+        type: CharacterType.ENEMY,
       },
       animations: [
         {
@@ -52,7 +52,7 @@ describe('EnemyEffects', () => {
         maxDamage: 12,
         damage: 10,
         currentShield: 8,
-        isEnemy: true,
+        type: CharacterType.ENEMY,
       },
       animations: [
         {
@@ -85,7 +85,7 @@ describe('EnemyEffects', () => {
         damage: 10,
         maxDamage: 12,
         currentShield: 2,
-        isEnemy: true,
+        type: CharacterType.ENEMY,
       },
       animations: [
         {
@@ -125,7 +125,6 @@ describe('EnemyEffects', () => {
 
   beforeEach(() => {
     enemyEffects = TestBed.inject(EnemyEffects);
-    store = TestBed.inject(Store);
     enemyService = TestBed.inject(EnemyService);
   });
 

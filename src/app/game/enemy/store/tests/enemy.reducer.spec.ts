@@ -1,3 +1,4 @@
+import CharacterType from 'src/app/game/character/enums/character-type.enum';
 import Character from 'src/app/game/character/models/character.model';
 
 import * as EnemyActions from '../enemy.actions';
@@ -19,7 +20,7 @@ describe('enemyReducer', () => {
             maxDamage: 12,
             damage: 10,
             currentShield: 0,
-            isEnemy: true,
+            type: CharacterType.ENEMY,
           },
           animations: [
             {
@@ -48,7 +49,7 @@ describe('enemyReducer', () => {
             maxDamage: 12,
             damage: 10,
             currentShield: 8,
-            isEnemy: true,
+            type: CharacterType.ENEMY,
           },
           animations: [
             {
@@ -77,7 +78,7 @@ describe('enemyReducer', () => {
             damage: 10,
             maxDamage: 12,
             currentShield: 2,
-            isEnemy: true,
+            type: CharacterType.ENEMY,
           },
           animations: [
             {

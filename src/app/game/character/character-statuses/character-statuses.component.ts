@@ -12,7 +12,7 @@ import Character from '../models/character.model';
 export class CharacterStatusesComponent implements OnInit {
   private wasSpriteSet = false;
 
-  @Input() private character: Character;
+  @Input() character: Character;
   statuses: CharacterStatus[];
 
   constructor(protected spriteService: SpriteService) {}

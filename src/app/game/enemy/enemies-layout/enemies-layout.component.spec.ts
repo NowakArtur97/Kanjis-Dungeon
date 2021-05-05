@@ -3,6 +3,7 @@ import { Store, StoreModule } from '@ngrx/store';
 import { of } from 'rxjs';
 import AppStoreState from 'src/app/store/app.state';
 
+import CharacterType from '../../character/enums/character-type.enum';
 import { EnemyStoreState } from '../store/enemy.reducer';
 import { EnemiesLayoutComponent } from './enemies-layout.component';
 
@@ -21,7 +22,7 @@ describe('EnemiesLayoutComponent', () => {
           maxDamage: 12,
           damage: 10,
           currentShield: 0,
-          isEnemy: true,
+          type: CharacterType.ENEMY,
         },
         animations: [
           {
@@ -50,7 +51,7 @@ describe('EnemiesLayoutComponent', () => {
           maxDamage: 12,
           damage: 10,
           currentShield: 8,
-          isEnemy: true,
+          type: CharacterType.ENEMY,
         },
         animations: [
           {
@@ -83,7 +84,7 @@ describe('EnemiesLayoutComponent', () => {
           damage: 10,
           maxDamage: 12,
           currentShield: 2,
-          isEnemy: true,
+          type: CharacterType.ENEMY,
         },
         animations: [
           {
@@ -125,7 +126,9 @@ describe('EnemiesLayoutComponent', () => {
     component.ngOnInit();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  describe('when initialize component', () => {
+    it('should select enemies from store', () => {
+      expect(store.select).toHaveBeenCalled();
+    });
   });
 });

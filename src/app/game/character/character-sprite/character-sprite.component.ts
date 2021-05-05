@@ -78,7 +78,7 @@ export class CharacterSpriteComponent
     this.chosenCardSubscription$?.unsubscribe();
   }
 
-  private handleSelection(deckStore: DeckStoreState) {
+  private handleSelection(deckStore: DeckStoreState): void {
     const characterType = this.character?.stats.type;
     const cardType = deckStore?.chosenCard?.type;
     const isEnemyAndCardOfAttackType =
@@ -101,5 +101,5 @@ export class CharacterSpriteComponent
     }
   }
 
-  isEnemy = (): boolean => this.character.stats.type === CharacterType.ENEMY;
+  isEnemy = (): boolean => this.character?.stats.type === CharacterType.ENEMY;
 }

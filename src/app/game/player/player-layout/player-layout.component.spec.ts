@@ -3,6 +3,7 @@ import { Store, StoreModule } from '@ngrx/store';
 import { of } from 'rxjs';
 import AppStoreState from 'src/app/store/app.state';
 
+import CharacterType from '../../character/enums/character-type.enum';
 import { PlayerStoreState } from '../store/player.reducer';
 import { PlayerLayoutComponent } from './player-layout.component';
 
@@ -20,7 +21,7 @@ describe('PlayerLayoutComponent', () => {
         damage: 20,
         maxDamage: 22,
         currentShield: 10,
-        isEnemy: false,
+        type: CharacterType.PLAYER,
       },
       animations: [
         {
@@ -30,40 +31,7 @@ describe('PlayerLayoutComponent', () => {
           animationIterationCount: 'Infinite',
         },
       ],
-      statuses: [
-        {
-          spriteSheet: 'heart',
-          remainingNumberOfActiveRounds: 2,
-        },
-        {
-          spriteSheet: 'book',
-          remainingNumberOfActiveRounds: 3,
-        },
-        {
-          spriteSheet: 'heart',
-          remainingNumberOfActiveRounds: 2,
-        },
-        {
-          spriteSheet: 'book',
-          remainingNumberOfActiveRounds: 3,
-        },
-        {
-          spriteSheet: 'heart',
-          remainingNumberOfActiveRounds: 2,
-        },
-        {
-          spriteSheet: 'book',
-          remainingNumberOfActiveRounds: 3,
-        },
-        {
-          spriteSheet: 'heart',
-          remainingNumberOfActiveRounds: 2,
-        },
-        {
-          spriteSheet: 'book',
-          remainingNumberOfActiveRounds: 3,
-        },
-      ],
+      statuses: [],
     },
   };
 
@@ -85,7 +53,9 @@ describe('PlayerLayoutComponent', () => {
     component.ngOnInit();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  describe('when initialize component', () => {
+    it('should select player from store', () => {
+      expect(store.select).toHaveBeenCalled();
+    });
   });
 });

@@ -25,5 +25,5 @@ export class CharacterLayoutComponent implements OnInit {
     );
   }
 
-  isEnemy = (): boolean => this.character.stats.type === CharacterType.ENEMY;
+  isEnemy = (): boolean => this.character?.stats.type === CharacterType.ENEMY;
 }
