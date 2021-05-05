@@ -4,7 +4,6 @@ import { Store, StoreModule } from '@ngrx/store';
 import { of, ReplaySubject } from 'rxjs';
 import CharacterType from 'src/app/japanese/common/enums/character-type.enum';
 import QuizService from 'src/app/quiz/services/quiz.service';
-import AppStoreState from 'src/app/store/app.state';
 
 import KANJI from '../../kanji.data';
 import Kanji from '../../models/kanji.model';
@@ -15,9 +14,7 @@ import KanjiEffects from '../kanji.effects';
 describe('KanjiEffects', () => {
   let kanjiEffects: KanjiEffects;
   let actions$: ReplaySubject<any>;
-  let store: Store<AppStoreState>;
   let kanjiService: KanjiService;
-  let quizService: QuizService;
 
   beforeEach(() =>
     TestBed.configureTestingModule({
@@ -40,9 +37,7 @@ describe('KanjiEffects', () => {
 
   beforeEach(() => {
     kanjiEffects = TestBed.inject(KanjiEffects);
-    store = TestBed.inject(Store);
     kanjiService = TestBed.inject(KanjiService);
-    quizService = TestBed.inject(QuizService);
   });
 
   describe('saveKanji$', () => {

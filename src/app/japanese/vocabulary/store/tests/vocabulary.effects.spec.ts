@@ -4,7 +4,6 @@ import { Store, StoreModule } from '@ngrx/store';
 import { of, ReplaySubject } from 'rxjs';
 import CharacterType from 'src/app/japanese/common/enums/character-type.enum';
 import QuizService from 'src/app/quiz/services/quiz.service';
-import AppStoreState from 'src/app/store/app.state';
 
 import Word from '../../models/word.model';
 import VocabularyService from '../../services/vocabulary.service';
@@ -15,9 +14,7 @@ import VocabularyEffects from '../vocabulary.effects';
 describe('VocabularyEffects', () => {
   let vocabularyEffects: VocabularyEffects;
   let actions$: ReplaySubject<any>;
-  let store: Store<AppStoreState>;
   let vocabularyService: VocabularyService;
-  let quizService: QuizService;
 
   beforeEach(() =>
     TestBed.configureTestingModule({
@@ -43,9 +40,7 @@ describe('VocabularyEffects', () => {
 
   beforeEach(() => {
     vocabularyEffects = TestBed.inject(VocabularyEffects);
-    store = TestBed.inject(Store);
     vocabularyService = TestBed.inject(VocabularyService);
-    quizService = TestBed.inject(QuizService);
   });
 
   describe('saveVocabulary$', () => {

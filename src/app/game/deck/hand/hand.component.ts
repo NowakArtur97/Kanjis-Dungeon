@@ -11,18 +11,19 @@ import GameCard from '../models/game-card.model';
   styleUrls: ['./hand.component.css'],
 })
 export class HandComponent implements OnInit, OnDestroy {
-  // TODO: HandComponent: Get Cards from store
   private handSubscription$: Subscription;
   hand: GameCard[];
 
   constructor(private store: Store<AppStoreState>) {}
 
   ngOnInit(): void {
-    this.handSubscription$ = this.store.select('deck').subscribe(({ hand }) => {
-      if (hand) {
-        this.hand = hand;
-      }
-    });
+    this.handSubscription$ = this.store
+      .select('deck')
+      .subscribe((deckState) => {
+        if (deckState?.hand) {
+          this.hand = deckState.hand;
+        }
+      });
   }
 
   ngOnDestroy(): void {

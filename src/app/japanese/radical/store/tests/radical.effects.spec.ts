@@ -4,7 +4,6 @@ import { Store, StoreModule } from '@ngrx/store';
 import { of, ReplaySubject } from 'rxjs';
 import CharacterType from 'src/app/japanese/common/enums/character-type.enum';
 import QuizService from 'src/app/quiz/services/quiz.service';
-import AppStoreState from 'src/app/store/app.state';
 
 import Radical from '../../models/radical.model';
 import RADICALS from '../../radical.data';
@@ -15,9 +14,7 @@ import RadicalEffects from '../radical.effects';
 describe('RadicalEffects', () => {
   let radicalEffects: RadicalEffects;
   let actions$: ReplaySubject<any>;
-  let store: Store<AppStoreState>;
   let radicalService: RadicalService;
-  let quizService: QuizService;
 
   beforeEach(async () =>
     TestBed.configureTestingModule({
@@ -40,9 +37,7 @@ describe('RadicalEffects', () => {
 
   beforeEach(() => {
     radicalEffects = TestBed.inject(RadicalEffects);
-    store = TestBed.inject(Store);
     radicalService = TestBed.inject(RadicalService);
-    quizService = TestBed.inject(QuizService);
   });
 
   describe('saveRadicals$', () => {

@@ -25,12 +25,12 @@ export default class DeckEffects {
     )
   );
 
-  chooseEnemies$ = createEffect(() =>
+  getCardsToHand$ = createEffect(() =>
     this.actions$.pipe(
       ofType(DeckActions.setAllCards),
-      withLatestFrom(this.store.select((state) => state.deck)),
-      switchMap(([{ allCards }, deckState]) =>
-        of(this.deckService.getHand(allCards, deckState.numberOfCards))
+      withLatestFrom(this.store.select((state) => state.deck?.numberOfCards)),
+      switchMap(([{ allCards }, numberOfCards]) =>
+        of(this.deckService.getHand(allCards, numberOfCards))
       ),
       map((hand) => DeckActions.getCardsToHand({ hand }))
     )

@@ -51,15 +51,6 @@ describe('deckReducer', () => {
 
   describe('DeckActions.getCardsToHand', () => {
     it('should get cards to hand', () => {
-      const hand = [
-        {
-          name: 'Attack',
-          cost: 2,
-          type: GameCardType.ATTACK,
-          description: 'attack',
-        },
-      ];
-
       const action = DeckActions.getCardsToHand({ hand });
       const actualState = deckReducer(stateWithCards, action);
       const expectedState = { ...stateWithHand };
