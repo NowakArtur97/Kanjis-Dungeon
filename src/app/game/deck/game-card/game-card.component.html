@@ -1,4 +1,4 @@
-<div class="game_card__wrapper">
+<div (click)="onChooseCard()" class="game_card__wrapper">
   <div *ngIf="card" class="game_card">
     <div class="game_card__content">
       <h1 class="game_card__title">{{ card.name }}</h1>

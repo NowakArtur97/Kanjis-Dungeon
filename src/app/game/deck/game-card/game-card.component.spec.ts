@@ -1,14 +1,18 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { EffectsModule } from '@ngrx/effects';
-import { StoreModule } from '@ngrx/store';
+import { Store, StoreModule } from '@ngrx/store';
 import { JapaneseModule } from 'src/app/japanese/japanese.module';
+import AppStoreState from 'src/app/store/app.state';
 
+import GameCardType from '../enums/game-card-type.enum';
+import * as DeckActions from '../store/deck.actions';
 import { GameCardComponent } from './game-card.component';
 
 describe('GameCardComponent', () => {
   let component: GameCardComponent;
   let fixture: ComponentFixture<GameCardComponent>;
+  let store: Store<AppStoreState>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -26,10 +30,26 @@ describe('GameCardComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(GameCardComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+
+    store = TestBed.inject(Store);
+
+    spyOn(store, 'dispatch');
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  describe('when choose card', () => {
+    it('should dispatch chooseCard action', () => {
+      const chosenCard = {
+        name: 'Attack',
+        cost: 2,
+        type: GameCardType.ATTACK,
+        description: 'attack',
+      };
+      component.card = chosenCard;
+      component.onChooseCard();
+
+      expect(store.dispatch).toHaveBeenCalledWith(
+        DeckActions.chooseCard({ chosenCard })
+      );
+    });
   });
 });
