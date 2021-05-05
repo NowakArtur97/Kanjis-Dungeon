@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import CharacterType from 'src/app/common/enums/character-type.enum';
+import CharacterType from 'src/app/japanese/common/enums/character-type.enum';
 import AppStoreState from 'src/app/store/app.state';
 
 import * as QuizActions from '../../quiz/store/quiz.actions';

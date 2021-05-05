@@ -1,4 +1,4 @@
-import CharacterType from '../../common/enums/character-type.enum';
+import CharacterType from '../common/enums/character-type.enum';
 import Radical from './models/radical.model';
 
 const RADICALS: Radical[] = [

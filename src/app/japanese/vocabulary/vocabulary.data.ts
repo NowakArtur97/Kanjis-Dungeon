@@ -1,4 +1,4 @@
-import CharacterType from '../../common/enums/character-type.enum';
+import CharacterType from '../common/enums/character-type.enum';
 import Word from './models/word.model';
 
 const VOCABULARY: Word[] = [

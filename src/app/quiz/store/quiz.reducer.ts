@@ -1,5 +1,5 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import CharacterType from 'src/app/common/enums/character-type.enum';
+import CharacterType from 'src/app/japanese/common/enums/character-type.enum';
 import Radical from 'src/app/japanese/radical/models/radical.model';
 
 import QuizOptions from '../models/quiz-options.model';

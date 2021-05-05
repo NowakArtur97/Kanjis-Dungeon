@@ -1,4 +1,4 @@
-import CharacterType from 'src/app/common/enums/character-type.enum';
+import CharacterType from 'src/app/japanese/common/enums/character-type.enum';
 
 export default interface QuizOptions {
   numberOfQuestions: number;

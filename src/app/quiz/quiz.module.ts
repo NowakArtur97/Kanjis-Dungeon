@@ -6,6 +6,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 
 import { AppCommonModule } from '../common/app-common.module';
+import { JapaneseModule } from '../japanese/japanese.module';
 import KanjiResolver from '../japanese/kanji/kanji.resolver';
 import RadicalResolver from '../japanese/radical/radical.resolver';
 import VocabularyResolver from '../japanese/vocabulary/vocabulary.resolver';
@@ -32,6 +33,7 @@ const cardRoutes: Routes = [
     ReactiveFormsModule,
     RouterModule.forRoot(cardRoutes),
 
+    JapaneseModule,
     AppCommonModule,
   ],
   exports: [QuizLayoutComponent],

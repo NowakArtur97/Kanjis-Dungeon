@@ -1,4 +1,4 @@
-import CharacterType from 'src/app/common/enums/character-type.enum';
+import CharacterType from '../../common/enums/character-type.enum';
 
 export default interface Radical {
   readonly id: number;
