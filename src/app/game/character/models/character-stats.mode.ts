@@ -1,8 +1,8 @@
 export default interface CharacterStats {
-  maxHealth: number;
+  readonly maxHealth: number;
   currentHealth: number;
-  maxDamage: number;
+  readonly maxDamage: number;
   damage: number;
   currentShield: number;
-  isEnemy: boolean;
+  readonly isEnemy: boolean;
 }

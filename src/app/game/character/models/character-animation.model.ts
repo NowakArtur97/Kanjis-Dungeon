@@ -1,6 +1,6 @@
 export default interface CharacterAnimation {
-  spriteSheet: string;
-  numberOfFrames: number;
-  animationTimeInMiliseconds: number;
-  animationIterationCount: string;
+  readonly spriteSheet: string;
+  readonly numberOfFrames: number;
+  readonly animationTimeInMiliseconds: number;
+  readonly animationIterationCount: string;
 }

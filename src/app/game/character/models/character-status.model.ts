@@ -1,4 +1,4 @@
 export default interface CharacterStatus {
-  spriteSheet: string;
+  readonly spriteSheet: string;
   remainingNumberOfActiveRounds: number;
 }

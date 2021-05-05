@@ -1,4 +1,4 @@
 export default interface CharacterAction {
-  action: string;
-  value?: number;
+  readonly action: string;
+  readonly value?: number;
 }
