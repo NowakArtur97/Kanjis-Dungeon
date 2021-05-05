@@ -16,3 +16,6 @@
 .character_sprite__wrapper--selectable {
   border: 3px white solid;
 }
+.character_sprite__wrapper--selectable:hover {
+  cursor: pointer;
+}

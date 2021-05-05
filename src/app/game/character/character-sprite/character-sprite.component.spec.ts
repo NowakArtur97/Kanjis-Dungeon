@@ -6,6 +6,8 @@ import AppStoreState from 'src/app/store/app.state';
 
 import GameCardType from '../../deck/enums/game-card-type.enum';
 import { DeckStoreState } from '../../deck/store/deck.reducer';
+import * as EnemyActions from '../../enemy/store/enemy.actions';
+import * as PlayerActions from '../../player/store/player.actions';
 import SpriteService from '../../services/sprite.service';
 import CharacterType from '../enums/character-type.enum';
 import Character from '../models/character.model';
@@ -152,6 +154,38 @@ describe('CharacterSpriteComponent', () => {
 
         expect(component.isSelectable).toBe(false);
         expect(store.select).toHaveBeenCalled();
+      });
+    });
+
+    describe('when character chosen', () => {
+      beforeEach(() => {
+        spyOn(store, 'dispatch');
+      });
+
+      it('is Player should dispatch useCardOnPlayer action', () => {
+        spyOn(store, 'select').and.callFake(() => of(stateWithPowerTypeCard));
+        fixture.detectChanges();
+
+        component.character = playerCharacter;
+        component.ngOnInit();
+        component.onChooseCharacter();
+
+        expect(store.dispatch).toHaveBeenCalledWith(
+          PlayerActions.useCardOnPlayer()
+        );
+      });
+
+      it('is Enemy should dispatch useCardOnEnemy action', () => {
+        spyOn(store, 'select').and.callFake(() => of(stateWithAttackTypeCard));
+        fixture.detectChanges();
+
+        component.character = enemyCharacter;
+        component.ngOnInit();
+        component.onChooseCharacter();
+
+        expect(store.dispatch).toHaveBeenCalledWith(
+          EnemyActions.useCardOnEnemy({ enemy: component.character })
+        );
       });
     });
   });

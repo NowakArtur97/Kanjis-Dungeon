@@ -6,6 +6,8 @@ import AppStoreState from 'src/app/store/app.state';
 
 import GameCardType from '../../deck/enums/game-card-type.enum';
 import { DeckStoreState } from '../../deck/store/deck.reducer';
+import * as EnemyActions from '../../enemy/store/enemy.actions';
+import * as PlayerActions from '../../player/store/player.actions';
 import SpriteService from '../../services/sprite.service';
 import CharacterType from '../enums/character-type.enum';
 import Character from '../models/character.model';
@@ -89,6 +91,16 @@ export class CharacterSpriteComponent
       cardType !== GameCardType.ATTACK;
     this.isSelectable =
       isEnemyAndCardOfAttackType || isPlayerAndCardNotOfAttackType;
+  }
+
+  onChooseCharacter(): void {
+    if (this.character.stats.type === CharacterType.ENEMY) {
+      this.store.dispatch(
+        EnemyActions.useCardOnEnemy({ enemy: this.character })
+      );
+    } else {
+      this.store.dispatch(PlayerActions.useCardOnPlayer());
+    }
   }
 
   onEndAnimation(event): void {

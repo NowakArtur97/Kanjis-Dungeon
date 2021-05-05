@@ -6,3 +6,8 @@ export const chooseEnemies = createAction(
   '[Enemy] Choose Enemies',
   props<{ enemies: Character[] }>()
 );
+
+export const useCardOnEnemy = createAction(
+  '[Enemy] Use Card on Enemy',
+  props<{ enemy: Character }>()
+);
