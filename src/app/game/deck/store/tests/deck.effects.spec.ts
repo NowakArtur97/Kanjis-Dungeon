@@ -4,6 +4,7 @@ import { Store, StoreModule } from '@ngrx/store';
 import { ReplaySubject } from 'rxjs';
 import AppStoreState from 'src/app/store/app.state';
 
+import * as PlayerActions from '../../../player/store/player.actions';
 import * as GameActions from '../../../store/game.actions';
 import { attackCard, defenceCard, powerCard } from '../../deck.data';
 import DeckService from '../../services/deck.service';
@@ -67,10 +68,10 @@ describe('DeckEffects', () => {
     });
   });
 
-  describe('setAllCards$', () => {
+  describe('getCardsToHand$', () => {
     beforeEach(() => {
       actions$ = new ReplaySubject(1);
-      actions$.next(DeckActions.setAllCards);
+      actions$.next(PlayerActions.startPlayerTurn);
       (deckService.getHand as jasmine.Spy).and.returnValue(hand);
     });
 

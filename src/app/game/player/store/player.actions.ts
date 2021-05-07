@@ -7,4 +7,8 @@ export const setPlayer = createAction(
   props<{ player: Character }>()
 );
 
+export const startPlayerTurn = createAction('[Player] Start Player Turn');
+
+export const endPlayerTurn = createAction('[Player] End Player Turn');
+
 export const useCardOnPlayer = createAction('[Player] Use Card on Player');

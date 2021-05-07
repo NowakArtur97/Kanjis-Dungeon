@@ -33,7 +33,7 @@ describe('gameReducer', () => {
         turn,
       };
 
-      const action = GameActions.changeTurn({ turn });
+      const action = GameActions.changeTurn();
       const actualState = gameReducer(initialState, action);
       const expectedState = { ...stateWithPlayerTurn };
 

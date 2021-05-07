@@ -5,6 +5,7 @@ import { of } from 'rxjs';
 import { map, switchMap, withLatestFrom } from 'rxjs/operators';
 import AppStoreState from 'src/app/store/app.state';
 
+import * as PlayerActions from '../../player/store/player.actions';
 import * as GameActions from '../../store/game.actions';
 import DeckService from '../services/deck.service';
 import * as DeckActions from '../store/deck.actions';
@@ -27,9 +28,12 @@ export default class DeckEffects {
 
   getCardsToHand$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(DeckActions.setAllCards),
-      withLatestFrom(this.store.select((state) => state.deck?.numberOfCards)),
-      switchMap(([{ allCards }, numberOfCards]) =>
+      ofType(PlayerActions.startPlayerTurn),
+      withLatestFrom(
+        this.store.select((state) => state.deck?.allCards),
+        this.store.select((state) => state.deck?.numberOfCards)
+      ),
+      switchMap(([action, allCards, numberOfCards]) =>
         of(this.deckService.getHand(allCards, numberOfCards))
       ),
       map((hand) => DeckActions.getCardsToHand({ hand }))

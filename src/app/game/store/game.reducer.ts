@@ -9,7 +9,7 @@ export interface GameStoreState {
 }
 const initialState: GameStoreState = {
   level: 0,
-  turn: GameTurn.PLAYER_TURN,
+  turn: GameTurn.ENEMY_TURN,
 };
 
 const _gameReducer = createReducer(
@@ -20,9 +20,12 @@ const _gameReducer = createReducer(
     level,
   })),
 
-  on(GameActions.changeTurn, (state, { turn }) => ({
+  on(GameActions.changeTurn, (state) => ({
     ...state,
-    turn,
+    turn:
+      state.turn === GameTurn.ENEMY_TURN
+        ? GameTurn.PLAYER_TURN
+        : GameTurn.ENEMY_TURN,
   }))
 );
 
