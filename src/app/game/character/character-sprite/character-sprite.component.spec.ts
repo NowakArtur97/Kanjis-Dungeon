@@ -168,6 +168,19 @@ describe('CharacterSpriteComponent', () => {
         );
       });
 
+      it('is Player and chosen card doesnt affect Player should not dispatch useCardOnPlayer action', () => {
+        spyOn(store, 'select').and.callFake(() => of(stateWithAttackTypeCard));
+        fixture.detectChanges();
+
+        component.character = playerCharacter;
+        component.ngOnInit();
+        component.onChooseCharacter();
+
+        expect(store.dispatch).not.toHaveBeenCalledWith(
+          PlayerActions.useCardOnPlayer()
+        );
+      });
+
       it('is Enemy should dispatch useCardOnEnemy action', () => {
         spyOn(store, 'select').and.callFake(() => of(stateWithAttackTypeCard));
         fixture.detectChanges();
@@ -177,6 +190,19 @@ describe('CharacterSpriteComponent', () => {
         component.onChooseCharacter();
 
         expect(store.dispatch).toHaveBeenCalledWith(
+          EnemyActions.useCardOnEnemy({ enemy: component.character })
+        );
+      });
+
+      it('is Enemy and chosen card doesnt affect Enemy should not dispatch useCardOnEnemy action', () => {
+        spyOn(store, 'select').and.callFake(() => of(stateWithPowerTypeCard));
+        fixture.detectChanges();
+
+        component.character = enemyCharacter;
+        component.ngOnInit();
+        component.onChooseCharacter();
+
+        expect(store.dispatch).not.toHaveBeenCalledWith(
           EnemyActions.useCardOnEnemy({ enemy: component.character })
         );
       });

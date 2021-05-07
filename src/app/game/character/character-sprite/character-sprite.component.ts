@@ -94,6 +94,9 @@ export class CharacterSpriteComponent
   }
 
   onChooseCharacter(): void {
+    if (!this.isSelectable) {
+      return;
+    }
     if (this.character.stats.type === CharacterType.ENEMY) {
       this.store.dispatch(
         EnemyActions.useCardOnEnemy({ enemy: this.character })
