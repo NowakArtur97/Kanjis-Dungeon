@@ -16,6 +16,7 @@ describe('DeckEffects', () => {
   let actions$: ReplaySubject<any>;
   let store: Store<AppStoreState>;
   let deckService: DeckService;
+
   const allCards = [
     attackCard,
     defenceCard,

@@ -14,6 +14,7 @@ describe('EnemyEffects', () => {
   let enemyEffects: EnemyEffects;
   let actions$: ReplaySubject<any>;
   let enemyService: EnemyService;
+
   const enemy1: Character = {
     name: 'goblin-archer',
     stats: {

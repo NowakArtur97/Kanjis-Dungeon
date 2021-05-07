@@ -13,6 +13,7 @@ describe('PlayerEffects', () => {
   let playerEffects: PlayerEffects;
   let actions$: ReplaySubject<any>;
   let playerService: PlayerService;
+
   const player: Character = {
     name: 'example-character',
     stats: {
