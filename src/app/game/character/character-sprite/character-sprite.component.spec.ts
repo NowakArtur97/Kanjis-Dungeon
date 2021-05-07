@@ -4,7 +4,7 @@ import { Store, StoreModule } from '@ngrx/store';
 import { of } from 'rxjs';
 import AppStoreState from 'src/app/store/app.state';
 
-import GameCardType from '../../deck/enums/game-card-type.enum';
+import { attackCard, powerCard } from '../../deck/deck.data';
 import { DeckStoreState } from '../../deck/store/deck.reducer';
 import * as EnemyActions from '../../enemy/store/enemy.actions';
 import * as PlayerActions from '../../player/store/player.actions';
@@ -20,20 +20,10 @@ describe('CharacterSpriteComponent', () => {
   let spriteService: SpriteService;
 
   const stateWithAttackTypeCard: Partial<DeckStoreState> = {
-    chosenCard: {
-      name: 'Attack',
-      cost: 2,
-      type: GameCardType.ATTACK,
-      description: 'attack',
-    },
+    chosenCard: attackCard,
   };
   const stateWithPowerTypeCard: Partial<DeckStoreState> = {
-    chosenCard: {
-      name: 'Power',
-      cost: 2,
-      type: GameCardType.POWER,
-      description: 'power',
-    },
+    chosenCard: powerCard,
   };
   const playerCharacter: Character = {
     name: 'example-character',

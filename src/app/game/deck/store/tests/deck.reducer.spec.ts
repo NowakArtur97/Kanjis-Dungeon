@@ -1,26 +1,10 @@
-import GameCardType from '../../enums/game-card-type.enum';
+import { attackCard, defenceCard, powerCard } from '../../deck.data';
 import GameCard from '../../models/game-card.model';
 import * as DeckActions from '../deck.actions';
 import { deckReducer, DeckStoreState } from '../deck.reducer';
 
-const allCards: GameCard[] = [
-  { name: 'Attack', cost: 2, type: GameCardType.ATTACK, description: 'attack' },
-  {
-    name: 'Defence',
-    cost: 2,
-    type: GameCardType.SKILL,
-    description: 'defence',
-  },
-  { name: 'Power', cost: 2, type: GameCardType.POWER, description: 'power' },
-];
-const hand = [
-  {
-    name: 'Attack',
-    cost: 2,
-    type: GameCardType.ATTACK,
-    description: 'attack',
-  },
-];
+const allCards: GameCard[] = [attackCard, defenceCard, powerCard];
+const hand = [attackCard];
 const initialState: DeckStoreState = {
   allCards: [],
   hand: [],
@@ -62,25 +46,19 @@ describe('deckReducer', () => {
 
   describe('DeckActions.chooseCard', () => {
     it('should choose card', () => {
-      const chosenCard = {
-        name: 'Attack',
-        cost: 2,
-        type: GameCardType.ATTACK,
-        description: 'attack',
-      };
       const stateWithChosenCard: DeckStoreState = {
         ...initialState,
         allCards,
         hand,
-        chosenCard,
+        chosenCard: attackCard,
       };
 
-      const action = DeckActions.chooseCard({ chosenCard });
+      const action = DeckActions.chooseCard({ chosenCard: attackCard });
       const actualState = deckReducer(stateWithHand, action);
       const expectedState = { ...stateWithChosenCard };
 
       expect(actualState).toEqual(expectedState);
-      expect(actualState.chosenCard).toEqual(chosenCard);
+      expect(actualState.chosenCard).toEqual(attackCard);
     });
   });
 });

@@ -5,11 +5,10 @@ import { ReplaySubject } from 'rxjs';
 import AppStoreState from 'src/app/store/app.state';
 
 import * as GameActions from '../../../store/game.actions';
-import GameCardType from '../../enums/game-card-type.enum';
+import { attackCard, defenceCard, powerCard } from '../../deck.data';
 import DeckService from '../../services/deck.service';
 import * as DeckActions from '../deck.actions';
 import DeckEffects from '../deck.effects';
-import { DeckStoreState } from '../deck.reducer';
 
 describe('DeckEffects', () => {
   let deckEffects: DeckEffects;
@@ -17,68 +16,17 @@ describe('DeckEffects', () => {
   let store: Store<AppStoreState>;
   let deckService: DeckService;
   const allCards = [
-    {
-      name: 'Attack',
-      cost: 2,
-      type: GameCardType.ATTACK,
-      description: 'attack',
-    },
-    {
-      name: 'Defence',
-      cost: 2,
-      type: GameCardType.SKILL,
-      description: 'defence',
-    },
-    {
-      name: 'Power',
-      cost: 2,
-      type: GameCardType.POWER,
-      description: 'power',
-    },
-    {
-      name: 'Attack',
-      cost: 2,
-      type: GameCardType.ATTACK,
-      description: 'attack',
-    },
-    {
-      name: 'Defence',
-      cost: 2,
-      type: GameCardType.SKILL,
-      description: 'defence',
-    },
-    {
-      name: 'Power',
-      cost: 2,
-      type: GameCardType.POWER,
-      description: 'power',
-    },
-    {
-      name: 'Attack',
-      cost: 2,
-      type: GameCardType.ATTACK,
-      description: 'attack',
-    },
-    {
-      name: 'Defence',
-      cost: 2,
-      type: GameCardType.SKILL,
-      description: 'defence',
-    },
-    {
-      name: 'Power',
-      cost: 2,
-      type: GameCardType.POWER,
-      description: 'power',
-    },
+    attackCard,
+    defenceCard,
+    powerCard,
+    attackCard,
+    defenceCard,
+    powerCard,
+    attackCard,
+    defenceCard,
+    powerCard,
   ];
   const hand = [...allCards].splice(0, 6);
-  const stateWithCards: DeckStoreState = {
-    allCards,
-    hand: [],
-    chosenCard: null,
-    numberOfCards: 6,
-  };
 
   beforeEach(() =>
     TestBed.configureTestingModule({

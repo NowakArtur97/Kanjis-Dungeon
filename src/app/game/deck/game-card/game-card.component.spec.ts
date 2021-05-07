@@ -5,7 +5,7 @@ import { Store, StoreModule } from '@ngrx/store';
 import { JapaneseModule } from 'src/app/japanese/japanese.module';
 import AppStoreState from 'src/app/store/app.state';
 
-import GameCardType from '../enums/game-card-type.enum';
+import { attackCard } from '../deck.data';
 import * as DeckActions from '../store/deck.actions';
 import { GameCardComponent } from './game-card.component';
 
@@ -38,17 +38,11 @@ describe('GameCardComponent', () => {
 
   describe('when choose card', () => {
     it('should dispatch chooseCard action', () => {
-      const chosenCard = {
-        name: 'Attack',
-        cost: 2,
-        type: GameCardType.ATTACK,
-        description: 'attack',
-      };
-      component.card = chosenCard;
+      component.card = attackCard;
       component.onChooseCard();
 
       expect(store.dispatch).toHaveBeenCalledWith(
-        DeckActions.chooseCard({ chosenCard })
+        DeckActions.chooseCard({ chosenCard: attackCard })
       );
     });
   });
