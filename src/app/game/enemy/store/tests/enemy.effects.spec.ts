@@ -14,96 +14,130 @@ describe('EnemyEffects', () => {
   let enemyEffects: EnemyEffects;
   let actions$: ReplaySubject<any>;
   let enemyService: EnemyService;
-  const enemies: Character[] = [
+  const enemy1: Character = {
+    name: 'goblin-archer',
+    stats: {
+      maxHealth: 70,
+      currentHealth: 70,
+      maxDamage: 12,
+      damage: 10,
+      currentShield: 0,
+      type: CharacterType.ENEMY,
+    },
+    animations: [
+      {
+        spriteSheet: 'idle',
+        numberOfFrames: 4,
+        animationTimeInMiliseconds: 600,
+        animationIterationCount: 'Infinite',
+      },
+    ],
+    statuses: [
+      {
+        spriteSheet: 'book',
+        remainingNumberOfActiveRounds: 3,
+      },
+    ],
+    action: {
+      action: 'sword',
+      value: 5,
+    },
+  };
+  const enemy2: Character = {
+    name: 'goblin-archer',
+    stats: {
+      maxHealth: 60,
+      currentHealth: 15,
+      maxDamage: 12,
+      damage: 10,
+      currentShield: 8,
+      type: CharacterType.ENEMY,
+    },
+    animations: [
+      {
+        spriteSheet: 'idle',
+        numberOfFrames: 4,
+        animationTimeInMiliseconds: 600,
+        animationIterationCount: 'Infinite',
+      },
+    ],
+    statuses: [
+      {
+        spriteSheet: 'heart',
+        remainingNumberOfActiveRounds: 2,
+      },
+      {
+        spriteSheet: 'book',
+        remainingNumberOfActiveRounds: 3,
+      },
+    ],
+    action: {
+      action: 'sword',
+      value: 5,
+    },
+  };
+  const enemy3: Character = {
+    name: 'goblin-archer',
+    stats: {
+      maxHealth: 50,
+      currentHealth: 20,
+      damage: 10,
+      maxDamage: 12,
+      currentShield: 2,
+      type: CharacterType.ENEMY,
+    },
+    animations: [
+      {
+        spriteSheet: 'idle',
+        numberOfFrames: 4,
+        animationTimeInMiliseconds: 600,
+        animationIterationCount: 'Infinite',
+      },
+    ],
+    statuses: [
+      {
+        spriteSheet: 'heart',
+        remainingNumberOfActiveRounds: 2,
+      },
+    ],
+    action: {
+      action: 'shield',
+      value: 11,
+    },
+  };
+  const enemies: Character[] = [enemy1, enemy2, enemy3];
+  const updatedEnemies: Character[] = [
     {
-      name: 'goblin-archer',
+      ...enemy1,
       stats: {
         maxHealth: 70,
         currentHealth: 70,
         maxDamage: 12,
-        damage: 10,
-        currentShield: 0,
+        damage: 12,
+        currentShield: 10,
         type: CharacterType.ENEMY,
-      },
-      animations: [
-        {
-          spriteSheet: 'idle',
-          numberOfFrames: 4,
-          animationTimeInMiliseconds: 600,
-          animationIterationCount: 'Infinite',
-        },
-      ],
-      statuses: [
-        {
-          spriteSheet: 'book',
-          remainingNumberOfActiveRounds: 3,
-        },
-      ],
-      action: {
-        action: 'sword',
-        value: 5,
       },
     },
     {
-      name: 'goblin-archer',
+      ...enemy2,
       stats: {
         maxHealth: 60,
-        currentHealth: 15,
+        currentHealth: 35,
         maxDamage: 12,
         damage: 10,
-        currentShield: 8,
+        currentShield: 18,
         type: CharacterType.ENEMY,
-      },
-      animations: [
-        {
-          spriteSheet: 'idle',
-          numberOfFrames: 4,
-          animationTimeInMiliseconds: 600,
-          animationIterationCount: 'Infinite',
-        },
-      ],
-      statuses: [
-        {
-          spriteSheet: 'heart',
-          remainingNumberOfActiveRounds: 2,
-        },
-        {
-          spriteSheet: 'book',
-          remainingNumberOfActiveRounds: 3,
-        },
-      ],
-      action: {
-        action: 'sword',
-        value: 5,
       },
     },
     {
-      name: 'goblin-archer',
+      ...enemy3,
       stats: {
         maxHealth: 50,
-        currentHealth: 20,
+        currentHealth: 30,
         damage: 10,
         maxDamage: 12,
-        currentShield: 2,
+        currentShield: 6,
         type: CharacterType.ENEMY,
-      },
-      animations: [
-        {
-          spriteSheet: 'idle',
-          numberOfFrames: 4,
-          animationTimeInMiliseconds: 600,
-          animationIterationCount: 'Infinite',
-        },
-      ],
-      statuses: [
-        {
-          spriteSheet: 'heart',
-          remainingNumberOfActiveRounds: 2,
-        },
-      ],
-      action: {
-        action: 'shield',
-        value: 11,
       },
     },
   ];
@@ -117,7 +151,10 @@ describe('EnemyEffects', () => {
         provideMockActions(() => actions$),
         {
           provide: EnemyService,
-          useValue: jasmine.createSpyObj('enemyService', ['chooseEnemies']),
+          useValue: jasmine.createSpyObj('enemyService', [
+            'chooseEnemies',
+            'updateEnemies',
+          ]),
         },
       ],
     })
@@ -139,6 +176,25 @@ describe('EnemyEffects', () => {
       enemyEffects.chooseEnemies$.subscribe((resultAction) => {
         expect(resultAction).toEqual(EnemyActions.setEnemies({ enemies }));
         expect(enemyService.chooseEnemies).toHaveBeenCalledTimes(1);
+      });
+    });
+  });
+
+  describe('useCardOnEnemy$', () => {
+    beforeEach(() => {
+      actions$ = new ReplaySubject(1);
+      actions$.next(EnemyActions.useCardOnEnemy);
+      (enemyService.updateEnemies as jasmine.Spy).and.returnValue(
+        updatedEnemies
+      );
+    });
+
+    it('should return a setEnemies action', () => {
+      enemyEffects.useCardOnEnemy$.subscribe((resultAction) => {
+        expect(resultAction).toEqual(
+          EnemyActions.setEnemies({ enemies: updatedEnemies })
+        );
+        expect(enemyService.updateEnemies).toHaveBeenCalledTimes(1);
       });
     });
   });

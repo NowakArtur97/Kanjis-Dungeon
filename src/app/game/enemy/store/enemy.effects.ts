@@ -34,16 +34,9 @@ export default class EnemyEffects {
         this.store.select((state) => state.deck?.chosenCard),
         this.store.select((state) => state.enemy?.enemies)
       ),
-      switchMap(([{ enemy }, chosenCard, enemies]) => {
-        const updatedEnemies = enemies.map((enemy) =>
-          JSON.parse(JSON.stringify(enemy))
-        );
-        const enemyToUpdate = updatedEnemies.find(
-          (e) => JSON.stringify(e) === JSON.stringify(enemy)
-        );
-        chosenCard.apply(enemyToUpdate);
-        return of(updatedEnemies);
-      }),
+      switchMap(([{ enemy }, chosenCard, enemies]) =>
+        of(this.enemyService.updateEnemies(chosenCard, enemy, enemies))
+      ),
       map((enemies) => EnemyActions.setEnemies({ enemies }))
     )
   );

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 import CharacterType from '../../character/enums/character-type.enum';
 import Character from '../../character/models/character.model';
+import GameCard from '../../deck/models/game-card.model';
 
 @Injectable({ providedIn: 'root' })
 export default class EnemyService {
@@ -100,5 +101,20 @@ export default class EnemyService {
         },
       },
     ];
+  }
+
+  updateEnemies(
+    gameCard: GameCard,
+    enemy: Character,
+    enemies: Character[]
+  ): Character[] {
+    const updatedEnemies = enemies.map((enemy) =>
+      JSON.parse(JSON.stringify(enemy))
+    );
+    const enemyToUpdate = updatedEnemies.find(
+      (e) => JSON.stringify(e) === JSON.stringify(enemy)
+    );
+    gameCard.apply(enemyToUpdate);
+    return updatedEnemies;
   }
 }

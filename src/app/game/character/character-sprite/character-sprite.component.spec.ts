@@ -88,13 +88,16 @@ describe('CharacterSpriteComponent', () => {
   describe('when initialize component', () => {
     it('should get animation sprite offset', () => {
       spyOn(spriteService, 'getAnimationSpriteOffset');
+      spyOn(spriteService, 'getCharacterSprite');
 
       fixture.detectChanges();
 
       component.character = playerCharacter;
       component.ngOnInit();
+      component.ngAfterViewChecked();
 
       expect(spriteService.getAnimationSpriteOffset).toHaveBeenCalled();
+      expect(spriteService.getCharacterSprite).toHaveBeenCalled();
     });
   });
 
