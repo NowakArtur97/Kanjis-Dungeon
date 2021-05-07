@@ -1,3 +1,4 @@
+import Character from '../../character/models/character.model';
 import GameCardType from '../enums/game-card-type.enum';
 
 export default interface GameCard {
@@ -5,4 +6,5 @@ export default interface GameCard {
   cost: number;
   type: GameCardType;
   description: string;
+  apply(character: Character): void;
 }

@@ -5,7 +5,7 @@ import CharacterStatus from './character-status.model';
 
 export default interface Character {
   readonly name: string;
-  readonly stats: CharacterStats;
+  stats: CharacterStats;
   readonly animations: CharacterAnimation[];
   readonly statuses: CharacterStatus[];
   readonly action?: CharacterAction;

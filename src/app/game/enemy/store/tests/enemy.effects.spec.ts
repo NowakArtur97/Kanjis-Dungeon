@@ -128,16 +128,16 @@ describe('EnemyEffects', () => {
     enemyService = TestBed.inject(EnemyService);
   });
 
-  describe('chooseEnemies$', () => {
+  describe('setEnemies$', () => {
     beforeEach(() => {
       actions$ = new ReplaySubject(1);
       actions$.next(GameActions.chooseLevel);
       (enemyService.chooseEnemies as jasmine.Spy).and.returnValue(enemies);
     });
 
-    it('should return a chooseEnemies action', () => {
+    it('should return a setEnemies action', () => {
       enemyEffects.chooseEnemies$.subscribe((resultAction) => {
-        expect(resultAction).toEqual(EnemyActions.chooseEnemies({ enemies }));
+        expect(resultAction).toEqual(EnemyActions.setEnemies({ enemies }));
         expect(enemyService.chooseEnemies).toHaveBeenCalledTimes(1);
       });
     });

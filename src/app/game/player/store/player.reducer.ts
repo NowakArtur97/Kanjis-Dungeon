@@ -1,7 +1,8 @@
-import { Action, createReducer } from '@ngrx/store';
+import { Action, createReducer, on } from '@ngrx/store';
 
 import CharacterType from '../../character/enums/character-type.enum';
 import Character from '../../character/models/character.model';
+import * as PlayerActions from './player.actions';
 
 export interface PlayerStoreState {
   player: Character;
@@ -63,7 +64,14 @@ const initialState: PlayerStoreState = {
   },
 };
 
-const _playerReducer = createReducer(initialState);
+const _playerReducer = createReducer(
+  initialState,
+
+  on(PlayerActions.setPlayer, (state, { player }) => ({
+    ...state,
+    player,
+  }))
+);
 
 export function playerReducer(
   state: PlayerStoreState,

@@ -9,8 +9,8 @@ const initialState: EnemyStoreState = {
 };
 
 describe('enemyReducer', () => {
-  describe('EnemyActions.chooseEnemies', () => {
-    it('should choose enemies', () => {
+  describe('EnemyActions.setEnemies', () => {
+    it('should set enemies', () => {
       const enemies: Character[] = [
         {
           name: 'goblin-archer',
@@ -108,7 +108,7 @@ describe('enemyReducer', () => {
         enemies,
       };
 
-      const action = EnemyActions.chooseEnemies({ enemies });
+      const action = EnemyActions.setEnemies({ enemies });
       const actualState = enemyReducer(initialState, action);
       const expectedState = { ...stateWithEnemies };
 

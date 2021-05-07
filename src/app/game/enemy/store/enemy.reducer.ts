@@ -14,7 +14,7 @@ const initialState: EnemyStoreState = {
 const _enemyReducer = createReducer(
   initialState,
 
-  on(EnemyActions.chooseEnemies, (state, { enemies }) => ({
+  on(EnemyActions.setEnemies, (state, { enemies }) => ({
     ...state,
     enemies,
   }))
