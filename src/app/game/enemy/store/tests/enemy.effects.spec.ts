@@ -53,14 +53,7 @@ describe('EnemyEffects', () => {
       currentShield: 8,
       type: CharacterType.ENEMY,
     },
-    animations: [
-      {
-        spriteSheet: 'idle',
-        numberOfFrames: 4,
-        animationTimeInMiliseconds: 600,
-        animationIterationCount: 'Infinite',
-      },
-    ],
+    animations: [...enemy1.animations],
     statuses: [
       {
         spriteSheet: 'heart',
@@ -86,14 +79,7 @@ describe('EnemyEffects', () => {
       currentShield: 2,
       type: CharacterType.ENEMY,
     },
-    animations: [
-      {
-        spriteSheet: 'idle',
-        numberOfFrames: 4,
-        animationTimeInMiliseconds: 600,
-        animationIterationCount: 'Infinite',
-      },
-    ],
+    animations: [...enemy1.animations],
     statuses: [
       {
         spriteSheet: 'heart',
@@ -110,34 +96,27 @@ describe('EnemyEffects', () => {
     {
       ...enemy1,
       stats: {
-        maxHealth: 70,
+        ...enemy1.stats,
         currentHealth: 70,
-        maxDamage: 12,
         damage: 12,
         currentShield: 10,
-        type: CharacterType.ENEMY,
       },
     },
     {
       ...enemy2,
       stats: {
-        maxHealth: 60,
+        ...enemy2.stats,
         currentHealth: 35,
-        maxDamage: 12,
-        damage: 10,
+        damage: 12,
         currentShield: 18,
-        type: CharacterType.ENEMY,
       },
     },
     {
       ...enemy3,
       stats: {
-        maxHealth: 50,
+        ...enemy3.stats,
         currentHealth: 30,
-        damage: 10,
-        maxDamage: 12,
         currentShield: 6,
-        type: CharacterType.ENEMY,
       },
     },
   ];

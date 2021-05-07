@@ -108,8 +108,8 @@ export default class EnemyService {
     enemy: Character,
     enemies: Character[]
   ): Character[] {
-    const updatedEnemies = enemies.map((enemy) =>
-      JSON.parse(JSON.stringify(enemy))
+    const updatedEnemies = enemies.map((enemytoCopy) =>
+      JSON.parse(JSON.stringify(enemytoCopy))
     );
     const enemyToUpdate = updatedEnemies.find(
       (e) => JSON.stringify(e) === JSON.stringify(enemy)

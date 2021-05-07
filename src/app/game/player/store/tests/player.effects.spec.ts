@@ -41,12 +41,10 @@ describe('PlayerEffects', () => {
   const updatedPlayer: Character = {
     ...player,
     stats: {
+      ...player.stats,
       currentHealth: 100,
-      maxHealth: 100,
       damage: 20,
-      maxDamage: 22,
       currentShield: 10,
-      type: CharacterType.PLAYER,
     },
   };
 
