@@ -8,5 +8,6 @@ export default interface Character {
   stats: CharacterStats;
   readonly animations: CharacterAnimation[];
   readonly statuses: CharacterStatus[];
-  readonly action?: CharacterAction;
+  currentAction?: CharacterAction;
+  readonly allActions?: CharacterAction[];
 }

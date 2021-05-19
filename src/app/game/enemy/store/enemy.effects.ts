@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
-import { map, switchMap, withLatestFrom } from 'rxjs/operators';
+import { map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
 import AppStoreState from 'src/app/store/app.state';
 
 import * as GameActions from '../../store/game.actions';
 import EnemyService from '../services/enemy.service';
-import * as EnemyActions from '../store/enemy.actions';
+import * as EnemyActions from './enemy.actions';
 
 @Injectable()
 export default class EnemyEffects {
@@ -38,6 +38,20 @@ export default class EnemyEffects {
         of(this.enemyService.updateEnemies(chosenCard, enemy, enemies))
       ),
       map((enemies) => EnemyActions.setEnemies({ enemies }))
+    )
+  );
+
+  startEnemyTurn$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(EnemyActions.startEnemyTurn),
+      withLatestFrom(this.store.select((state) => state.enemy?.enemies)),
+      switchMap(([action, enemies]) =>
+        of(this.enemyService.chooseRandomEnemiesActions(enemies))
+      ),
+      mergeMap((enemies) => [
+        EnemyActions.setEnemies({ enemies }),
+        GameActions.changeTurn(),
+      ])
     )
   );
 }

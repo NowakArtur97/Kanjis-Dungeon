@@ -6,6 +6,7 @@ import AppStoreState from 'src/app/store/app.state';
 
 import { attackCard, powerCard } from '../../deck/deck.data';
 import { DeckStoreState } from '../../deck/store/deck.reducer';
+import { exampleEnemy1 } from '../../enemy/enemy.data';
 import * as EnemyActions from '../../enemy/store/enemy.actions';
 import * as PlayerActions from '../../player/store/player.actions';
 import SpriteService from '../../services/sprite.service';
@@ -44,30 +45,6 @@ describe('CharacterSpriteComponent', () => {
       },
     ],
     statuses: [],
-  };
-  const enemyCharacter: Character = {
-    name: 'goblin-archer',
-    stats: {
-      maxHealth: 70,
-      currentHealth: 70,
-      maxDamage: 12,
-      damage: 10,
-      currentShield: 0,
-      type: CharacterType.ENEMY,
-    },
-    animations: [
-      {
-        spriteSheet: 'idle',
-        numberOfFrames: 4,
-        animationTimeInMiliseconds: 600,
-        animationIterationCount: 'Infinite',
-      },
-    ],
-    statuses: [],
-    action: {
-      action: 'sword',
-      value: 5,
-    },
   };
 
   beforeEach(async () => {
@@ -118,7 +95,7 @@ describe('CharacterSpriteComponent', () => {
       });
 
       it('and Enemy character should select sprite', () => {
-        component.character = enemyCharacter;
+        component.character = exampleEnemy1;
         component.ngOnInit();
 
         expect(component.isSelectable).toBe(true);
@@ -142,7 +119,7 @@ describe('CharacterSpriteComponent', () => {
       });
 
       it('and Enemy character should not select sprite', () => {
-        component.character = enemyCharacter;
+        component.character = exampleEnemy1;
         component.ngOnInit();
 
         expect(component.isSelectable).toBe(false);
@@ -185,7 +162,7 @@ describe('CharacterSpriteComponent', () => {
         spyOn(store, 'select').and.callFake(() => of(stateWithAttackTypeCard));
         fixture.detectChanges();
 
-        component.character = enemyCharacter;
+        component.character = exampleEnemy1;
         component.ngOnInit();
         component.onChooseCharacter();
 
@@ -198,7 +175,7 @@ describe('CharacterSpriteComponent', () => {
         spyOn(store, 'select').and.callFake(() => of(stateWithPowerTypeCard));
         fixture.detectChanges();
 
-        component.character = enemyCharacter;
+        component.character = exampleEnemy1;
         component.ngOnInit();
         component.onChooseCharacter();
 

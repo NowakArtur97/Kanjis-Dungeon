@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { exampleEnemy1 } from '../../enemy/enemy.data';
 import SpriteService from '../../services/sprite.service';
-import CharacterType from '../enums/character-type.enum';
 import { CharacterActionComponent } from './character-action.component';
 
 describe('CharacterActionComponent', () => {
@@ -23,30 +23,7 @@ describe('CharacterActionComponent', () => {
 
     spyOn(spriteService, 'getActionSprite');
 
-    component.character = {
-      name: 'example-character',
-      stats: {
-        currentHealth: 100,
-        maxHealth: 100,
-        damage: 20,
-        maxDamage: 22,
-        currentShield: 10,
-        type: CharacterType.PLAYER,
-      },
-      animations: [
-        {
-          spriteSheet: 'idle',
-          numberOfFrames: 4,
-          animationTimeInMiliseconds: 600,
-          animationIterationCount: 'Infinite',
-        },
-      ],
-      statuses: [],
-      action: {
-        action: 'shield',
-        value: 11,
-      },
-    };
+    component.character = exampleEnemy1;
 
     fixture.detectChanges();
     component.ngOnInit();
