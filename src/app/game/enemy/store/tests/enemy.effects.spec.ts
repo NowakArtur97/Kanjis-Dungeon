@@ -2,6 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Store, StoreModule } from '@ngrx/store';
 import { ReplaySubject } from 'rxjs';
+import { skip, take } from 'rxjs/operators';
 import Character from 'src/app/game/character/models/character.model';
 
 import * as GameActions from '../../../store/game.actions';
@@ -57,6 +58,7 @@ describe('EnemyEffects', () => {
           useValue: jasmine.createSpyObj('enemyService', [
             'chooseEnemies',
             'updateEnemies',
+            'chooseRandomEnemiesActions',
           ]),
         },
       ],
@@ -98,6 +100,33 @@ describe('EnemyEffects', () => {
           EnemyActions.setEnemies({ enemies: updatedEnemies })
         );
         expect(enemyService.updateEnemies).toHaveBeenCalledTimes(1);
+      });
+    });
+  });
+
+  describe('startEnemyTurn$', () => {
+    beforeEach(() => {
+      actions$ = new ReplaySubject(1);
+      actions$.next(EnemyActions.startEnemyTurn);
+      (enemyService.chooseRandomEnemiesActions as jasmine.Spy).and.returnValue(
+        updatedEnemies
+      );
+    });
+
+    it('should return a changeTurn and setEnemies actions', () => {
+      enemyEffects.startEnemyTurn$.pipe(take(1)).subscribe((resultAction) => {
+        expect(resultAction).toEqual(
+          EnemyActions.setEnemies({ enemies: updatedEnemies })
+        );
+        expect(enemyService.chooseRandomEnemiesActions).toHaveBeenCalledTimes(
+          1
+        );
+      });
+      enemyEffects.startEnemyTurn$.pipe(skip(1)).subscribe((resultAction) => {
+        expect(resultAction).toEqual(GameActions.changeTurn());
+        expect(enemyService.chooseRandomEnemiesActions).toHaveBeenCalledTimes(
+          2
+        );
       });
     });
   });
