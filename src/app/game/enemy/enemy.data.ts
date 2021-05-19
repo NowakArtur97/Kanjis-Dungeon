@@ -1,15 +1,7 @@
 import CharacterType from '../character/enums/character-type.enum';
-import CharacterAction from '../character/models/character-action.model';
 import Character from '../character/models/character.model';
+import { shieldAction, swordAction } from './enemy-action.data';
 
-const swordAction: CharacterAction = {
-  action: 'sword',
-  value: 5,
-};
-const shieldAction: CharacterAction = {
-  action: 'shield',
-  value: 11,
-};
 const exampleEnemy1: Character = {
   name: 'goblin-archer',
   stats: {

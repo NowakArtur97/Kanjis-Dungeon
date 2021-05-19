@@ -1,11 +1,12 @@
 import Character from 'src/app/game/character/models/character.model';
 
-import { exampleEnemy1, exampleEnemy2, exampleEnemy3 } from '../../enemy.data';
+import { allEnemies, exampleEnemy1, exampleEnemy2, exampleEnemy3 } from '../../enemy.data';
 import * as EnemyActions from '../enemy.actions';
 import { enemyReducer, EnemyStoreState } from '../enemy.reducer';
 
 const initialState: EnemyStoreState = {
   enemies: [],
+  allEnemies,
 };
 
 describe('enemyReducer', () => {
@@ -17,6 +18,7 @@ describe('enemyReducer', () => {
         exampleEnemy3,
       ];
       const stateWithEnemies: EnemyStoreState = {
+        ...initialState,
         enemies,
       };
 
