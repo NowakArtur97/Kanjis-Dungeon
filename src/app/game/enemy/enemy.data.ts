@@ -35,7 +35,7 @@ const exampleEnemy1: Character = {
     },
   ],
   currentAction: swordAction,
-  allActions: [swordAction],
+  allActions: [swordAction, shieldAction],
 };
 
 const exampleEnemy2: Character = {
@@ -60,7 +60,7 @@ const exampleEnemy2: Character = {
     },
   ],
   currentAction: swordAction,
-  allActions: [swordAction],
+  allActions: [swordAction, shieldAction],
 };
 const exampleEnemy3: Character = {
   name: 'goblin-archer',
@@ -80,7 +80,9 @@ const exampleEnemy3: Character = {
     },
   ],
   currentAction: shieldAction,
-  allActions: [shieldAction],
+  allActions: [swordAction, shieldAction],
 };
 
 export { exampleEnemy1, exampleEnemy2, exampleEnemy3 };
+const allEnemies = [exampleEnemy1, exampleEnemy2, exampleEnemy3];
+export { allEnemies };

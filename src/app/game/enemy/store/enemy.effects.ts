@@ -20,9 +20,10 @@ export default class EnemyEffects {
   chooseEnemies$ = createEffect(() =>
     this.actions$.pipe(
       ofType(GameActions.chooseLevel),
-      // TODO: EnemyEffects: Get all possible enemies
-      // withLatestFrom(this.store.select((state) => state.enemies?.allEnemies)),
-      switchMap(({ level }) => of(this.enemyService.chooseEnemies(level))),
+      withLatestFrom(this.store.select((state) => state.enemy?.allEnemies)),
+      switchMap(([{ level }, allEnemies]) =>
+        of(this.enemyService.chooseEnemies(level, allEnemies))
+      ),
       map((enemies) => EnemyActions.setEnemies({ enemies }))
     )
   );
@@ -44,7 +45,7 @@ export default class EnemyEffects {
   startEnemyTurn$ = createEffect(() =>
     this.actions$.pipe(
       ofType(EnemyActions.startEnemyTurn),
-      withLatestFrom(this.store.select((state) => state.enemy?.enemies)),
+      withLatestFrom(this.store.select((state) => state.enemy?.allEnemies)),
       switchMap(([action, enemies]) =>
         of(this.enemyService.chooseRandomEnemiesActions(enemies))
       ),

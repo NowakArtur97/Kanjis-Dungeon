@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import MathUtil from 'src/app/common/utils/math.util';
 
 import Character from '../../character/models/character.model';
 import GameCard from '../../deck/models/game-card.model';
@@ -7,7 +8,7 @@ import { exampleEnemy1, exampleEnemy2, exampleEnemy3 } from '../enemy.data';
 @Injectable({ providedIn: 'root' })
 export default class EnemyService {
   // TODO: EnemyService: Get random enemies
-  chooseEnemies(level: number): Character[] {
+  chooseEnemies(level: number, allEnemies: Character[]): Character[] {
     return [exampleEnemy1, exampleEnemy2, exampleEnemy3];
   }
 
@@ -27,9 +28,13 @@ export default class EnemyService {
   }
 
   chooseRandomEnemiesActions(enemies: Character[]): Character[] {
-    const updatedEnemies = enemies.map((enemytoCopy) =>
-      JSON.parse(JSON.stringify(enemytoCopy))
-    );
+    const updatedEnemies = enemies
+      .map((enemytoCopy) => JSON.parse(JSON.stringify(enemytoCopy)))
+      .map((enemy) => {
+        enemy.currentAction =
+          enemy.allActions[MathUtil.getRandomIndex(enemy.allActions)];
+        return enemy;
+      });
     return updatedEnemies;
   }
 }
