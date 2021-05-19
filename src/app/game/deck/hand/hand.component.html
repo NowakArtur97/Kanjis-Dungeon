@@ -1,3 +1,6 @@
 <div class="hand">
   <app-game-card *ngFor="let card of hand" [card]="card"></app-game-card>
 </div>
+<div class="hand__energy">
+  <p class="hand__energy_value">{{ remainingEnergy }}/{{ maxEnergy }}</p>
+</div>

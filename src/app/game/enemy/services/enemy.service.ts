@@ -30,7 +30,7 @@ export default class EnemyService {
   chooseRandomEnemiesActions(enemies: Character[]): Character[] {
     const updatedEnemies = enemies
       .map((enemytoCopy) => JSON.parse(JSON.stringify(enemytoCopy)))
-      .map((enemy) => {
+      .map((enemy: Character) => {
         enemy.currentAction =
           enemy.allActions[MathUtil.getRandomIndex(enemy.allActions)];
         return enemy;

@@ -8,6 +8,9 @@ export interface DeckStoreState {
   hand: GameCard[];
   chosenCard: GameCard;
   numberOfCards: number;
+
+  remainingEnergy: number;
+  maxEnergy: number;
 }
 
 const initialState: DeckStoreState = {
@@ -15,6 +18,9 @@ const initialState: DeckStoreState = {
   hand: [],
   chosenCard: null,
   numberOfCards: 6,
+
+  remainingEnergy: 2,
+  maxEnergy: 4,
 };
 
 const _deckReducer = createReducer(

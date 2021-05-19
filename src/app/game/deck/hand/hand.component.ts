@@ -13,6 +13,8 @@ import GameCard from '../models/game-card.model';
 export class HandComponent implements OnInit, OnDestroy {
   private handSubscription$: Subscription;
   hand: GameCard[];
+  maxEnergy: number;
+  remainingEnergy: number;
 
   constructor(private store: Store<AppStoreState>) {}
 
@@ -22,6 +24,10 @@ export class HandComponent implements OnInit, OnDestroy {
       .subscribe((deckState) => {
         if (deckState?.hand) {
           this.hand = deckState.hand;
+        }
+        if (deckState) {
+          this.maxEnergy = deckState.maxEnergy;
+          this.remainingEnergy = deckState.remainingEnergy;
         }
       });
   }

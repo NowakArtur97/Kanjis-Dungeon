@@ -13,11 +13,11 @@
   border-radius: 10px;
   background-image: linear-gradient(
     -45deg,
-    rgba(255, 255, 255, 0.2) 25%,
+    hsla(0, 0%, 100%, 0.2) 25%,
     transparent 25%,
     transparent 50%,
-    rgba(255, 255, 255, 0.2) 50%,
-    rgba(255, 255, 255, 0.2) 75%,
+    hsla(0, 0%, 100%, 0.2) 50%,
+    hsla(0, 0%, 100%, 0.2) 75%,
     transparent 75%,
     transparent
   );
