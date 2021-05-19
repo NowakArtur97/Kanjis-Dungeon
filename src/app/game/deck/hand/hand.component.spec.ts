@@ -15,6 +15,9 @@ describe('HandComponent', () => {
     hand: [],
     chosenCard: null,
     numberOfCards: 6,
+
+    remainingEnergy: 2,
+    maxEnergy: 4,
   };
 
   beforeEach(async () => {

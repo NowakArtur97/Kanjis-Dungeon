@@ -1,7 +1,7 @@
 import { Action, createReducer, on } from '@ngrx/store';
 
 import Character from '../../character/models/character.model';
-import player from '../player.data';
+import defaultPlayer from '../player.data';
 import * as PlayerActions from './player.actions';
 
 export interface PlayerStoreState {
@@ -9,7 +9,7 @@ export interface PlayerStoreState {
 }
 
 const initialState: PlayerStoreState = {
-  player,
+  player: defaultPlayer,
 };
 
 const _playerReducer = createReducer(

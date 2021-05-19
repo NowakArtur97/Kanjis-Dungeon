@@ -1,7 +1,7 @@
 import CharacterType from '../character/enums/character-type.enum';
 import Character from '../character/models/character.model';
 
-const player: Character = {
+const defaultPlayer: Character = {
   name: 'example-character',
   stats: {
     currentHealth: 100,
@@ -55,4 +55,4 @@ const player: Character = {
   ],
 };
 
-export default player;
+export default defaultPlayer;
