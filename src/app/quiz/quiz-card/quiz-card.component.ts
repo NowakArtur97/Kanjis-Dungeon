@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
@@ -25,7 +25,8 @@ enum CardStatus {
   templateUrl: './quiz-card.component.html',
   styleUrls: ['./quiz-card.component.css'],
 })
-export class QuizCardComponent implements OnInit, OnDestroy {
+export class QuizCardComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild('meaningInput') meaningInputElement: ElementRef;
   private nextQuestionSubscription$: Subscription;
   private currentCharacter: Radical;
   private quizOptions: QuizOptions;
@@ -64,6 +65,10 @@ export class QuizCardComponent implements OnInit, OnDestroy {
         );
         this.initForm();
       });
+  }
+
+  ngAfterViewInit(): void {
+    this.meaningInputElement.nativeElement.focus();
   }
 
   ngOnDestroy(): void {
@@ -128,6 +133,7 @@ export class QuizCardComponent implements OnInit, OnDestroy {
   onValidateCard(): void {
     if (this.cardStatus !== CardStatus.CHECK) {
       this.confirmAnswer();
+      this.meaningInputElement.nativeElement.focus();
       return;
     }
 
