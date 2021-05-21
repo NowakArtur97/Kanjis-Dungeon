@@ -1,13 +1,10 @@
 <div
   (click)="onChooseCard()"
   [ngClass]="{ 'game_card__wrapper--chosen': isChosen }"
+  [ngClass]="{ 'game_card__wrapper--not_available': !isAvailable }"
   class="game_card__wrapper"
 >
-  <div
-    *ngIf="card"
-    [ngClass]="{ 'game_card--not_available': !isAvailable }"
-    class="game_card"
-  >
+  <div *ngIf="card" class="game_card">
     <div class="game_card__content">
       <h1 class="game_card__title">{{ card.name }}</h1>
       <div class="game_card__image_container">

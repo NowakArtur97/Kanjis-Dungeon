@@ -9,7 +9,8 @@
     0 0 2px 1px rgb(18, 3, 85);
   background-color: hsl(0, 51%, 46%);
   padding: 4%;
-  transition: transform 0.2s linear;
+  transition: transform 0.2s linear, background-color 0.2s linear,
+    opacity 0.2s linear;
 
   color: hsl(0, 0%, 90%);
 
@@ -22,13 +23,18 @@
   cursor: pointer;
 }
 
+.game_card__wrapper--not_available {
+  background-color: hsl(0, 2%, 39%);
+  opacity: 0.3;
+}
+
+.game_card__wrapper--not_available .game_card__cost {
+  color: hsl(0, 59%, 37%);
+}
+
 .game_card {
   height: 100%;
   font-size: 1.1em;
-}
-
-.game_card--not_available {
-  background-color: hsl(0, 5%, 34%);
 }
 
 .game_card__content {
