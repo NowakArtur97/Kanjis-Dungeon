@@ -4,7 +4,7 @@ import * as DeckActions from '../deck.actions';
 import { deckReducer, DeckStoreState } from '../deck.reducer';
 
 const allCards: GameCard[] = [attackCard, defenceCard, powerCard];
-const hand = [attackCard];
+const hand = [attackCard, defenceCard];
 const initialState: DeckStoreState = {
   allCards: [],
   hand: [],
@@ -22,6 +22,10 @@ const stateWithHand: DeckStoreState = {
 const stateWithCards: DeckStoreState = {
   ...initialState,
   allCards,
+};
+const stateWithChosenCards: DeckStoreState = {
+  ...stateWithHand,
+  chosenCard: attackCard,
 };
 describe('deckReducer', () => {
   describe('DeckActions.setAllCards', () => {
@@ -66,17 +70,18 @@ describe('deckReducer', () => {
   });
 
   describe('DeckActions.useCard', () => {
-    it('should decrease deck energy', () => {
+    it('should decrease deck energy, remove card from hand and set chosen card to null', () => {
       const remainingEnergy = initialState.remainingEnergy - attackCard.cost;
       const stateWithReducedEnergy: DeckStoreState = {
         ...initialState,
         allCards,
-        hand,
+        hand: [defenceCard],
         remainingEnergy,
+        chosenCard: null,
       };
 
       const action = DeckActions.useCard({ cost: attackCard.cost });
-      const actualState = deckReducer(stateWithHand, action);
+      const actualState = deckReducer(stateWithChosenCards, action);
       const expectedState = { ...stateWithReducedEnergy };
 
       expect(actualState).toEqual(expectedState);

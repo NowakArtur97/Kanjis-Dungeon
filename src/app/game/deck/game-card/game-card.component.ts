@@ -23,7 +23,7 @@ export class GameCardComponent implements OnInit, OnDestroy {
     this.deckEnergySubscription$ = this.store
       .select('deck')
       .subscribe((deckState) => {
-        if (deckState) {
+        if (deckState && this.card) {
           this.isAvailable = deckState.remainingEnergy >= this.card.cost;
           this.isChosen = deckState.chosenCard?.id === this.card.id;
         }

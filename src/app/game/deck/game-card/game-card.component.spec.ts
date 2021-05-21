@@ -2,11 +2,14 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { EffectsModule } from '@ngrx/effects';
 import { Store, StoreModule } from '@ngrx/store';
+import { of } from 'rxjs';
 import { JapaneseModule } from 'src/app/japanese/japanese.module';
 import AppStoreState from 'src/app/store/app.state';
 
-import { attackCard } from '../deck.data';
+import { attackCard, defenceCard, powerCard } from '../deck.data';
+import GameCard from '../models/game-card.model';
 import * as DeckActions from '../store/deck.actions';
+import { DeckStoreState } from '../store/deck.reducer';
 import { GameCardComponent } from './game-card.component';
 
 describe('GameCardComponent', () => {
@@ -14,6 +17,17 @@ describe('GameCardComponent', () => {
   let fixture: ComponentFixture<GameCardComponent>;
   let store: Store<AppStoreState>;
 
+  const allCards: GameCard[] = [attackCard, defenceCard, powerCard];
+  const hand = [attackCard, defenceCard];
+  const stateWithMaxEnergyAndChosenAttackCard: DeckStoreState = {
+    allCards,
+    hand,
+    chosenCard: attackCard,
+    numberOfCards: 6,
+
+    maxEnergy: 4,
+    remainingEnergy: 4,
+  };
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [GameCardComponent],
@@ -37,13 +51,46 @@ describe('GameCardComponent', () => {
   });
 
   describe('when choose card', () => {
-    it('should dispatch chooseCard action', () => {
+    it('if player has enough energy should dispatch chooseCard action', () => {
+      spyOn(store, 'select').and.callFake(() =>
+        of(stateWithMaxEnergyAndChosenAttackCard)
+      );
+
+      fixture.detectChanges();
       component.card = attackCard;
+      component.ngOnInit();
+
       component.onChooseCard();
 
+      expect(store.select).toHaveBeenCalled();
       expect(store.dispatch).toHaveBeenCalledWith(
         DeckActions.chooseCard({ chosenCard: attackCard })
       );
+      expect(component.isChosen).toBe(true);
+      expect(component.isAvailable).toBe(true);
+    });
+
+    it('if player has not enough energy should not dispatch chooseCard action', () => {
+      const stateWithZeroEnergyAndChosenAttackCard: DeckStoreState = {
+        ...stateWithMaxEnergyAndChosenAttackCard,
+        remainingEnergy: 0,
+      };
+      spyOn(store, 'select').and.callFake(() =>
+        of(stateWithZeroEnergyAndChosenAttackCard)
+      );
+
+      fixture.detectChanges();
+      component.card = defenceCard;
+      component.ngOnInit();
+
+      component.onChooseCard();
+
+      expect(store.select).toHaveBeenCalled();
+      expect(store.dispatch).not.toHaveBeenCalledWith(
+        DeckActions.chooseCard({ chosenCard: attackCard })
+      );
+      expect(component.isChosen).toBe(false);
+      expect(component.isAvailable).toBe(false);
     });
   });
 });

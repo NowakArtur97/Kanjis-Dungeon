@@ -3,6 +3,7 @@ import GameCardType from './enums/game-card-type.enum';
 import GameCard from './models/game-card.model';
 
 const attackCard: GameCard = {
+  id: 1,
   name: 'Attack',
   cost: 2,
   type: GameCardType.ATTACK,
@@ -12,6 +13,7 @@ const attackCard: GameCard = {
   },
 };
 const defenceCard: GameCard = {
+  id: 2,
   name: 'Defence',
   cost: 2,
   type: GameCardType.SKILL,
@@ -21,6 +23,7 @@ const defenceCard: GameCard = {
   },
 };
 const powerCard: GameCard = {
+  id: 3,
   name: 'Power',
   cost: 2,
   type: GameCardType.POWER,
