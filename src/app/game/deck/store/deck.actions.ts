@@ -16,3 +16,8 @@ export const chooseCard = createAction(
   '[Deck] Choose Card',
   props<{ chosenCard: GameCard }>()
 );
+
+export const useCard = createAction(
+  '[Deck] Use Card',
+  props<{ cost: number }>()
+);

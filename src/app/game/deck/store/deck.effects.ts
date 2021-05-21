@@ -5,6 +5,7 @@ import { of } from 'rxjs';
 import { map, switchMap, withLatestFrom } from 'rxjs/operators';
 import AppStoreState from 'src/app/store/app.state';
 
+import * as EnemyActions from '../../enemy/store/enemy.actions';
 import * as PlayerActions from '../../player/store/player.actions';
 import * as GameActions from '../../store/game.actions';
 import DeckService from '../services/deck.service';
@@ -37,6 +38,14 @@ export default class DeckEffects {
         of(this.deckService.getHand(allCards, numberOfCards))
       ),
       map((hand) => DeckActions.getCardsToHand({ hand }))
+    )
+  );
+
+  useCard$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(PlayerActions.useCardOnPlayer, EnemyActions.useCardOnEnemy),
+      withLatestFrom(this.store.select((state) => state.deck?.chosenCard)),
+      map(([action, { cost }]) => DeckActions.useCard({ cost }))
     )
   );
 }

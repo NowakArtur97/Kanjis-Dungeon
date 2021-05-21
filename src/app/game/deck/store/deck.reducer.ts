@@ -39,6 +39,11 @@ const _deckReducer = createReducer(
   on(DeckActions.chooseCard, (state, { chosenCard }) => ({
     ...state,
     chosenCard,
+  })),
+
+  on(DeckActions.useCard, (state, { cost }) => ({
+    ...state,
+    remainingEnergy: state.remainingEnergy - cost,
   }))
 );
 
