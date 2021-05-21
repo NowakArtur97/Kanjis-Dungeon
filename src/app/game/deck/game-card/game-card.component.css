@@ -12,9 +12,12 @@
   transition: transform 0.2s linear;
 
   color: hsl(0, 0%, 90%);
+
+  /* to hide Deck Energy component */
+  z-index: 2;
 }
 
-.game_card__wrapper:hover {
+.game_card__wrapper--chosen {
   transform: translateY(-45%) scale(1.2);
   cursor: pointer;
 }
@@ -22,6 +25,10 @@
 .game_card {
   height: 100%;
   font-size: 1.1em;
+}
+
+.game_card--not_available {
+  background-color: hsl(0, 5%, 34%);
 }
 
 .game_card__content {

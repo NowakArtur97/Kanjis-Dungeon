@@ -6,7 +6,9 @@ import GameCard from '../models/game-card.model';
 @Injectable({ providedIn: 'root' })
 export default class DeckService {
   getCards(level: number): GameCard[] {
-    return [
+    // TODO: DeckService: Get cards based on level of progression
+    let startingId = 0;
+    const cards: GameCard[] = [
       attackCard,
       powerCard,
       defenceCard,
@@ -16,7 +18,11 @@ export default class DeckService {
       attackCard,
       powerCard,
       defenceCard,
-    ];
+    ].map((card) => {
+      card = { ...card, id: startingId++ };
+      return card;
+    });
+    return cards;
   }
 
   getHand(allCards: GameCard[], numberOfCards: number): GameCard[] {
