@@ -1,30 +1,24 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import AppStoreState from 'src/app/store/app.state';
 
-import GameCard from '../models/game-card.model';
-
 @Component({
-  selector: 'app-hand',
-  templateUrl: './hand.component.html',
-  styleUrls: ['./hand.component.css'],
+  selector: 'app-deck-energy',
+  templateUrl: './deck-energy.component.html',
+  styleUrls: ['./deck-energy.component.css'],
 })
-export class HandComponent implements OnInit, OnDestroy {
-  private deckSubscription$: Subscription;
-  hand: GameCard[];
+export class DeckEnergyComponent implements OnInit {
+  private deckEnergySubscription$: Subscription;
   maxEnergy: number;
   remainingEnergy: number;
 
   constructor(private store: Store<AppStoreState>) {}
 
   ngOnInit(): void {
-    this.deckSubscription$ = this.store
+    this.deckEnergySubscription$ = this.store
       .select('deck')
       .subscribe((deckState) => {
-        if (deckState?.hand) {
-          this.hand = deckState.hand;
-        }
         if (deckState) {
           this.maxEnergy = deckState.maxEnergy;
           this.remainingEnergy = deckState.remainingEnergy;
@@ -33,6 +27,6 @@ export class HandComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.deckSubscription$?.unsubscribe();
+    this.deckEnergySubscription$?.unsubscribe();
   }
 }

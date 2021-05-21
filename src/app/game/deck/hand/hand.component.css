@@ -9,54 +9,6 @@
   height: 45vh;
 }
 
-.hand__energy {
-  position: absolute;
-  top: 55%;
-  left: 5%;
-  width: 2.6em;
-  height: 2.6em;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  border: 3px solid black;
-  border-radius: 50%;
-
-  overflow: hidden;
-}
-
-.hand__energy::before {
-  content: "";
-  position: absolute;
-  width: 3em;
-  height: 3em;
-  left: -0.4em;
-  border-radius: 40%;
-  animation: liquid-fill 2s ease-in-out alternate infinite;
-
-  background: hsl(207, 86%, 42%);
-}
-
-.hand__energy_value {
-  color: hsl(0, 0%, 90%);
-  text-align: center;
-  font-size: 1.1em;
-
-  z-index: 1;
-}
-
-@keyframes liquid-fill {
-  from {
-    top: 1em;
-    transform: rotate(0deg);
-  }
-  to {
-    top: 0em;
-    transform: rotate(360deg);
-  }
-}
-
 @media (min-width: 614px) {
   .hand {
     bottom: -16vh;

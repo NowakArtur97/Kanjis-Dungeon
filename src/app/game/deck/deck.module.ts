@@ -7,9 +7,10 @@ import { GameCardComponent } from './game-card/game-card.component';
 import { HandComponent } from './hand/hand.component';
 import DeckEffects from './store/deck.effects';
 import { deckReducer } from './store/deck.reducer';
+import { DeckEnergyComponent } from './deck-energy/deck-energy.component';
 
 @NgModule({
-  declarations: [HandComponent, GameCardComponent],
+  declarations: [HandComponent, GameCardComponent, DeckEnergyComponent],
   imports: [
     CommonModule,
     StoreModule.forFeature('deck', deckReducer),
