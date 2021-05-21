@@ -64,4 +64,23 @@ describe('deckReducer', () => {
       expect(actualState.chosenCard).toEqual(attackCard);
     });
   });
+
+  describe('DeckActions.useCard', () => {
+    it('should decrease deck energy', () => {
+      const remainingEnergy = initialState.remainingEnergy - attackCard.cost;
+      const stateWithReducedEnergy: DeckStoreState = {
+        ...initialState,
+        allCards,
+        hand,
+        remainingEnergy,
+      };
+
+      const action = DeckActions.useCard({ cost: attackCard.cost });
+      const actualState = deckReducer(stateWithHand, action);
+      const expectedState = { ...stateWithReducedEnergy };
+
+      expect(actualState).toEqual(expectedState);
+      expect(actualState.remainingEnergy).toEqual(remainingEnergy);
+    });
+  });
 });

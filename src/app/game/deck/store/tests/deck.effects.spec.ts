@@ -2,7 +2,6 @@ import { TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Store, StoreModule } from '@ngrx/store';
 import { ReplaySubject } from 'rxjs';
-import AppStoreState from 'src/app/store/app.state';
 
 import * as PlayerActions from '../../../player/store/player.actions';
 import * as GameActions from '../../../store/game.actions';
@@ -14,7 +13,6 @@ import DeckEffects from '../deck.effects';
 describe('DeckEffects', () => {
   let deckEffects: DeckEffects;
   let actions$: ReplaySubject<any>;
-  let store: Store<AppStoreState>;
   let deckService: DeckService;
 
   const allCards = [
@@ -50,7 +48,6 @@ describe('DeckEffects', () => {
 
   beforeEach(() => {
     deckEffects = TestBed.inject(DeckEffects);
-    store = TestBed.inject(Store);
     deckService = TestBed.inject(DeckService);
   });
 
@@ -80,6 +77,19 @@ describe('DeckEffects', () => {
       deckEffects.getCardsToHand$.subscribe((resultAction) => {
         expect(resultAction).toEqual(DeckActions.getCardsToHand({ hand }));
         expect(deckService.getHand).toHaveBeenCalledTimes(1);
+      });
+    });
+  });
+
+  describe('useCard$', () => {
+    beforeEach(() => {
+      actions$ = new ReplaySubject(1);
+      actions$.next(PlayerActions.useCardOnPlayer);
+    });
+
+    it('should return a getCardsToHand action', () => {
+      deckEffects.useCard$.subscribe((resultAction) => {
+        expect(resultAction).toEqual(DeckActions.useCard({ cost: 0 }));
       });
     });
   });

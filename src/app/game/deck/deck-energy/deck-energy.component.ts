@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import AppStoreState from 'src/app/store/app.state';
@@ -8,7 +8,7 @@ import AppStoreState from 'src/app/store/app.state';
   templateUrl: './deck-energy.component.html',
   styleUrls: ['./deck-energy.component.css'],
 })
-export class DeckEnergyComponent implements OnInit {
+export class DeckEnergyComponent implements OnInit, OnDestroy {
   private deckEnergySubscription$: Subscription;
   maxEnergy: number;
   remainingEnergy: number;
