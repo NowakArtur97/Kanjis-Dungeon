@@ -93,4 +93,17 @@ describe('DeckEffects', () => {
       });
     });
   });
+
+  describe('endPlayerTurn$', () => {
+    beforeEach(() => {
+      actions$ = new ReplaySubject(1);
+      actions$.next(DeckActions.useCard);
+    });
+
+    it('should return a changeTurn action if Player does not have more energy', () => {
+      deckEffects.endPlayerTurn$.subscribe((resultAction) => {
+        expect(resultAction).toEqual(GameActions.changeTurn());
+      });
+    });
+  });
 });
