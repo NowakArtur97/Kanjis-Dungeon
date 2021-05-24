@@ -44,8 +44,8 @@ export class CharacterSpriteComponent
   animationState = 'firstFrame';
 
   private wasAnimationSet = false;
-  private FIRST_FRAME_STATE = 'firstFrame';
-  private LAST_FRAME_STATE = 'lastFrame';
+  private readonly FIRST_FRAME_STATE = 'firstFrame';
+  private readonly LAST_FRAME_STATE = 'lastFrame';
 
   constructor(
     private store: Store<AppStoreState>,

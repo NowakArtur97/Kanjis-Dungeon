@@ -13,7 +13,7 @@ import AppStoreState from 'src/app/store/app.state';
       state(
         'liquidDown',
         style({
-          top: '{{liquidHeight}}%',
+          bottom: '-{{liquidHeight}}%',
           transform: 'rotate(0deg)',
         }),
         {
@@ -23,16 +23,14 @@ import AppStoreState from 'src/app/store/app.state';
       state(
         'liquidUp',
         style({
-          top: '{{liquidMinHeight}}%',
+          bottom: '-{{liquidMinHeight}}%',
           transform: 'rotate(360deg)',
         }),
         {
           params: { liquidMinHeight: 0 },
         }
       ),
-      transition('liquidDown <=> liquidUp', animate('1s'), {
-        params: { liquidHeight: 0 },
-      }),
+      transition('liquidDown <=> liquidUp', animate('1s')),
     ]),
   ],
 })
@@ -42,10 +40,11 @@ export class DeckEnergyComponent implements OnInit, OnDestroy {
   remainingEnergy: number;
   liquidHeight: number;
   liquidMinHeight: number;
-  private LIQUID_HEIGHT_MODIFIER = 10;
+  private readonly LIQUID_TOP_OFFSET = 100;
+  private readonly LIQUID_HEIGHT_MODIFIER = 5;
   animationState = 'liquidDown';
-  private LUQUID_UP_STATE = 'liquidUp';
-  private LUQUID_DOWN_STATE = 'liquidDown';
+  private readonly LUQUID_UP_STATE = 'liquidUp';
+  private readonly LUQUID_DOWN_STATE = 'liquidDown';
 
   constructor(private store: Store<AppStoreState>) {}
 
@@ -56,7 +55,9 @@ export class DeckEnergyComponent implements OnInit, OnDestroy {
         if (deckState) {
           this.maxEnergy = deckState.maxEnergy;
           this.remainingEnergy = deckState.remainingEnergy;
-          this.liquidHeight = (this.remainingEnergy / this.maxEnergy) * 100;
+          this.liquidHeight =
+            this.LIQUID_TOP_OFFSET -
+            (this.remainingEnergy / this.maxEnergy) * 100;
           this.liquidMinHeight =
             this.liquidHeight + this.LIQUID_HEIGHT_MODIFIER;
         }
