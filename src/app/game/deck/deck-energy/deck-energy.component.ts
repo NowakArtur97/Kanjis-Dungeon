@@ -13,21 +13,24 @@ import AppStoreState from 'src/app/store/app.state';
       state(
         'liquidDown',
         style({
-          top: '100%',
+          top: '{{liquidHeight}}%',
           transform: 'rotate(0deg)',
-        })
-      ),
-      state(
-        'liquidUp',
-        style({
-          top: '0%',
-          transform: 'rotate(360deg)',
         }),
         {
           params: { liquidHeight: 0 },
         }
       ),
-      transition('liquidDown <=> liquidUp', animate('2s'), {
+      state(
+        'liquidUp',
+        style({
+          top: '{{liquidMinHeight}}%',
+          transform: 'rotate(360deg)',
+        }),
+        {
+          params: { liquidMinHeight: 0 },
+        }
+      ),
+      transition('liquidDown <=> liquidUp', animate('1s'), {
         params: { liquidHeight: 0 },
       }),
     ]),
@@ -38,7 +41,11 @@ export class DeckEnergyComponent implements OnInit, OnDestroy {
   maxEnergy: number;
   remainingEnergy: number;
   liquidHeight: number;
+  liquidMinHeight: number;
+  private LIQUID_HEIGHT_MODIFIER = 10;
   animationState = 'liquidDown';
+  private LUQUID_UP_STATE = 'liquidUp';
+  private LUQUID_DOWN_STATE = 'liquidDown';
 
   constructor(private store: Store<AppStoreState>) {}
 
@@ -49,7 +56,9 @@ export class DeckEnergyComponent implements OnInit, OnDestroy {
         if (deckState) {
           this.maxEnergy = deckState.maxEnergy;
           this.remainingEnergy = deckState.remainingEnergy;
-          this.liquidHeight = this.maxEnergy / this.remainingEnergy;
+          this.liquidHeight = (this.remainingEnergy / this.maxEnergy) * 100;
+          this.liquidMinHeight =
+            this.liquidHeight + this.LIQUID_HEIGHT_MODIFIER;
         }
       });
   }
@@ -60,10 +69,10 @@ export class DeckEnergyComponent implements OnInit, OnDestroy {
 
   onEndAnimation(event): void {
     // Loop animation
-    this.animationState = 'liquidDown';
-    if (event.toState === 'liquidDown') {
+    this.animationState = this.LUQUID_DOWN_STATE;
+    if (event.toState === this.LUQUID_DOWN_STATE) {
       setTimeout(() => {
-        this.animationState = 'liquidUp';
+        this.animationState = this.LUQUID_UP_STATE;
       }, 0);
     }
   }

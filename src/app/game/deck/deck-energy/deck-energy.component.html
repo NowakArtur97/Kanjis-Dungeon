@@ -3,7 +3,7 @@
   <div
     [@animate]="{
       value: animationState,
-      params: { liquidHeight: liquidHeight }
+      params: { liquidHeight: liquidHeight, liquidMinHeight: liquidMinHeight }
     }"
     (@animate.done)="onEndAnimation($event)"
     class="deck_energy__liquid"
