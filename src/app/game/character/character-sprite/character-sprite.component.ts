@@ -26,7 +26,7 @@ import Character from '../models/character.model';
         'firstFrame => lastFrame',
         animate('600ms {{animationSteps}}'),
         {
-          params: { animationSteps: '', spriteOffset: '' },
+          params: { animationSteps: '' },
         }
       ),
     ]),
@@ -44,6 +44,8 @@ export class CharacterSpriteComponent
   animationState = 'firstFrame';
 
   private wasAnimationSet = false;
+  private FIRST_FRAME_STATE = 'firstFrame';
+  private LAST_FRAME_STATE = 'lastFrame';
 
   constructor(
     private store: Store<AppStoreState>,
@@ -106,10 +108,10 @@ export class CharacterSpriteComponent
 
   onEndAnimation(event): void {
     // Loop animation
-    this.animationState = 'firstFrame';
-    if (event.toState === 'firstFrame') {
+    this.animationState = this.FIRST_FRAME_STATE;
+    if (event.toState === this.FIRST_FRAME_STATE) {
       setTimeout(() => {
-        this.animationState = 'lastFrame';
+        this.animationState = this.LAST_FRAME_STATE;
       }, 0);
     }
   }
