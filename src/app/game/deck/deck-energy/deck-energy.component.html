@@ -1,3 +1,11 @@
 <div class="deck_energy">
-  <p class="deck_energy_value">{{ remainingEnergy }}/{{ maxEnergy }}</p>
+  <p class="deck_energy__value">{{ remainingEnergy }}/{{ maxEnergy }}</p>
+  <div
+    [@animate]="{
+      value: animationState,
+      params: { liquidHeight: liquidHeight }
+    }"
+    (@animate.done)="onEndAnimation($event)"
+    class="deck_energy__liquid"
+  ></div>
 </div>

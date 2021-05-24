@@ -15,19 +15,7 @@
   overflow: hidden;
 }
 
-.deck_energy::before {
-  content: "";
-  position: absolute;
-  width: 3em;
-  height: 3em;
-  left: -0.4em;
-  border-radius: 40%;
-  animation: liquid-fill 2s ease-in-out alternate infinite;
-
-  background: hsl(207, 86%, 42%);
-}
-
-.deck_energy_value {
+.deck_energy__value {
   color: hsl(0, 0%, 90%);
   text-align: center;
   font-size: 1.1em;
@@ -35,13 +23,15 @@
   z-index: 1;
 }
 
-@keyframes liquid-fill {
-  from {
-    top: 1em;
-    transform: rotate(0deg);
-  }
-  to {
-    top: 0em;
-    transform: rotate(360deg);
-  }
+.deck_energy__liquid {
+  position: absolute;
+  left: -0.4em;
+  top: 0;
+
+  width: 3em;
+  height: 100%;
+
+  border-radius: 40%;
+
+  background: hsl(207, 86%, 42%);
 }

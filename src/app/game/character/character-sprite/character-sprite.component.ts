@@ -97,13 +97,11 @@ export class CharacterSpriteComponent
     if (!this.isSelectable) {
       return;
     }
-    if (this.character.stats.type === CharacterType.ENEMY) {
-      this.store.dispatch(
-        EnemyActions.useCardOnEnemy({ enemy: this.character })
-      );
-    } else {
-      this.store.dispatch(PlayerActions.useCardOnPlayer());
-    }
+    this.store.dispatch(
+      this.character.stats.type === CharacterType.ENEMY
+        ? EnemyActions.useCardOnEnemy({ enemy: this.character })
+        : PlayerActions.useCardOnPlayer()
+    );
   }
 
   onEndAnimation(event): void {
