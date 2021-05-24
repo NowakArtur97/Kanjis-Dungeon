@@ -2,6 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Store, StoreModule } from '@ngrx/store';
 import { ReplaySubject } from 'rxjs';
+import { skip, take } from 'rxjs/operators';
 
 import * as PlayerActions from '../../../player/store/player.actions';
 import * as GameActions from '../../../store/game.actions';
@@ -73,10 +74,14 @@ describe('DeckEffects', () => {
       (deckService.getHand as jasmine.Spy).and.returnValue(hand);
     });
 
-    it('should return a getCardsToHand action', () => {
-      deckEffects.getCardsToHand$.subscribe((resultAction) => {
+    it('should return a getCardsToHand and restoreEnergy actions', () => {
+      deckEffects.startTurn$.pipe(take(1)).subscribe((resultAction) => {
         expect(resultAction).toEqual(DeckActions.getCardsToHand({ hand }));
         expect(deckService.getHand).toHaveBeenCalledTimes(1);
+      });
+      deckEffects.startTurn$.pipe(skip(1)).subscribe((resultAction) => {
+        expect(resultAction).toEqual(DeckActions.restoreEnergy());
+        expect(deckService.getHand).toHaveBeenCalledTimes(2);
       });
     });
   });

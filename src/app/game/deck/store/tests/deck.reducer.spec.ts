@@ -27,6 +27,7 @@ const stateWithChosenCards: DeckStoreState = {
   ...stateWithHand,
   chosenCard: attackCard,
 };
+
 describe('deckReducer', () => {
   describe('DeckActions.setAllCards', () => {
     it('should set cards', () => {
@@ -86,6 +87,32 @@ describe('deckReducer', () => {
 
       expect(actualState).toEqual(expectedState);
       expect(actualState.remainingEnergy).toEqual(remainingEnergy);
+    });
+  });
+
+  describe('DeckActions.restoreEnergy', () => {
+    it('should set remaining energy to max', () => {
+      const stateWithReducedEnergy: DeckStoreState = {
+        ...initialState,
+        allCards,
+        hand: [],
+
+        remainingEnergy: 0,
+      };
+      const stateWithMaxEnergy: DeckStoreState = {
+        ...initialState,
+        allCards,
+        hand: [],
+        remainingEnergy: initialState.maxEnergy,
+        chosenCard: null,
+      };
+
+      const action = DeckActions.restoreEnergy();
+      const actualState = deckReducer(stateWithReducedEnergy, action);
+      const expectedState = { ...stateWithMaxEnergy };
+
+      expect(actualState).toEqual(expectedState);
+      expect(actualState.remainingEnergy).toEqual(expectedState.maxEnergy);
     });
   });
 });

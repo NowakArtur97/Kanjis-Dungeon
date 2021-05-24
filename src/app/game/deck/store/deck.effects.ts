@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { EMPTY, of } from 'rxjs';
+import { of } from 'rxjs';
 import { map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
 import AppStoreState from 'src/app/store/app.state';
 
@@ -63,8 +63,6 @@ export default class DeckEffects {
       map(([, remainingEnergy]) => {
         if (remainingEnergy === 0) {
           return GameActions.changeTurn();
-        } else {
-          EMPTY;
         }
       })
     )
