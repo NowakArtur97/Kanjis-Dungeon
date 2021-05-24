@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { of } from 'rxjs';
+import { EMPTY, of } from 'rxjs';
 import { map, switchMap, withLatestFrom } from 'rxjs/operators';
 import AppStoreState from 'src/app/store/app.state';
 
@@ -34,7 +34,7 @@ export default class DeckEffects {
         this.store.select((state) => state.deck?.allCards),
         this.store.select((state) => state.deck?.numberOfCards)
       ),
-      switchMap(([action, allCards, numberOfCards]) =>
+      switchMap(([, allCards, numberOfCards]) =>
         of(this.deckService.getHand(allCards, numberOfCards))
       ),
       map((hand) => DeckActions.getCardsToHand({ hand }))
@@ -47,7 +47,23 @@ export default class DeckEffects {
       withLatestFrom(
         this.store.select((state) => state.deck?.chosenCard?.cost || 0)
       ),
-      map(([action, cost]) => DeckActions.useCard({ cost }))
+      map(([, cost]) => DeckActions.useCard({ cost }))
+    )
+  );
+
+  endPlayerTurn$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(DeckActions.useCard),
+      withLatestFrom(
+        this.store.select((state) => state.deck?.remainingEnergy || 0)
+      ),
+      map(([, remainingEnergy]) => {
+        if (remainingEnergy === 0) {
+          return GameActions.changeTurn();
+        } else {
+          EMPTY;
+        }
+      })
     )
   );
 }
