@@ -35,3 +35,83 @@
 
   background: hsl(207, 86%, 42%);
 }
+
+@media (min-width: 640px) {
+  .deck_energy {
+    top: 60%;
+  }
+}
+
+@media (min-width: 667px) {
+  .deck_energy__value {
+    font-size: 1.2em;
+  }
+}
+
+@media (min-width: 731px) {
+  .deck_energy {
+    top: 61%;
+  }
+}
+
+@media (min-width: 812px) {
+  .deck_energy {
+    top: 55%;
+    width: 3em;
+    height: 3em;
+  }
+
+  .deck_energy__value {
+    font-size: 1.3em;
+  }
+}
+
+@media (min-width: 823px) {
+  .deck_energy {
+    top: 56%;
+  }
+
+  .deck_energy__value {
+    font-size: 1.35em;
+  }
+}
+
+@media (min-width: 850px) {
+  .deck_energy__value {
+    font-size: 1.4em;
+  }
+}
+
+@media (min-width: 1024px) {
+  .deck_energy {
+    left: 3%;
+    width: 4em;
+    height: 4em;
+
+    border: 4px solid black;
+  }
+
+  .deck_energy__value {
+    font-size: 2em;
+  }
+
+  .deck_energy__liquid {
+    width: 4.3em;
+  }
+}
+
+@media (min-width: 1366px) {
+  .deck_energy {
+    left: 4%;
+    width: 5em;
+    height: 5em;
+  }
+
+  .deck_energy__value {
+    font-size: 2.4em;
+  }
+
+  .deck_energy__liquid {
+    width: 5.4em;
+  }
+}
