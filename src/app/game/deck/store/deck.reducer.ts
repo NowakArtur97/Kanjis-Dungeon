@@ -46,6 +46,11 @@ const _deckReducer = createReducer(
     hand: state.hand.filter((card) => card.id !== state.chosenCard.id),
     chosenCard: null,
     remainingEnergy: state.remainingEnergy - cost,
+  })),
+
+  on(DeckActions.restoreEnergy, (state) => ({
+    ...state,
+    remainingEnergy: state.maxEnergy,
   }))
 );
 

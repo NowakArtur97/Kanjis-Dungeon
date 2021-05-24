@@ -21,3 +21,5 @@ export const useCard = createAction(
   '[Deck] Use Card',
   props<{ cost: number }>()
 );
+
+export const restoreEnergy = createAction('[Deck] Restore Energy');
