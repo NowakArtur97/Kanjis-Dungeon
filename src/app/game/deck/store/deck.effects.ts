@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
-import { map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
+import { filter, map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
 import AppStoreState from 'src/app/store/app.state';
 
 import * as EnemyActions from '../../enemy/store/enemy.actions';
@@ -64,7 +64,8 @@ export default class DeckEffects {
         if (remainingEnergy === 0) {
           return GameActions.changeTurn();
         }
-      })
+      }),
+      filter((action) => !!action)
     )
   );
 }

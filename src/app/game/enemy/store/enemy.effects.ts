@@ -45,8 +45,8 @@ export default class EnemyEffects {
   startEnemyTurn$ = createEffect(() =>
     this.actions$.pipe(
       ofType(EnemyActions.startEnemyTurn),
-      withLatestFrom(this.store.select((state) => state.enemy?.allEnemies)),
-      switchMap(([action, enemies]) =>
+      withLatestFrom(this.store.select((state) => state.enemy?.enemies)),
+      switchMap(([, enemies]) =>
         of(this.enemyService.chooseRandomEnemiesActions(enemies))
       ),
       mergeMap((enemies) => [

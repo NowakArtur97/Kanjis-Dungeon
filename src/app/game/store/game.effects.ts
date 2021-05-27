@@ -17,7 +17,7 @@ export default class GameEffects {
     this.actions$.pipe(
       ofType(GameActions.chooseLevel, GameActions.changeTurn),
       withLatestFrom(this.store.select((state) => state.game?.turn)),
-      map(([action, turn]) => {
+      map(([, turn]) => {
         if (turn === GameTurn.ENEMY_TURN) {
           return EnemyActions.startEnemyTurn();
         } else {

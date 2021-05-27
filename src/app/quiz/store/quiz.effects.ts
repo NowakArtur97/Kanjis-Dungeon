@@ -42,31 +42,30 @@ export default class QuizEffects {
         this.store.select((state) => state.kanji?.kanji),
         this.store.select((state) => state.vocabulary?.vocabulary)
       ),
-      switchMap(
-        ([action, quizOptions, questions, radicals, kanji, vocabulary]) =>
-          of(
-            this.quizService.prepareQuestions(radicals, quizOptions, questions)
-          ).pipe(
-            map((questionsFromRadicals) =>
-              of(
-                this.quizService.prepareQuestions(
-                  kanji,
-                  quizOptions,
-                  questionsFromRadicals
-                )
-              ).pipe(
-                map((questionsFromRadicalsAndKanji) =>
-                  of(
-                    this.quizService.prepareQuestions(
-                      vocabulary,
-                      quizOptions,
-                      questionsFromRadicalsAndKanji
-                    )
+      switchMap(([, quizOptions, questions, radicals, kanji, vocabulary]) =>
+        of(
+          this.quizService.prepareQuestions(radicals, quizOptions, questions)
+        ).pipe(
+          map((questionsFromRadicals) =>
+            of(
+              this.quizService.prepareQuestions(
+                kanji,
+                quizOptions,
+                questionsFromRadicals
+              )
+            ).pipe(
+              map((questionsFromRadicalsAndKanji) =>
+                of(
+                  this.quizService.prepareQuestions(
+                    vocabulary,
+                    quizOptions,
+                    questionsFromRadicalsAndKanji
                   )
                 )
               )
             )
           )
+        )
       ),
       mergeMap((questions) => questions),
       mergeMap((questions) => questions),

@@ -23,7 +23,7 @@ export default class PlayerEffects {
         this.store.select((state) => state.deck?.chosenCard),
         this.store.select((state) => state.player?.player)
       ),
-      switchMap(([action, chosenCard, player]) =>
+      switchMap(([, chosenCard, player]) =>
         of(this.playerService.updatePlayer(chosenCard, player))
       ),
       map((player) => PlayerActions.setPlayer({ player }))
