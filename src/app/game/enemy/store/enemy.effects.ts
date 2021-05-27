@@ -5,6 +5,7 @@ import { of } from 'rxjs';
 import { map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
 import AppStoreState from 'src/app/store/app.state';
 
+import * as PlayerActions from '../../player/store/player.actions';
 import * as GameActions from '../../store/game.actions';
 import EnemyService from '../services/enemy.service';
 import * as EnemyActions from './enemy.actions';
@@ -22,7 +23,11 @@ export default class EnemyEffects {
       ofType(GameActions.chooseLevel),
       withLatestFrom(this.store.select((state) => state.enemy?.allEnemies)),
       switchMap(([{ level }, allEnemies]) =>
-        of(this.enemyService.chooseEnemies(level, allEnemies))
+        of(
+          this.enemyService.chooseRandomEnemiesActions(
+            this.enemyService.chooseEnemies(level, allEnemies)
+          )
+        )
       ),
       map((enemies) => EnemyActions.setEnemies({ enemies }))
     )
@@ -42,9 +47,29 @@ export default class EnemyEffects {
     )
   );
 
+  // TODO: to test
   startEnemyTurn$ = createEffect(() =>
     this.actions$.pipe(
       ofType(EnemyActions.startEnemyTurn),
+      withLatestFrom(
+        this.store.select((state) => state.enemy?.enemies),
+        this.store.select((state) => state.player?.player)
+      ),
+      switchMap(([, enemies, player]) =>
+        of(this.enemyService.performActions(enemies, player))
+      ),
+      mergeMap(({ enemies, player }) => [
+        EnemyActions.setEnemies({ enemies }),
+        EnemyActions.endEnemyTurn(),
+        PlayerActions.setPlayer({ player }),
+      ])
+    )
+  );
+
+  // TODO: to test
+  endEnemyTurn$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(EnemyActions.endEnemyTurn),
       withLatestFrom(this.store.select((state) => state.enemy?.enemies)),
       switchMap(([, enemies]) =>
         of(this.enemyService.chooseRandomEnemiesActions(enemies))

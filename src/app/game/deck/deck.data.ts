@@ -10,15 +10,19 @@ const attackCard: GameCard = {
   description: 'Deal 10 damage points',
   value: 10,
   apply(character: Character): void {
+    // TODO: Refactor with CharacterActions
     const { stats } = character;
-    const remainingDamage = this.value - stats.currentShield;
     if (stats.currentShield > 0) {
+      const remainingDamage =
+        stats.currentShield < this.value ? this.value - stats.currentShield : 0;
       stats.currentShield -= this.value;
       if (stats.currentShield < 0) {
         stats.currentShield = 0;
       }
+      stats.currentHealth -= remainingDamage;
+    } else {
+      stats.currentHealth -= this.value;
     }
-    stats.currentHealth -= remainingDamage;
   },
 };
 const defenceCard: GameCard = {

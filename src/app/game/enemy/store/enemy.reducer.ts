@@ -17,9 +17,10 @@ const initialState: EnemyStoreState = {
 const _enemyReducer = createReducer(
   initialState,
 
+  // TODO: to test
   on(EnemyActions.setEnemies, (state, { enemies }) => ({
     ...state,
-    enemies,
+    enemies: enemies.filter((enemy) => enemy.stats.currentHealth > 0),
   }))
 );
 

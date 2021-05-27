@@ -9,7 +9,7 @@ export interface GameStoreState {
 }
 const initialState: GameStoreState = {
   level: 0,
-  turn: GameTurn.ENEMY_TURN,
+  turn: GameTurn.PLAYER_TURN,
 };
 
 const _gameReducer = createReducer(
