@@ -7,5 +7,6 @@ export default interface GameCard {
   cost: number;
   type: GameCardType;
   description: string;
+  value?: number;
   apply(character: Character): void;
 }
