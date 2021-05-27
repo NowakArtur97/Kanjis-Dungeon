@@ -60,6 +60,7 @@ export class DeckEnergyComponent implements OnInit, OnDestroy {
             (this.remainingEnergy / this.maxEnergy) * 100;
           this.liquidMinHeight =
             this.liquidHeight + this.LIQUID_HEIGHT_MODIFIER;
+          // TODO: DeckEnergyComponent: Change liquid height with animation when reduced/increased
         }
       });
   }
