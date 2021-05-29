@@ -18,7 +18,7 @@ export default class EnemyEffects {
     private enemyService: EnemyService
   ) {}
 
-  chooseEnemies$ = createEffect(() =>
+  chooseLevel$ = createEffect(() =>
     this.actions$.pipe(
       ofType(GameActions.chooseLevel),
       withLatestFrom(this.store.select((state) => state.enemy?.allEnemies)),
@@ -47,7 +47,6 @@ export default class EnemyEffects {
     )
   );
 
-  // TODO: to test
   startEnemyTurn$ = createEffect(() =>
     this.actions$.pipe(
       ofType(EnemyActions.startEnemyTurn),
