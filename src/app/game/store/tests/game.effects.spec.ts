@@ -3,11 +3,16 @@ import { provideMockActions } from '@ngrx/effects/testing';
 import { Store, StoreModule } from '@ngrx/store';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { ReplaySubject } from 'rxjs';
+import CharacterType from 'src/app/japanese/common/enums/character-type.enum';
+import QuizOptions from 'src/app/quiz/models/quiz-options.model';
+import { DEFAULT_EXCLUDED_PROPERTIES, DEFAULT_MIN_NUMBER_OF_PROPERTIES } from 'src/app/quiz/store/quiz.reducer';
 import AppStoreState from 'src/app/store/app.state';
 
+import * as QuizActions from '../../../quiz/store/quiz.actions';
 import * as EnemyActions from '../../enemy/store/enemy.actions';
 import GameTurn from '../../enums/game-turn.enum';
 import * as PlayerActions from '../../player/store/player.actions';
+import GameService from '../../services/game.service';
 import * as GameActions from '../../store/game.actions';
 import GameEffects from '../game.effects';
 
@@ -15,6 +20,7 @@ describe('GameEffects', () => {
   let gameEffects: GameEffects;
   let actions$: ReplaySubject<any>;
   let store: any;
+  let gameService: GameService;
 
   const stateWithEnemyTurn: Partial<AppStoreState> = {
     game: {
@@ -42,6 +48,12 @@ describe('GameEffects', () => {
               useClass: MockStore,
             },
             provideMockActions(() => actions$),
+            {
+              provide: GameService,
+              useValue: jasmine.createSpyObj('gameService', [
+                'chooseQuizOptionsForLevel',
+              ]),
+            },
           ],
         })
       );
@@ -123,6 +135,69 @@ describe('GameEffects', () => {
           gameEffects.chooseLevel$.subscribe((resultAction) => {
             expect(resultAction).toEqual(PlayerActions.startPlayerTurn());
           });
+        });
+      });
+    });
+  });
+
+  describe('startPlayerTurn$', () => {
+    beforeEach(() =>
+      TestBed.configureTestingModule({
+        imports: [StoreModule.forRoot({})],
+        providers: [
+          GameEffects,
+          Store,
+          provideMockActions(() => actions$),
+          {
+            provide: GameService,
+            useValue: jasmine.createSpyObj('gameService', [
+              'chooseQuizOptionsForLevel',
+            ]),
+          },
+        ],
+      })
+    );
+
+    beforeEach(() => {
+      gameEffects = TestBed.inject(GameEffects);
+      gameService = TestBed.inject(GameService);
+    });
+
+    beforeEach(() => {
+      actions$ = new ReplaySubject(1);
+      actions$.next(PlayerActions.startPlayerTurn);
+    });
+
+    describe('when starting level', () => {
+      beforeEach(() => {
+        actions$ = new ReplaySubject(1);
+        actions$.next(PlayerActions.startPlayerTurn);
+      });
+
+      it('should return a changeQuizOptions action', () => {
+        const quizOptions: QuizOptions = {
+          numberOfQuestions: 3,
+          minNumberOfProperties: DEFAULT_MIN_NUMBER_OF_PROPERTIES,
+          shouldShowAnswer: true,
+          shouldHideRandomProperties: false,
+          excludedProperties: new Map([
+            [CharacterType.RADICAL, DEFAULT_EXCLUDED_PROPERTIES],
+            [CharacterType.KANJI, DEFAULT_EXCLUDED_PROPERTIES],
+            [CharacterType.VOCABULARY, DEFAULT_EXCLUDED_PROPERTIES],
+          ]),
+          questionTypes: [CharacterType.RADICAL],
+        };
+        (gameService.chooseQuizOptionsForLevel as jasmine.Spy).and.returnValue(
+          quizOptions
+        );
+
+        gameEffects.startPlayerTurn$.subscribe((resultAction) => {
+          expect(resultAction).toEqual(
+            QuizActions.changeQuizOptions({ quizOptions })
+          );
+          expect(gameService.chooseQuizOptionsForLevel).toHaveBeenCalledTimes(
+            1
+          );
         });
       });
     });
