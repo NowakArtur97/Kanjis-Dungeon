@@ -4,6 +4,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 
+import KanjiResolver from '../japanese/kanji/kanji.resolver';
+import RadicalResolver from '../japanese/radical/radical.resolver';
+import VocabularyResolver from '../japanese/vocabulary/vocabulary.resolver';
 import { QuizModule } from '../quiz/quiz.module';
 import { CharacterModule } from './character/character.module';
 import { DeckModule } from './deck/deck.module';
@@ -17,6 +20,7 @@ const gameRoutes: Routes = [
   {
     path: 'game',
     component: GameLayoutComponent,
+    resolve: [RadicalResolver, KanjiResolver, VocabularyResolver],
   },
 ];
 
