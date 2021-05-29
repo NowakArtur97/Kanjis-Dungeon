@@ -140,27 +140,59 @@ describe('EnemyEffects', () => {
     beforeEach(() => {
       actions$ = new ReplaySubject(1);
       actions$.next(EnemyActions.startEnemyTurn);
-      (enemyService.chooseRandomEnemiesActions as jasmine.Spy).and.returnValue(
-        updatedEnemies
-      );
+      (enemyService.performActions as jasmine.Spy).and.returnValue({
+        enemies: enemiesWithActions,
+        player: defaultPlayer,
+      });
     });
 
     it('should return a setEnemies, endEnemyTurn and setPlayer actions', () => {
       enemyEffects.startEnemyTurn$.pipe(take(1)).subscribe((resultAction) => {
         expect(resultAction).toEqual(
-          EnemyActions.setEnemies({ enemies: updatedEnemies })
+          EnemyActions.setEnemies({ enemies: enemiesWithActions })
         );
         expect(enemyService.performActions).toHaveBeenCalledTimes(1);
       });
-      enemyEffects.startEnemyTurn$.pipe(skip(1)).subscribe((resultAction) => {
-        expect(resultAction).toEqual(EnemyActions.endEnemyTurn());
-        expect(enemyService.performActions).toHaveBeenCalledTimes(2);
-      });
-      enemyEffects.startEnemyTurn$.pipe(skip(2)).subscribe((resultAction) => {
+      enemyEffects.startEnemyTurn$
+        .pipe(skip(1), take(1))
+        .subscribe((resultAction) => {
+          expect(resultAction).toEqual(EnemyActions.endEnemyTurn());
+          expect(enemyService.performActions).toHaveBeenCalledTimes(2);
+        });
+      enemyEffects.startEnemyTurn$
+        .pipe(skip(2), take(1))
+        .subscribe((resultAction) => {
+          expect(resultAction).toEqual(
+            PlayerActions.setPlayer({ player: defaultPlayer })
+          );
+          expect(enemyService.performActions).toHaveBeenCalledTimes(3);
+        });
+    });
+  });
+
+  describe('endEnemyTurn$', () => {
+    beforeEach(() => {
+      actions$ = new ReplaySubject(1);
+      actions$.next(EnemyActions.endEnemyTurn);
+      (enemyService.chooseRandomEnemiesActions as jasmine.Spy).and.returnValue(
+        enemiesWithActions
+      );
+    });
+
+    it('should return a setEnemies and changeTurn actions', () => {
+      enemyEffects.endEnemyTurn$.pipe(take(1)).subscribe((resultAction) => {
         expect(resultAction).toEqual(
-          PlayerActions.setPlayer({ player: defaultPlayer })
+          EnemyActions.setEnemies({ enemies: enemiesWithActions })
         );
-        expect(enemyService.performActions).toHaveBeenCalledTimes(3);
+        expect(enemyService.chooseRandomEnemiesActions).toHaveBeenCalledTimes(
+          1
+        );
+      });
+      enemyEffects.endEnemyTurn$.pipe(skip(1)).subscribe((resultAction) => {
+        expect(resultAction).toEqual(GameActions.changeTurn());
+        expect(enemyService.chooseRandomEnemiesActions).toHaveBeenCalledTimes(
+          2
+        );
       });
     });
   });
