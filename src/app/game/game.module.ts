@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 
+import { QuizModule } from '../quiz/quiz.module';
 import { CharacterModule } from './character/character.module';
 import { DeckModule } from './deck/deck.module';
 import { EnemyModule } from './enemy/enemy.module';
@@ -31,6 +32,7 @@ const gameRoutes: Routes = [
     CharacterModule,
     EnemyModule,
     PlayerModule,
+    QuizModule,
   ],
   exports: [GameLayoutComponent],
 })

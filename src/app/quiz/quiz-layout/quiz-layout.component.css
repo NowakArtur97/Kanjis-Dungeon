@@ -1,0 +1,24 @@
+.quiz_layout {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 100vw;
+  min-height: 100vh;
+
+  z-index: 2;
+}
+
+.quiz_layout::after {
+  content: "";
+  position: absolute;
+
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+
+  background-color: hsl(0, 0%, 17%);
+  opacity: 0.8;
+
+  z-index: -1;
+}
