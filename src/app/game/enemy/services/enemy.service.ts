@@ -42,7 +42,6 @@ export default class EnemyService {
     return updatedEnemies;
   }
 
-  // TODO: to test
   performActions(
     enemies: Character[],
     player: Character
