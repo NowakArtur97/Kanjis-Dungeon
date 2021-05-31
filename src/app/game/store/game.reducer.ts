@@ -1,15 +1,18 @@
 import { Action, createReducer, on } from '@ngrx/store';
 
+import GamePhase from '../enums/game-phase.enum';
 import GameTurn from '../enums/game-turn.enum';
 import * as GameActions from './game.actions';
 
 export interface GameStoreState {
   level: number;
   turn: GameTurn;
+  phase: GamePhase;
 }
 const initialState: GameStoreState = {
   level: 0,
   turn: GameTurn.PLAYER_TURN,
+  phase: GamePhase.QUIZ,
 };
 
 const _gameReducer = createReducer(
@@ -26,6 +29,12 @@ const _gameReducer = createReducer(
       state.turn === GameTurn.ENEMY_TURN
         ? GameTurn.PLAYER_TURN
         : GameTurn.ENEMY_TURN,
+  })),
+
+  // TODO: TEST
+  on(GameActions.changePhase, (state) => ({
+    ...state,
+    phase: state.phase === GamePhase.QUIZ ? GamePhase.BATTLE : GamePhase.QUIZ,
   }))
 );
 

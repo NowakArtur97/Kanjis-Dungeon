@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
-import { map, switchMap, withLatestFrom } from 'rxjs/operators';
+import { filter, map, switchMap, withLatestFrom } from 'rxjs/operators';
 import AppStoreState from 'src/app/store/app.state';
 
 import * as QuizActions from '../../quiz/store/quiz.actions';
@@ -34,6 +34,7 @@ export default class GameEffects {
     )
   );
 
+  // TODO: GameEffects: Select options only at the start of level
   startPlayerTurn$ = createEffect(() =>
     this.actions$.pipe(
       ofType(PlayerActions.startPlayerTurn),
@@ -42,6 +43,22 @@ export default class GameEffects {
         of(this.gameService.chooseQuizOptionsForLevel(level))
       ),
       map((quizOptions) => QuizActions.changeQuizOptions({ quizOptions }))
+    )
+  );
+
+  // TODO: TEST
+  endQuizPhase$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(QuizActions.addAnswer, EnemyActions.endEnemyTurn),
+      withLatestFrom(
+        this.store.select((state) => state.quiz?.questions.length)
+      ),
+      map(([, numberOfQuestions]) => {
+        if (numberOfQuestions === 0) {
+          return GameActions.changePhase();
+        }
+      }),
+      filter((action) => !!action)
     )
   );
 }

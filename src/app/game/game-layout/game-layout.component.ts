@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import AppStoreState from 'src/app/store/app.state';
 
-import GameTurn from '../enums/game-turn.enum';
+import GamePhase from '../enums/game-phase.enum';
 import * as GameActions from '../store/game.actions';
 
 @Component({
@@ -14,7 +14,7 @@ import * as GameActions from '../store/game.actions';
 export class GameLayoutComponent implements OnInit, OnDestroy {
   private gameTurnSubscription$: Subscription;
 
-  isPlayerTurn: boolean;
+  isQuizPhase: boolean;
 
   constructor(private store: Store<AppStoreState>) {}
 
@@ -25,9 +25,9 @@ export class GameLayoutComponent implements OnInit, OnDestroy {
 
     this.gameTurnSubscription$ = this.store
       .select('game')
-      .subscribe(({ turn }) => {
-        if (turn !== undefined) {
-          this.isPlayerTurn = (turn as GameTurn) === GameTurn.PLAYER_TURN;
+      .subscribe(({ phase }) => {
+        if (phase !== undefined) {
+          this.isQuizPhase = (phase as GamePhase) === GamePhase.QUIZ;
         }
       });
   }
