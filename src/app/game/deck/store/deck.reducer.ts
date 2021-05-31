@@ -10,6 +10,7 @@ export interface DeckStoreState {
   numberOfCards: number;
 
   remainingEnergy: number;
+  defaultEnergy: number;
   maxEnergy: number;
 }
 
@@ -20,7 +21,8 @@ const initialState: DeckStoreState = {
   numberOfCards: 6,
 
   remainingEnergy: 2,
-  maxEnergy: 4,
+  defaultEnergy: 2,
+  maxEnergy: 2,
 };
 
 const _deckReducer = createReducer(
@@ -31,9 +33,12 @@ const _deckReducer = createReducer(
     allCards,
   })),
 
+  // TODO: TEST
   on(DeckActions.getCardsToHand, (state, { hand }) => ({
     ...state,
     hand,
+    remainingEnergy: state.remainingEnergy >= 0 ? state.remainingEnergy : 0,
+    maxEnergy: state.maxEnergy >= 0 ? state.maxEnergy : 0,
   })),
 
   on(DeckActions.chooseCard, (state, { chosenCard }) => ({
@@ -54,9 +59,11 @@ const _deckReducer = createReducer(
     maxEnergy: state.maxEnergy + energy,
   })),
 
-  on(DeckActions.restoreEnergy, (state) => ({
+  // TODO: TEST
+  on(DeckActions.resetEnergy, (state) => ({
     ...state,
-    remainingEnergy: state.maxEnergy,
+    remainingEnergy: state.defaultEnergy,
+    maxEnergy: state.defaultEnergy,
   }))
 );
 

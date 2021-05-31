@@ -27,4 +27,4 @@ export const changeEnergy = createAction(
   props<{ energy: number }>()
 );
 
-export const restoreEnergy = createAction('[Deck] Restore Energy');
+export const resetEnergy = createAction('[Deck] Reset Energy');

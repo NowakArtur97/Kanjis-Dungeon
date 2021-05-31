@@ -40,7 +40,7 @@ export default class DeckEffects {
       ),
       mergeMap((hand) => [
         DeckActions.getCardsToHand({ hand }),
-        DeckActions.restoreEnergy(),
+        DeckActions.resetEnergy(),
       ])
     )
   );
