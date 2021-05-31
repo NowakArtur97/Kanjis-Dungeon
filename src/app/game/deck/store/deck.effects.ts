@@ -70,12 +70,18 @@ export default class DeckEffects {
     )
   );
 
-  addEnergyOnCorrectAnswer$ = createEffect(() =>
+  increaseEnergyOnCorrectAnswer$ = createEffect(() =>
     this.actions$.pipe(
       ofType(QuizActions.addAnswer),
       // TODO: DeckEffects: Add energy based on number of correct fields
-      // TODO: DeckEffects: Decrease energy on mistake (?)
-      map(() => DeckActions.addEnergy({ energy: 1 }))
+      map(() => DeckActions.changeEnergy({ energy: 1 }))
+    )
+  );
+
+  decreaseEnergyOnMistake$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(QuizActions.addMistake),
+      map(() => DeckActions.changeEnergy({ energy: -1 }))
     )
   );
 }

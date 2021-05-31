@@ -48,7 +48,7 @@ const _deckReducer = createReducer(
     remainingEnergy: state.remainingEnergy - cost,
   })),
 
-  on(DeckActions.addEnergy, (state, { energy }) => ({
+  on(DeckActions.changeEnergy, (state, { energy }) => ({
     ...state,
     remainingEnergy: state.remainingEnergy + energy,
     maxEnergy: state.maxEnergy + energy,
