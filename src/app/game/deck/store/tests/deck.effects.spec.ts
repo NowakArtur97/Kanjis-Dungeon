@@ -4,6 +4,7 @@ import { Store, StoreModule } from '@ngrx/store';
 import { ReplaySubject } from 'rxjs';
 import { skip, take } from 'rxjs/operators';
 
+import * as QuizActions from '../../../../quiz/store/quiz.actions';
 import * as PlayerActions from '../../../player/store/player.actions';
 import * as GameActions from '../../../store/game.actions';
 import { attackCard, defenceCard, powerCard } from '../../deck.data';
@@ -108,6 +109,32 @@ describe('DeckEffects', () => {
     it('should return a changeTurn action if Player does not have more energy', () => {
       deckEffects.endPlayerTurn$.subscribe((resultAction) => {
         expect(resultAction).toEqual(GameActions.changeTurn());
+      });
+    });
+  });
+
+  describe('increaseEnergyOnCorrectAnswer$', () => {
+    beforeEach(() => {
+      actions$ = new ReplaySubject(1);
+      actions$.next(QuizActions.addAnswer);
+    });
+
+    it('should return a changeEnergy action', () => {
+      deckEffects.increaseEnergyOnCorrectAnswer$.subscribe((resultAction) => {
+        expect(resultAction).toEqual(DeckActions.changeEnergy({ energy: 1 }));
+      });
+    });
+  });
+
+  describe('decreaseEnergyOnMistake$', () => {
+    beforeEach(() => {
+      actions$ = new ReplaySubject(1);
+      actions$.next(QuizActions.addMistake);
+    });
+
+    it('should return a changeEnergy action', () => {
+      deckEffects.decreaseEnergyOnMistake$.subscribe((resultAction) => {
+        expect(resultAction).toEqual(DeckActions.changeEnergy({ energy: -1 }));
       });
     });
   });
