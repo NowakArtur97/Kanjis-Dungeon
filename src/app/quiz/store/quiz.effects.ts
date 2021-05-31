@@ -25,7 +25,7 @@ export default class QuizEffects {
         QuizActions.addMistake
       ),
       withLatestFrom(this.store.select((state) => state.quiz?.questions)),
-      switchMap(([action, questions]) =>
+      switchMap(([, questions]) =>
         of(this.quizService.getNextQuestion(questions))
       ),
       map((nextQuestion) => QuizActions.setNextQuestion({ nextQuestion }))

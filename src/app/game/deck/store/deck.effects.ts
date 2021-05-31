@@ -5,6 +5,7 @@ import { of } from 'rxjs';
 import { filter, map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
 import AppStoreState from 'src/app/store/app.state';
 
+import * as QuizActions from '../../../quiz/store/quiz.actions';
 import * as EnemyActions from '../../enemy/store/enemy.actions';
 import * as PlayerActions from '../../player/store/player.actions';
 import * as GameActions from '../../store/game.actions';
@@ -66,6 +67,15 @@ export default class DeckEffects {
         }
       }),
       filter((action) => !!action)
+    )
+  );
+
+  addEnergyOnCorrectAnswer$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(QuizActions.addAnswer),
+      // TODO: DeckEffects: Add energy based on number of correct fields
+      // TODO: DeckEffects: Decrease energy on mistake (?)
+      map(() => DeckActions.addEnergy({ energy: 1 }))
     )
   );
 }
