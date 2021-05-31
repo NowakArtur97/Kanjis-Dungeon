@@ -91,39 +91,48 @@ export class QuizCardComponent implements OnInit, AfterViewInit, OnDestroy {
     this.quizFormGroup = new FormGroup({
       characters: new FormControl(this.charactersValue.characters, [
         CommonValidators.equals(
-          this.currentCharacter ? this.currentCharacter.characters : ''
+          this.currentCharacter.characters &&
+            this.currentCharacter.characters !== ''
+            ? this.currentCharacter.characters
+            : ''
         ),
       ]),
       meaning: new FormControl(
         this.charactersValue.meanings,
-        this.currentCharacter
+        this.currentCharacter.meanings &&
+        this.currentCharacter.meanings !== ['']
           ? [CommonValidators.includes(this.currentCharacter.meanings)]
           : []
       ),
       onyomi: new FormControl(
         this.charactersValue.onyomi ? this.charactersValue.onyomi : '',
         CharacterUtil.isKanji(this.currentCharacter) &&
-        this.currentCharacter.onyomi
+        this.currentCharacter.onyomi &&
+        this.currentCharacter.onyomi !== ['']
           ? [CommonValidators.includes(this.currentCharacter.onyomi)]
           : []
       ),
       kunyomi: new FormControl(
         this.charactersValue.kunyomi ? this.charactersValue.kunyomi : '',
         CharacterUtil.isKanji(this.currentCharacter) &&
-        this.currentCharacter.kunyomi
+        this.currentCharacter.kunyomi &&
+        this.currentCharacter.kunyomi !== ['']
           ? [CommonValidators.includes(this.currentCharacter.kunyomi)]
           : []
       ),
       nanori: new FormControl(
         this.charactersValue.nanori ? this.charactersValue.nanori : '',
         CharacterUtil.isKanji(this.currentCharacter) &&
-        this.currentCharacter.nanori
+        this.currentCharacter.nanori &&
+        this.currentCharacter.nanori !== ['']
           ? [CommonValidators.includes(this.currentCharacter.nanori)]
           : []
       ),
       reading: new FormControl(
         this.charactersValue.reading ? this.charactersValue.reading : '',
-        CharacterUtil.isVocabulary(this.currentCharacter)
+        CharacterUtil.isVocabulary(this.currentCharacter) &&
+        this.currentCharacter.reading &&
+        this.currentCharacter.reading !== ''
           ? [CommonValidators.equals(this.currentCharacter.reading)]
           : []
       ),
