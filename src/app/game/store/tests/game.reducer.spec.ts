@@ -1,11 +1,7 @@
+import GamePhase from '../../enums/game-phase.enum';
 import GameTurn from '../../enums/game-turn.enum';
 import * as GameActions from '../game.actions';
-import { gameReducer, GameStoreState } from '../game.reducer';
-
-const initialState: GameStoreState = {
-  level: 0,
-  turn: GameTurn.ENEMY_TURN,
-};
+import { gameReducer, GameStoreState, initialState } from '../game.reducer';
 
 describe('gameReducer', () => {
   describe('GameActions.chooseLevel', () => {
@@ -26,19 +22,74 @@ describe('gameReducer', () => {
   });
 
   describe('GameActions.changeTurn', () => {
-    it('should change turn', () => {
-      const turn = GameTurn.PLAYER_TURN;
-      const stateWithPlayerTurn: GameStoreState = {
+    it('should change turn from Player to Enemy', () => {
+      const turn = GameTurn.ENEMY_TURN;
+      const stateWithEnemyTurn: GameStoreState = {
         ...initialState,
         turn,
       };
 
       const action = GameActions.changeTurn();
       const actualState = gameReducer(initialState, action);
+      const expectedState = { ...stateWithEnemyTurn };
+
+      expect(actualState).toEqual(expectedState);
+      expect(actualState.turn).toEqual(turn);
+    });
+
+    it('should change turn from Enemy to Player', () => {
+      const turn = GameTurn.PLAYER_TURN;
+      const stateWithEnemyTurn: GameStoreState = {
+        ...initialState,
+        turn: GameTurn.ENEMY_TURN,
+      };
+      const stateWithPlayerTurn: GameStoreState = {
+        ...initialState,
+        turn,
+      };
+
+      const action = GameActions.changeTurn();
+      const actualState = gameReducer(stateWithEnemyTurn, action);
       const expectedState = { ...stateWithPlayerTurn };
 
       expect(actualState).toEqual(expectedState);
       expect(actualState.turn).toEqual(turn);
+    });
+  });
+
+  describe('GameActions.changePhase', () => {
+    it('should change phase from Quiz to Battle', () => {
+      const phase = GamePhase.BATTLE;
+      const stateWithBattlePhase: GameStoreState = {
+        ...initialState,
+        phase,
+      };
+
+      const action = GameActions.changePhase();
+      const actualState = gameReducer(initialState, action);
+      const expectedState = { ...stateWithBattlePhase };
+
+      expect(actualState).toEqual(expectedState);
+      expect(actualState.phase).toEqual(phase);
+    });
+
+    it('should change phase from Battle to Quiz', () => {
+      const phase = GamePhase.QUIZ;
+      const stateWithBattlePhase: GameStoreState = {
+        ...initialState,
+        phase: GamePhase.BATTLE,
+      };
+      const stateWithQuizPhase: GameStoreState = {
+        ...initialState,
+        phase,
+      };
+
+      const action = GameActions.changePhase();
+      const actualState = gameReducer(stateWithBattlePhase, action);
+      const expectedState = { ...stateWithQuizPhase };
+
+      expect(actualState).toEqual(expectedState);
+      expect(actualState.phase).toEqual(phase);
     });
   });
 });

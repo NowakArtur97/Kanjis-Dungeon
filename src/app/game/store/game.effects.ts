@@ -46,8 +46,7 @@ export default class GameEffects {
     )
   );
 
-  // TODO: TEST
-  endQuizPhase$ = createEffect(() =>
+  changePhase$ = createEffect(() =>
     this.actions$.pipe(
       ofType(QuizActions.addAnswer, EnemyActions.endEnemyTurn),
       withLatestFrom(

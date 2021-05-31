@@ -14,6 +14,7 @@ const initialState: GameStoreState = {
   turn: GameTurn.PLAYER_TURN,
   phase: GamePhase.QUIZ,
 };
+export { initialState };
 
 const _gameReducer = createReducer(
   initialState,
@@ -31,7 +32,6 @@ const _gameReducer = createReducer(
         : GameTurn.ENEMY_TURN,
   })),
 
-  // TODO: TEST
   on(GameActions.changePhase, (state) => ({
     ...state,
     phase: state.phase === GamePhase.QUIZ ? GamePhase.BATTLE : GamePhase.QUIZ,

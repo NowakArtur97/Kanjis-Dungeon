@@ -5,6 +5,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { Store, StoreModule } from '@ngrx/store';
 import { of } from 'rxjs';
 import { AppCommonModule } from 'src/app/common/app-common.module';
+import { initialState } from 'src/app/game/store/game.reducer';
 import CharacterType from 'src/app/japanese/common/enums/character-type.enum';
 import { JapanesePipe } from 'src/app/japanese/common/pipes/japanese.pipe';
 import { JapaneseModule } from 'src/app/japanese/japanese.module';
@@ -21,28 +22,6 @@ describe('QuizCardComponent', () => {
   let store: Store<AppStoreState>;
   let quizService: QuizService;
 
-  const initialState: QuizStoreState = {
-    quizOptions: {
-      numberOfQuestions: 12,
-      minNumberOfProperties: 1,
-      shouldShowAnswer: true,
-      shouldHideRandomProperties: true,
-      excludedProperties: new Map([
-        [CharacterType.RADICAL, ['characters', 'type']],
-        [CharacterType.KANJI, ['characters', 'type']],
-        [CharacterType.VOCABULARY, ['characters', 'type']],
-      ]),
-      questionTypes: [
-        CharacterType.RADICAL,
-        CharacterType.KANJI,
-        CharacterType.VOCABULARY,
-      ],
-    },
-    nextQuestion: null,
-    questions: [],
-    answers: [],
-    mistakes: [],
-  };
   const radical = {
     id: 1,
     characters: '一',
@@ -168,7 +147,9 @@ describe('QuizCardComponent', () => {
 
   describe('when initialize component', () => {
     it('should select quiz from store', () => {
-      spyOn(store, 'select').and.callFake(() => of(initialState));
+      spyOn(store, 'select').and.callFake(() =>
+        of(quizStateWithOnlyVocabularyType)
+      );
       spyOn(quizService, 'choosePropertiesForQuestion').and.callThrough();
 
       fixture.detectChanges();
