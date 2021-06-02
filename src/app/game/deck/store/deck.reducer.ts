@@ -24,6 +24,7 @@ const initialState: DeckStoreState = {
   defaultEnergy: 2,
   maxEnergy: 2,
 };
+export { initialState };
 
 const _deckReducer = createReducer(
   initialState,
@@ -33,7 +34,6 @@ const _deckReducer = createReducer(
     allCards,
   })),
 
-  // TODO: TEST
   on(DeckActions.getCardsToHand, (state, { hand }) => ({
     ...state,
     hand,
@@ -59,7 +59,6 @@ const _deckReducer = createReducer(
     maxEnergy: state.maxEnergy + energy,
   })),
 
-  // TODO: TEST
   on(DeckActions.resetEnergy, (state) => ({
     ...state,
     remainingEnergy: state.defaultEnergy,

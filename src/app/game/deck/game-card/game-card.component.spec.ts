@@ -9,7 +9,7 @@ import AppStoreState from 'src/app/store/app.state';
 import { attackCard, defenceCard, powerCard } from '../deck.data';
 import GameCard from '../models/game-card.model';
 import * as DeckActions from '../store/deck.actions';
-import { DeckStoreState } from '../store/deck.reducer';
+import { DeckStoreState, initialState } from '../store/deck.reducer';
 import { GameCardComponent } from './game-card.component';
 
 describe('GameCardComponent', () => {
@@ -20,13 +20,10 @@ describe('GameCardComponent', () => {
   const allCards: GameCard[] = [attackCard, defenceCard, powerCard];
   const hand = [attackCard, defenceCard];
   const stateWithMaxEnergyAndChosenAttackCard: DeckStoreState = {
+    ...initialState,
     allCards,
     hand,
     chosenCard: attackCard,
-    numberOfCards: 6,
-
-    maxEnergy: 4,
-    remainingEnergy: 4,
   };
   beforeEach(async () => {
     await TestBed.configureTestingModule({

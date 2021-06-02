@@ -75,13 +75,13 @@ describe('DeckEffects', () => {
       (deckService.getHand as jasmine.Spy).and.returnValue(hand);
     });
 
-    it('should return a getCardsToHand and restoreEnergy actions', () => {
+    it('should return a getCardsToHand and resetEnergy actions', () => {
       deckEffects.startTurn$.pipe(take(1)).subscribe((resultAction) => {
         expect(resultAction).toEqual(DeckActions.getCardsToHand({ hand }));
         expect(deckService.getHand).toHaveBeenCalledTimes(1);
       });
       deckEffects.startTurn$.pipe(skip(1)).subscribe((resultAction) => {
-        expect(resultAction).toEqual(DeckActions.restoreEnergy());
+        expect(resultAction).toEqual(DeckActions.resetEnergy());
         expect(deckService.getHand).toHaveBeenCalledTimes(2);
       });
     });

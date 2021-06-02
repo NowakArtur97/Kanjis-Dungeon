@@ -1,19 +1,11 @@
 import { attackCard, defenceCard, powerCard } from '../../deck.data';
 import GameCard from '../../models/game-card.model';
 import * as DeckActions from '../deck.actions';
-import { deckReducer, DeckStoreState } from '../deck.reducer';
+import { deckReducer, DeckStoreState, initialState } from '../deck.reducer';
 
 const allCards: GameCard[] = [attackCard, defenceCard, powerCard];
 const hand = [attackCard, defenceCard];
-const initialState: DeckStoreState = {
-  allCards: [],
-  hand: [],
-  chosenCard: null,
-  numberOfCards: 6,
 
-  remainingEnergy: 2,
-  maxEnergy: 4,
-};
 const stateWithHand: DeckStoreState = {
   ...initialState,
   allCards,
@@ -49,6 +41,27 @@ describe('deckReducer', () => {
 
       expect(actualState).toEqual(expectedState);
       expect(actualState.hand).toEqual(hand);
+    });
+
+    it('should set energy to zero if negative', () => {
+      const stateWithNegativeEnergy: DeckStoreState = {
+        ...stateWithCards,
+        remainingEnergy: -2,
+        maxEnergy: -2,
+      };
+      const stateWithResetedEnergy: DeckStoreState = {
+        ...stateWithHand,
+        remainingEnergy: 0,
+        maxEnergy: 0,
+      };
+      const action = DeckActions.getCardsToHand({ hand });
+      const actualState = deckReducer(stateWithNegativeEnergy, action);
+      const expectedState = { ...stateWithResetedEnergy };
+
+      expect(actualState).toEqual(expectedState);
+      expect(actualState.hand).toEqual(hand);
+      expect(actualState.remainingEnergy).toBe(0);
+      expect(actualState.maxEnergy).toBe(0);
     });
   });
 
@@ -86,12 +99,12 @@ describe('deckReducer', () => {
       const expectedState = { ...stateWithReducedEnergy };
 
       expect(actualState).toEqual(expectedState);
-      expect(actualState.remainingEnergy).toEqual(remainingEnergy);
+      expect(actualState.remainingEnergy).toBe(remainingEnergy);
     });
   });
 
-  describe('DeckActions.restoreEnergy', () => {
-    it('should set remaining energy to max', () => {
+  describe('DeckActions.resetEnergy', () => {
+    it('should set remaining energy to default', () => {
       const stateWithReducedEnergy: DeckStoreState = {
         ...initialState,
         allCards,
@@ -107,12 +120,12 @@ describe('deckReducer', () => {
         chosenCard: null,
       };
 
-      const action = DeckActions.restoreEnergy();
+      const action = DeckActions.resetEnergy();
       const actualState = deckReducer(stateWithReducedEnergy, action);
       const expectedState = { ...stateWithMaxEnergy };
 
       expect(actualState).toEqual(expectedState);
-      expect(actualState.remainingEnergy).toEqual(expectedState.maxEnergy);
+      expect(actualState.remainingEnergy).toBe(expectedState.maxEnergy);
     });
   });
 
@@ -139,10 +152,8 @@ describe('deckReducer', () => {
       const expectedState = { ...stateWithIncreasedEnergy };
 
       expect(actualState).toEqual(expectedState);
-      expect(actualState.remainingEnergy).toEqual(
-        expectedState.remainingEnergy
-      );
-      expect(actualState.maxEnergy).toEqual(expectedState.maxEnergy);
+      expect(actualState.remainingEnergy).toBe(expectedState.remainingEnergy);
+      expect(actualState.maxEnergy).toBe(expectedState.maxEnergy);
     });
 
     it('when decrease in energy should decrease remaining and max energy', () => {
@@ -167,10 +178,8 @@ describe('deckReducer', () => {
       const expectedState = { ...stateWithDecreasedEnergy };
 
       expect(actualState).toEqual(expectedState);
-      expect(actualState.remainingEnergy).toEqual(
-        expectedState.remainingEnergy
-      );
-      expect(actualState.maxEnergy).toEqual(expectedState.maxEnergy);
+      expect(actualState.remainingEnergy).toBe(expectedState.remainingEnergy);
+      expect(actualState.maxEnergy).toBe(expectedState.maxEnergy);
     });
   });
 });
