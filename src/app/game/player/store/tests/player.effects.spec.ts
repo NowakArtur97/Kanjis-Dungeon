@@ -3,12 +3,15 @@ import { provideMockActions } from '@ngrx/effects/testing';
 import { Store, StoreModule } from '@ngrx/store';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { ReplaySubject } from 'rxjs';
-import CharacterType from 'src/app/game/character/enums/character-type.enum';
+import MathUtil from 'src/app/common/utils/math.util';
 import Character from 'src/app/game/character/models/character.model';
+import CharacterService from 'src/app/game/character/services/character.service';
 import { attackCard } from 'src/app/game/deck/deck.data';
 import { initialState } from 'src/app/game/deck/store/deck.reducer';
 import AppStoreState from 'src/app/store/app.state';
 
+import * as GameActions from '../../../store/game.actions';
+import defaultPlayer from '../../player.data';
 import PlayerService from '../../services/player.service';
 import * as PlayerActions from '../player.actions';
 import PlayerEffects from '../player.effects';
@@ -17,36 +20,12 @@ describe('PlayerEffects', () => {
   let playerEffects: PlayerEffects;
   let actions$: ReplaySubject<any>;
   let playerService: PlayerService;
+  let characterService: CharacterService;
 
-  const player: Character = {
-    name: 'example-character',
-    stats: {
-      currentHealth: 100,
-      maxHealth: 100,
-      damage: 20,
-      maxDamage: 22,
-      currentShield: 10,
-      type: CharacterType.PLAYER,
-    },
-    animations: [
-      {
-        spriteSheet: 'idle',
-        numberOfFrames: 4,
-        animationTimeInMiliseconds: 600,
-        animationIterationCount: 'Infinite',
-      },
-    ],
-    statuses: [
-      {
-        spriteSheet: 'heart',
-        remainingNumberOfActiveRounds: 2,
-      },
-    ],
-  };
   const updatedPlayer: Character = {
-    ...player,
+    ...defaultPlayer,
     stats: {
-      ...player.stats,
+      ...defaultPlayer.stats,
       currentHealth: 100,
       damage: 20,
       currentShield: 10,
@@ -54,7 +33,7 @@ describe('PlayerEffects', () => {
   };
   const stateWithPlayerAndChosenCard: Partial<AppStoreState> = {
     player: {
-      player,
+      player: defaultPlayer,
     },
     deck: {
       ...initialState,
@@ -77,6 +56,12 @@ describe('PlayerEffects', () => {
           provide: PlayerService,
           useValue: jasmine.createSpyObj('playerService', ['updatePlayer']),
         },
+        {
+          provide: CharacterService,
+          useValue: jasmine.createSpyObj('characterService', [
+            'setRandomTopOffset',
+          ]),
+        },
       ],
     })
   );
@@ -84,6 +69,31 @@ describe('PlayerEffects', () => {
   beforeEach(() => {
     playerEffects = TestBed.inject(PlayerEffects);
     playerService = TestBed.inject(PlayerService);
+    characterService = TestBed.inject(CharacterService);
+  });
+
+  describe('chooseLevel$', () => {
+    const topOffset = 50;
+    const playerWithPosition: Character = {
+      ...defaultPlayer,
+      position: { x: 0, y: 50 },
+    };
+    beforeEach(() => {
+      actions$ = new ReplaySubject(1);
+      actions$.next(GameActions.chooseLevel);
+      spyOn(MathUtil, 'getRandomIntValue').and.returnValue(topOffset);
+      (characterService.setRandomTopOffset as jasmine.Spy).and.callThrough();
+    });
+
+    it('should return a setPlayer action', () => {
+      playerEffects.useCardOnPlayer$.subscribe((resultAction) => {
+        expect(resultAction).toEqual(
+          PlayerActions.setPlayer({ player: playerWithPosition })
+        );
+        expect(characterService.setRandomTopOffset).toHaveBeenCalledTimes(1);
+        expect(MathUtil.getRandomIntValue).toHaveBeenCalledTimes(1);
+      });
+    });
   });
 
   describe('useCardOnPlayer$', () => {
