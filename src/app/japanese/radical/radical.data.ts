@@ -284,6 +284,27 @@ const RADICALS: Radical[] = [
     meanings: ['winter'],
     type: CharacterType.RADICAL,
   },
+  { id: 78, characters: '金', meanings: ['gold'], type: CharacterType.RADICAL },
+  {
+    id: 79,
+    characters: 'ｲ',
+    meanings: ['leader'],
+    type: CharacterType.RADICAL,
+  },
+  { id: 80, characters: '耳', meanings: ['ear'], type: CharacterType.RADICAL },
+  {
+    id: 81,
+    characters: '足',
+    meanings: ['leg', 'foot'],
+    type: CharacterType.RADICAL,
+  },
+  { id: 82, characters: '宀', meanings: ['roof'], type: CharacterType.RADICAL },
+  {
+    id: 83,
+    characters: '气',
+    meanings: ['energy'],
+    type: CharacterType.RADICAL,
+  },
   // { id: 78, characters: '', meanings: [''], type: CharacterType.RADICAL },
 ];
 export default RADICALS;
