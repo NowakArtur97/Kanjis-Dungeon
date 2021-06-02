@@ -67,6 +67,7 @@ export default class DeckEffects {
         this.store.select((state) => state.deck.hand)
       ),
       map(([, remainingEnergy, hand]) => {
+        // TODO: End turn clicking on button/Potions for regenerating energy
         const hasEnergyToUserAnyCard = hand?.every(
           (card) => card.cost > remainingEnergy
         );
