@@ -9,7 +9,6 @@ export default class CharacterService {
   private readonly MIN_TOP_OFFSET = 40;
   private readonly MAX_TOP_OFFSET = 55;
 
-  // TODO: TEST
   setRandomTopOffset(character: Character): Character {
     const randomTopOffset = MathUtil.getRandomIntValue(
       this.MIN_TOP_OFFSET,
