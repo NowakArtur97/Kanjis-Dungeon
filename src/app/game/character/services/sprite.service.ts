@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import CssUtil from 'src/app/common/utils/css.util';
 
-import CharacterAnimation from '../character/models/character-animation.model';
+import CharacterAnimation from '../models/character-animation.model';
 
 @Injectable({ providedIn: 'root' })
 export default class SpriteService {

@@ -1,5 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
-import MathUtil from 'src/app/common/utils/math.util';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 
 import CharacterType from '../enums/character-type.enum';
 import Character from '../models/character.model';
@@ -9,21 +14,17 @@ import Character from '../models/character.model';
   templateUrl: './character-layout.component.html',
   styleUrls: ['./character-layout.component.css'],
 })
-export class CharacterLayoutComponent implements OnInit {
+export class CharacterLayoutComponent implements OnInit, AfterViewInit {
   @Input() character: Character;
   randomTopOffset: number;
 
-  constructor() {}
+  constructor(private cdr: ChangeDetectorRef) {}
 
-  ngOnInit(): void {
-    // TODO: CharacterLayoutComponent: Move to some constants/properties file (?)
-    // TODO: CharacterLayoutComponent: Set position only once / Move to effects (?)
-    const minTopOffset = 40;
-    const maxTopOffset = 55;
-    this.randomTopOffset = MathUtil.getRandomIntValue(
-      maxTopOffset,
-      minTopOffset
-    );
+  ngOnInit(): void {}
+
+  ngAfterViewInit(): void {
+    this.randomTopOffset = this.character.position?.y;
+    this.cdr.detectChanges();
   }
 
   isEnemy = (): boolean => this.character?.stats.type === CharacterType.ENEMY;

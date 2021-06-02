@@ -5,6 +5,8 @@ import { of } from 'rxjs';
 import { map, switchMap, withLatestFrom } from 'rxjs/operators';
 import AppStoreState from 'src/app/store/app.state';
 
+import CharacterService from '../../character/services/character.service';
+import * as GameActions from '../../store/game.actions';
 import PlayerService from '../services/player.service';
 import * as PlayerActions from '../store/player.actions';
 
@@ -13,8 +15,21 @@ export default class PlayerEffects {
   constructor(
     private actions$: Actions,
     private store: Store<AppStoreState>,
-    private playerService: PlayerService
+    private playerService: PlayerService,
+    private characterService: CharacterService
   ) {}
+
+  // TODO: TEST
+  chooseLevel$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(GameActions.chooseLevel),
+      withLatestFrom(this.store.select((state) => state.player.player)),
+      switchMap(([, player]) =>
+        of(this.characterService.setRandomTopOffset(player))
+      ),
+      map((player) => PlayerActions.setPlayer({ player }))
+    )
+  );
 
   useCardOnPlayer$ = createEffect(() =>
     this.actions$.pipe(

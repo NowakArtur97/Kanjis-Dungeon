@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import SpriteService from '../../services/sprite.service';
 import CharacterType from '../enums/character-type.enum';
+import SpriteService from '../services/sprite.service';
 import { CharacterStatusesComponent } from './character-statuses.component';
 
 describe('CharacterStatusesComponent', () => {

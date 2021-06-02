@@ -5,6 +5,7 @@ import { of } from 'rxjs';
 import { map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
 import AppStoreState from 'src/app/store/app.state';
 
+import CharacterService from '../../character/services/character.service';
 import * as PlayerActions from '../../player/store/player.actions';
 import * as GameActions from '../../store/game.actions';
 import EnemyService from '../services/enemy.service';
@@ -15,9 +16,11 @@ export default class EnemyEffects {
   constructor(
     private actions$: Actions,
     private store: Store<AppStoreState>,
-    private enemyService: EnemyService
+    private enemyService: EnemyService,
+    private characterService: CharacterService
   ) {}
 
+  // TODO: TEST
   chooseLevel$ = createEffect(() =>
     this.actions$.pipe(
       ofType(GameActions.chooseLevel),
@@ -26,6 +29,13 @@ export default class EnemyEffects {
         of(
           this.enemyService.chooseRandomEnemiesActions(
             this.enemyService.chooseEnemies(level, allEnemies)
+          )
+        )
+      ),
+      switchMap((enemies) =>
+        of(
+          enemies.map((enemy) =>
+            this.characterService.setRandomTopOffset(enemy)
           )
         )
       ),

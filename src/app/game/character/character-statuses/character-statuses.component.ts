@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import SpriteService from '../../services/sprite.service';
 import CharacterStatus from '../models/character-status.model';
 import Character from '../models/character.model';
+import SpriteService from '../services/sprite.service';
 
 @Component({
   selector: 'app-character-statuses',

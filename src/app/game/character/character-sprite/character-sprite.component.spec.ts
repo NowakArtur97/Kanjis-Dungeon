@@ -9,9 +9,9 @@ import { DeckStoreState } from '../../deck/store/deck.reducer';
 import { exampleEnemy1 } from '../../enemy/enemy.data';
 import * as EnemyActions from '../../enemy/store/enemy.actions';
 import * as PlayerActions from '../../player/store/player.actions';
-import SpriteService from '../../services/sprite.service';
 import CharacterType from '../enums/character-type.enum';
 import Character from '../models/character.model';
+import SpriteService from '../services/sprite.service';
 import { CharacterSpriteComponent } from './character-sprite.component';
 
 describe('CharacterSpriteComponent', () => {

@@ -1,5 +1,19 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
-import { AfterViewChecked, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
+import {
+  AfterViewChecked,
+  Component,
+  ElementRef,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import AppStoreState from 'src/app/store/app.state';
@@ -8,9 +22,9 @@ import GameCardType from '../../deck/enums/game-card-type.enum';
 import { DeckStoreState } from '../../deck/store/deck.reducer';
 import * as EnemyActions from '../../enemy/store/enemy.actions';
 import * as PlayerActions from '../../player/store/player.actions';
-import SpriteService from '../../services/sprite.service';
 import CharacterType from '../enums/character-type.enum';
 import Character from '../models/character.model';
+import SpriteService from '../services/sprite.service';
 
 @Component({
   selector: 'app-character-sprite',

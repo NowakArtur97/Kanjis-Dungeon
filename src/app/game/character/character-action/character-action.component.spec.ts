@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { exampleEnemy1 } from '../../enemy/enemy.data';
-import SpriteService from '../../services/sprite.service';
+import SpriteService from '../services/sprite.service';
 import { CharacterActionComponent } from './character-action.component';
 
 describe('CharacterActionComponent', () => {
