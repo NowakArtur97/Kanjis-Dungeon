@@ -38,8 +38,8 @@ export default class DeckEffects {
     this.actions$.pipe(
       ofType(PlayerActions.startPlayerTurn),
       withLatestFrom(
-        this.store.select((state) => state.deck?.allCards),
-        this.store.select((state) => state.deck?.numberOfCards)
+        this.store.select((state) => state.deck.allCards),
+        this.store.select((state) => state.deck.numberOfCards)
       ),
       switchMap(([, allCards, numberOfCards]) =>
         of(this.deckService.getHand(allCards, numberOfCards))
@@ -54,26 +54,23 @@ export default class DeckEffects {
   useCard$ = createEffect(() =>
     this.actions$.pipe(
       ofType(PlayerActions.useCardOnPlayer, EnemyActions.useCardOnEnemy),
-      withLatestFrom(
-        this.store.select((state) => state.deck?.chosenCard?.cost)
-      ),
+      withLatestFrom(this.store.select((state) => state.deck.chosenCard.cost)),
       map(([, cost]) => DeckActions.useCard({ cost }))
     )
   );
 
-  // TODO: TEST
   endPlayerTurn$ = createEffect(() =>
     this.actions$.pipe(
       ofType(DeckActions.useCard),
       withLatestFrom(
-        this.store.select((state) => state.deck?.remainingEnergy),
-        this.store.select((state) => state.deck?.hand)
+        this.store.select((state) => state.deck.remainingEnergy),
+        this.store.select((state) => state.deck.hand)
       ),
       map(([, remainingEnergy, hand]) => {
-        if (
-          remainingEnergy === 0 ||
-          hand.every((card) => card.cost > remainingEnergy)
-        ) {
+        const hasEnergyToUserAnyCard = hand?.every(
+          (card) => card.cost > remainingEnergy
+        );
+        if (remainingEnergy === 0 || hasEnergyToUserAnyCard) {
           return GameActions.changeTurn();
         }
       }),

@@ -17,6 +17,7 @@ export default class QuizEffects {
     private quizService: QuizService
   ) {}
 
+  // TODO: Mock Store in tests to remove all question marks
   setNextQuestion$ = createEffect(() =>
     this.actions$.pipe(
       ofType(
@@ -32,6 +33,7 @@ export default class QuizEffects {
     )
   );
 
+  // TODO: Mock Store in tests to remove all question marks
   setQuestions$ = createEffect(() =>
     this.actions$.pipe(
       ofType(QuizActions.changeQuizOptions, VocabularyActions.setVocabulary),
