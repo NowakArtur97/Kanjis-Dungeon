@@ -52,7 +52,7 @@ describe('PlayerEffects', () => {
       currentShield: 10,
     },
   };
-  const statePlayerAndChosenCard: Partial<AppStoreState> = {
+  const stateWithPlayerAndChosenCard: Partial<AppStoreState> = {
     player: {
       player,
     },
@@ -67,7 +67,7 @@ describe('PlayerEffects', () => {
       imports: [StoreModule.forRoot({})],
       providers: [
         PlayerEffects,
-        provideMockStore({ initialState: statePlayerAndChosenCard }),
+        provideMockStore({ initialState: stateWithPlayerAndChosenCard }),
         {
           provide: Store,
           useClass: MockStore,

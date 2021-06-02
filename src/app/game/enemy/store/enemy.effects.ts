@@ -21,7 +21,7 @@ export default class EnemyEffects {
   chooseLevel$ = createEffect(() =>
     this.actions$.pipe(
       ofType(GameActions.chooseLevel),
-      withLatestFrom(this.store.select((state) => state.enemy?.allEnemies)),
+      withLatestFrom(this.store.select((state) => state.enemy.allEnemies)),
       switchMap(([{ level }, allEnemies]) =>
         of(
           this.enemyService.chooseRandomEnemiesActions(
@@ -37,8 +37,8 @@ export default class EnemyEffects {
     this.actions$.pipe(
       ofType(EnemyActions.useCardOnEnemy),
       withLatestFrom(
-        this.store.select((state) => state.deck?.chosenCard),
-        this.store.select((state) => state.enemy?.enemies)
+        this.store.select((state) => state.deck.chosenCard),
+        this.store.select((state) => state.enemy.enemies)
       ),
       switchMap(([{ enemy }, chosenCard, enemies]) =>
         of(this.enemyService.updateEnemies(chosenCard, enemy, enemies))
@@ -51,8 +51,8 @@ export default class EnemyEffects {
     this.actions$.pipe(
       ofType(EnemyActions.startEnemyTurn),
       withLatestFrom(
-        this.store.select((state) => state.enemy?.enemies),
-        this.store.select((state) => state.player?.player)
+        this.store.select((state) => state.enemy.enemies),
+        this.store.select((state) => state.player.player)
       ),
       switchMap(([, enemies, player]) =>
         of(this.enemyService.performActions(enemies, player))
@@ -68,7 +68,7 @@ export default class EnemyEffects {
   endEnemyTurn$ = createEffect(() =>
     this.actions$.pipe(
       ofType(EnemyActions.endEnemyTurn),
-      withLatestFrom(this.store.select((state) => state.enemy?.enemies)),
+      withLatestFrom(this.store.select((state) => state.enemy.enemies)),
       switchMap(([, enemies]) =>
         of(this.enemyService.chooseRandomEnemiesActions(enemies))
       ),

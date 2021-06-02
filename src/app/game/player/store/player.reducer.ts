@@ -12,6 +12,8 @@ const initialState: PlayerStoreState = {
   player: defaultPlayer,
 };
 
+export { initialState };
+
 const _playerReducer = createReducer(
   initialState,
 

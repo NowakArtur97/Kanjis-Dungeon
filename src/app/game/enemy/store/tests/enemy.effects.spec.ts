@@ -1,10 +1,15 @@
 import { TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Store, StoreModule } from '@ngrx/store';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { ReplaySubject } from 'rxjs';
 import { skip, take } from 'rxjs/operators';
 import Character from 'src/app/game/character/models/character.model';
+import { attackCard } from 'src/app/game/deck/deck.data';
+import * as DeckReducer from 'src/app/game/deck/store/deck.reducer';
 import defaultPlayer from 'src/app/game/player/player.data';
+import * as PlayerReducer from 'src/app/game/player/store/player.reducer';
+import AppStoreState from 'src/app/store/app.state';
 
 import * as PlayerActions from '../../../player/store/player.actions';
 import * as GameActions from '../../../store/game.actions';
@@ -68,13 +73,30 @@ describe('EnemyEffects', () => {
     enemyWithAction2,
     enemyWithAction3,
   ];
+  const stateForGame: Partial<AppStoreState> = {
+    player: {
+      ...PlayerReducer.initialState,
+    },
+    deck: {
+      ...DeckReducer.initialState,
+      chosenCard: attackCard,
+    },
+    enemy: {
+      allEnemies: enemies,
+      enemies,
+    },
+  };
 
   beforeEach(() =>
     TestBed.configureTestingModule({
       imports: [StoreModule.forRoot({})],
       providers: [
         EnemyEffects,
-        Store,
+        provideMockStore({ initialState: stateForGame }),
+        {
+          provide: Store,
+          useClass: MockStore,
+        },
         provideMockActions(() => actions$),
         {
           provide: EnemyService,
