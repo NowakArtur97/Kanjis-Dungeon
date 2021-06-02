@@ -71,7 +71,7 @@ describe('QuizEffects', () => {
   let quizEffects: QuizEffects;
   let actions$: ReplaySubject<any>;
   let quizService: QuizService;
-  const quizState: Partial<AppStoreState> = {
+  const stateWithQuestions: Partial<AppStoreState> = {
     quiz: {
       ...initialState,
       questions: [RADICALS[0], RADICALS[1], RADICALS[2]],
@@ -86,7 +86,7 @@ describe('QuizEffects', () => {
       imports: [StoreModule.forRoot({})],
       providers: [
         QuizEffects,
-        provideMockStore({ initialState: quizState }),
+        provideMockStore({ initialState: stateWithQuestions }),
         {
           provide: Store,
           useClass: MockStore,

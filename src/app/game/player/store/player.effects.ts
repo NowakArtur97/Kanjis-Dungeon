@@ -20,8 +20,8 @@ export default class PlayerEffects {
     this.actions$.pipe(
       ofType(PlayerActions.useCardOnPlayer),
       withLatestFrom(
-        this.store.select((state) => state.deck?.chosenCard),
-        this.store.select((state) => state.player?.player)
+        this.store.select((state) => state.deck.chosenCard),
+        this.store.select((state) => state.player.player)
       ),
       switchMap(([, chosenCard, player]) =>
         of(this.playerService.updatePlayer(chosenCard, player))
