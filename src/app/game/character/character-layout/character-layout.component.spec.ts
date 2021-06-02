@@ -1,6 +1,7 @@
+import { ChangeDetectorRef } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import MathUtil from 'src/app/common/utils/math.util';
 
+import defaultPlayer from '../../player/player.data';
 import { CharacterLayoutComponent } from './character-layout.component';
 
 describe('CharacterLayoutComponent', () => {
@@ -10,6 +11,9 @@ describe('CharacterLayoutComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [CharacterLayoutComponent],
+      providers: [
+        { provide: ChangeDetectorRef, useValue: { detectChanges: () => {} } },
+      ],
     }).compileComponents();
   });
 
@@ -17,15 +21,24 @@ describe('CharacterLayoutComponent', () => {
     fixture = TestBed.createComponent(CharacterLayoutComponent);
     component = fixture.componentInstance;
 
-    spyOn(MathUtil, 'getRandomIntValue').and.returnValue(0);
+    component.character = defaultPlayer;
 
     fixture.detectChanges();
     component.ngOnInit();
   });
 
   describe('when initialize component', () => {
-    it('should set random top offset', () => {
-      expect(MathUtil.getRandomIntValue).toHaveBeenCalled();
+    it('should detect changes', () => {
+      const changeDetectorRef = fixture.debugElement.injector.get(
+        ChangeDetectorRef
+      );
+      const detectChangesSpy = spyOn(
+        changeDetectorRef.constructor.prototype,
+        'detectChanges'
+      );
+      component.ngAfterViewInit();
+
+      expect(detectChangesSpy).toHaveBeenCalled();
     });
   });
 });

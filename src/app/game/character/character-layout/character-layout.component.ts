@@ -18,13 +18,13 @@ export class CharacterLayoutComponent implements OnInit, AfterViewInit {
   @Input() character: Character;
   randomTopOffset: number;
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  constructor(private changeDetectorRef: ChangeDetectorRef) {}
 
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     this.randomTopOffset = this.character.position?.y;
-    this.cdr.detectChanges();
+    this.changeDetectorRef.detectChanges();
   }
 
   isEnemy = (): boolean => this.character?.stats.type === CharacterType.ENEMY;

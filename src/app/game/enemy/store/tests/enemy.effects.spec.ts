@@ -5,6 +5,7 @@ import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { ReplaySubject } from 'rxjs';
 import { skip, take } from 'rxjs/operators';
 import Character from 'src/app/game/character/models/character.model';
+import CharacterService from 'src/app/game/character/services/character.service';
 import { attackCard } from 'src/app/game/deck/deck.data';
 import * as DeckReducer from 'src/app/game/deck/store/deck.reducer';
 import defaultPlayer from 'src/app/game/player/player.data';
@@ -23,6 +24,7 @@ describe('EnemyEffects', () => {
   let enemyEffects: EnemyEffects;
   let actions$: ReplaySubject<any>;
   let enemyService: EnemyService;
+  let characterService: CharacterService;
 
   const enemies: Character[] = [exampleEnemy1, exampleEnemy2, exampleEnemy3];
   const updatedEnemy1: Character = {
@@ -73,7 +75,25 @@ describe('EnemyEffects', () => {
     enemyWithAction2,
     enemyWithAction3,
   ];
-  const stateForGame: Partial<AppStoreState> = {
+  const topOffsets = [50, 51, 52];
+  const enemyWithPosition1: Character = {
+    ...enemyWithAction1,
+    position: { x: 0, y: topOffsets[0] },
+  };
+  const enemyWithPosition2: Character = {
+    ...enemyWithAction2,
+    position: { x: 0, y: topOffsets[1] },
+  };
+  const enemyWithPosition3: Character = {
+    ...enemyWithAction3,
+    position: { x: 0, y: topOffsets[2] },
+  };
+  const enemiesWithPositions: Character[] = [
+    enemyWithPosition1,
+    enemyWithPosition2,
+    enemyWithPosition3,
+  ];
+  const stateWithEnemies: Partial<AppStoreState> = {
     player: {
       ...PlayerReducer.initialState,
     },
@@ -92,7 +112,7 @@ describe('EnemyEffects', () => {
       imports: [StoreModule.forRoot({})],
       providers: [
         EnemyEffects,
-        provideMockStore({ initialState: stateForGame }),
+        provideMockStore({ initialState: stateWithEnemies }),
         {
           provide: Store,
           useClass: MockStore,
@@ -107,6 +127,12 @@ describe('EnemyEffects', () => {
             'performActions',
           ]),
         },
+        {
+          provide: CharacterService,
+          useValue: jasmine.createSpyObj('characterService', [
+            'setRandomTopOffset',
+          ]),
+        },
       ],
     })
   );
@@ -114,23 +140,29 @@ describe('EnemyEffects', () => {
   beforeEach(() => {
     enemyEffects = TestBed.inject(EnemyEffects);
     enemyService = TestBed.inject(EnemyService);
+    characterService = TestBed.inject(CharacterService);
   });
 
-  describe('chooseEnemies$', () => {
+  describe('chooseLevel$', () => {
     beforeEach(() => {
       actions$ = new ReplaySubject(1);
       actions$.next(GameActions.chooseLevel);
+
       (enemyService.chooseEnemies as jasmine.Spy).and.returnValue(enemies);
       (enemyService.chooseRandomEnemiesActions as jasmine.Spy).and.returnValue(
         enemiesWithActions
+      );
+      (characterService.setRandomTopOffset as jasmine.Spy).and.returnValues(
+        ...enemiesWithPositions
       );
     });
 
     it('should return a setEnemies action', () => {
       enemyEffects.chooseLevel$.subscribe((resultAction) => {
         expect(resultAction).toEqual(
-          EnemyActions.setEnemies({ enemies: enemiesWithActions })
+          EnemyActions.setEnemies({ enemies: enemiesWithPositions })
         );
+        expect(characterService.setRandomTopOffset).toHaveBeenCalledTimes(3);
         expect(enemyService.chooseEnemies).toHaveBeenCalledTimes(1);
         expect(enemyService.chooseRandomEnemiesActions).toHaveBeenCalledTimes(
           1

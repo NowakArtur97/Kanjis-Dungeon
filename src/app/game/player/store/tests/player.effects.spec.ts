@@ -82,7 +82,9 @@ describe('PlayerEffects', () => {
       actions$ = new ReplaySubject(1);
       actions$.next(GameActions.chooseLevel);
       spyOn(MathUtil, 'getRandomIntValue').and.returnValue(topOffset);
-      (characterService.setRandomTopOffset as jasmine.Spy).and.callThrough();
+      (characterService.setRandomTopOffset as jasmine.Spy).and.returnValue(
+        playerWithPosition
+      );
     });
 
     it('should return a setPlayer action', () => {
