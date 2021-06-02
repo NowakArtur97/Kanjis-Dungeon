@@ -1,15 +1,21 @@
 import { TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Store, StoreModule } from '@ngrx/store';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { ReplaySubject } from 'rxjs';
 import CharacterType from 'src/app/japanese/common/enums/character-type.enum';
+import KANJI from 'src/app/japanese/kanji/kanji.data';
 import Kanji from 'src/app/japanese/kanji/models/kanji.model';
 import Radical from 'src/app/japanese/radical/models/radical.model';
+import RADICALS from 'src/app/japanese/radical/radical.data';
 import Word from 'src/app/japanese/vocabulary/models/word.model';
+import VOCABULARY from 'src/app/japanese/vocabulary/vocabulary.data';
 import QuizService from 'src/app/quiz/services/quiz.service';
+import AppStoreState from 'src/app/store/app.state';
 
 import * as QuizActions from '../quiz.actions';
 import QuizEffects from '../quiz.effects';
+import { initialState } from '../quiz.reducer';
 
 const radical: Radical = {
   id: 1,
@@ -65,13 +71,26 @@ describe('QuizEffects', () => {
   let quizEffects: QuizEffects;
   let actions$: ReplaySubject<any>;
   let quizService: QuizService;
+  const quizState: Partial<AppStoreState> = {
+    quiz: {
+      ...initialState,
+      questions: [RADICALS[0], RADICALS[1], RADICALS[2]],
+    },
+    radical: { radicals: RADICALS },
+    kanji: { kanji: KANJI },
+    vocabulary: { vocabulary: VOCABULARY },
+  };
 
   beforeEach(() =>
     TestBed.configureTestingModule({
       imports: [StoreModule.forRoot({})],
       providers: [
         QuizEffects,
-        Store,
+        provideMockStore({ initialState: quizState }),
+        {
+          provide: Store,
+          useClass: MockStore,
+        },
         provideMockActions(() => actions$),
         {
           provide: QuizService,

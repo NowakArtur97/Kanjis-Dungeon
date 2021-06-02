@@ -17,7 +17,6 @@ export default class QuizEffects {
     private quizService: QuizService
   ) {}
 
-  // TODO: Mock Store in tests to remove all question marks
   setNextQuestion$ = createEffect(() =>
     this.actions$.pipe(
       ofType(
@@ -25,7 +24,7 @@ export default class QuizEffects {
         QuizActions.addAnswer,
         QuizActions.addMistake
       ),
-      withLatestFrom(this.store.select((state) => state.quiz?.questions)),
+      withLatestFrom(this.store.select((state) => state.quiz.questions)),
       switchMap(([, questions]) =>
         of(this.quizService.getNextQuestion(questions))
       ),
@@ -33,16 +32,15 @@ export default class QuizEffects {
     )
   );
 
-  // TODO: Mock Store in tests to remove all question marks
   setQuestions$ = createEffect(() =>
     this.actions$.pipe(
       ofType(QuizActions.changeQuizOptions, VocabularyActions.setVocabulary),
       withLatestFrom(
-        this.store.select((state) => state.quiz?.quizOptions),
-        this.store.select((state) => state.quiz?.questions),
-        this.store.select((state) => state.radical?.radicals),
-        this.store.select((state) => state.kanji?.kanji),
-        this.store.select((state) => state.vocabulary?.vocabulary)
+        this.store.select((state) => state.quiz.quizOptions),
+        this.store.select((state) => state.quiz.questions),
+        this.store.select((state) => state.radical.radicals),
+        this.store.select((state) => state.kanji.kanji),
+        this.store.select((state) => state.vocabulary.vocabulary)
       ),
       switchMap(([, quizOptions, questions, radicals, kanji, vocabulary]) =>
         of(
