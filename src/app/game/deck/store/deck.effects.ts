@@ -2,7 +2,13 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
-import { filter, map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
+import {
+  filter,
+  map,
+  mergeMap,
+  switchMap,
+  withLatestFrom,
+} from 'rxjs/operators';
 import AppStoreState from 'src/app/store/app.state';
 
 import * as QuizActions from '../../../quiz/store/quiz.actions';
@@ -49,20 +55,25 @@ export default class DeckEffects {
     this.actions$.pipe(
       ofType(PlayerActions.useCardOnPlayer, EnemyActions.useCardOnEnemy),
       withLatestFrom(
-        this.store.select((state) => state.deck?.chosenCard?.cost || 0)
+        this.store.select((state) => state.deck?.chosenCard?.cost)
       ),
       map(([, cost]) => DeckActions.useCard({ cost }))
     )
   );
 
+  // TODO: TEST
   endPlayerTurn$ = createEffect(() =>
     this.actions$.pipe(
       ofType(DeckActions.useCard),
       withLatestFrom(
-        this.store.select((state) => state.deck?.remainingEnergy || 0)
+        this.store.select((state) => state.deck?.remainingEnergy),
+        this.store.select((state) => state.deck?.hand)
       ),
-      map(([, remainingEnergy]) => {
-        if (remainingEnergy === 0) {
+      map(([, remainingEnergy, hand]) => {
+        if (
+          remainingEnergy === 0 ||
+          hand.every((card) => card.cost > remainingEnergy)
+        ) {
           return GameActions.changeTurn();
         }
       }),
