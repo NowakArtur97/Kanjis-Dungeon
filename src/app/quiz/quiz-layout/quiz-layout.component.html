@@ -1,4 +1,4 @@
 <div class="quiz_layout">
-  <app-quiz-options></app-quiz-options>
+  <app-quiz-options *ngIf="shouldDisplayOptions"></app-quiz-options>
   <app-quiz-card></app-quiz-card>
 </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-quiz-layout',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./quiz-layout.component.css'],
 })
 export class QuizLayoutComponent implements OnInit {
+  @Input('shouldDisplayOptions') shouldDisplayOptions = true;
+
   constructor() {}
 
   ngOnInit(): void {}

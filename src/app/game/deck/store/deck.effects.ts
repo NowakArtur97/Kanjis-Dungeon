@@ -54,7 +54,7 @@ export default class DeckEffects {
   useCard$ = createEffect(() =>
     this.actions$.pipe(
       ofType(PlayerActions.useCardOnPlayer, EnemyActions.useCardOnEnemy),
-      withLatestFrom(this.store.select((state) => state.deck.chosenCard.cost)),
+      withLatestFrom(this.store.select((state) => state.deck.chosenCard?.cost)),
       map(([, cost]) => DeckActions.useCard({ cost }))
     )
   );
