@@ -5,11 +5,10 @@ import CharacterAnimation from '../models/character-animation.model';
 
 @Injectable({ providedIn: 'root' })
 export default class SpriteService {
-  private SPRITESHEET_VARIABLES = {
-    spriteBaseSize: '--sprite-base-size',
+  private readonly SPRITESHEET_VARIABLES = {
     sizeMultiplier: '--sprite-size-multiplier',
   };
-  private SPRITESHEET_CONSTANTS = {
+  private readonly SPRITESHEET_CONSTANTS = {
     charactersSrc: '../../../../assets/characters/',
     statusesSrc: '../../../../assets/statuses/',
     actionsSrc: '../../../../assets/actions/',
@@ -18,11 +17,11 @@ export default class SpriteService {
     multiplierSeparator: '_',
     negativeImageOffset: -1,
   };
-  private MEDIUM_SPRITESHEET_VARIABLES = {
+  private readonly MEDIUM_SPRITESHEET_VARIABLES = {
     spriteBaseSize: '--medium-sprite-base-size',
     sizeMultiplier: '--medium-sprite-size-multiplier',
   };
-  private SMALL_SPRITESHEET_VARIABLES = {
+  private readonly SMALL_SPRITESHEET_VARIABLES = {
     spriteBaseSize: '--small-sprite-base-size',
     sizeMultiplier: '--small-sprite-size-multiplier',
   };

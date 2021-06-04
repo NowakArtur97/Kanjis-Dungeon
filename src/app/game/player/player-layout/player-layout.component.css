@@ -1,6 +1,6 @@
 .player_layout__wrapper {
   position: absolute;
-  top: -50%;
+  top: 0;
   left: 5%;
   display: flex;
 }

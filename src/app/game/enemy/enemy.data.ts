@@ -5,10 +5,10 @@ import { shieldAction, swordAction } from './enemy-action.data';
 const exampleEnemy1: Character = {
   name: 'goblin-archer',
   stats: {
-    maxHealth: 70,
-    currentHealth: 70,
+    maxHealth: 30,
+    currentHealth: 20,
     maxDamage: 12,
-    damage: 10,
+    damage: 8,
     currentShield: 0,
     type: CharacterType.ENEMY,
   },
@@ -64,11 +64,11 @@ const exampleEnemy2: Character = {
 const exampleEnemy3: Character = {
   name: 'goblin-archer',
   stats: {
-    maxHealth: 50,
-    currentHealth: 20,
-    damage: 10,
-    maxDamage: 12,
-    currentShield: 2,
+    maxHealth: 20,
+    currentHealth: 10,
+    maxDamage: 11,
+    damage: 6,
+    currentShield: 0,
     type: CharacterType.ENEMY,
   },
   animations: [...exampleEnemy1.animations],
