@@ -3,4 +3,6 @@ export default interface CharacterAnimation {
   readonly numberOfFrames: number;
   readonly animationTimeInMiliseconds: number;
   readonly animationIterationCount: string;
+  readonly spriteWidth: number;
+  readonly spriteHeight: number;
 }

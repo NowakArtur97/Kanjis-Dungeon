@@ -79,21 +79,27 @@ export default class SpriteService {
     return `url(${sprite}) 0 0 no-repeat`;
   }
 
+  // TODO: TEST
+  getSpriteSize(
+    animationOptions: CharacterAnimation
+  ): { width: number; height: number } {
+    const sizeMultiplier = +CssUtil.getCSSVariable(
+      this.SPRITESHEET_VARIABLES.sizeMultiplier
+    );
+    const spriteSize = animationOptions.spriteWidth * sizeMultiplier;
+    return {
+      width: spriteSize,
+      height: spriteSize,
+    };
+  }
+
   getAnimationSpriteOffset(animationOptions: CharacterAnimation): number {
-    const spriteBaseSize = CssUtil.getCSSVariable(
-      this.SPRITESHEET_VARIABLES.spriteBaseSize
-    );
-    // Get value without px unit
-    const spriteBaseSizeAsNumber = +spriteBaseSize.substring(
-      0,
-      spriteBaseSize.length - 2
-    );
     const sizeMultiplier = +CssUtil.getCSSVariable(
       this.SPRITESHEET_VARIABLES.sizeMultiplier
     );
     return (
       animationOptions.numberOfFrames *
-      spriteBaseSizeAsNumber *
+      animationOptions.spriteWidth *
       sizeMultiplier *
       this.SPRITESHEET_CONSTANTS.negativeImageOffset
     );

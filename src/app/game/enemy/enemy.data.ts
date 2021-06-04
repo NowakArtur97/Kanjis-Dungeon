@@ -18,6 +18,8 @@ const exampleEnemy1: Character = {
       numberOfFrames: 4,
       animationTimeInMiliseconds: 600,
       animationIterationCount: 'Infinite',
+      spriteWidth: 32,
+      spriteHeight: 32,
     },
   ],
   statuses: [
@@ -46,6 +48,8 @@ const exampleEnemy2: Character = {
       numberOfFrames: 11,
       animationTimeInMiliseconds: 1700,
       animationIterationCount: 'Infinite',
+      spriteWidth: 64,
+      spriteHeight: 64,
     },
   ],
   statuses: [

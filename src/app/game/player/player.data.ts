@@ -17,12 +17,16 @@ const defaultPlayer: Character = {
       numberOfFrames: 4,
       animationTimeInMiliseconds: 600,
       animationIterationCount: 'Infinite',
+      spriteWidth: 64,
+      spriteHeight: 64,
     },
     {
       spriteSheet: 'sword_attack',
       numberOfFrames: 5,
       animationTimeInMiliseconds: 600,
       animationIterationCount: '1',
+      spriteWidth: 64,
+      spriteHeight: 64,
     },
   ],
   statuses: [

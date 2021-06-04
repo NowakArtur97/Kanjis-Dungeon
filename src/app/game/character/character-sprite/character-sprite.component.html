@@ -1,6 +1,10 @@
 <div
   (click)="onChooseCharacter()"
   [ngClass]="{ 'character_sprite__wrapper--selectable': isSelectable }"
+  [ngStyle]="{
+    height: spriteHeight + 'px',
+    width: spriteWidth + 'px'
+  }"
   class="character_sprite__wrapper"
 >
   <div

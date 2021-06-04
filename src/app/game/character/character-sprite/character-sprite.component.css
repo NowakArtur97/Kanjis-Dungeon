@@ -1,10 +1,3 @@
-.character_sprite__wrapper {
-  width: calc(var(--sprite-base-size) * var(--sprite-size-multiplier));
-  height: calc(var(--sprite-base-size) * var(--sprite-size-multiplier));
-
-  margin: 2%;
-}
-
 .character_sprite__image {
   height: 100%;
 }

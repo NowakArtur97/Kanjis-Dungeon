@@ -43,6 +43,8 @@ export class CharacterSpriteComponent
   animationSteps: string;
   animationDuration: string;
   animationState = 'firstFrame';
+  spriteHeight: number;
+  spriteWidth: number;
 
   private wasAnimationSet = false;
   private readonly FIRST_FRAME_STATE = 'firstFrame';
@@ -54,6 +56,7 @@ export class CharacterSpriteComponent
     private spriteService: SpriteService
   ) {}
 
+  // TODO: TEST
   ngOnInit(): void {
     if (this.character) {
       const firstAnimation = this.character.animations[0];
@@ -62,6 +65,9 @@ export class CharacterSpriteComponent
       this.animationSteps = `steps(${firstAnimation.numberOfFrames})`;
       this.animationDuration =
         firstAnimation.animationTimeInMiliseconds + this.ANIMATION_DURATIONUNIT;
+      const spriteSize = this.spriteService.getSpriteSize(firstAnimation);
+      this.spriteHeight = spriteSize.height;
+      this.spriteWidth = spriteSize.width;
     }
 
     this.chosenCardSubscription$ = this.store

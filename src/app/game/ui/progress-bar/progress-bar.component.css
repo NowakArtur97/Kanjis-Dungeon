@@ -1,9 +1,13 @@
 .progress_bar__container {
   position: relative;
+
   height: 100%;
-  background-color: hsl(0, 0%, 35%);
-  border-radius: 10px;
+  width: 50%;
+  margin: auto;
+
   border: black solid 1px;
+  border-radius: 10px;
+  background-color: hsl(0, 0%, 35%);
 }
 
 .progress_bar {
