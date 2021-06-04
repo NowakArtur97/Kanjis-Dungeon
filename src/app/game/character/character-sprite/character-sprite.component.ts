@@ -24,9 +24,9 @@ import SpriteService from '../services/sprite.service';
       }),
       transition(
         'firstFrame => lastFrame',
-        animate('600ms {{animationSteps}}'),
+        animate('{{animationDuration}} {{animationSteps}}'),
         {
-          params: { animationSteps: '' },
+          params: { animationSteps: '', animationDuration: '' },
         }
       ),
     ]),
@@ -41,11 +41,13 @@ export class CharacterSpriteComponent
   @ViewChild('characterSpriteImage') private spriteImage: ElementRef;
   spriteOffset: string;
   animationSteps: string;
+  animationDuration: string;
   animationState = 'firstFrame';
 
   private wasAnimationSet = false;
   private readonly FIRST_FRAME_STATE = 'firstFrame';
   private readonly LAST_FRAME_STATE = 'lastFrame';
+  private readonly ANIMATION_DURATIONUNIT = 'ms';
 
   constructor(
     private store: Store<AppStoreState>,
@@ -54,11 +56,12 @@ export class CharacterSpriteComponent
 
   ngOnInit(): void {
     if (this.character) {
+      const firstAnimation = this.character.animations[0];
       this.spriteOffset =
-        this.spriteService.getAnimationSpriteOffset(
-          this.character.animations[0]
-        ) + 'px';
-      this.animationSteps = `steps(${this.character.animations[0].numberOfFrames})`;
+        this.spriteService.getAnimationSpriteOffset(firstAnimation) + 'px';
+      this.animationSteps = `steps(${firstAnimation.numberOfFrames})`;
+      this.animationDuration =
+        firstAnimation.animationTimeInMiliseconds + this.ANIMATION_DURATIONUNIT;
     }
 
     this.chosenCardSubscription$ = this.store

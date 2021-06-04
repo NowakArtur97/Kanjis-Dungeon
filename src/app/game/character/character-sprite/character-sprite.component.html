@@ -8,7 +8,11 @@
     [ngClass]="{ 'character_sprite__image--rotated': isEnemy() }"
     [@animate]="{
       value: animationState,
-      params: { spriteOffset: spriteOffset, animationSteps: animationSteps }
+      params: {
+        spriteOffset: spriteOffset,
+        animationSteps: animationSteps,
+        animationDuration: animationDuration
+      }
     }"
     (@animate.done)="onEndAnimation($event)"
     class="character_sprite__image"

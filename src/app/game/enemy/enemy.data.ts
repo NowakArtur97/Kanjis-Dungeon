@@ -44,7 +44,7 @@ const exampleEnemy2: Character = {
     {
       spriteSheet: 'idle',
       numberOfFrames: 11,
-      animationTimeInMiliseconds: 1100,
+      animationTimeInMiliseconds: 1700,
       animationIterationCount: 'Infinite',
     },
   ],
