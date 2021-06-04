@@ -6,6 +6,7 @@ import { map, switchMap, withLatestFrom } from 'rxjs/operators';
 import AppStoreState from 'src/app/store/app.state';
 
 import CharacterService from '../../character/services/character.service';
+import * as EnemiesActions from '../../enemy/store/enemy.actions';
 import * as GameActions from '../../store/game.actions';
 import PlayerService from '../services/player.service';
 import * as PlayerActions from '../store/player.actions';
@@ -41,6 +42,24 @@ export default class PlayerEffects {
         of(this.playerService.updatePlayer(chosenCard, player))
       ),
       map((player) => PlayerActions.setPlayer({ player }))
+    )
+  );
+
+  useCard$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(PlayerActions.useCardOnPlayer, EnemiesActions.useCardOnEnemy),
+      withLatestFrom(
+        this.store.select((state) => state.deck.chosenCard),
+        this.store.select((state) => state.player.player)
+      ),
+      map(([, chosenCard, player]) =>
+        GameActions.startCharacterAnimation({
+          playedAnimation: {
+            character: player,
+            animationName: chosenCard.name,
+          },
+        })
+      )
     )
   );
 }

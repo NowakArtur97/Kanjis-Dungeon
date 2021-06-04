@@ -2,7 +2,7 @@ import CharacterType from '../character/enums/character-type.enum';
 import Character from '../character/models/character.model';
 
 const defaultPlayer: Character = {
-  name: 'example-character',
+  name: 'player',
   stats: {
     currentHealth: 100,
     maxHealth: 100,
@@ -17,6 +17,12 @@ const defaultPlayer: Character = {
       numberOfFrames: 4,
       animationTimeInMiliseconds: 600,
       animationIterationCount: 'Infinite',
+    },
+    {
+      spriteSheet: 'sword_attack',
+      numberOfFrames: 5,
+      animationTimeInMiliseconds: 600,
+      animationIterationCount: '1',
     },
   ],
   statuses: [

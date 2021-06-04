@@ -31,24 +31,27 @@ const exampleEnemy1: Character = {
 };
 
 const exampleEnemy2: Character = {
-  name: 'goblin-archer',
+  name: 'ogre',
   stats: {
-    maxHealth: 60,
-    currentHealth: 15,
-    maxDamage: 12,
-    damage: 10,
-    currentShield: 8,
+    maxHealth: 90,
+    currentHealth: 85,
+    maxDamage: 20,
+    damage: 14,
+    currentShield: 2,
     type: CharacterType.ENEMY,
   },
-  animations: [...exampleEnemy1.animations],
+  animations: [
+    {
+      spriteSheet: 'idle',
+      numberOfFrames: 11,
+      animationTimeInMiliseconds: 1100,
+      animationIterationCount: 'Infinite',
+    },
+  ],
   statuses: [
     {
       spriteSheet: 'heart',
       remainingNumberOfActiveRounds: 2,
-    },
-    {
-      spriteSheet: 'book',
-      remainingNumberOfActiveRounds: 3,
     },
   ],
   currentAction: swordAction,

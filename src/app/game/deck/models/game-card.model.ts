@@ -4,6 +4,7 @@ import GameCardType from '../enums/game-card-type.enum';
 export default interface GameCard {
   id?: number;
   name: string;
+  animationName: string;
   cost: number;
   type: GameCardType;
   description: string;

@@ -1,19 +1,5 @@
-import {
-  animate,
-  state,
-  style,
-  transition,
-  trigger,
-} from '@angular/animations';
-import {
-  AfterViewChecked,
-  Component,
-  ElementRef,
-  Input,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { AfterViewChecked, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import AppStoreState from 'src/app/store/app.state';
@@ -63,7 +49,7 @@ export class CharacterSpriteComponent
 
   constructor(
     private store: Store<AppStoreState>,
-    protected spriteService: SpriteService
+    private spriteService: SpriteService
   ) {}
 
   ngOnInit(): void {

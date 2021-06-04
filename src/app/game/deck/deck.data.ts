@@ -5,6 +5,7 @@ import GameCard from './models/game-card.model';
 const attackCard: GameCard = {
   id: 1,
   name: 'Attack',
+  animationName: 'sword_attack',
   cost: 2,
   type: GameCardType.ATTACK,
   description: 'Deal 10 damage points',
@@ -28,6 +29,7 @@ const attackCard: GameCard = {
 const defenceCard: GameCard = {
   id: 2,
   name: 'Defence',
+  animationName: 'shield_defence',
   cost: 2,
   type: GameCardType.SKILL,
   description: 'Receive 10 block points',
@@ -39,6 +41,7 @@ const defenceCard: GameCard = {
 const powerCard: GameCard = {
   id: 3,
   name: 'Power',
+  animationName: 'power_up',
   cost: 2,
   type: GameCardType.POWER,
   description: 'Deal 2 times more damage',
