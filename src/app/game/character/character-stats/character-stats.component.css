@@ -4,10 +4,58 @@
   height: 1.5em;
 }
 
+.character_stats__health_container {
+  position: relative;
+
+  height: 100%;
+  width: 50%;
+  margin: auto;
+
+  border: black solid 1px;
+  border-radius: 10px;
+  background-color: hsl(0, 0%, 35%);
+}
+
+.character_stats__health_bar {
+  height: 100%;
+  width: 0;
+
+  border-radius: 10px;
+  background-image: linear-gradient(
+    -45deg,
+    hsla(0, 0%, 100%, 0.2) 25%,
+    transparent 25%,
+    transparent 50%,
+    hsla(0, 0%, 100%, 0.2) 50%,
+    hsla(0, 0%, 100%, 0.2) 75%,
+    transparent 75%,
+    transparent
+  );
+  transition: width 1s ease-out;
+}
+
+.character_stats__health {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  margin: 0 auto;
+
+  transform: translate(-50%, -55%);
+}
+
+.character_stats__health_value {
+  font-size: 1em;
+  font-weight: 600;
+  color: hsl(0, 0%, 95%);
+}
+
 .character_stats__shield {
   position: absolute;
   top: -25%;
-  left: -7%;
+  left: calc(
+    var(--small-sprite-base-size) * var(--small-sprite-size-multiplier) * -1 / 2
+  );
 
   height: calc(
     var(--small-sprite-base-size) * var(--small-sprite-size-multiplier)
@@ -29,7 +77,17 @@
   transform: translateX(-50%);
 }
 
+@media (min-width: 667px) {
+  .character_stats__health_value {
+    font-size: 1.15em;
+  }
+}
+
 @media (min-width: 736px) {
+  .character_stats__health_value {
+    font-size: 1.3em;
+  }
+
   .character_stats__shield_value {
     top: 7.5%;
     left: 50%;
@@ -39,6 +97,19 @@
 }
 
 @media (min-width: 823px) {
+  .character_stats__health_container {
+    border-radius: 25px;
+    border: black solid 1.5px;
+  }
+
+  .character_stats__health_bar {
+    border-radius: 25px;
+  }
+
+  .character_stats__health_value {
+    font-size: 1.5em;
+  }
+
   .character_stats__shield {
     top: -17%;
     left: -6%;
@@ -46,12 +117,24 @@
 }
 
 @media (min-width: 850px) {
+  .character_stats__health_value {
+    font-size: 1.7em;
+  }
+
   .character_stats__shield_value {
     font-size: 1.7em;
   }
 }
 
 @media (min-width: 1024px) {
+  .character_stats__health_container {
+    border: black solid 2.1px;
+  }
+
+  .character_stats__health_value {
+    font-size: 1.9em;
+  }
+
   .character_stats__shield {
     top: -42%;
     left: -10%;
@@ -63,6 +146,16 @@
 }
 
 @media (min-width: 1366px) {
+  .character_stats__health_container {
+    border-radius: 38px;
+    border: black solid 2.9px;
+  }
+
+  .character_stats__health_value {
+    border-radius: 35px;
+    font-size: 2.2em;
+  }
+
   .character_stats__shield {
     top: -30%;
     left: -7%;

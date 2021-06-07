@@ -1,10 +1,10 @@
 .character_statuses__wrapper {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: start;
 
   margin: 0 auto;
-  width: 50%;
+  width: 77%;
 }
 
 .character_status {
@@ -15,7 +15,7 @@
   flex-basis: calc(
     var(--small-sprite-base-size) * var(--small-sprite-size-multiplier)
   );
-  margin: 2% 3% 0;
+  margin: 2% 2% 0;
 }
 
 .character_status__image {

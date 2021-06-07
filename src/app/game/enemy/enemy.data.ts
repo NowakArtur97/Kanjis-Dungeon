@@ -9,7 +9,7 @@ const exampleEnemy1: Character = {
     currentHealth: 20,
     maxDamage: 12,
     damage: 8,
-    currentShield: 0,
+    currentShield: 15,
     type: CharacterType.ENEMY,
   },
   animations: [
@@ -23,6 +23,22 @@ const exampleEnemy1: Character = {
     },
   ],
   statuses: [
+    {
+      spriteSheet: 'book',
+      remainingNumberOfActiveRounds: 3,
+    },
+    {
+      spriteSheet: 'book',
+      remainingNumberOfActiveRounds: 3,
+    },
+    {
+      spriteSheet: 'book',
+      remainingNumberOfActiveRounds: 3,
+    },
+    {
+      spriteSheet: 'book',
+      remainingNumberOfActiveRounds: 3,
+    },
     {
       spriteSheet: 'book',
       remainingNumberOfActiveRounds: 3,
@@ -57,6 +73,26 @@ const exampleEnemy2: Character = {
       spriteSheet: 'heart',
       remainingNumberOfActiveRounds: 2,
     },
+    {
+      spriteSheet: 'book',
+      remainingNumberOfActiveRounds: 3,
+    },
+    {
+      spriteSheet: 'heart',
+      remainingNumberOfActiveRounds: 2,
+    },
+    {
+      spriteSheet: 'book',
+      remainingNumberOfActiveRounds: 3,
+    },
+    {
+      spriteSheet: 'heart',
+      remainingNumberOfActiveRounds: 2,
+    },
+    {
+      spriteSheet: 'book',
+      remainingNumberOfActiveRounds: 3,
+    },
   ],
   currentAction: swordAction,
   allActions: [swordAction, shieldAction],
@@ -68,7 +104,7 @@ const exampleEnemy3: Character = {
     currentHealth: 10,
     maxDamage: 11,
     damage: 6,
-    currentShield: 0,
+    currentShield: 105,
     type: CharacterType.ENEMY,
   },
   animations: [...exampleEnemy1.animations],
@@ -76,6 +112,22 @@ const exampleEnemy3: Character = {
     {
       spriteSheet: 'heart',
       remainingNumberOfActiveRounds: 2,
+    },
+    {
+      spriteSheet: 'heart',
+      remainingNumberOfActiveRounds: 2,
+    },
+    {
+      spriteSheet: 'book',
+      remainingNumberOfActiveRounds: 3,
+    },
+    {
+      spriteSheet: 'heart',
+      remainingNumberOfActiveRounds: 2,
+    },
+    {
+      spriteSheet: 'book',
+      remainingNumberOfActiveRounds: 3,
     },
   ],
   currentAction: shieldAction,

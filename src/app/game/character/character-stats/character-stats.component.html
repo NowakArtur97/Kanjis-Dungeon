@@ -1,18 +1,22 @@
 <div class="character_stats__wrapper">
-  <app-progress-bar
-    [currentValue]="character?.stats.currentHealth"
-    [totalValue]="character?.stats.maxHealth"
-  ></app-progress-bar>
-
-  <div
-    *ngIf="character?.stats.currentShield > 0"
-    [ngStyle]="{
-      background: shieldImage
-    }"
-    class="character_stats__shield"
-  >
-    <div class="character_stats__shield_value">
-      {{ character?.stats.currentShield }}
+  <div class="character_stats__health_container">
+    <div class="character_stats__health_bar" [ngStyle]="getHealthBarStyles()">
+      <div
+        *ngIf="character?.stats.currentShield > 0"
+        [ngStyle]="{
+          background: shieldImage
+        }"
+        class="character_stats__shield"
+      >
+        <div class="character_stats__shield_value">
+          {{ character?.stats.currentShield }}
+        </div>
+      </div>
+      <div class="character_stats__health">
+        <p class="character_stats__health_value">
+          {{ currentHealth }}/{{ maxHealth }}
+        </p>
+      </div>
     </div>
   </div>
 </div>

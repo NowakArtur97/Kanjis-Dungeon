@@ -1,15 +1,15 @@
-.character_sprite__image {
-  height: 100%;
-}
-
-.character_sprite__image--rotated {
-  transform: rotateY(180deg);
-}
-
 .character_sprite__wrapper--selectable {
   border: 3px white solid;
 }
 
 .character_sprite__wrapper--selectable:hover {
   cursor: pointer;
+}
+
+.character_sprite__image {
+  height: 100%;
+}
+
+.character_sprite__image--rotated {
+  transform: rotateY(180deg);
 }
