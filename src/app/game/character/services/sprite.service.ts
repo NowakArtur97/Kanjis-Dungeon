@@ -85,10 +85,9 @@ export default class SpriteService {
     const sizeMultiplier = +CssUtil.getCSSVariable(
       this.SPRITESHEET_VARIABLES.sizeMultiplier
     );
-    const spriteSize = animationOptions.spriteWidth * sizeMultiplier;
     return {
-      width: spriteSize,
-      height: spriteSize,
+      width: animationOptions.spriteWidth * sizeMultiplier,
+      height: animationOptions.spriteHeight * sizeMultiplier,
     };
   }
 
