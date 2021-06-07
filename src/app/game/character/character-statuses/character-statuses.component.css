@@ -8,7 +8,6 @@
     var(--small-sprite-base-size) * var(--small-sprite-size-multiplier) *
       var(--min-number-of-statuses) + var(--min-number-of-statuses) * 0.15em
   );
-  width: 100%;
 }
 
 .character_status {
@@ -59,7 +58,8 @@
 
 @media (min-width: 1024px) {
   .character_status {
-    margin: 2% 1% 0;
+    margin-right: 0.35em;
+    margin-top: 0.8em;
   }
 }
 

@@ -1,46 +1,44 @@
 .enemies_layout__wrapper {
   position: relative;
-  top: -2%;
+  top: -5%;
   left: 40%;
-  width: 57%;
+  width: 60%;
 
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 
 @media (min-width: 640px) {
   .enemies_layout__wrapper {
-    top: -7%;
+    top: 3%;
   }
 }
 
 @media (min-width: 653px) and (max-height: 320px) {
   .enemies_layout__wrapper {
-    top: -26%;
+    top: -8%;
   }
 }
 
 @media (min-width: 667px) {
   .enemies_layout__wrapper {
-    top: -6%;
-    left: 50%;
-    width: 50%;
+    top: 7%;
   }
 }
 
 @media (min-width: 731px) {
   .enemies_layout__wrapper {
-    top: 2%;
-    left: 46%;
-    width: 54%;
+    top: 9%;
+    left: 35%;
+    width: 65%;
   }
 }
 
 @media (min-width: 812px) and (max-height: 375px) {
   .enemies_layout__wrapper {
-    top: -21%;
-    left: 46%;
-    width: 54%;
+    top: -10%;
+    left: 35%;
+    width: 65%;
   }
 }
 
@@ -52,13 +50,13 @@
 
 @media (min-width: 1024px) {
   .enemies_layout__wrapper {
-    top: 9%;
+    top: 17%;
   }
 }
 
 @media (min-width: 1366px) {
   .enemies_layout__wrapper {
-    top: 7%;
+    top: 21%;
     left: 42%;
     width: 58%;
   }

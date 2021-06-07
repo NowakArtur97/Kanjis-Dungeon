@@ -126,14 +126,6 @@ const exampleEnemy3: Character = {
   animations: [...exampleEnemy1.animations],
   statuses: [
     {
-      spriteSheet: 'heart',
-      remainingNumberOfActiveRounds: 2,
-    },
-    {
-      spriteSheet: 'heart',
-      remainingNumberOfActiveRounds: 2,
-    },
-    {
       spriteSheet: 'book',
       remainingNumberOfActiveRounds: 3,
     },

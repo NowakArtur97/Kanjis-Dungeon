@@ -52,9 +52,10 @@
 
 .character_stats__shield {
   position: absolute;
-  top: -25%;
+  top: -22%;
   left: calc(
-    var(--small-sprite-base-size) * var(--small-sprite-size-multiplier) * -1 / 2
+    var(--small-sprite-base-size) * var(--small-sprite-size-multiplier) * -1 /
+      1.6
   );
 
   height: calc(
@@ -84,10 +85,6 @@
 }
 
 @media (min-width: 736px) {
-  .character_stats__health_value {
-    font-size: 1.3em;
-  }
-
   .character_stats__shield_value {
     top: 7.5%;
     left: 50%;
@@ -107,7 +104,7 @@
   }
 
   .character_stats__health_value {
-    font-size: 1.5em;
+    font-size: 1.18em;
   }
 
   .character_stats__shield {
@@ -157,8 +154,8 @@
   }
 
   .character_stats__shield {
-    top: -30%;
-    left: -7%;
+    top: -100%;
+    left: -6%;
   }
 
   .character_stats__shield_value {

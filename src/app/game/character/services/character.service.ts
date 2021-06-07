@@ -6,8 +6,8 @@ import Character from '../models/character.model';
 
 @Injectable({ providedIn: 'root' })
 export default class CharacterService {
-  private readonly MIN_TOP_OFFSET = 40;
-  private readonly MAX_TOP_OFFSET = 50;
+  private readonly MIN_TOP_OFFSET = 45;
+  private readonly MAX_TOP_OFFSET = 55;
 
   setRandomTopOffset(character: Character): Character {
     const randomTopOffset = MathUtil.getRandomIntValue(

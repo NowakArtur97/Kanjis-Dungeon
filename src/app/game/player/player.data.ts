@@ -54,14 +54,6 @@ const defaultPlayer: Character = {
       spriteSheet: 'book',
       remainingNumberOfActiveRounds: 3,
     },
-    {
-      spriteSheet: 'heart',
-      remainingNumberOfActiveRounds: 2,
-    },
-    {
-      spriteSheet: 'book',
-      remainingNumberOfActiveRounds: 3,
-    },
   ],
 };
 

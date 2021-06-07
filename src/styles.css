@@ -42,6 +42,7 @@ body {
     --sprite-size-multiplier: 5;
     --medium-sprite-size-multiplier: 3;
     --small-sprite-size-multiplier: 2;
+    --min-number-of-statuses: 5;
   }
 }
 
