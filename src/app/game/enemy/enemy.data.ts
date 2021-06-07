@@ -15,11 +15,19 @@ const exampleEnemy1: Character = {
   animations: [
     {
       spriteSheet: 'idle',
-      numberOfFrames: 4,
+      numberOfFrames: 6,
       animationTimeInMiliseconds: 600,
       animationIterationCount: 'Infinite',
-      spriteWidth: 32,
-      spriteHeight: 32,
+      spriteWidth: 20,
+      spriteHeight: 19,
+    },
+    {
+      spriteSheet: 'melee_attack',
+      numberOfFrames: 8,
+      animationTimeInMiliseconds: 600,
+      animationIterationCount: '1',
+      spriteWidth: 23,
+      spriteHeight: 18,
     },
   ],
   statuses: [
@@ -64,8 +72,16 @@ const exampleEnemy2: Character = {
       numberOfFrames: 11,
       animationTimeInMiliseconds: 1700,
       animationIterationCount: 'Infinite',
-      spriteWidth: 64,
-      spriteHeight: 64,
+      spriteWidth: 50,
+      spriteHeight: 33,
+    },
+    {
+      spriteSheet: 'melee_attack',
+      numberOfFrames: 6,
+      animationTimeInMiliseconds: 1700,
+      animationIterationCount: '1',
+      spriteWidth: 45,
+      spriteHeight: 45,
     },
   ],
   statuses: [

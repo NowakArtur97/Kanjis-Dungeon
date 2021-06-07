@@ -1,5 +1,7 @@
 .character_action__wrapper {
-  position: relative;
+  position: absolute;
+  top: 0%;
+
   width: calc(
     var(--medium-sprite-base-size) * var(--medium-sprite-size-multiplier)
   );
