@@ -1,11 +1,11 @@
 .enemies_layout__wrapper {
   position: relative;
-  top: -3%;
-  left: 45%;
-  width: 45%;
+  top: -2%;
+  left: 40%;
+  width: 57%;
 
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 @media (min-width: 640px) {

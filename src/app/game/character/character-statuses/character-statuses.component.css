@@ -1,13 +1,14 @@
 .character_statuses__wrapper {
   display: flex;
   flex-wrap: wrap;
-  justify-content: start;
+  justify-content: flex-start;
 
   margin: 0 auto;
-  width: calc(
-    var(--small-sprite-base-size) * var(--small-sprite-size-multiplier) * 5 +
-      20%
+  min-width: calc(
+    var(--small-sprite-base-size) * var(--small-sprite-size-multiplier) *
+      var(--min-number-of-statuses) + var(--min-number-of-statuses) * 0.15em
   );
+  width: 100%;
 }
 
 .character_status {
@@ -18,7 +19,8 @@
   flex-basis: calc(
     var(--small-sprite-base-size) * var(--small-sprite-size-multiplier)
   );
-  margin: 2% 1% 0;
+  margin-right: 0.15em;
+  margin-top: 0.2em;
 }
 
 .character_status__image {

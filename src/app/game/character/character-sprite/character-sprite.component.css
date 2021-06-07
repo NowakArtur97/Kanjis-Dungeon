@@ -1,3 +1,7 @@
+.character_sprite__wrapper {
+  margin: 1em auto;
+}
+
 .character_sprite__wrapper--selectable {
   border: 3px white solid;
 }
