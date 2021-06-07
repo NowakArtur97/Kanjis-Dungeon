@@ -4,7 +4,10 @@
   justify-content: start;
 
   margin: 0 auto;
-  width: 77%;
+  width: calc(
+    var(--small-sprite-base-size) * var(--small-sprite-size-multiplier) * 5 +
+      20%
+  );
 }
 
 .character_status {
@@ -15,7 +18,7 @@
   flex-basis: calc(
     var(--small-sprite-base-size) * var(--small-sprite-size-multiplier)
   );
-  margin: 2% 2% 0;
+  margin: 2% 1% 0;
 }
 
 .character_status__image {

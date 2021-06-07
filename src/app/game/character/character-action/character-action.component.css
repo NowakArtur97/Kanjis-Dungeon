@@ -1,7 +1,5 @@
 .character_action__wrapper {
   position: relative;
-  top: 0;
-  left: 50%;
 
   width: calc(
     var(--medium-sprite-base-size) * var(--medium-sprite-size-multiplier)
@@ -9,8 +7,7 @@
   height: calc(
     var(--medium-sprite-base-size) * var(--medium-sprite-size-multiplier)
   );
-
-  transform: translateX(-50%);
+  margin: 0 auto 15%;
 }
 
 .character_action {

@@ -13,7 +13,6 @@ export class CharacterActionComponent implements OnInit {
   @Input() character: Character;
   characterAction: CharacterAction;
   actionImage: string;
-  topOffset: number;
 
   constructor(private spriteService: SpriteService) {}
 
@@ -23,9 +22,6 @@ export class CharacterActionComponent implements OnInit {
       this.actionImage = this.spriteService.getActionSprite(
         this.characterAction.action
       );
-      this.topOffset =
-        -this.spriteService.getSpriteSize(this.character.animations[0]).height /
-        8;
     }
   }
 }
