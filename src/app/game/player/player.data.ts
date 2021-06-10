@@ -2,6 +2,7 @@ import CharacterType from '../character/enums/character-type.enum';
 import Character from '../character/models/character.model';
 
 const defaultPlayer: Character = {
+  id: 0,
   name: 'player',
   stats: {
     currentHealth: 100,

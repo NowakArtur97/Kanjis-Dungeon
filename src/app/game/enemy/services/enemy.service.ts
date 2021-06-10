@@ -8,9 +8,20 @@ import { exampleEnemy1, exampleEnemy2, exampleEnemy3 } from '../enemy.data';
 
 @Injectable({ providedIn: 'root' })
 export default class EnemyService {
+  private FIRST_ID = 1;
+
   // TODO: EnemyService: Get random enemies
   chooseEnemies(level: number, allEnemies: Character[]): Character[] {
-    return [exampleEnemy1, exampleEnemy2, exampleEnemy3];
+    const updatedEnemies = [
+      exampleEnemy1,
+      exampleEnemy2,
+      exampleEnemy3,
+    ].map((enemytoCopy) => cloneDeep(enemytoCopy));
+    const enemies = updatedEnemies.map((enemy) => {
+      enemy.id = this.FIRST_ID++;
+      return enemy;
+    });
+    return enemies;
   }
 
   updateEnemies(
@@ -18,11 +29,9 @@ export default class EnemyService {
     enemy: Character,
     enemies: Character[]
   ): Character[] {
-    const areEqual = (enemy1, enemy2) =>
-      JSON.stringify(enemy1) === JSON.stringify(enemy2);
     const updatedEnemies = enemies.map((enemytoCopy) => cloneDeep(enemytoCopy));
-    const enemyToUpdate: Character = updatedEnemies.find((e) =>
-      areEqual(e, enemy)
+    const enemyToUpdate: Character = updatedEnemies.find(
+      (e) => e.id === enemy.id
     );
 
     gameCard.apply(enemyToUpdate);

@@ -332,6 +332,30 @@ const RADICALS: Radical[] = [
     meanings: ['viking'],
     type: CharacterType.RADICAL,
   },
+  {
+    id: 91,
+    characters: '糸',
+    meanings: ['thread'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    id: 92,
+    characters: '車',
+    meanings: ['car'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    id: 93,
+    characters: '貝',
+    meanings: ['shellfish'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    id: 94,
+    characters: '竹',
+    meanings: ['bamboo'],
+    type: CharacterType.RADICAL,
+  },
   // { id: 85, characters: '', meanings: [''], type: CharacterType.RADICAL },
 ];
 export default RADICALS;

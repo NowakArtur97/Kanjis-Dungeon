@@ -5,6 +5,7 @@ import CharacterStats from './character-stats.mode';
 import CharacterStatus from './character-status.model';
 
 export default interface Character {
+  id?: number;
   readonly name: string;
   stats: CharacterStats;
   readonly animations: CharacterAnimation[];

@@ -45,6 +45,7 @@ export default class PlayerEffects {
     )
   );
 
+  // TODO: TEST
   useCard$ = createEffect(() =>
     this.actions$.pipe(
       ofType(PlayerActions.useCardOnPlayer, EnemiesActions.useCardOnEnemy),
@@ -56,7 +57,7 @@ export default class PlayerEffects {
         GameActions.startCharacterAnimation({
           playedAnimation: {
             character: player,
-            animationName: chosenCard.name,
+            animationName: chosenCard.animationName,
           },
         })
       )
