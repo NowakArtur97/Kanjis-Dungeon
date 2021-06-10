@@ -66,6 +66,7 @@ export class CharacterSpriteComponent
   private readonly FIRST_FRAME_STATE = 'firstFrame';
   private readonly LAST_FRAME_STATE = 'lastFrame';
   private readonly ANIMATION_DURATION_UNIT = 'ms';
+  private readonly SPRITE_TIME_OFFSET = 100;
 
   constructor(
     private store: Store<AppStoreState>,
@@ -77,18 +78,13 @@ export class CharacterSpriteComponent
   ngOnInit(): void {
     this.chosenCardSubscription$ = this.store
       .select('deck')
-      .subscribe((deckStore) => {
-        this.handleSelection(deckStore);
-      });
+      .subscribe((deckStore) => this.handleSelection(deckStore));
 
     this.playedAnimationSubscription$ = this.store
       .select('game')
-      .subscribe(({ playedAnimation, isActionAnimationPlayed }) => {
+      .subscribe(({ playedAnimation }) => {
         this.playedAnimation = playedAnimation;
-        if (
-          isActionAnimationPlayed &&
-          this.character.id === playedAnimation?.character.id
-        ) {
+        if (this.character.id === playedAnimation?.character.id) {
           this.playActionAnimation();
         }
       });
@@ -109,8 +105,8 @@ export class CharacterSpriteComponent
   private playDefaultAnimation() {
     if (this.character.name === 'player') console.log('playDefaultAnimation');
     const [defaultAnimation] = this.character.animations;
-    this.setSprite(defaultAnimation.spriteSheet);
     this.setSpriteAnimation(defaultAnimation);
+    this.setSprite(defaultAnimation.spriteSheet);
   }
 
   private playActionAnimation() {
@@ -123,13 +119,14 @@ export class CharacterSpriteComponent
     const animation = playedAnimationCharacter.animations.find(
       (anima) => anima.spriteSheet === animationName
     );
-    this.setSprite(animation.spriteSheet);
     this.setSpriteAnimation(animation);
+    this.setSprite(animation.spriteSheet);
   }
 
   private setSpriteAnimation(animation: CharacterAnimation) {
     this.animationState = '';
     this.cdref.detectChanges();
+
     const { numberOfFrames, animationTimeInMiliseconds } = animation;
     this.spriteOffset =
       this.spriteService.getAnimationSpriteOffset(animation) + 'px';
@@ -147,6 +144,7 @@ export class CharacterSpriteComponent
       spriteSheet,
       this.character.name
     );
+
     this.animationState = this.FIRST_FRAME_STATE;
     this.cdref.detectChanges();
   }
@@ -186,7 +184,7 @@ export class CharacterSpriteComponent
       this.store.dispatch(GameActions.finishCharacterAnimation());
       setTimeout(
         () => this.playDefaultAnimation(),
-        this.animationTimeInMiliseconds
+        this.animationTimeInMiliseconds - this.SPRITE_TIME_OFFSET
       );
     }
   }

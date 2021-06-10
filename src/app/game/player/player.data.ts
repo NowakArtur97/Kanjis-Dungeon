@@ -24,7 +24,7 @@ const defaultPlayer: Character = {
     {
       spriteSheet: 'sword_attack',
       numberOfFrames: 5,
-      animationTimeInMiliseconds: 600,
+      animationTimeInMiliseconds: 400,
       animationIterationCount: '1',
       spriteWidth: 48,
       spriteHeight: 28,
