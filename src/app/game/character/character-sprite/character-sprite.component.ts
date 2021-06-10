@@ -1,5 +1,14 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { AfterViewChecked, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewChecked,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import AppStoreState from 'src/app/store/app.state';
@@ -43,6 +52,9 @@ export class CharacterSpriteComponent
   private playedAnimationSubscription$: Subscription;
   isSelectable: boolean;
 
+  private wasSpriteSet = false;
+  private isActionAnimationPlayed = false;
+
   @ViewChild('characterSpriteImage') private spriteImage: ElementRef;
   spriteOffset: string;
   animationSteps: string;
@@ -53,11 +65,12 @@ export class CharacterSpriteComponent
 
   private readonly FIRST_FRAME_STATE = 'firstFrame';
   private readonly LAST_FRAME_STATE = 'lastFrame';
-  private readonly ANIMATION_DURATIONUNIT = 'ms';
+  private readonly ANIMATION_DURATION_UNIT = 'ms';
 
   constructor(
     private store: Store<AppStoreState>,
-    private spriteService: SpriteService
+    private spriteService: SpriteService,
+    private cdref: ChangeDetectorRef
   ) {}
 
   // TODO: TEST
@@ -72,18 +85,20 @@ export class CharacterSpriteComponent
       .select('game')
       .subscribe(({ playedAnimation }) => {
         this.playedAnimation = playedAnimation;
-        if (this.character.id === playedAnimation?.character.id) {
+        if (
+          !this.isActionAnimationPlayed &&
+          this.character.id === playedAnimation?.character.id
+        ) {
+          this.isActionAnimationPlayed = true;
           this.playActionAnimation();
-        } else {
-          this.playDefaultAnimation();
         }
       });
   }
 
   ngAfterViewChecked(): void {
-    if (this.character?.id !== this.playedAnimation?.character.id) {
-      const defaultSpriteSheet = this.character.animations[0].spriteSheet;
-      this.setSprite(defaultSpriteSheet);
+    if (!this.wasSpriteSet && this.character) {
+      this.wasSpriteSet = true;
+      this.playDefaultAnimation();
     }
   }
 
@@ -93,12 +108,17 @@ export class CharacterSpriteComponent
   }
 
   private playDefaultAnimation() {
+    if (this.character.name === 'player') console.log('playDefaultAnimation');
     const [defaultAnimation] = this.character.animations;
+    this.setSprite(defaultAnimation.spriteSheet);
     this.setSpriteAnimation(defaultAnimation);
   }
 
   private playActionAnimation() {
     // TODO: CharacterSpriteComponent: Set position
+    this.animationState = '';
+    this.cdref.detectChanges();
+    if (this.character.name === 'player') console.log('playActionAnimation');
     const {
       character: playedAnimationCharacter,
       animationName,
@@ -108,6 +128,8 @@ export class CharacterSpriteComponent
     );
     this.setSprite(animation.spriteSheet);
     this.setSpriteAnimation(animation);
+    this.animationState = this.FIRST_FRAME_STATE;
+    this.cdref.detectChanges();
   }
 
   private setSpriteAnimation(animation: CharacterAnimation) {
@@ -115,7 +137,7 @@ export class CharacterSpriteComponent
       this.spriteService.getAnimationSpriteOffset(animation) + 'px';
     this.animationSteps = `steps(${animation.numberOfFrames})`;
     this.animationDuration =
-      animation.animationTimeInMiliseconds + this.ANIMATION_DURATIONUNIT;
+      animation.animationTimeInMiliseconds + this.ANIMATION_DURATION_UNIT;
     const spriteSize = this.spriteService.getSpriteSize(animation);
     this.spriteHeight = spriteSize.height;
     this.spriteWidth = spriteSize.width;
@@ -159,10 +181,12 @@ export class CharacterSpriteComponent
     if (event.toState === this.FIRST_FRAME_STATE) {
       setTimeout(() => {
         this.animationState = this.LAST_FRAME_STATE;
-        if (this.character.id === this.playedAnimation?.character.id) {
-          this.store.dispatch(GameActions.finishCharacterAnimation());
-        }
       }, 0);
+    }
+    if (this.character.id === this.playedAnimation?.character.id) {
+      console.log('onEndAnimation');
+      this.store.dispatch(GameActions.finishCharacterAnimation());
+      this.playDefaultAnimation();
     }
   }
 
