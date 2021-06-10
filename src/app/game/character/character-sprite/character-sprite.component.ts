@@ -102,16 +102,14 @@ export class CharacterSpriteComponent
     this.playedAnimationSubscription$?.unsubscribe();
   }
 
-  private playDefaultAnimation() {
-    if (this.character.name === 'player') console.log('playDefaultAnimation');
+  private playDefaultAnimation(): void {
     const [defaultAnimation] = this.character.animations;
     this.setSpriteAnimation(defaultAnimation);
     this.setSprite(defaultAnimation.spriteSheet);
   }
 
-  private playActionAnimation() {
+  private playActionAnimation(): void {
     // TODO: CharacterSpriteComponent: Set position
-    if (this.character.name === 'player') console.log('playActionAnimation');
     const {
       character: playedAnimationCharacter,
       animationName,
@@ -123,7 +121,7 @@ export class CharacterSpriteComponent
     this.setSprite(animation.spriteSheet);
   }
 
-  private setSpriteAnimation(animation: CharacterAnimation) {
+  private setSpriteAnimation(animation: CharacterAnimation): void {
     this.animationState = '';
     this.cdref.detectChanges();
 
