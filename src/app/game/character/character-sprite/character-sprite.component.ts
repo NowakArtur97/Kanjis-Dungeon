@@ -53,12 +53,12 @@ export class CharacterSpriteComponent
   isSelectable: boolean;
 
   private wasSpriteSet = false;
-  private isActionAnimationPlayed = false;
 
   @ViewChild('characterSpriteImage') private spriteImage: ElementRef;
   spriteOffset: string;
   animationSteps: string;
   animationDuration: string;
+  animationTimeInMiliseconds: number;
   animationState = 'firstFrame';
   spriteHeight: number;
   spriteWidth: number;
@@ -83,13 +83,12 @@ export class CharacterSpriteComponent
 
     this.playedAnimationSubscription$ = this.store
       .select('game')
-      .subscribe(({ playedAnimation }) => {
+      .subscribe(({ playedAnimation, isActionAnimationPlayed }) => {
         this.playedAnimation = playedAnimation;
         if (
-          !this.isActionAnimationPlayed &&
+          isActionAnimationPlayed &&
           this.character.id === playedAnimation?.character.id
         ) {
-          this.isActionAnimationPlayed = true;
           this.playActionAnimation();
         }
       });
@@ -116,8 +115,6 @@ export class CharacterSpriteComponent
 
   private playActionAnimation() {
     // TODO: CharacterSpriteComponent: Set position
-    this.animationState = '';
-    this.cdref.detectChanges();
     if (this.character.name === 'player') console.log('playActionAnimation');
     const {
       character: playedAnimationCharacter,
@@ -128,16 +125,18 @@ export class CharacterSpriteComponent
     );
     this.setSprite(animation.spriteSheet);
     this.setSpriteAnimation(animation);
-    this.animationState = this.FIRST_FRAME_STATE;
-    this.cdref.detectChanges();
   }
 
   private setSpriteAnimation(animation: CharacterAnimation) {
+    this.animationState = '';
+    this.cdref.detectChanges();
+    const { numberOfFrames, animationTimeInMiliseconds } = animation;
     this.spriteOffset =
       this.spriteService.getAnimationSpriteOffset(animation) + 'px';
-    this.animationSteps = `steps(${animation.numberOfFrames})`;
+    this.animationSteps = `steps(${numberOfFrames})`;
+    this.animationTimeInMiliseconds = animationTimeInMiliseconds;
     this.animationDuration =
-      animation.animationTimeInMiliseconds + this.ANIMATION_DURATION_UNIT;
+      animationTimeInMiliseconds + this.ANIMATION_DURATION_UNIT;
     const spriteSize = this.spriteService.getSpriteSize(animation);
     this.spriteHeight = spriteSize.height;
     this.spriteWidth = spriteSize.width;
@@ -148,6 +147,8 @@ export class CharacterSpriteComponent
       spriteSheet,
       this.character.name
     );
+    this.animationState = this.FIRST_FRAME_STATE;
+    this.cdref.detectChanges();
   }
 
   private handleSelection(deckStore: DeckStoreState): void {
@@ -179,14 +180,14 @@ export class CharacterSpriteComponent
     // Loop animation
     this.animationState = this.FIRST_FRAME_STATE;
     if (event.toState === this.FIRST_FRAME_STATE) {
-      setTimeout(() => {
-        this.animationState = this.LAST_FRAME_STATE;
-      }, 0);
+      setTimeout(() => (this.animationState = this.LAST_FRAME_STATE), 0);
     }
     if (this.character.id === this.playedAnimation?.character.id) {
-      console.log('onEndAnimation');
       this.store.dispatch(GameActions.finishCharacterAnimation());
-      this.playDefaultAnimation();
+      setTimeout(
+        () => this.playDefaultAnimation(),
+        this.animationTimeInMiliseconds
+      );
     }
   }
 

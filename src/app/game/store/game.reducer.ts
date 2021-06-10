@@ -10,12 +10,14 @@ export interface GameStoreState {
   turn: GameTurn;
   phase: GamePhase;
   playedAnimation: CharacterPlayedAnimation;
+  isActionAnimationPlayed: boolean;
 }
 const initialState: GameStoreState = {
   level: 0,
   turn: GameTurn.PLAYER_TURN,
   phase: GamePhase.BATTLE,
   playedAnimation: null,
+  isActionAnimationPlayed: false,
 };
 export { initialState };
 
@@ -44,12 +46,14 @@ const _gameReducer = createReducer(
   on(GameActions.startCharacterAnimation, (state, { playedAnimation }) => ({
     ...state,
     playedAnimation,
+    isActionAnimationPlayed: true,
   })),
 
   // TODO: TEST
   on(GameActions.finishCharacterAnimation, (state) => ({
     ...state,
     playedAnimation: null,
+    isActionAnimationPlayed: false,
   }))
 );
 
