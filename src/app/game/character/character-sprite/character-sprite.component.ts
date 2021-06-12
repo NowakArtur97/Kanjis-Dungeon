@@ -74,7 +74,6 @@ export class CharacterSpriteComponent
     private changeDetectorRef: ChangeDetectorRef
   ) {}
 
-  // TODO: TEST
   ngOnInit(): void {
     this.chosenCardSubscription$ = this.store
       .select('deck')
@@ -171,7 +170,6 @@ export class CharacterSpriteComponent
     );
   }
 
-  // TODO: TEST
   onEndAnimation(event): void {
     // Loop animation
     this.animationState = this.FIRST_FRAME_STATE;

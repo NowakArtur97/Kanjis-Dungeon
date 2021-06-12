@@ -40,13 +40,11 @@ const _gameReducer = createReducer(
     phase: state.phase === GamePhase.QUIZ ? GamePhase.BATTLE : GamePhase.QUIZ,
   })),
 
-  // TODO: TEST
   on(GameActions.startCharacterAnimation, (state, { playedAnimation }) => ({
     ...state,
     playedAnimation,
   })),
 
-  // TODO: TEST
   on(GameActions.finishCharacterAnimation, (state) => ({
     ...state,
     playedAnimation: null,

@@ -10,6 +10,7 @@ import { exampleEnemy1 } from '../../enemy/enemy.data';
 import * as EnemyActions from '../../enemy/store/enemy.actions';
 import defaultPlayer from '../../player/player.data';
 import * as PlayerActions from '../../player/store/player.actions';
+import * as GameActions from '../../store/game.actions';
 import { GameStoreState, initialState as gameInitialState } from '../../store/game.reducer';
 import Character from '../models/character.model';
 import SpriteService from '../services/sprite.service';
@@ -56,9 +57,10 @@ describe('CharacterSpriteComponent', () => {
   });
 
   describe('when initialize component', () => {
-    it('should get animation sprite offset', () => {
+    it('should set animation sprite', () => {
       spyOn(spriteService, 'getAnimationSpriteOffset').and.callThrough();
       spyOn(spriteService, 'getCharacterSprite').and.callThrough();
+      spyOn(spriteService, 'getSpriteSize').and.callThrough();
       spyOn(store, 'select').and.callFake((selector) => {
         if (selector === 'deck') {
           return of(stateWithAttackTypeCard);
@@ -75,6 +77,7 @@ describe('CharacterSpriteComponent', () => {
 
       expect(spriteService.getAnimationSpriteOffset).toHaveBeenCalled();
       expect(spriteService.getCharacterSprite).toHaveBeenCalled();
+      expect(spriteService.getSpriteSize).toHaveBeenCalled();
       expect(store.select).toHaveBeenCalled();
     });
   });
@@ -228,6 +231,72 @@ describe('CharacterSpriteComponent', () => {
           EnemyActions.useCardOnEnemy({ enemy: component.character })
         );
       });
+    });
+  });
+
+  describe('when finish action animation', () => {
+    beforeEach(() => {
+      spyOn(store, 'dispatch');
+    });
+
+    it('with character action animation played should dispatch finishCharacterAnimation action', () => {
+      spyOn(spriteService, 'getAnimationSpriteOffset').and.callThrough();
+      spyOn(spriteService, 'getCharacterSprite').and.callThrough();
+      spyOn(spriteService, 'getSpriteSize').and.callThrough();
+      spyOn(store, 'select').and.callFake((selector) => {
+        if (selector === 'deck') {
+          return of(stateWithAttackTypeCard);
+        } else if (selector === 'game') {
+          return of(stateWithAnimation);
+        }
+      });
+
+      fixture.detectChanges();
+
+      component.character = playerCharacter;
+      component.ngOnInit();
+      component.ngAfterViewChecked();
+
+      const eventExpected = { toState: 'firstFrame' };
+      component.onEndAnimation(eventExpected);
+
+      expect(store.dispatch).toHaveBeenCalledWith(
+        GameActions.finishCharacterAnimation()
+      );
+      expect(spriteService.getAnimationSpriteOffset).toHaveBeenCalled();
+      expect(spriteService.getCharacterSprite).toHaveBeenCalled();
+      expect(spriteService.getSpriteSize).toHaveBeenCalled();
+      expect(store.select).toHaveBeenCalled();
+    });
+
+    it('with some other character action animation played should not dispatch finishCharacterAnimation action', () => {
+      spyOn(spriteService, 'getAnimationSpriteOffset').and.callThrough();
+      spyOn(spriteService, 'getCharacterSprite').and.callThrough();
+      spyOn(spriteService, 'getSpriteSize').and.callThrough();
+      spyOn(store, 'select').and.callFake((selector) => {
+        if (selector === 'deck') {
+          return of(stateWithAttackTypeCard);
+        } else if (selector === 'game') {
+          return of(stateWithAnimation);
+        }
+      });
+
+      fixture.detectChanges();
+
+      component.character = enemyCharacter;
+      component.ngOnInit();
+      component.ngAfterViewChecked();
+
+      const eventExpected = { toState: 'firstFrame' };
+      component.onEndAnimation(eventExpected);
+
+      expect(store.dispatch).not.toHaveBeenCalledWith(
+        GameActions.finishCharacterAnimation()
+      );
+      expect(spriteService.getAnimationSpriteOffset).toHaveBeenCalled();
+      expect(spriteService.getCharacterSprite).toHaveBeenCalled();
+      expect(spriteService.getSpriteSize).toHaveBeenCalled();
+      expect(store.select).toHaveBeenCalled();
     });
   });
 });

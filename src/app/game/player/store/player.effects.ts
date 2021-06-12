@@ -45,7 +45,6 @@ export default class PlayerEffects {
     )
   );
 
-  // TODO: TEST
   useCard$ = createEffect(() =>
     this.actions$.pipe(
       ofType(PlayerActions.useCardOnPlayer, EnemiesActions.useCardOnEnemy),

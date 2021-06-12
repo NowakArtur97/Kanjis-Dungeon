@@ -10,6 +10,7 @@ import { attackCard } from 'src/app/game/deck/deck.data';
 import { initialState } from 'src/app/game/deck/store/deck.reducer';
 import AppStoreState from 'src/app/store/app.state';
 
+import * as EnemyActions from '../../../enemy/store/enemy.actions';
 import * as GameActions from '../../../store/game.actions';
 import defaultPlayer from '../../player.data';
 import PlayerService from '../../services/player.service';
@@ -113,6 +114,54 @@ describe('PlayerEffects', () => {
           PlayerActions.setPlayer({ player: updatedPlayer })
         );
         expect(playerService.updatePlayer).toHaveBeenCalledTimes(1);
+      });
+    });
+  });
+
+  describe('useCard$', () => {
+    describe('on player', () => {
+      beforeEach(() => {
+        actions$ = new ReplaySubject(1);
+        actions$.next(PlayerActions.useCardOnPlayer);
+        (playerService.updatePlayer as jasmine.Spy).and.returnValue(
+          updatedPlayer
+        );
+      });
+
+      it('should return a startCharacterAnimation action', () => {
+        playerEffects.useCard$.subscribe((resultAction) => {
+          expect(resultAction).toEqual(
+            GameActions.startCharacterAnimation({
+              playedAnimation: {
+                character: defaultPlayer,
+                animationName: attackCard.animationName,
+              },
+            })
+          );
+        });
+      });
+    });
+
+    describe('on enemy', () => {
+      beforeEach(() => {
+        actions$ = new ReplaySubject(1);
+        actions$.next(EnemyActions.useCardOnEnemy);
+        (playerService.updatePlayer as jasmine.Spy).and.returnValue(
+          updatedPlayer
+        );
+      });
+
+      it('should return a startCharacterAnimation action', () => {
+        playerEffects.useCard$.subscribe((resultAction) => {
+          expect(resultAction).toEqual(
+            GameActions.startCharacterAnimation({
+              playedAnimation: {
+                character: defaultPlayer,
+                animationName: attackCard.animationName,
+              },
+            })
+          );
+        });
       });
     });
   });

@@ -78,7 +78,6 @@ export default class SpriteService {
     return `url(${sprite}) 0 0 no-repeat`;
   }
 
-  // TODO: TEST
   getSpriteSize(
     animationOptions: CharacterAnimation
   ): { width: number; height: number } {

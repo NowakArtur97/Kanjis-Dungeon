@@ -1,9 +1,24 @@
+import CharacterPlayedAnimation from '../../character/models/character-played-animation.model';
+import { attackCard } from '../../deck/deck.data';
 import GamePhase from '../../enums/game-phase.enum';
 import GameTurn from '../../enums/game-turn.enum';
+import defaultPlayer from '../../player/player.data';
 import * as GameActions from '../game.actions';
 import { gameReducer, GameStoreState, initialState } from '../game.reducer';
 
 describe('gameReducer', () => {
+  const playedAnimation: CharacterPlayedAnimation = {
+    character: defaultPlayer,
+    animationName: attackCard.animationName,
+  };
+  const stateWithoutAnimation: GameStoreState = {
+    ...initialState,
+  };
+  const stateWithPlayedAnimation: GameStoreState = {
+    ...initialState,
+    playedAnimation,
+  };
+
   describe('GameActions.chooseLevel', () => {
     it('should change level', () => {
       const level = 2;
@@ -94,6 +109,28 @@ describe('gameReducer', () => {
 
       expect(actualState).toEqual(expectedState);
       expect(actualState.phase).toEqual(phase);
+    });
+  });
+
+  describe('GameActions.startCharacterAnimation', () => {
+    it('should set played animation', () => {
+      const action = GameActions.startCharacterAnimation({ playedAnimation });
+      const actualState = gameReducer(stateWithoutAnimation, action);
+      const expectedState = { ...stateWithPlayedAnimation };
+
+      expect(actualState).toEqual(expectedState);
+      expect(actualState.playedAnimation).toEqual(playedAnimation);
+    });
+  });
+
+  describe('GameActions.finishCharacterAnimation', () => {
+    it('should set played animation as null', () => {
+      const action = GameActions.finishCharacterAnimation();
+      const actualState = gameReducer(stateWithPlayedAnimation, action);
+      const expectedState = { ...stateWithoutAnimation };
+
+      expect(actualState).toEqual(expectedState);
+      expect(actualState.playedAnimation).toBeNull();
     });
   });
 });
