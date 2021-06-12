@@ -71,7 +71,7 @@ export class CharacterSpriteComponent
   constructor(
     private store: Store<AppStoreState>,
     private spriteService: SpriteService,
-    private cdref: ChangeDetectorRef
+    private changeDetectorRef: ChangeDetectorRef
   ) {}
 
   // TODO: TEST
@@ -84,7 +84,7 @@ export class CharacterSpriteComponent
       .select('game')
       .subscribe(({ playedAnimation }) => {
         this.playedAnimation = playedAnimation;
-        if (this.character.id === playedAnimation?.character.id) {
+        if (this.character?.id === playedAnimation?.character.id) {
           this.playActionAnimation();
         }
       });
@@ -123,7 +123,7 @@ export class CharacterSpriteComponent
 
   private setSpriteAnimation(animation: CharacterAnimation): void {
     this.animationState = '';
-    this.cdref.detectChanges();
+    this.changeDetectorRef.detectChanges();
 
     const { numberOfFrames, animationTimeInMiliseconds } = animation;
     this.spriteOffset =
@@ -144,7 +144,7 @@ export class CharacterSpriteComponent
     );
 
     this.animationState = this.FIRST_FRAME_STATE;
-    this.cdref.detectChanges();
+    this.changeDetectorRef.detectChanges();
   }
 
   private handleSelection(deckStore: DeckStoreState): void {

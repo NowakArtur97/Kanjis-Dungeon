@@ -2,8 +2,7 @@ import { getTestBed, TestBed } from '@angular/core/testing';
 import MathUtil from 'src/app/common/utils/math.util';
 
 import Character from '../../character/models/character.model';
-import GameCardType from '../../deck/enums/game-card-type.enum';
-import GameCard from '../../deck/models/game-card.model';
+import { attackCard } from '../../deck/deck.data';
 import defaultPlayer from '../../player/player.data';
 import { shieldAction, swordAction } from '../enemy-action.data';
 import { exampleEnemy1, exampleEnemy2, exampleEnemy3 } from '../enemy.data';
@@ -13,7 +12,23 @@ describe('enemyService', () => {
   let injector: TestBed;
   let enemyService: EnemyService;
 
-  const enemies: Character[] = [exampleEnemy1, exampleEnemy2, exampleEnemy3];
+  const enemyWithId1: Character = {
+    ...exampleEnemy1,
+    id: 1,
+    stats: {
+      ...exampleEnemy1.stats,
+      currentShield: 0,
+    },
+  };
+  const enemyWithId2: Character = {
+    ...exampleEnemy2,
+    id: 2,
+  };
+  const enemyWithId3: Character = {
+    ...exampleEnemy3,
+    id: 3,
+  };
+  const enemies: Character[] = [enemyWithId1, enemyWithId2, enemyWithId3];
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -30,30 +45,21 @@ describe('enemyService', () => {
   describe('when update enemies', () => {
     it('should return updated enemies', () => {
       const expectedEnemy1 = {
-        ...exampleEnemy1,
+        ...enemyWithId1,
         stats: {
-          ...exampleEnemy1.stats,
-          currentHealth: exampleEnemy1.stats.currentHealth - 10,
+          ...enemyWithId1.stats,
+          currentHealth: enemyWithId1.stats.currentHealth - attackCard.value,
         },
       };
       const updatedEnemiesExpected: Character[] = [
         expectedEnemy1,
-        exampleEnemy2,
-        exampleEnemy3,
+        enemyWithId2,
+        enemyWithId3,
       ];
-      const attackCard: GameCard = {
-        name: 'Attack',
-        cost: 2,
-        type: GameCardType.ATTACK,
-        description: 'Deal 10 damage points',
-        apply(character: Character): void {
-          character.stats.currentHealth -= 10;
-        },
-      };
 
       const updatedEnemiesActual = enemyService.updateEnemies(
         attackCard,
-        exampleEnemy1,
+        enemyWithId1,
         enemies
       );
 
@@ -68,15 +74,15 @@ describe('enemyService', () => {
       spyOn(MathUtil, 'getRandomIndex').and.returnValues(1, 0, 0);
 
       const expectedEnemy1: Character = {
-        ...exampleEnemy1,
+        ...enemyWithId1,
         currentAction: shieldAction,
       };
       const expectedEnemy2: Character = {
-        ...exampleEnemy2,
+        ...enemyWithId2,
         currentAction: swordAction,
       };
       const expectedEnemy3: Character = {
-        ...exampleEnemy3,
+        ...enemyWithId3,
         currentAction: swordAction,
       };
       const updatedEnemiesExpected: Character[] = [

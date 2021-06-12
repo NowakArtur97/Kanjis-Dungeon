@@ -3,7 +3,7 @@ import { Store, StoreModule } from '@ngrx/store';
 import { of } from 'rxjs';
 import AppStoreState from 'src/app/store/app.state';
 
-import CharacterType from '../../character/enums/character-type.enum';
+import defaultPlayer from '../player.data';
 import { PlayerStoreState } from '../store/player.reducer';
 import { PlayerLayoutComponent } from './player-layout.component';
 
@@ -13,26 +13,7 @@ describe('PlayerLayoutComponent', () => {
   let store: Store<AppStoreState>;
 
   const initialState: PlayerStoreState = {
-    player: {
-      name: 'player',
-      stats: {
-        currentHealth: 100,
-        maxHealth: 100,
-        damage: 20,
-        maxDamage: 22,
-        currentShield: 10,
-        type: CharacterType.PLAYER,
-      },
-      animations: [
-        {
-          spriteSheet: 'idle',
-          numberOfFrames: 4,
-          animationTimeInMiliseconds: 600,
-          animationIterationCount: 'Infinite',
-        },
-      ],
-      statuses: [],
-    },
+    player: defaultPlayer,
   };
 
   beforeEach(async () => {

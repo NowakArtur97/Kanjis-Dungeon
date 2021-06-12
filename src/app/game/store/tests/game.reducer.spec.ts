@@ -60,13 +60,17 @@ describe('gameReducer', () => {
   describe('GameActions.changePhase', () => {
     it('should change phase from Quiz to Battle', () => {
       const phase = GamePhase.BATTLE;
+      const stateWithQuizPhase: GameStoreState = {
+        ...initialState,
+        phase: GamePhase.QUIZ,
+      };
       const stateWithBattlePhase: GameStoreState = {
         ...initialState,
         phase,
       };
 
       const action = GameActions.changePhase();
-      const actualState = gameReducer(initialState, action);
+      const actualState = gameReducer(stateWithQuizPhase, action);
       const expectedState = { ...stateWithBattlePhase };
 
       expect(actualState).toEqual(expectedState);

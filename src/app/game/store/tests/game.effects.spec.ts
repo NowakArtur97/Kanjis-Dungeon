@@ -9,7 +9,7 @@ import QuizOptions from 'src/app/quiz/models/quiz-options.model';
 import {
   DEFAULT_EXCLUDED_PROPERTIES,
   DEFAULT_MIN_NUMBER_OF_PROPERTIES,
-  initialState,
+  initialState as quizInitialState,
 } from 'src/app/quiz/store/quiz.reducer';
 import AppStoreState from 'src/app/store/app.state';
 
@@ -21,6 +21,7 @@ import * as PlayerActions from '../../player/store/player.actions';
 import GameService from '../../services/game.service';
 import * as GameActions from '../../store/game.actions';
 import GameEffects from '../game.effects';
+import { initialState } from '../game.reducer';
 
 describe('GameEffects', () => {
   let gameEffects: GameEffects;
@@ -30,25 +31,25 @@ describe('GameEffects', () => {
 
   const stateWithZeroQuestions: Partial<AppStoreState> = {
     quiz: {
-      ...initialState,
+      ...quizInitialState,
     },
   };
   const stateWithQuestions: Partial<AppStoreState> = {
     quiz: {
-      ...initialState,
+      ...quizInitialState,
       questions: [RADICALS[0]],
     },
   };
   const stateWithEnemyTurn: Partial<AppStoreState> = {
     game: {
-      level: 0,
+      ...initialState,
       turn: GameTurn.ENEMY_TURN,
       phase: GamePhase.QUIZ,
     },
   };
   const stateWithPlayerTurn: Partial<AppStoreState> = {
     game: {
-      level: 0,
+      ...initialState,
       turn: GameTurn.PLAYER_TURN,
       phase: GamePhase.QUIZ,
     },

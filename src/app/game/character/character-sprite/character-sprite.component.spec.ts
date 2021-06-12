@@ -5,11 +5,12 @@ import { of } from 'rxjs';
 import AppStoreState from 'src/app/store/app.state';
 
 import { attackCard, powerCard } from '../../deck/deck.data';
-import { DeckStoreState } from '../../deck/store/deck.reducer';
+import { DeckStoreState, initialState as deckInitialState } from '../../deck/store/deck.reducer';
 import { exampleEnemy1 } from '../../enemy/enemy.data';
 import * as EnemyActions from '../../enemy/store/enemy.actions';
+import defaultPlayer from '../../player/player.data';
 import * as PlayerActions from '../../player/store/player.actions';
-import CharacterType from '../enums/character-type.enum';
+import { GameStoreState, initialState as gameInitialState } from '../../store/game.reducer';
 import Character from '../models/character.model';
 import SpriteService from '../services/sprite.service';
 import { CharacterSpriteComponent } from './character-sprite.component';
@@ -21,31 +22,23 @@ describe('CharacterSpriteComponent', () => {
   let spriteService: SpriteService;
 
   const stateWithAttackTypeCard: Partial<DeckStoreState> = {
+    ...deckInitialState,
     chosenCard: attackCard,
   };
   const stateWithPowerTypeCard: Partial<DeckStoreState> = {
+    ...deckInitialState,
     chosenCard: powerCard,
   };
-  const playerCharacter: Character = {
-    name: 'example-character',
-    stats: {
-      currentHealth: 100,
-      maxHealth: 100,
-      damage: 20,
-      maxDamage: 22,
-      currentShield: 10,
-      type: CharacterType.PLAYER,
+  const stateWithAnimation: Partial<GameStoreState> = {
+    ...gameInitialState,
+    playedAnimation: {
+      character: defaultPlayer,
+      animationName: attackCard.animationName,
     },
-    animations: [
-      {
-        spriteSheet: 'idle',
-        numberOfFrames: 4,
-        animationTimeInMiliseconds: 600,
-        animationIterationCount: 'Infinite',
-      },
-    ],
-    statuses: [],
   };
+
+  const playerCharacter: Character = { ...defaultPlayer, id: 0 };
+  const enemyCharacter: Character = { ...exampleEnemy1, id: 1 };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -64,8 +57,15 @@ describe('CharacterSpriteComponent', () => {
 
   describe('when initialize component', () => {
     it('should get animation sprite offset', () => {
-      spyOn(spriteService, 'getAnimationSpriteOffset');
-      spyOn(spriteService, 'getCharacterSprite');
+      spyOn(spriteService, 'getAnimationSpriteOffset').and.callThrough();
+      spyOn(spriteService, 'getCharacterSprite').and.callThrough();
+      spyOn(store, 'select').and.callFake((selector) => {
+        if (selector === 'deck') {
+          return of(stateWithAttackTypeCard);
+        } else if (selector === 'game') {
+          return of(stateWithAnimation);
+        }
+      });
 
       fixture.detectChanges();
 
@@ -75,13 +75,20 @@ describe('CharacterSpriteComponent', () => {
 
       expect(spriteService.getAnimationSpriteOffset).toHaveBeenCalled();
       expect(spriteService.getCharacterSprite).toHaveBeenCalled();
+      expect(store.select).toHaveBeenCalled();
     });
   });
 
   describe('when card chosen', () => {
     describe('with Attack card type', () => {
       beforeEach(() => {
-        spyOn(store, 'select').and.callFake(() => of(stateWithAttackTypeCard));
+        spyOn(store, 'select').and.callFake((selector) => {
+          if (selector === 'deck') {
+            return of(stateWithAttackTypeCard);
+          } else if (selector === 'game') {
+            return of(stateWithAnimation);
+          }
+        });
 
         fixture.detectChanges();
       });
@@ -89,14 +96,16 @@ describe('CharacterSpriteComponent', () => {
       it('and Player character should not select sprite', () => {
         component.character = playerCharacter;
         component.ngOnInit();
+        component.ngAfterViewChecked();
 
         expect(component.isSelectable).toBe(false);
         expect(store.select).toHaveBeenCalled();
       });
 
       it('and Enemy character should select sprite', () => {
-        component.character = exampleEnemy1;
+        component.character = enemyCharacter;
         component.ngOnInit();
+        component.ngAfterViewChecked();
 
         expect(component.isSelectable).toBe(true);
         expect(store.select).toHaveBeenCalled();
@@ -105,7 +114,13 @@ describe('CharacterSpriteComponent', () => {
 
     describe('with not Attack card type', () => {
       beforeEach(() => {
-        spyOn(store, 'select').and.callFake(() => of(stateWithPowerTypeCard));
+        spyOn(store, 'select').and.callFake((selector) => {
+          if (selector === 'deck') {
+            return of(stateWithPowerTypeCard);
+          } else if (selector === 'game') {
+            return of(stateWithAnimation);
+          }
+        });
 
         fixture.detectChanges();
       });
@@ -113,14 +128,16 @@ describe('CharacterSpriteComponent', () => {
       it('and Player character should select sprite', () => {
         component.character = playerCharacter;
         component.ngOnInit();
+        component.ngAfterViewChecked();
 
         expect(component.isSelectable).toBe(true);
         expect(store.select).toHaveBeenCalled();
       });
 
       it('and Enemy character should not select sprite', () => {
-        component.character = exampleEnemy1;
+        component.character = enemyCharacter;
         component.ngOnInit();
+        component.ngAfterViewChecked();
 
         expect(component.isSelectable).toBe(false);
         expect(store.select).toHaveBeenCalled();
@@ -133,11 +150,18 @@ describe('CharacterSpriteComponent', () => {
       });
 
       it('is Player should dispatch useCardOnPlayer action', () => {
-        spyOn(store, 'select').and.callFake(() => of(stateWithPowerTypeCard));
+        spyOn(store, 'select').and.callFake((selector) => {
+          if (selector === 'deck') {
+            return of(stateWithPowerTypeCard);
+          } else if (selector === 'game') {
+            return of(stateWithAnimation);
+          }
+        });
         fixture.detectChanges();
 
         component.character = playerCharacter;
         component.ngOnInit();
+        component.ngAfterViewChecked();
         component.onChooseCharacter();
 
         expect(store.dispatch).toHaveBeenCalledWith(
@@ -146,11 +170,18 @@ describe('CharacterSpriteComponent', () => {
       });
 
       it('is Player and chosen card doesnt affect Player should not dispatch useCardOnPlayer action', () => {
-        spyOn(store, 'select').and.callFake(() => of(stateWithAttackTypeCard));
+        spyOn(store, 'select').and.callFake((selector) => {
+          if (selector === 'deck') {
+            return of(stateWithAttackTypeCard);
+          } else if (selector === 'game') {
+            return of(stateWithAnimation);
+          }
+        });
         fixture.detectChanges();
 
         component.character = playerCharacter;
         component.ngOnInit();
+        component.ngAfterViewChecked();
         component.onChooseCharacter();
 
         expect(store.dispatch).not.toHaveBeenCalledWith(
@@ -159,11 +190,18 @@ describe('CharacterSpriteComponent', () => {
       });
 
       it('is Enemy should dispatch useCardOnEnemy action', () => {
-        spyOn(store, 'select').and.callFake(() => of(stateWithAttackTypeCard));
+        spyOn(store, 'select').and.callFake((selector) => {
+          if (selector === 'deck') {
+            return of(stateWithAttackTypeCard);
+          } else if (selector === 'game') {
+            return of(stateWithAnimation);
+          }
+        });
         fixture.detectChanges();
 
-        component.character = exampleEnemy1;
+        component.character = enemyCharacter;
         component.ngOnInit();
+        component.ngAfterViewChecked();
         component.onChooseCharacter();
 
         expect(store.dispatch).toHaveBeenCalledWith(
@@ -172,11 +210,18 @@ describe('CharacterSpriteComponent', () => {
       });
 
       it('is Enemy and chosen card doesnt affect Enemy should not dispatch useCardOnEnemy action', () => {
-        spyOn(store, 'select').and.callFake(() => of(stateWithPowerTypeCard));
+        spyOn(store, 'select').and.callFake((selector) => {
+          if (selector === 'deck') {
+            return of(stateWithPowerTypeCard);
+          } else if (selector === 'game') {
+            return of(stateWithAnimation);
+          }
+        });
         fixture.detectChanges();
 
-        component.character = exampleEnemy1;
+        component.character = enemyCharacter;
         component.ngOnInit();
+        component.ngAfterViewChecked();
         component.onChooseCharacter();
 
         expect(store.dispatch).not.toHaveBeenCalledWith(

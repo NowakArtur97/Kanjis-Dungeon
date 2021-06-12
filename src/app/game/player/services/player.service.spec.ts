@@ -1,39 +1,13 @@
 import { getTestBed, TestBed } from '@angular/core/testing';
 
-import CharacterType from '../../character/enums/character-type.enum';
 import Character from '../../character/models/character.model';
-import GameCardType from '../../deck/enums/game-card-type.enum';
-import GameCard from '../../deck/models/game-card.model';
+import { attackCard } from '../../deck/deck.data';
+import defaultPlayer from '../player.data';
 import PlayerService from './player.service';
 
 describe('playerService', () => {
   let injector: TestBed;
   let playerService: PlayerService;
-  const player: Character = {
-    name: 'example-character',
-    stats: {
-      currentHealth: 100,
-      maxHealth: 100,
-      damage: 20,
-      maxDamage: 22,
-      currentShield: 10,
-      type: CharacterType.PLAYER,
-    },
-    animations: [
-      {
-        spriteSheet: 'idle',
-        numberOfFrames: 4,
-        animationTimeInMiliseconds: 600,
-        animationIterationCount: 'Infinite',
-      },
-    ],
-    statuses: [
-      {
-        spriteSheet: 'heart',
-        remainingNumberOfActiveRounds: 2,
-      },
-    ],
-  };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -48,29 +22,66 @@ describe('playerService', () => {
   });
 
   describe('when update player', () => {
-    it('should return updated player', () => {
-      const updatedPlayerExpected: Character = {
-        ...player,
+    it('with shield should return player with damaged shield', () => {
+      const playerWithShield: Character = {
+        ...defaultPlayer,
+        id: 0,
         stats: {
-          ...player.stats,
-          currentHealth: player.stats.currentHealth - 10,
+          ...defaultPlayer.stats,
+          currentShield: 10,
         },
       };
-      const attackCard: GameCard = {
-        name: 'Attack',
-        cost: 2,
-        type: GameCardType.ATTACK,
-        description: 'Deal 10 damage points',
-        apply(character: Character): void {
-          character.stats.currentHealth -= 10;
+      const updatedPlayerExpected: Character = {
+        ...playerWithShield,
+        stats: {
+          ...playerWithShield.stats,
+          currentShield:
+            playerWithShield.stats.currentShield - attackCard.value,
         },
       };
       const updatedPlayerActual = playerService.updatePlayer(
         attackCard,
-        player
+        playerWithShield
       );
 
       expect(updatedPlayerActual).toEqual(updatedPlayerExpected);
+      expect(updatedPlayerActual.stats.currentHealth).toBe(
+        updatedPlayerExpected.stats.currentHealth
+      );
+      expect(updatedPlayerActual.stats.currentShield).toBe(
+        updatedPlayerExpected.stats.currentShield
+      );
+    });
+
+    it('without shield should return player with damaged health', () => {
+      const playerWithoutShield: Character = {
+        ...defaultPlayer,
+        id: 0,
+        stats: {
+          ...defaultPlayer.stats,
+          currentShield: 0,
+        },
+      };
+      const updatedPlayerExpected: Character = {
+        ...playerWithoutShield,
+        stats: {
+          ...playerWithoutShield.stats,
+          currentHealth:
+            playerWithoutShield.stats.currentHealth - attackCard.value,
+        },
+      };
+      const updatedPlayerActual = playerService.updatePlayer(
+        attackCard,
+        playerWithoutShield
+      );
+
+      expect(updatedPlayerActual).toEqual(updatedPlayerExpected);
+      expect(updatedPlayerActual.stats.currentHealth).toBe(
+        updatedPlayerExpected.stats.currentHealth
+      );
+      expect(updatedPlayerActual.stats.currentShield).toBe(
+        updatedPlayerExpected.stats.currentShield
+      );
     });
   });
 });

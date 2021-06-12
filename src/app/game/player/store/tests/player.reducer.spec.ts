@@ -21,6 +21,8 @@ describe('playerReducer', () => {
         numberOfFrames: 4,
         animationTimeInMiliseconds: 600,
         animationIterationCount: 'Infinite',
+        spriteWidth: 16,
+        spriteHeight: 27,
       },
     ],
     statuses: [

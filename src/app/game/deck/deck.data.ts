@@ -29,7 +29,7 @@ const attackCard: GameCard = {
 const defenceCard: GameCard = {
   id: 2,
   name: 'Defence',
-  animationName: 'shield_defence',
+  animationName: 'sword_attack', // TODO: Create real animations
   cost: 2,
   type: GameCardType.SKILL,
   description: 'Receive 10 block points',
@@ -41,7 +41,7 @@ const defenceCard: GameCard = {
 const powerCard: GameCard = {
   id: 3,
   name: 'Power',
-  animationName: 'power_up',
+  animationName: 'sword_attack', // TODO: Create real animations
   cost: 2,
   type: GameCardType.POWER,
   description: 'Deal 2 times more damage',

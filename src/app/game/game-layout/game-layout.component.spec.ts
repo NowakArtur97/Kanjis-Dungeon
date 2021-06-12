@@ -4,7 +4,6 @@ import { of } from 'rxjs';
 import AppStoreState from 'src/app/store/app.state';
 
 import GamePhase from '../enums/game-phase.enum';
-import GameTurn from '../enums/game-turn.enum';
 import * as GameActions from '../store/game.actions';
 import { GameStoreState, initialState } from '../store/game.reducer';
 import { GameLayoutComponent } from './game-layout.component';
@@ -13,12 +12,6 @@ describe('GameLayoutComponent', () => {
   let component: GameLayoutComponent;
   let fixture: ComponentFixture<GameLayoutComponent>;
   let store: Store<AppStoreState>;
-
-  const stateWithBattleState: GameStoreState = {
-    level: 0,
-    turn: GameTurn.PLAYER_TURN,
-    phase: GamePhase.BATTLE,
-  };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -60,8 +53,13 @@ describe('GameLayoutComponent', () => {
 
   describe('when initialize component with game phase', () => {
     beforeEach(() => {
+      const stateWithGamePhase: GameStoreState = {
+        ...initialState,
+        phase: GamePhase.BATTLE,
+      };
+
       spyOn(store, 'dispatch');
-      spyOn(store, 'select').and.callFake(() => of(stateWithBattleState));
+      spyOn(store, 'select').and.callFake(() => of(stateWithGamePhase));
 
       fixture.detectChanges();
       component.ngOnInit();
