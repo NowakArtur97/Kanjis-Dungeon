@@ -356,6 +356,42 @@ const RADICALS: Radical[] = [
     meanings: ['bamboo'],
     type: CharacterType.RADICAL,
   },
+  {
+    id: 95,
+    characters: '云',
+    meanings: ['cloud'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    id: 96,
+    characters: '可',
+    meanings: ['lip ring'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    id: 97,
+    characters: '禾',
+    meanings: ['grain'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    id: 98,
+    characters: '斗',
+    meanings: ['ladle'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    id: 99,
+    characters: '⻌',
+    meanings: ['scooter'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    id: 100,
+    characters: '袁',
+    meanings: ['zombie'],
+    type: CharacterType.RADICAL,
+  },
   // { id: 85, characters: '', meanings: [''], type: CharacterType.RADICAL },
 ];
 export default RADICALS;

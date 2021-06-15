@@ -10,10 +10,6 @@
   cursor: pointer;
 }
 
-.character_sprite__image {
-  height: 100%;
-}
-
 .character_sprite__image--rotated {
   transform: rotateY(180deg);
 }

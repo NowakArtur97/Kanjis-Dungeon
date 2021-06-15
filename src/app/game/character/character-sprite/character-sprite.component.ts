@@ -1,4 +1,4 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import { animate, AnimationEvent, state, style, transition, trigger } from '@angular/animations';
 import {
   AfterViewChecked,
   ChangeDetectorRef,
@@ -53,6 +53,7 @@ export class CharacterSpriteComponent
   isSelectable: boolean;
 
   private wasSpriteSet = false;
+  isInActionState: boolean;
 
   @ViewChild('characterSpriteImage') private spriteImage: ElementRef;
   spriteOffset: string;
@@ -62,11 +63,17 @@ export class CharacterSpriteComponent
   animationState = 'firstFrame';
   spriteHeight: number;
   spriteWidth: number;
+  defaultXPosition: number;
+  defaultYPosition: number;
+  actionXPosition: number;
+  actionYPosition: number;
 
   private readonly FIRST_FRAME_STATE = 'firstFrame';
   private readonly LAST_FRAME_STATE = 'lastFrame';
   private readonly ANIMATION_DURATION_UNIT = 'ms';
   private readonly SPRITE_TIME_OFFSET = 100;
+  private readonly ACTION_STYLES = { position: 'fixed', zIndex: '2' };
+  private readonly DEFAULT_STYLES = { position: 'static', zIndex: '1' };
 
   constructor(
     private store: Store<AppStoreState>,
@@ -81,9 +88,14 @@ export class CharacterSpriteComponent
 
     this.playedAnimationSubscription$ = this.store
       .select('game')
-      .subscribe(({ playedAnimation }) => {
+      .subscribe(({ playedAnimation, animationPosition }) => {
         this.playedAnimation = playedAnimation;
-        if (this.character?.id === playedAnimation?.character.id) {
+        this.isInActionState =
+          this.character?.id === playedAnimation?.character.id;
+        if (this.isInActionState) {
+          this.actionXPosition = animationPosition.x;
+          this.actionYPosition = animationPosition.y;
+          this.setStylesBasedOnState(true);
           this.playActionAnimation();
         }
       });
@@ -92,6 +104,12 @@ export class CharacterSpriteComponent
   ngAfterViewChecked(): void {
     if (!this.wasSpriteSet && this.character) {
       this.wasSpriteSet = true;
+
+      const defaultPosition = (this.spriteImage
+        .nativeElement as HTMLElement).getBoundingClientRect();
+      this.defaultXPosition = defaultPosition.left;
+      this.defaultYPosition = defaultPosition.top;
+
       this.playDefaultAnimation();
     }
   }
@@ -163,27 +181,69 @@ export class CharacterSpriteComponent
     if (!this.isSelectable) {
       return;
     }
-    this.store.dispatch(
-      this.character.stats.type === CharacterType.ENEMY
-        ? EnemyActions.useCardOnEnemy({ enemy: this.character })
-        : PlayerActions.useCardOnPlayer()
-    );
+    if (this.character.stats.type === CharacterType.ENEMY) {
+      const {
+        left: x,
+        top: y,
+      } = this.spriteImage.nativeElement.getBoundingClientRect();
+
+      this.store.dispatch(
+        GameActions.setAnimationPosition({
+          animationPosition: { x, y },
+        })
+      );
+      this.store.dispatch(
+        EnemyActions.useCardOnEnemy({ enemy: this.character })
+      );
+    } else {
+      this.store.dispatch(PlayerActions.useCardOnPlayer());
+    }
   }
 
-  onEndAnimation(event): void {
-    // Loop animation
+  onEndAnimation(event: AnimationEvent): void {
+    this.loopAnimation(event);
+    this.resetActionAnimation();
+  }
+
+  private loopAnimation(event: AnimationEvent): void {
     this.animationState = this.FIRST_FRAME_STATE;
     if (event.toState === this.FIRST_FRAME_STATE) {
       setTimeout(() => (this.animationState = this.LAST_FRAME_STATE), 0);
     }
-    if (this.character.id === this.playedAnimation?.character.id) {
+  }
+
+  private resetActionAnimation(): void {
+    if (this.isInActionState) {
       this.store.dispatch(GameActions.finishCharacterAnimation());
-      setTimeout(
-        () => this.playDefaultAnimation(),
-        this.animationTimeInMiliseconds - this.SPRITE_TIME_OFFSET
-      );
+      setTimeout(() => {
+        this.setStylesBasedOnState(false);
+        this.playDefaultAnimation();
+      }, this.animationTimeInMiliseconds - this.SPRITE_TIME_OFFSET);
     }
   }
 
   isEnemy = (): boolean => this.character?.stats.type === CharacterType.ENEMY;
+
+  private setStylesBasedOnState(isInActionState: boolean): void {
+    const spriteElement = this.spriteImage?.nativeElement as HTMLElement;
+    if (spriteElement) {
+      const position = isInActionState
+        ? this.ACTION_STYLES.position
+        : this.DEFAULT_STYLES.position;
+      const top = isInActionState
+        ? this.actionYPosition
+        : this.defaultYPosition;
+      const left = isInActionState
+        ? this.actionXPosition
+        : this.defaultXPosition;
+      const zIndex = isInActionState
+        ? this.ACTION_STYLES.zIndex
+        : this.DEFAULT_STYLES.zIndex;
+
+      spriteElement.style.left = left - this.spriteWidth + 'px';
+      spriteElement.style.top = top + 'px';
+      spriteElement.style.position = position;
+      spriteElement.style.zIndex = zIndex;
+    }
+  }
 }

@@ -50,13 +50,15 @@ export default class PlayerEffects {
       ofType(PlayerActions.useCardOnPlayer, EnemiesActions.useCardOnEnemy),
       withLatestFrom(
         this.store.select((state) => state.deck.chosenCard),
-        this.store.select((state) => state.player.player)
+        this.store.select((state) => state.player.player),
+        this.store.select((state) => state.game.animationPosition)
       ),
-      map(([, chosenCard, player]) =>
+      map(([, chosenCard, player, animationPosition]) =>
         GameActions.startCharacterAnimation({
           playedAnimation: {
             character: player,
             animationName: chosenCard.animationName,
+            animationPosition,
           },
         })
       )
