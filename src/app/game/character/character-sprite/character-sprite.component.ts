@@ -92,7 +92,8 @@ export class CharacterSpriteComponent
         this.playedAnimation = playedAnimation;
         this.isInActionState =
           this.character?.id === playedAnimation?.character.id;
-        if (this.isInActionState) {
+
+        if (this.isInActionState && animationPosition) {
           this.actionXPosition = animationPosition.x;
           this.actionYPosition = animationPosition.y;
           this.setStylesBasedOnState(true);

@@ -23,6 +23,8 @@ describe('CharacterSpriteComponent', () => {
   let store: Store<AppStoreState>;
   let spriteService: SpriteService;
 
+  const playerCharacter: Character = { ...defaultPlayer, id: 0 };
+  const enemyCharacter: Character = { ...exampleEnemy1, id: 1 };
   const animationPosition: CharacterPosition = {
     x: 10,
     y: 20,
@@ -38,14 +40,11 @@ describe('CharacterSpriteComponent', () => {
   const stateWithAnimation: Partial<GameStoreState> = {
     ...gameInitialState,
     playedAnimation: {
-      character: defaultPlayer,
+      character: playerCharacter,
       animationName: attackCard.animationName,
       animationPosition,
     },
   };
-
-  const playerCharacter: Character = { ...defaultPlayer, id: 0 };
-  const enemyCharacter: Character = { ...exampleEnemy1, id: 1 };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -71,7 +70,7 @@ describe('CharacterSpriteComponent', () => {
         if (selector === 'deck') {
           return of(stateWithAttackTypeCard);
         } else if (selector === 'game') {
-          return of(stateWithAnimation);
+          return of(gameInitialState);
         }
       });
 
@@ -95,7 +94,7 @@ describe('CharacterSpriteComponent', () => {
           if (selector === 'deck') {
             return of(stateWithAttackTypeCard);
           } else if (selector === 'game') {
-            return of(stateWithAnimation);
+            return of(gameInitialState);
           }
         });
 
@@ -127,7 +126,7 @@ describe('CharacterSpriteComponent', () => {
           if (selector === 'deck') {
             return of(stateWithPowerTypeCard);
           } else if (selector === 'game') {
-            return of(stateWithAnimation);
+            return of(gameInitialState);
           }
         });
 
@@ -163,7 +162,7 @@ describe('CharacterSpriteComponent', () => {
           if (selector === 'deck') {
             return of(stateWithPowerTypeCard);
           } else if (selector === 'game') {
-            return of(stateWithAnimation);
+            return of(gameInitialState);
           }
         });
         fixture.detectChanges();
@@ -183,7 +182,7 @@ describe('CharacterSpriteComponent', () => {
           if (selector === 'deck') {
             return of(stateWithAttackTypeCard);
           } else if (selector === 'game') {
-            return of(stateWithAnimation);
+            return of(gameInitialState);
           }
         });
         fixture.detectChanges();
@@ -206,7 +205,7 @@ describe('CharacterSpriteComponent', () => {
           if (selector === 'deck') {
             return of(stateWithAttackTypeCard);
           } else if (selector === 'game') {
-            return of(stateWithAnimation);
+            return of(gameInitialState);
           }
         });
         fixture.detectChanges();
@@ -227,7 +226,7 @@ describe('CharacterSpriteComponent', () => {
           if (selector === 'deck') {
             return of(stateWithPowerTypeCard);
           } else if (selector === 'game') {
-            return of(stateWithAnimation);
+            return of(gameInitialState);
           }
         });
         fixture.detectChanges();
