@@ -126,7 +126,6 @@ export class CharacterSpriteComponent
   }
 
   private playActionAnimation(): void {
-    // TODO: CharacterSpriteComponent: Set position
     const {
       character: playedAnimationCharacter,
       animationName,
@@ -181,13 +180,13 @@ export class CharacterSpriteComponent
     if (!this.isSelectable) {
       return;
     }
+
     if (this.character.stats.type === CharacterType.ENEMY) {
       const {
         left: x,
         top: y,
       } = this.spriteImage.nativeElement.getBoundingClientRect();
 
-      // TODO: TEST
       this.store.dispatch(
         GameActions.setAnimationPosition({
           animationPosition: { x, y },

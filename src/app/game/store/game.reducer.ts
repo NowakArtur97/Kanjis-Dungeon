@@ -51,9 +51,9 @@ const _gameReducer = createReducer(
   on(GameActions.finishCharacterAnimation, (state) => ({
     ...state,
     playedAnimation: null,
+    animationPosition: null,
   })),
 
-  // TODO: TEST
   on(GameActions.setAnimationPosition, (state, { animationPosition }) => ({
     ...state,
     animationPosition,

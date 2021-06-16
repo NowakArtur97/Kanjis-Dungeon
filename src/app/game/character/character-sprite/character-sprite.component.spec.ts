@@ -178,7 +178,7 @@ describe('CharacterSpriteComponent', () => {
         );
       });
 
-      it('is Player and chosen card doesnt affect Player should not dispatch useCardOnPlayer action', () => {
+      it('is Player and chosen card doesnt affect Player should not dispatch setAnimationPosition or useCardOnPlayer action', () => {
         spyOn(store, 'select').and.callFake((selector) => {
           if (selector === 'deck') {
             return of(stateWithAttackTypeCard);
@@ -194,11 +194,14 @@ describe('CharacterSpriteComponent', () => {
         component.onChooseCharacter();
 
         expect(store.dispatch).not.toHaveBeenCalledWith(
+          GameActions.setAnimationPosition({ animationPosition })
+        );
+        expect(store.dispatch).not.toHaveBeenCalledWith(
           PlayerActions.useCardOnPlayer()
         );
       });
 
-      it('is Enemy should dispatch useCardOnEnemy action', () => {
+      it('is Enemy should dispatch setAnimationPosition and useCardOnEnemy actions', () => {
         spyOn(store, 'select').and.callFake((selector) => {
           if (selector === 'deck') {
             return of(stateWithAttackTypeCard);
@@ -213,12 +216,13 @@ describe('CharacterSpriteComponent', () => {
         component.ngAfterViewChecked();
         component.onChooseCharacter();
 
+        expect(store.dispatch).toHaveBeenCalled();
         expect(store.dispatch).toHaveBeenCalledWith(
           EnemyActions.useCardOnEnemy({ enemy: component.character })
         );
       });
 
-      it('is Enemy and chosen card doesnt affect Enemy should not dispatch useCardOnEnemy action', () => {
+      it('is Enemy and chosen card doesnt affect Enemy should not dispatch setAnimationPosition or useCardOnEnemy action', () => {
         spyOn(store, 'select').and.callFake((selector) => {
           if (selector === 'deck') {
             return of(stateWithPowerTypeCard);
@@ -233,6 +237,9 @@ describe('CharacterSpriteComponent', () => {
         component.ngAfterViewChecked();
         component.onChooseCharacter();
 
+        expect(store.dispatch).not.toHaveBeenCalledWith(
+          GameActions.setAnimationPosition({ animationPosition })
+        );
         expect(store.dispatch).not.toHaveBeenCalledWith(
           EnemyActions.useCardOnEnemy({ enemy: component.character })
         );

@@ -20,9 +20,14 @@ describe('gameReducer', () => {
   const stateWithoutAnimation: GameStoreState = {
     ...initialState,
   };
-  const stateWithPlayedAnimation: GameStoreState = {
+  const stateWithAnimation: GameStoreState = {
     ...initialState,
     playedAnimation,
+  };
+  const stateWithAnimationAndPosition: GameStoreState = {
+    ...initialState,
+    playedAnimation,
+    animationPosition,
   };
 
   describe('GameActions.chooseLevel', () => {
@@ -122,7 +127,7 @@ describe('gameReducer', () => {
     it('should set played animation', () => {
       const action = GameActions.startCharacterAnimation({ playedAnimation });
       const actualState = gameReducer(stateWithoutAnimation, action);
-      const expectedState = { ...stateWithPlayedAnimation };
+      const expectedState = { ...stateWithAnimation };
 
       expect(actualState).toEqual(expectedState);
       expect(actualState.playedAnimation).toEqual(playedAnimation);
@@ -130,13 +135,25 @@ describe('gameReducer', () => {
   });
 
   describe('GameActions.finishCharacterAnimation', () => {
-    it('should set played animation as null', () => {
+    it('should set played animation with position as nulls', () => {
       const action = GameActions.finishCharacterAnimation();
-      const actualState = gameReducer(stateWithPlayedAnimation, action);
+      const actualState = gameReducer(stateWithAnimationAndPosition, action);
       const expectedState = { ...stateWithoutAnimation };
 
       expect(actualState).toEqual(expectedState);
       expect(actualState.playedAnimation).toBeNull();
+      expect(actualState.animationPosition).toBeNull();
+    });
+  });
+
+  describe('GameActions.setAnimationPosition', () => {
+    it('should set animation position', () => {
+      const action = GameActions.setAnimationPosition({ animationPosition });
+      const actualState = gameReducer(stateWithAnimation, action);
+      const expectedState = { ...stateWithAnimationAndPosition };
+
+      expect(actualState).toEqual(expectedState);
+      expect(actualState.animationPosition).toEqual(animationPosition);
     });
   });
 });
