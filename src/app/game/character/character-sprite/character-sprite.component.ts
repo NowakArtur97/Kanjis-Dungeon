@@ -187,6 +187,7 @@ export class CharacterSpriteComponent
         top: y,
       } = this.spriteImage.nativeElement.getBoundingClientRect();
 
+      // TODO: TEST
       this.store.dispatch(
         GameActions.setAnimationPosition({
           animationPosition: { x, y },
@@ -200,7 +201,7 @@ export class CharacterSpriteComponent
     }
   }
 
-  onEndAnimation(event: AnimationEvent): void {
+  onEndAnimation(event): void {
     this.loopAnimation(event);
     this.resetActionAnimation();
   }

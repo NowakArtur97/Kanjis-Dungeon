@@ -974,6 +974,22 @@ const KANJI: Kanji[] = [
     kunyomi: ['なつ'],
     type: CharacterType.KANJI,
   },
+  {
+    id: 123,
+    characters: '家',
+    meanings: ['house', 'home'],
+    onyomi: ['か', 'け'],
+    kunyomi: ['いえ', 'や', 'うち'],
+    type: CharacterType.KANJI,
+  },
+  {
+    id: 124,
+    characters: '歌',
+    meanings: ['song', 'sing'],
+    onyomi: ['か'],
+    kunyomi: ['うた'],
+    type: CharacterType.KANJI,
+  },
   // {
   //   id: 110,
   //   characters: '',

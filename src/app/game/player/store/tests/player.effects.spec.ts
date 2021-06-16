@@ -4,10 +4,12 @@ import { Store, StoreModule } from '@ngrx/store';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { ReplaySubject } from 'rxjs';
 import MathUtil from 'src/app/common/utils/math.util';
+import CharacterPosition from 'src/app/game/character/models/character-position.model';
 import Character from 'src/app/game/character/models/character.model';
 import CharacterService from 'src/app/game/character/services/character.service';
 import { attackCard } from 'src/app/game/deck/deck.data';
-import { initialState } from 'src/app/game/deck/store/deck.reducer';
+import { initialState as deckInitialState } from 'src/app/game/deck/store/deck.reducer';
+import { initialState as gameInitialState } from 'src/app/game/store/game.reducer';
 import AppStoreState from 'src/app/store/app.state';
 
 import * as EnemyActions from '../../../enemy/store/enemy.actions';
@@ -32,13 +34,21 @@ describe('PlayerEffects', () => {
       currentShield: 10,
     },
   };
+  const animationPosition: CharacterPosition = {
+    x: 10,
+    y: 20,
+  };
   const stateWithPlayerAndChosenCard: Partial<AppStoreState> = {
     player: {
       player: defaultPlayer,
     },
     deck: {
-      ...initialState,
+      ...deckInitialState,
       chosenCard: attackCard,
+    },
+    game: {
+      ...gameInitialState,
+      animationPosition,
     },
   };
 
@@ -135,6 +145,7 @@ describe('PlayerEffects', () => {
               playedAnimation: {
                 character: defaultPlayer,
                 animationName: attackCard.animationName,
+                animationPosition,
               },
             })
           );
@@ -158,6 +169,7 @@ describe('PlayerEffects', () => {
               playedAnimation: {
                 character: defaultPlayer,
                 animationName: attackCard.animationName,
+                animationPosition,
               },
             })
           );

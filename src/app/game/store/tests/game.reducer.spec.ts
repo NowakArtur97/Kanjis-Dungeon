@@ -1,4 +1,5 @@
 import CharacterPlayedAnimation from '../../character/models/character-played-animation.model';
+import CharacterPosition from '../../character/models/character-position.model';
 import { attackCard } from '../../deck/deck.data';
 import GamePhase from '../../enums/game-phase.enum';
 import GameTurn from '../../enums/game-turn.enum';
@@ -7,9 +8,14 @@ import * as GameActions from '../game.actions';
 import { gameReducer, GameStoreState, initialState } from '../game.reducer';
 
 describe('gameReducer', () => {
+  const animationPosition: CharacterPosition = {
+    x: 10,
+    y: 20,
+  };
   const playedAnimation: CharacterPlayedAnimation = {
     character: defaultPlayer,
     animationName: attackCard.animationName,
+    animationPosition,
   };
   const stateWithoutAnimation: GameStoreState = {
     ...initialState,

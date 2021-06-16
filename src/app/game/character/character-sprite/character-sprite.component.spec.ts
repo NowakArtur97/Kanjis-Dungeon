@@ -12,6 +12,7 @@ import defaultPlayer from '../../player/player.data';
 import * as PlayerActions from '../../player/store/player.actions';
 import * as GameActions from '../../store/game.actions';
 import { GameStoreState, initialState as gameInitialState } from '../../store/game.reducer';
+import CharacterPosition from '../models/character-position.model';
 import Character from '../models/character.model';
 import SpriteService from '../services/sprite.service';
 import { CharacterSpriteComponent } from './character-sprite.component';
@@ -22,6 +23,10 @@ describe('CharacterSpriteComponent', () => {
   let store: Store<AppStoreState>;
   let spriteService: SpriteService;
 
+  const animationPosition: CharacterPosition = {
+    x: 10,
+    y: 20,
+  };
   const stateWithAttackTypeCard: Partial<DeckStoreState> = {
     ...deckInitialState,
     chosenCard: attackCard,
@@ -35,6 +40,7 @@ describe('CharacterSpriteComponent', () => {
     playedAnimation: {
       character: defaultPlayer,
       animationName: attackCard.animationName,
+      animationPosition,
     },
   };
 
