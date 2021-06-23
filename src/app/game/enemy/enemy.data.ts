@@ -53,7 +53,7 @@ const exampleEnemy1: Character = {
     },
   ],
   currentAction: swordAction,
-  allActions: [swordAction, shieldAction],
+  allActions: [swordAction],
 };
 
 const exampleEnemy2: Character = {
@@ -138,8 +138,8 @@ const exampleEnemy3: Character = {
       remainingNumberOfActiveRounds: 3,
     },
   ],
-  currentAction: shieldAction,
-  allActions: [swordAction, shieldAction],
+  currentAction: swordAction,
+  allActions: [swordAction],
 };
 
 export { exampleEnemy1, exampleEnemy2, exampleEnemy3 };

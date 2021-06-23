@@ -2,6 +2,12 @@ import { createAction, props } from '@ngrx/store';
 
 import Character from '../../character/models/character.model';
 
+// TODO: TEST
+export const setEnemy = createAction(
+  '[Enemy] Set Enemy',
+  props<{ enemy: Character }>()
+);
+
 export const setEnemies = createAction(
   '[Enemy] Set Enemies',
   props<{ enemies: Character[] }>()

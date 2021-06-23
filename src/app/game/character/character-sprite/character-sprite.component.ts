@@ -10,6 +10,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { Store } from '@ngrx/store';
+import cloneDeep from 'lodash/cloneDeep';
 import { Subscription } from 'rxjs';
 import AppStoreState from 'src/app/store/app.state';
 
@@ -93,9 +94,16 @@ export class CharacterSpriteComponent
         this.isInActionState =
           this.character?.id === playedAnimation?.character.id;
 
-        if (this.isInActionState && animationPosition) {
-          this.actionXPosition = animationPosition.x;
-          this.actionYPosition = animationPosition.y;
+        if (this.isInActionState) {
+          //} && animationPosition) {
+          this.actionXPosition =
+            animationPosition?.x || playedAnimation?.animationPosition.x;
+          this.actionYPosition =
+            animationPosition?.y || playedAnimation?.animationPosition.y;
+          if (this.isEnemy()) {
+            console.log(this.actionXPosition);
+            console.log(this.actionYPosition);
+          }
           this.setStylesBasedOnState(true);
           this.playActionAnimation();
         }
@@ -110,6 +118,17 @@ export class CharacterSpriteComponent
         .nativeElement as HTMLElement).getBoundingClientRect();
       this.defaultXPosition = defaultPosition.left;
       this.defaultYPosition = defaultPosition.top;
+
+      // TODO: TEST
+      // TODO: CharacterSpriteComponent: Set every character position for Action Animations on start of the level
+      if (!this.isEnemy()) {
+        const player: Character = cloneDeep(this.character);
+        player.position = {
+          x: this.defaultXPosition,
+          y: this.defaultYPosition,
+        };
+        this.store.dispatch(PlayerActions.setPlayer({ player }));
+      }
 
       this.playDefaultAnimation();
     }
@@ -215,7 +234,10 @@ export class CharacterSpriteComponent
 
   private resetActionAnimation(): void {
     if (this.isInActionState) {
-      this.store.dispatch(GameActions.finishCharacterAnimation());
+      // TODO: TEST
+      this.store.dispatch(
+        GameActions.finishCharacterAnimation({ character: this.character })
+      );
       setTimeout(() => {
         this.setStylesBasedOnState(false);
         this.playDefaultAnimation();

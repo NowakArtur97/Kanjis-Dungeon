@@ -5,6 +5,7 @@ import CharacterAnimation from '../models/character-animation.model';
 
 @Injectable({ providedIn: 'root' })
 export default class SpriteService {
+  private readonly SHIELD_SPRITE_NAME = 'defence';
   private readonly SPRITESHEET_VARIABLES = {
     sizeMultiplier: '--sprite-size-multiplier',
   };
@@ -44,12 +45,13 @@ export default class SpriteService {
     );
   }
 
+  // TODO: TEST
   getShieldSprite(): string {
     return this.getSprite(
       this.SPRITESHEET_CONSTANTS.actionsSrc +
-        'shield' +
+        this.SHIELD_SPRITE_NAME +
         this.SPRITESHEET_CONSTANTS.imagePathSeparator,
-      'shield',
+      this.SHIELD_SPRITE_NAME,
       this.SMALL_SPRITESHEET_VARIABLES.sizeMultiplier
     );
   }

@@ -3,7 +3,7 @@ import CharacterAction from '../character/models/character-action.model';
 import Character from '../character/models/character.model';
 
 const swordAction: CharacterAction = {
-  action: 'sword',
+  action: 'melee_attack',
   type: CharacterActionType.ATTACK,
   value: 5,
   apply(enemy: Character, player: Character): void {
@@ -23,7 +23,7 @@ const swordAction: CharacterAction = {
   },
 };
 const shieldAction: CharacterAction = {
-  action: 'shield',
+  action: 'defence',
   type: CharacterActionType.BUFF,
   value: 5,
   apply(character: Character, player: Character): void {

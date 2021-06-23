@@ -2,13 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
-import {
-  filter,
-  map,
-  mergeMap,
-  switchMap,
-  withLatestFrom,
-} from 'rxjs/operators';
+import { filter, map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
 import AppStoreState from 'src/app/store/app.state';
 
 import * as QuizActions from '../../../quiz/store/quiz.actions';

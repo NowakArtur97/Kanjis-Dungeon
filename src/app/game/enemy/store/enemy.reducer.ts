@@ -1,4 +1,5 @@
 import { Action, createReducer, on } from '@ngrx/store';
+import cloneDeep from 'lodash/cloneDeep';
 
 import Character from '../../character/models/character.model';
 import { allEnemies } from '../enemy.data';
@@ -16,6 +17,14 @@ const initialState: EnemyStoreState = {
 
 const _enemyReducer = createReducer(
   initialState,
+
+  // TODO: TEST
+  on(EnemyActions.setEnemy, (state, { enemy }) => ({
+    ...state,
+    enemies: state.enemies
+      .map((e) => (e.id === enemy.id ? cloneDeep(enemy) : e))
+      .filter((e) => e.stats.currentHealth > 0),
+  })),
 
   on(EnemyActions.setEnemies, (state, { enemies }) => ({
     ...state,

@@ -11,12 +11,13 @@ export interface GameStoreState {
   turn: GameTurn;
   phase: GamePhase;
   playedAnimation: CharacterPlayedAnimation;
+  // TODO: GameStoreState: Use playedAnimation.character.position instead of this property
   animationPosition: CharacterPosition;
 }
 const initialState: GameStoreState = {
   level: 0,
   turn: GameTurn.PLAYER_TURN,
-  phase: GamePhase.QUIZ,
+  phase: GamePhase.BATTLE,
   playedAnimation: null,
   animationPosition: null,
 };

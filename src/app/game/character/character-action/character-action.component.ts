@@ -17,8 +17,9 @@ export class CharacterActionComponent implements OnInit {
   constructor(private spriteService: SpriteService) {}
 
   ngOnInit(): void {
-    if (this.character) {
-      this.characterAction = this.character.currentAction;
+    const currentAction = this.character?.currentAction;
+    if (currentAction) {
+      this.characterAction = currentAction;
       this.actionImage = this.spriteService.getActionSprite(
         this.characterAction.action
       );

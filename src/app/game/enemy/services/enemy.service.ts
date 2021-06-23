@@ -4,7 +4,7 @@ import MathUtil from 'src/app/common/utils/math.util';
 
 import Character from '../../character/models/character.model';
 import GameCard from '../../deck/models/game-card.model';
-import { exampleEnemy1, exampleEnemy2, exampleEnemy3 } from '../enemy.data';
+import { exampleEnemy1 } from '../enemy.data';
 
 @Injectable({ providedIn: 'root' })
 export default class EnemyService {
@@ -14,8 +14,8 @@ export default class EnemyService {
   chooseEnemies(level: number, allEnemies: Character[]): Character[] {
     const updatedEnemies = [
       exampleEnemy1,
-      exampleEnemy2,
-      exampleEnemy3,
+      // exampleEnemy2,
+      // exampleEnemy3,
     ].map((enemytoCopy) => cloneDeep(enemytoCopy));
     const enemies = updatedEnemies.map((enemy) => {
       enemy.id = this.FIRST_ID++;
@@ -51,18 +51,26 @@ export default class EnemyService {
     return updatedEnemies;
   }
 
-  performActions(
-    enemies: Character[],
+  // TODO: TEST
+  performAction(
+    enemy: Character,
     player: Character
-  ): { enemies: Character[]; player: Character } {
-    const updatedPlayer = JSON.parse(JSON.stringify(player));
-    const updatedEnemies = enemies
-      .map((enemytoCopy) => cloneDeep(enemytoCopy))
-      .map((enemy: Character) => {
-        enemy.currentAction.apply(enemy, updatedPlayer);
-        return enemy;
-      });
+  ): { enemy: Character; player: Character } {
+    const updatedPlayer: Character = JSON.parse(JSON.stringify(player));
+    const updatedEnemy: Character = cloneDeep(enemy);
+    updatedEnemy.currentAction.apply(updatedEnemy, updatedPlayer);
+    updatedEnemy.currentAction = null;
 
-    return { enemies: updatedEnemies, player: updatedPlayer };
+    return { enemy: updatedEnemy, player: updatedPlayer };
+  }
+
+  // TODO: TEST
+  removeCurrentAction(character: Character, enemies: Character[]): Character {
+    const enemyToRemoveAction = cloneDeep(
+      enemies.find((enemy) => enemy.id === character.id)
+    );
+    enemyToRemoveAction.currentAction = null;
+
+    return enemyToRemoveAction;
   }
 }
