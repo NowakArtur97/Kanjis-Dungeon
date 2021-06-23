@@ -93,17 +93,15 @@ export class CharacterSpriteComponent
         this.playedAnimation = playedAnimation;
         this.isInActionState =
           this.character?.id === playedAnimation?.character.id;
-
-        if (this.isInActionState) {
-          //} && animationPosition) {
+        if (
+          this.isInActionState &&
+          (animationPosition || playedAnimation.animationPosition)
+        ) {
           this.actionXPosition =
-            animationPosition?.x || playedAnimation?.animationPosition.x;
+            animationPosition?.x || playedAnimation.animationPosition.x;
           this.actionYPosition =
-            animationPosition?.y || playedAnimation?.animationPosition.y;
-          if (this.isEnemy()) {
-            console.log(this.actionXPosition);
-            console.log(this.actionYPosition);
-          }
+            animationPosition?.y || playedAnimation.animationPosition.y;
+
           this.setStylesBasedOnState(true);
           this.playActionAnimation();
         }
@@ -222,7 +220,9 @@ export class CharacterSpriteComponent
 
   onEndAnimation(event): void {
     this.loopAnimation(event);
-    this.resetActionAnimation();
+    if (this.isInActionState) {
+      this.resetActionAnimation();
+    }
   }
 
   private loopAnimation(event: AnimationEvent): void {
@@ -233,16 +233,16 @@ export class CharacterSpriteComponent
   }
 
   private resetActionAnimation(): void {
-    if (this.isInActionState) {
-      // TODO: TEST
+    // TODO: TEST
+    setTimeout(() => {
+      this.setStylesBasedOnState(false);
+      this.playDefaultAnimation();
       this.store.dispatch(
-        GameActions.finishCharacterAnimation({ character: this.character })
+        GameActions.finishCharacterAnimation({
+          character: this.character,
+        })
       );
-      setTimeout(() => {
-        this.setStylesBasedOnState(false);
-        this.playDefaultAnimation();
-      }, this.animationTimeInMiliseconds - this.SPRITE_TIME_OFFSET);
-    }
+    }, this.animationTimeInMiliseconds - this.SPRITE_TIME_OFFSET);
   }
 
   isEnemy = (): boolean => this.character?.stats.type === CharacterType.ENEMY;
@@ -263,7 +263,9 @@ export class CharacterSpriteComponent
         ? this.ACTION_STYLES.zIndex
         : this.DEFAULT_STYLES.zIndex;
 
-      spriteElement.style.left = left - this.spriteWidth + 'px';
+      spriteElement.style.left =
+        (this.isEnemy() ? left + this.spriteWidth : left - this.spriteWidth) +
+        'px';
       spriteElement.style.top = top + 'px';
       spriteElement.style.position = position;
       spriteElement.style.zIndex = zIndex;

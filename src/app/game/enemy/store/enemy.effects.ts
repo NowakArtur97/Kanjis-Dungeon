@@ -7,6 +7,7 @@ import AppStoreState from 'src/app/store/app.state';
 
 import CharacterType from '../../character/enums/character-type.enum';
 import CharacterService from '../../character/services/character.service';
+import GameTurn from '../../enums/game-turn.enum';
 import * as GameActions from '../../store/game.actions';
 import EnemyService from '../services/enemy.service';
 import * as EnemyActions from './enemy.actions';
@@ -100,27 +101,29 @@ export default class EnemyEffects {
       filter((action) => action.character.stats.type === CharacterType.ENEMY),
       withLatestFrom(
         this.store.select((state) => state.enemy.enemies),
-        this.store.select((state) => state.player.player)
+        this.store.select((state) => state.player.player),
+        // TODO: Fix issue with multiple finishCharacterAnimation dispatched on Enemy Action
+        this.store.select((state) => state.game.turn)
       ),
-      mergeMap(([{ character }, enemies, player]) => {
+      mergeMap(([{ character }, enemies, player, turn]) => {
         const enemyForAction = enemies.find(
           (enemy) => enemy.currentAction !== null && enemy.id !== character.id
         );
-
-        console.log('AAAAAAAAAAAAAAAAAAAAA');
+        // console.log('AAAAAAAAAAAAAAAAAAAAA');
         console.log(character.name);
+        const enemyWhichPerfomedAction = this.enemyService.removeCurrentAction(
+          character,
+          enemies
+        );
         if (enemyForAction) {
           const playedAnimation = {
             character: enemyForAction,
             animationName: enemyForAction.currentAction.action,
             animationPosition: player.position,
           };
-          const enemyWhichPerfomedAction = this.enemyService.removeCurrentAction(
-            character,
-            enemies
-          );
-          console.log('BBBBBBBBBBBBBB');
-          console.log(playedAnimation);
+
+          // console.log('BBBBBBBBBBBBBB');
+          // console.log(playedAnimation);
           return [
             EnemyActions.setEnemy({
               enemy: enemyWhichPerfomedAction,
@@ -129,11 +132,18 @@ export default class EnemyEffects {
               playedAnimation,
             }),
           ];
-        } else {
+        } else if (turn !== GameTurn.PLAYER_TURN) {
           console.log('ZZZZZZZZZZZ');
-          return [EnemyActions.endEnemyTurn()];
+          return [
+            EnemyActions.setEnemy({
+              enemy: enemyWhichPerfomedAction,
+            }),
+            EnemyActions.endEnemyTurn(),
+          ];
+        } else {
+          return [];
         }
-      })
+      }),
       //   withLatestFrom(this.store.select((state) => state.player.player)),
       //   switchMap(([action, player]) => {
       //     if (action.type === GameActions.startCharacterAnimation.type) {
@@ -151,6 +161,7 @@ export default class EnemyEffects {
       //     EnemyActions.setEnemy({ enemy }),
       //     PlayerActions.setPlayer({ player }),
       //   ])
+      filter((action) => !!action)
     )
   );
 

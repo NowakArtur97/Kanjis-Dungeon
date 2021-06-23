@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
-import { map, switchMap, withLatestFrom } from 'rxjs/operators';
+import { filter, map, switchMap, withLatestFrom } from 'rxjs/operators';
 import AppStoreState from 'src/app/store/app.state';
 
+import CharacterType from '../../character/enums/character-type.enum';
 import CharacterService from '../../character/services/character.service';
 import * as EnemiesActions from '../../enemy/store/enemy.actions';
 import * as GameActions from '../../store/game.actions';
@@ -62,6 +63,26 @@ export default class PlayerEffects {
           },
         })
       )
+    )
+  );
+
+  // TODO: TEST | Move tests from Deck Effects tests
+  endPlayerTurn$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(GameActions.finishCharacterAnimation),
+      filter((action) => action.character.stats.type === CharacterType.PLAYER),
+      withLatestFrom(this.store.select((state) => state.deck)),
+      map(([, { remainingEnergy, hand }]) => {
+        // TODO: End turn clicking on button/Potions for regenerating energy
+        const hasEnergyToUseAnyCard = hand?.every(
+          (card) => card.cost > remainingEnergy
+        );
+        if (remainingEnergy === 0 || hasEnergyToUseAnyCard) {
+          console.log('END');
+          return GameActions.changeTurn();
+        }
+      }),
+      filter((action) => !!action)
     )
   );
 }

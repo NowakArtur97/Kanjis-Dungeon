@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
-import { filter, map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
+import { map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
 import AppStoreState from 'src/app/store/app.state';
 
 import * as QuizActions from '../../../quiz/store/quiz.actions';
@@ -31,11 +31,8 @@ export default class DeckEffects {
   startTurn$ = createEffect(() =>
     this.actions$.pipe(
       ofType(PlayerActions.startPlayerTurn),
-      withLatestFrom(
-        this.store.select((state) => state.deck.allCards),
-        this.store.select((state) => state.deck.numberOfCards)
-      ),
-      switchMap(([, allCards, numberOfCards]) =>
+      withLatestFrom(this.store.select((state) => state.deck)),
+      switchMap(([, { allCards, numberOfCards }]) =>
         of(this.deckService.getHand(allCards, numberOfCards))
       ),
       mergeMap((hand) => [
@@ -53,25 +50,25 @@ export default class DeckEffects {
     )
   );
 
-  endPlayerTurn$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(DeckActions.useCard),
-      withLatestFrom(
-        this.store.select((state) => state.deck.remainingEnergy),
-        this.store.select((state) => state.deck.hand)
-      ),
-      map(([, remainingEnergy, hand]) => {
-        // TODO: End turn clicking on button/Potions for regenerating energy
-        const hasEnergyToUserAnyCard = hand?.every(
-          (card) => card.cost > remainingEnergy
-        );
-        if (remainingEnergy === 0 || hasEnergyToUserAnyCard) {
-          return GameActions.changeTurn();
-        }
-      }),
-      filter((action) => !!action)
-    )
-  );
+  // endPlayerTurn$ = createEffect(() =>
+  //   this.actions$.pipe(
+  //     ofType(DeckActions.useCard),
+  //     withLatestFrom(
+  //       this.store.select((state) => state.deck),
+  //       this.store.select((state) => state.)
+  //     ),
+  //     map(([, {remainingEnergy, hand}]) => {
+  //       // TODO: End turn clicking on button/Potions for regenerating energy
+  //       const hasEnergyToUseAnyCard = hand?.every(
+  //         (card) => card.cost > remainingEnergy
+  //       );
+  //       if (remainingEnergy === 0 || hasEnergyToUseAnyCard) {
+  //         return GameActions.changeTurn();
+  //       }
+  //     }),
+  //     filter((action) => !!action)
+  //   )
+  // );
 
   increaseEnergyOnCorrectAnswer$ = createEffect(() =>
     this.actions$.pipe(
