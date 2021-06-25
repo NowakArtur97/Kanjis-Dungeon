@@ -7,7 +7,6 @@ import AppStoreState from 'src/app/store/app.state';
 
 import CharacterType from '../../character/enums/character-type.enum';
 import CharacterService from '../../character/services/character.service';
-import GameTurn from '../../enums/game-turn.enum';
 import * as GameActions from '../../store/game.actions';
 import EnemyService from '../services/enemy.service';
 import * as EnemyActions from './enemy.actions';
@@ -101,15 +100,12 @@ export default class EnemyEffects {
       filter((action) => action.character.stats.type === CharacterType.ENEMY),
       withLatestFrom(
         this.store.select((state) => state.enemy.enemies),
-        this.store.select((state) => state.player.player),
-        // TODO: Fix issue with multiple finishCharacterAnimation dispatched on Enemy Action
-        this.store.select((state) => state.game.turn)
+        this.store.select((state) => state.player.player)
       ),
-      mergeMap(([{ character }, enemies, player, turn]) => {
+      mergeMap(([{ character }, enemies, player]) => {
         const enemyForAction = enemies.find(
           (enemy) => enemy.currentAction !== null && enemy.id !== character.id
         );
-        // console.log('AAAAAAAAAAAAAAAAAAAAA');
         console.log(character.name);
         const enemyWhichPerfomedAction = this.enemyService.removeCurrentAction(
           character,
@@ -121,9 +117,6 @@ export default class EnemyEffects {
             animationName: enemyForAction.currentAction.action,
             animationPosition: player.position,
           };
-
-          // console.log('BBBBBBBBBBBBBB');
-          // console.log(playedAnimation);
           return [
             EnemyActions.setEnemy({
               enemy: enemyWhichPerfomedAction,
@@ -132,16 +125,14 @@ export default class EnemyEffects {
               playedAnimation,
             }),
           ];
-        } else if (turn !== GameTurn.PLAYER_TURN) {
-          console.log('ZZZZZZZZZZZ');
+        } else {
+          console.log('setEnemy endEnemyTurn');
           return [
             EnemyActions.setEnemy({
               enemy: enemyWhichPerfomedAction,
             }),
             EnemyActions.endEnemyTurn(),
           ];
-        } else {
-          return [];
         }
       }),
       //   withLatestFrom(this.store.select((state) => state.player.player)),

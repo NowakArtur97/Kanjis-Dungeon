@@ -4,7 +4,7 @@ import MathUtil from 'src/app/common/utils/math.util';
 
 import Character from '../../character/models/character.model';
 import GameCard from '../../deck/models/game-card.model';
-import { exampleEnemy1 } from '../enemy.data';
+import { exampleEnemy2 } from '../enemy.data';
 
 @Injectable({ providedIn: 'root' })
 export default class EnemyService {
@@ -13,8 +13,8 @@ export default class EnemyService {
   // TODO: EnemyService: Get random enemies
   chooseEnemies(level: number, allEnemies: Character[]): Character[] {
     const updatedEnemies = [
-      exampleEnemy1,
-      // exampleEnemy2,
+      // exampleEnemy1,
+      exampleEnemy2,
       // exampleEnemy3,
     ].map((enemytoCopy) => cloneDeep(enemytoCopy));
     const enemies = updatedEnemies.map((enemy) => {

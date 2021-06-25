@@ -5,4 +5,6 @@ export default interface CharacterAnimation {
   readonly animationIterationCount: string;
   readonly spriteWidth: number;
   readonly spriteHeight: number;
+  readonly spriteOffsetX?: number;
+  readonly spriteOffsetY?: number;
 }

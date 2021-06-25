@@ -6,9 +6,7 @@ import CharacterAnimation from '../models/character-animation.model';
 @Injectable({ providedIn: 'root' })
 export default class SpriteService {
   private readonly SHIELD_SPRITE_NAME = 'defence';
-  private readonly SPRITESHEET_VARIABLES = {
-    sizeMultiplier: '--sprite-size-multiplier',
-  };
+  private readonly SPRITE_SIZE_MULTIPLIER_VARIABLE = '--sprite-size-multiplier';
   private readonly SPRITESHEET_CONSTANTS = {
     charactersSrc: '../../../../assets/characters/',
     statusesSrc: '../../../../assets/statuses/',
@@ -33,7 +31,7 @@ export default class SpriteService {
         spriteFolder +
         this.SPRITESHEET_CONSTANTS.imagePathSeparator,
       spriteName,
-      this.SPRITESHEET_VARIABLES.sizeMultiplier
+      this.SPRITE_SIZE_MULTIPLIER_VARIABLE
     );
   }
 
@@ -84,7 +82,7 @@ export default class SpriteService {
     animationOptions: CharacterAnimation
   ): { width: number; height: number } {
     const sizeMultiplier = +CssUtil.getCSSVariable(
-      this.SPRITESHEET_VARIABLES.sizeMultiplier
+      this.SPRITE_SIZE_MULTIPLIER_VARIABLE
     );
     return {
       width: animationOptions.spriteWidth * sizeMultiplier,
@@ -94,7 +92,7 @@ export default class SpriteService {
 
   getAnimationSpriteOffset(animationOptions: CharacterAnimation): number {
     const sizeMultiplier = +CssUtil.getCSSVariable(
-      this.SPRITESHEET_VARIABLES.sizeMultiplier
+      this.SPRITE_SIZE_MULTIPLIER_VARIABLE
     );
     return (
       animationOptions.numberOfFrames *

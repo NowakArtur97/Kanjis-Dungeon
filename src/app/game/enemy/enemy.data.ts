@@ -1,6 +1,6 @@
 import CharacterType from '../character/enums/character-type.enum';
 import Character from '../character/models/character.model';
-import { shieldAction, swordAction } from './enemy-action.data';
+import { swordAction } from './enemy-action.data';
 
 const exampleEnemy1: Character = {
   name: 'goblin-archer',
@@ -28,6 +28,8 @@ const exampleEnemy1: Character = {
       animationIterationCount: '1',
       spriteWidth: 23,
       spriteHeight: 18,
+      spriteOffsetX: 15,
+      spriteOffsetY: -40,
     },
   ],
   statuses: [
@@ -78,10 +80,12 @@ const exampleEnemy2: Character = {
     {
       spriteSheet: 'melee_attack',
       numberOfFrames: 6,
-      animationTimeInMiliseconds: 1700,
+      animationTimeInMiliseconds: 600,
       animationIterationCount: '1',
       spriteWidth: 45,
       spriteHeight: 45,
+      spriteOffsetX: 32,
+      spriteOffsetY: -14,
     },
   ],
   statuses: [
@@ -111,7 +115,7 @@ const exampleEnemy2: Character = {
     },
   ],
   currentAction: swordAction,
-  allActions: [swordAction, shieldAction],
+  allActions: [swordAction],
 };
 const exampleEnemy3: Character = {
   name: 'goblin-archer',

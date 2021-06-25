@@ -12,6 +12,7 @@ import {
 import { Store } from '@ngrx/store';
 import cloneDeep from 'lodash/cloneDeep';
 import { Subscription } from 'rxjs';
+import CssUtil from 'src/app/common/utils/css.util';
 import AppStoreState from 'src/app/store/app.state';
 
 import GameCardType from '../../deck/enums/game-card-type.enum';
@@ -47,6 +48,14 @@ import SpriteService from '../services/sprite.service';
 })
 export class CharacterSpriteComponent
   implements OnInit, AfterViewChecked, OnDestroy {
+  private readonly FIRST_FRAME_STATE = 'firstFrame';
+  private readonly LAST_FRAME_STATE = 'lastFrame';
+  private readonly ANIMATION_DURATION_UNIT = 'ms';
+  private readonly SPRITE_TIME_OFFSET = 100;
+  private readonly ACTION_STYLES = { position: 'fixed', zIndex: '2' };
+  private readonly DEFAULT_STYLES = { position: 'static', zIndex: '1' };
+  private readonly SPRITE_SIZE_MULTIPLIER_VARIABLE = '--sprite-size-multiplier';
+
   @Input() character: Character;
   private playedAnimation: CharacterPlayedAnimation;
   private chosenCardSubscription$: Subscription;
@@ -54,7 +63,8 @@ export class CharacterSpriteComponent
   isSelectable: boolean;
 
   private wasSpriteSet = false;
-  isInActionState: boolean;
+  private isInActionState: boolean;
+  private isPlayingActionAnimation = false;
 
   @ViewChild('characterSpriteImage') private spriteImage: ElementRef;
   spriteOffset: string;
@@ -64,18 +74,12 @@ export class CharacterSpriteComponent
   animationState = 'firstFrame';
   spriteHeight: number;
   spriteWidth: number;
+  private actionSpriteOffsetX: number;
+  private actionSpriteOffsetY: number;
   defaultXPosition: number;
   defaultYPosition: number;
   actionXPosition: number;
   actionYPosition: number;
-  private isPlayingActionAnimation = false;
-
-  private readonly FIRST_FRAME_STATE = 'firstFrame';
-  private readonly LAST_FRAME_STATE = 'lastFrame';
-  private readonly ANIMATION_DURATION_UNIT = 'ms';
-  private readonly SPRITE_TIME_OFFSET = 100;
-  private readonly ACTION_STYLES = { position: 'fixed', zIndex: '2' };
-  private readonly DEFAULT_STYLES = { position: 'static', zIndex: '1' };
 
   constructor(
     private store: Store<AppStoreState>,
@@ -103,8 +107,8 @@ export class CharacterSpriteComponent
           this.actionYPosition =
             animationPosition?.y || playedAnimation.animationPosition.y;
 
-          this.setStylesBasedOnState(true);
           this.playActionAnimation();
+          this.setStylesBasedOnState(true);
         }
       });
   }
@@ -152,6 +156,8 @@ export class CharacterSpriteComponent
     const animation = playedAnimationCharacter.animations.find(
       (anima) => anima.spriteSheet === animationName
     );
+    this.actionSpriteOffsetX = animation.spriteOffsetX;
+    this.actionSpriteOffsetY = animation.spriteOffsetY;
     this.setSpriteAnimation(animation);
     this.setSprite(animation.spriteSheet);
   }
@@ -238,14 +244,14 @@ export class CharacterSpriteComponent
     // TODO: TEST
     setTimeout(() => {
       this.isPlayingActionAnimation = false;
-      this.setStylesBasedOnState(false);
-      this.playDefaultAnimation();
-      console.log(this.character.name);
       this.store.dispatch(
         GameActions.finishCharacterAnimation({
           character: this.character,
         })
       );
+      this.setStylesBasedOnState(false);
+      this.playDefaultAnimation();
+      console.log(this.character.name);
     }, this.animationTimeInMiliseconds - this.SPRITE_TIME_OFFSET);
   }
 
@@ -257,20 +263,37 @@ export class CharacterSpriteComponent
       const position = isInActionState
         ? this.ACTION_STYLES.position
         : this.DEFAULT_STYLES.position;
-      const top = isInActionState
+      const yPosition = isInActionState
         ? this.actionYPosition
         : this.defaultYPosition;
-      const left = isInActionState
+      const xPosition = isInActionState
         ? this.actionXPosition
         : this.defaultXPosition;
       const zIndex = isInActionState
         ? this.ACTION_STYLES.zIndex
         : this.DEFAULT_STYLES.zIndex;
-
-      spriteElement.style.left =
-        (this.isEnemy() ? left + this.spriteWidth : left - this.spriteWidth) +
+      const offsetX = isInActionState
+        ? this.isEnemy()
+          ? this.actionSpriteOffsetX
+          : this.actionSpriteOffsetX * -1
+        : 0;
+      const offsetY = isInActionState
+        ? this.isEnemy()
+          ? this.actionSpriteOffsetX
+          : this.actionSpriteOffsetY
+        : 0;
+      const xPositionWithOffsetBasedOnScreenSize =
+        xPosition +
+        offsetX *
+          +CssUtil.getCSSVariable(this.SPRITE_SIZE_MULTIPLIER_VARIABLE) +
         'px';
-      spriteElement.style.top = top + 'px';
+      const yPositionWithOffsetBasedOnScreenSize =
+        yPosition +
+        offsetY *
+          +CssUtil.getCSSVariable(this.SPRITE_SIZE_MULTIPLIER_VARIABLE) +
+        'px';
+      spriteElement.style.left = xPositionWithOffsetBasedOnScreenSize;
+      spriteElement.style.top = yPositionWithOffsetBasedOnScreenSize;
       spriteElement.style.position = position;
       spriteElement.style.zIndex = zIndex;
     }
