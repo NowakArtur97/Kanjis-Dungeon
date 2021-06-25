@@ -76,6 +76,7 @@ export class CharacterSpriteComponent
   spriteWidth: number;
   private actionSpriteOffsetX: number;
   private actionSpriteOffsetY: number;
+  private wasActionAnimationTimeSet = false;
   defaultXPosition: number;
   defaultYPosition: number;
   actionXPosition: number;
@@ -158,8 +159,9 @@ export class CharacterSpriteComponent
     );
     this.actionSpriteOffsetX = animation.spriteOffsetX;
     this.actionSpriteOffsetY = animation.spriteOffsetY;
-    this.setSpriteAnimation(animation);
     this.setSprite(animation.spriteSheet);
+    this.setSpriteAnimation(animation);
+    this.wasActionAnimationTimeSet = true; // To fix issue with timeout started before animationTimeInMiliseconds variable set
   }
 
   private setSpriteAnimation(animation: CharacterAnimation): void {
@@ -227,8 +229,13 @@ export class CharacterSpriteComponent
 
   onEndAnimation(event): void {
     this.loopAnimation(event);
-    if (this.isInActionState && !this.isPlayingActionAnimation) {
+    if (
+      this.isInActionState &&
+      !this.isPlayingActionAnimation &&
+      this.wasActionAnimationTimeSet
+    ) {
       this.isPlayingActionAnimation = true;
+      this.wasActionAnimationTimeSet = false;
       this.resetActionAnimation();
     }
   }
