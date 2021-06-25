@@ -68,6 +68,7 @@ export class CharacterSpriteComponent
   defaultYPosition: number;
   actionXPosition: number;
   actionYPosition: number;
+  private isPlayingActionAnimation = false;
 
   private readonly FIRST_FRAME_STATE = 'firstFrame';
   private readonly LAST_FRAME_STATE = 'lastFrame';
@@ -220,7 +221,8 @@ export class CharacterSpriteComponent
 
   onEndAnimation(event): void {
     this.loopAnimation(event);
-    if (this.isInActionState) {
+    if (this.isInActionState && !this.isPlayingActionAnimation) {
+      this.isPlayingActionAnimation = true;
       this.resetActionAnimation();
     }
   }
@@ -235,8 +237,10 @@ export class CharacterSpriteComponent
   private resetActionAnimation(): void {
     // TODO: TEST
     setTimeout(() => {
+      this.isPlayingActionAnimation = false;
       this.setStylesBasedOnState(false);
       this.playDefaultAnimation();
+      console.log(this.character.name);
       this.store.dispatch(
         GameActions.finishCharacterAnimation({
           character: this.character,
