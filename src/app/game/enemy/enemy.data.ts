@@ -84,8 +84,8 @@ const exampleEnemy2: Character = {
       animationIterationCount: '1',
       spriteWidth: 45,
       spriteHeight: 45,
-      spriteOffsetX: 32,
-      spriteOffsetY: -14,
+      spriteOffsetX: 16,
+      spriteOffsetY: 1,
     },
   ],
   statuses: [

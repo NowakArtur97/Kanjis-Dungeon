@@ -277,11 +277,7 @@ export class CharacterSpriteComponent
           ? this.actionSpriteOffsetX
           : this.actionSpriteOffsetX * -1
         : 0;
-      const offsetY = isInActionState
-        ? this.isEnemy()
-          ? this.actionSpriteOffsetX
-          : this.actionSpriteOffsetY
-        : 0;
+      const offsetY = isInActionState ? this.actionSpriteOffsetY : 0;
       const xPositionWithOffsetBasedOnScreenSize =
         xPosition +
         offsetX *
@@ -292,6 +288,8 @@ export class CharacterSpriteComponent
         offsetY *
           +CssUtil.getCSSVariable(this.SPRITE_SIZE_MULTIPLIER_VARIABLE) +
         'px';
+      if (this.character.name === 'ogre' && isInActionState)
+        console.log(yPositionWithOffsetBasedOnScreenSize);
       spriteElement.style.left = xPositionWithOffsetBasedOnScreenSize;
       spriteElement.style.top = yPositionWithOffsetBasedOnScreenSize;
       spriteElement.style.position = position;
