@@ -1,10 +1,4 @@
-import {
-  Component,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 
 import Character from '../models/character.model';
 import SpriteService from '../services/sprite.service';
@@ -27,7 +21,7 @@ export class CharacterStatsComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {}
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(): void {
     if (this.character) {
       this.shieldImage = this.spriteService.getShieldSprite();
       const { stats } = this.character;

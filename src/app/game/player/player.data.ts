@@ -29,7 +29,7 @@ const defaultPlayer: Character = {
       spriteWidth: 48,
       spriteHeight: 28,
       spriteOffsetX: 25,
-      spriteOffsetY: 5,
+      spriteOffsetY: 0,
     },
   ],
   statuses: [

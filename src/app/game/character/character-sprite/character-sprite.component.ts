@@ -114,7 +114,6 @@ export class CharacterSpriteComponent
             animationPosition?.x || playedAnimation.animationPosition.x;
           this.actionYPosition =
             animationPosition?.y || playedAnimation.animationPosition.y;
-
           this.playActionAnimation();
           this.setStylesBasedOnState(true);
         }
