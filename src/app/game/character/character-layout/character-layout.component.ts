@@ -1,4 +1,10 @@
-import { AfterViewInit, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 
 import CharacterType from '../enums/character-type.enum';
 import Character from '../models/character.model';

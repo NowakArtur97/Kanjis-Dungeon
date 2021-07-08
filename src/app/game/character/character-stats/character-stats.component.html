@@ -2,14 +2,14 @@
   <div class="character_stats__health_container">
     <div class="character_stats__health_bar" [ngStyle]="getHealthBarStyles()">
       <div
-        *ngIf="character?.stats.currentShield > 0"
+        *ngIf="currentShield > 0"
         [ngStyle]="{
           background: shieldImage
         }"
         class="character_stats__shield"
       >
         <div class="character_stats__shield_value">
-          {{ character?.stats.currentShield }}
+          {{ currentShield }}
         </div>
       </div>
       <div class="character_stats__health">

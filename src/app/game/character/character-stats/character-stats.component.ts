@@ -1,4 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 
 import Character from '../models/character.model';
 import SpriteService from '../services/sprite.service';
@@ -8,9 +14,10 @@ import SpriteService from '../services/sprite.service';
   templateUrl: './character-stats.component.html',
   styleUrls: ['./character-stats.component.css'],
 })
-export class CharacterStatsComponent implements OnInit {
+export class CharacterStatsComponent implements OnInit, OnChanges {
   @Input() character: Character;
   shieldImage: string;
+  currentShield: number;
   currentHealth: number;
   maxHealth: number;
   progress: number;
@@ -18,13 +25,17 @@ export class CharacterStatsComponent implements OnInit {
 
   constructor(private spriteService: SpriteService) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  ngOnChanges(changes: SimpleChanges): void {
     if (this.character) {
       this.shieldImage = this.spriteService.getShieldSprite();
       const { stats } = this.character;
-      this.maxHealth = stats.maxHealth;
-      this.currentHealth = stats.currentHealth;
-      this.progress = (this.currentHealth / this.maxHealth) * 100;
+      const { maxHealth, currentHealth, currentShield } = stats;
+      this.maxHealth = maxHealth;
+      this.currentHealth = currentHealth;
+      this.currentShield = currentShield;
+      this.progress = (currentHealth / maxHealth) * 100;
       this.setBackgroundColor();
     }
   }
