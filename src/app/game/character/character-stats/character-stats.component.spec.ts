@@ -26,7 +26,7 @@ describe('CharacterStatsComponent', () => {
     component.character = defaultPlayer;
 
     fixture.detectChanges();
-    component.ngOnInit();
+    component.ngOnChanges();
   });
 
   describe('when initialize component', () => {

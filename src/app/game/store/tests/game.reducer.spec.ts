@@ -136,7 +136,9 @@ describe('gameReducer', () => {
 
   describe('GameActions.finishCharacterAnimation', () => {
     it('should set played animation with position as nulls', () => {
-      const action = GameActions.finishCharacterAnimation();
+      const action = GameActions.finishCharacterAnimation({
+        character: defaultPlayer,
+      });
       const actualState = gameReducer(stateWithAnimationAndPosition, action);
       const expectedState = { ...stateWithoutAnimation };
 

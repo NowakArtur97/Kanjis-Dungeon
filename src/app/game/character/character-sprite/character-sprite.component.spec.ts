@@ -1,17 +1,28 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+} from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Store, StoreModule } from '@ngrx/store';
 import { of } from 'rxjs';
 import AppStoreState from 'src/app/store/app.state';
 
 import { attackCard, powerCard } from '../../deck/deck.data';
-import { DeckStoreState, initialState as deckInitialState } from '../../deck/store/deck.reducer';
+import {
+  DeckStoreState,
+  initialState as deckInitialState,
+} from '../../deck/store/deck.reducer';
 import { exampleEnemy1 } from '../../enemy/enemy.data';
 import * as EnemyActions from '../../enemy/store/enemy.actions';
 import defaultPlayer from '../../player/player.data';
 import * as PlayerActions from '../../player/store/player.actions';
 import * as GameActions from '../../store/game.actions';
-import { GameStoreState, initialState as gameInitialState } from '../../store/game.reducer';
+import {
+  GameStoreState,
+  initialState as gameInitialState,
+} from '../../store/game.reducer';
 import CharacterPosition from '../models/character-position.model';
 import Character from '../models/character.model';
 import SpriteService from '../services/sprite.service';
@@ -62,10 +73,11 @@ describe('CharacterSpriteComponent', () => {
   });
 
   describe('when initialize component', () => {
-    it('should set animation sprite', () => {
+    beforeEach(() => {
       spyOn(spriteService, 'getAnimationSpriteOffset').and.callThrough();
       spyOn(spriteService, 'getCharacterSprite').and.callThrough();
       spyOn(spriteService, 'getSpriteSize').and.callThrough();
+      spyOn(store, 'dispatch');
       spyOn(store, 'select').and.callFake((selector) => {
         if (selector === 'deck') {
           return of(stateWithAttackTypeCard);
@@ -75,11 +87,29 @@ describe('CharacterSpriteComponent', () => {
       });
 
       fixture.detectChanges();
+    });
 
+    it('should set animation sprite', () => {
+      component.character = exampleEnemy1;
+      component.ngOnInit();
+      component.ngAfterViewChecked();
+
+      expect(spriteService.getAnimationSpriteOffset).toHaveBeenCalled();
+      expect(spriteService.getCharacterSprite).toHaveBeenCalled();
+      expect(spriteService.getSpriteSize).toHaveBeenCalled();
+      expect(store.select).toHaveBeenCalled();
+    });
+
+    it('with player character should dispatch setPlayer action', () => {
       component.character = playerCharacter;
       component.ngOnInit();
       component.ngAfterViewChecked();
 
+      expect(store.dispatch).toHaveBeenCalledWith(
+        PlayerActions.setPlayer({
+          player: component.character,
+        })
+      );
       expect(spriteService.getAnimationSpriteOffset).toHaveBeenCalled();
       expect(spriteService.getCharacterSprite).toHaveBeenCalled();
       expect(spriteService.getSpriteSize).toHaveBeenCalled();
@@ -251,7 +281,7 @@ describe('CharacterSpriteComponent', () => {
       spyOn(store, 'dispatch');
     });
 
-    it('with character action animation played should dispatch finishCharacterAnimation action', () => {
+    it('with character action animation played should dispatch finishCharacterAnimation action', fakeAsync(() => {
       spyOn(spriteService, 'getAnimationSpriteOffset').and.callThrough();
       spyOn(spriteService, 'getCharacterSprite').and.callThrough();
       spyOn(spriteService, 'getSpriteSize').and.callThrough();
@@ -269,17 +299,27 @@ describe('CharacterSpriteComponent', () => {
       component.ngOnInit();
       component.ngAfterViewChecked();
 
+      const defaultPosition = (component.spriteImage
+        .nativeElement as HTMLElement).getBoundingClientRect();
+      component.defaultXPosition = defaultPosition.left;
+      component.defaultYPosition = defaultPosition.top;
+      playerCharacter.position = {
+        x: component.defaultXPosition,
+        y: component.defaultYPosition,
+      };
+
       const eventExpected = { toState: 'firstFrame' };
       component.onEndAnimation(eventExpected);
+      tick(1000);
 
       expect(store.dispatch).toHaveBeenCalledWith(
-        GameActions.finishCharacterAnimation()
+        GameActions.finishCharacterAnimation({ character: component.character })
       );
       expect(spriteService.getAnimationSpriteOffset).toHaveBeenCalled();
       expect(spriteService.getCharacterSprite).toHaveBeenCalled();
       expect(spriteService.getSpriteSize).toHaveBeenCalled();
       expect(store.select).toHaveBeenCalled();
-    });
+    }));
 
     it('with some other character action animation played should not dispatch finishCharacterAnimation action', () => {
       spyOn(spriteService, 'getAnimationSpriteOffset').and.callThrough();
@@ -303,7 +343,7 @@ describe('CharacterSpriteComponent', () => {
       component.onEndAnimation(eventExpected);
 
       expect(store.dispatch).not.toHaveBeenCalledWith(
-        GameActions.finishCharacterAnimation()
+        GameActions.finishCharacterAnimation({ character: component.character })
       );
       expect(spriteService.getAnimationSpriteOffset).toHaveBeenCalled();
       expect(spriteService.getCharacterSprite).toHaveBeenCalled();

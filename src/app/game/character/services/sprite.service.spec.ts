@@ -54,7 +54,7 @@ describe('spriteService', () => {
       spyOn(CssUtil, 'getCSSVariable').and.returnValue('4');
 
       const shieldSpriteExpected =
-        'url(../../../../assets/actions/shield/shield_4x.png) 0 0 no-repeat';
+        'url(../../../../assets/actions/defence/defence_4x.png) 0 0 no-repeat';
       const shieldSpriteActual = spriteService.getShieldSprite();
 
       expect(shieldSpriteActual).toBe(shieldSpriteExpected);

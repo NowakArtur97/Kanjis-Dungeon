@@ -51,7 +51,6 @@ export default class EnemyService {
     return updatedEnemies;
   }
 
-  // TODO: TEST
   performAction(
     enemy: Character,
     player: Character
@@ -62,15 +61,5 @@ export default class EnemyService {
     updatedEnemy.currentAction = null;
 
     return { enemy: updatedEnemy, player: updatedPlayer };
-  }
-
-  // TODO: TEST
-  removeCurrentAction(character: Character, enemies: Character[]): Character {
-    const enemyToRemoveAction = cloneDeep(
-      enemies.find((enemy) => enemy.id === character.id)
-    );
-    enemyToRemoveAction.currentAction = null;
-
-    return enemyToRemoveAction;
   }
 }

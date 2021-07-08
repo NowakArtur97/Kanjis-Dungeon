@@ -67,7 +67,6 @@ export default class PlayerEffects {
     )
   );
 
-  // TODO: TEST | Move tests from Deck Effects tests
   endPlayerTurn$ = createEffect(() =>
     this.actions$.pipe(
       ofType(GameActions.finishCharacterAnimation),
@@ -87,7 +86,6 @@ export default class PlayerEffects {
           (hasNoRemainingEnergy || hasEnergyToUseAnyCard) &&
           isStillPlayerTurn
         ) {
-          console.log('endPlayerTurn');
           return GameActions.changeTurn();
         }
       }),

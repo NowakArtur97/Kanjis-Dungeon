@@ -43,7 +43,6 @@ export default class SpriteService {
     );
   }
 
-  // TODO: TEST
   getShieldSprite(): string {
     return this.getSprite(
       this.SPRITESHEET_CONSTANTS.actionsSrc +

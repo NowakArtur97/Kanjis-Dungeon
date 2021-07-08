@@ -12,7 +12,6 @@ import defaultPlayer from 'src/app/game/player/player.data';
 import * as PlayerReducer from 'src/app/game/player/store/player.reducer';
 import AppStoreState from 'src/app/store/app.state';
 
-import * as PlayerActions from '../../../player/store/player.actions';
 import * as GameActions from '../../../store/game.actions';
 import { shieldAction, swordAction } from '../../enemy-action.data';
 import { exampleEnemy1, exampleEnemy2, exampleEnemy3 } from '../../enemy.data';
@@ -194,33 +193,19 @@ describe('EnemyEffects', () => {
     beforeEach(() => {
       actions$ = new ReplaySubject(1);
       actions$.next(EnemyActions.startEnemyTurn);
-      (enemyService.performActions as jasmine.Spy).and.returnValue({
-        enemies: enemiesWithActions,
-        player: defaultPlayer,
-      });
     });
 
     it('should return a setEnemies, endEnemyTurn and setPlayer actions', () => {
-      enemyEffects.startEnemyTurn$.pipe(take(1)).subscribe((resultAction) => {
+      enemyEffects.startEnemyTurn$.subscribe((resultAction) => {
+        const playedAnimation = {
+          character: exampleEnemy1,
+          animationName: exampleEnemy1.currentAction.action,
+          animationPosition: defaultPlayer.position,
+        };
         expect(resultAction).toEqual(
-          EnemyActions.setEnemies({ enemies: enemiesWithActions })
+          GameActions.startCharacterAnimation({ playedAnimation })
         );
-        expect(enemyService.performActions).toHaveBeenCalledTimes(1);
       });
-      enemyEffects.startEnemyTurn$
-        .pipe(skip(1), take(1))
-        .subscribe((resultAction) => {
-          expect(resultAction).toEqual(EnemyActions.endEnemyTurn());
-          expect(enemyService.performActions).toHaveBeenCalledTimes(2);
-        });
-      enemyEffects.startEnemyTurn$
-        .pipe(skip(2), take(1))
-        .subscribe((resultAction) => {
-          expect(resultAction).toEqual(
-            PlayerActions.setPlayer({ player: defaultPlayer })
-          );
-          expect(enemyService.performActions).toHaveBeenCalledTimes(3);
-        });
     });
   });
 

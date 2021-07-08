@@ -50,26 +50,6 @@ export default class DeckEffects {
     )
   );
 
-  // endPlayerTurn$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(DeckActions.useCard),
-  //     withLatestFrom(
-  //       this.store.select((state) => state.deck),
-  //       this.store.select((state) => state.)
-  //     ),
-  //     map(([, {remainingEnergy, hand}]) => {
-  //       // TODO: End turn clicking on button/Potions for regenerating energy
-  //       const hasEnergyToUseAnyCard = hand?.every(
-  //         (card) => card.cost > remainingEnergy
-  //       );
-  //       if (remainingEnergy === 0 || hasEnergyToUseAnyCard) {
-  //         return GameActions.changeTurn();
-  //       }
-  //     }),
-  //     filter((action) => !!action)
-  //   )
-  // );
-
   increaseEnergyOnCorrectAnswer$ = createEffect(() =>
     this.actions$.pipe(
       ofType(QuizActions.addAnswer),

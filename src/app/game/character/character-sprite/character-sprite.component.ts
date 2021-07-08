@@ -73,7 +73,7 @@ export class CharacterSpriteComponent
   private isInActionState: boolean;
   private isPlayingActionAnimation = false;
 
-  @ViewChild('characterSpriteImage') private spriteImage: ElementRef;
+  @ViewChild('characterSpriteImage') spriteImage: ElementRef;
   spriteOffset: string;
   animationSteps: string;
   animationDuration: string;
@@ -108,7 +108,7 @@ export class CharacterSpriteComponent
           this.character?.id === playedAnimation?.character.id;
         if (
           this.isInActionState &&
-          (animationPosition || playedAnimation.animationPosition)
+          (animationPosition || playedAnimation?.animationPosition)
         ) {
           this.actionXPosition =
             animationPosition?.x || playedAnimation.animationPosition.x;
@@ -129,14 +129,15 @@ export class CharacterSpriteComponent
       this.defaultXPosition = defaultPosition.left;
       this.defaultYPosition = defaultPosition.top;
 
-      // TODO: TEST
       // TODO: CharacterSpriteComponent: Set every character position for Action Animations on start of the level
       if (!this.isEnemy()) {
         const player: Character = cloneDeep(this.character);
-        player.position = {
+        const position = {
           x: this.defaultXPosition,
           y: this.defaultYPosition,
         };
+        player.position = position;
+        this.character.position = position;
         this.store.dispatch(PlayerActions.setPlayer({ player }));
       }
 
@@ -254,7 +255,6 @@ export class CharacterSpriteComponent
   }
 
   private resetActionAnimation(): void {
-    // TODO: TEST
     setTimeout(() => {
       this.isPlayingActionAnimation = false;
       this.store.dispatch(

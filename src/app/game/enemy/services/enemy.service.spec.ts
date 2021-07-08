@@ -19,14 +19,17 @@ describe('enemyService', () => {
       ...exampleEnemy1.stats,
       currentShield: 0,
     },
+    allActions: [swordAction, shieldAction],
   };
   const enemyWithId2: Character = {
     ...exampleEnemy2,
     id: 2,
+    allActions: [swordAction, shieldAction],
   };
   const enemyWithId3: Character = {
     ...exampleEnemy3,
     id: 3,
+    allActions: [swordAction, shieldAction],
   };
   const enemies: Character[] = [enemyWithId1, enemyWithId2, enemyWithId3];
 
@@ -112,117 +115,107 @@ describe('enemyService', () => {
     });
   });
 
-  describe('when perform actions', () => {
+  describe('when perform action', () => {
     it('related to defence should update enemies stats', () => {
-      const enemy1: Character = {
+      const enemy: Character = {
         ...exampleEnemy1,
         currentAction: shieldAction,
       };
-      const enemy2: Character = {
-        ...exampleEnemy2,
-        currentAction: shieldAction,
-      };
-      const enemy3: Character = {
-        ...exampleEnemy3,
-        currentAction: shieldAction,
-      };
-      const enemyExpected1: Character = {
-        ...enemy1,
+      const enemyExpected: Character = {
+        ...enemy,
         stats: {
-          ...enemy1.stats,
-          currentShield: enemy1.stats.currentShield + shieldAction.value,
+          ...enemy.stats,
+          currentShield: enemy.stats.currentShield + shieldAction.value,
         },
+        currentAction: null,
       };
-      const enemyExpected2: Character = {
-        ...enemy2,
-        stats: {
-          ...enemy2.stats,
-          currentShield: enemy2.stats.currentShield + shieldAction.value,
-        },
-      };
-      const enemyExpected3: Character = {
-        ...enemy3,
-        stats: {
-          ...enemy3.stats,
-          currentShield: enemy3.stats.currentShield + shieldAction.value,
-        },
-      };
-      const updatedEnemiesExpected: Character[] = [
-        enemyExpected1,
-        enemyExpected2,
-        enemyExpected3,
-      ];
       const expectedPlayer: Character = {
         ...defaultPlayer,
       };
-      const defendingEnemies = [enemy1, enemy2, enemy3];
 
-      const updatedCharacters = enemyService.performActions(
-        defendingEnemies,
+      const updatedCharacters = enemyService.performAction(
+        enemy,
         expectedPlayer
       );
 
       expect(updatedCharacters.player).toEqual(expectedPlayer);
-      expect(updatedCharacters.enemies).toEqual(updatedEnemiesExpected);
-      expect(updatedCharacters.enemies).toContain(enemyExpected1);
-      expect(updatedCharacters.enemies).toContain(enemyExpected2);
-      expect(updatedCharacters.enemies).toContain(enemyExpected3);
-      expect(updatedCharacters.enemies[0].stats.currentShield).toBe(
-        enemyExpected1.stats.currentShield
-      );
-      expect(updatedCharacters.enemies[1].stats.currentShield).toBe(
-        enemyExpected2.stats.currentShield
-      );
-      expect(updatedCharacters.enemies[2].stats.currentShield).toBe(
-        enemyExpected3.stats.currentShield
+      expect(updatedCharacters.enemy).toEqual(enemyExpected);
+      expect(updatedCharacters.enemy.stats.currentShield).toBe(
+        enemyExpected.stats.currentShield
       );
     });
 
-    it('related to attack should update player stats', () => {
-      const expectedEnemy1: Character = {
+    it('related to attack on player without shield should update player stats', () => {
+      const enemy: Character = {
         ...exampleEnemy1,
         currentAction: swordAction,
       };
-      const expectedEnemy2: Character = {
-        ...exampleEnemy2,
-        currentAction: swordAction,
+      const expectedEnemy: Character = {
+        ...exampleEnemy1,
+        currentAction: null,
       };
-      const expectedEnemy3: Character = {
-        ...exampleEnemy3,
-        currentAction: swordAction,
-      };
-      const updatedEnemiesExpected: Character[] = [
-        expectedEnemy1,
-        expectedEnemy2,
-        expectedEnemy3,
-      ];
       const player: Character = {
         ...defaultPlayer,
+        stats: {
+          ...defaultPlayer.stats,
+          currentHealth: 80,
+          currentShield: 0,
+        },
+        currentAction: null,
       };
       const expectedPlayer: Character = {
         ...player,
         stats: {
           ...player.stats,
-          currentHealth: defaultPlayer.stats.currentHealth - swordAction.value,
-          currentShield:
-            defaultPlayer.stats.currentShield - swordAction.value * 2,
+          currentHealth: player.stats.currentHealth - swordAction.value,
         },
       };
-      const attackingEnemies = [expectedEnemy1, expectedEnemy2, expectedEnemy3];
-
-      const updatedCharacters = enemyService.performActions(
-        attackingEnemies,
-        player
-      );
+      const updatedCharacters = enemyService.performAction(enemy, player);
 
       expect(updatedCharacters.player).toEqual(expectedPlayer);
-      expect(updatedCharacters.enemies).toEqual(updatedEnemiesExpected);
-      expect(updatedCharacters.enemies).toContain(expectedEnemy1);
-      expect(updatedCharacters.enemies).toContain(expectedEnemy2);
-      expect(updatedCharacters.enemies).toContain(expectedEnemy3);
-      expect(updatedCharacters.enemies[0].stats).toEqual(expectedEnemy1.stats);
-      expect(updatedCharacters.enemies[1].stats).toEqual(expectedEnemy2.stats);
-      expect(updatedCharacters.enemies[2].stats).toEqual(expectedEnemy3.stats);
+      expect(updatedCharacters.player.stats.currentHealth).toBe(
+        expectedPlayer.stats.currentHealth
+      );
+      expect(updatedCharacters.player.stats.currentShield).toBe(
+        expectedPlayer.stats.currentShield
+      );
+      expect(updatedCharacters.enemy).toEqual(expectedEnemy);
+    });
+
+    it('related to attack on player with shield should update player stats', () => {
+      const enemy: Character = {
+        ...exampleEnemy1,
+        currentAction: swordAction,
+      };
+      const expectedEnemy: Character = {
+        ...exampleEnemy1,
+        currentAction: null,
+      };
+      const player: Character = {
+        ...defaultPlayer,
+        stats: {
+          ...defaultPlayer.stats,
+          currentHealth: 80,
+          currentShield: 15,
+        },
+      };
+      const expectedPlayer: Character = {
+        ...player,
+        stats: {
+          ...player.stats,
+          currentShield: player.stats.currentShield - swordAction.value,
+        },
+      };
+      const updatedCharacters = enemyService.performAction(enemy, player);
+
+      expect(updatedCharacters.player).toEqual(expectedPlayer);
+      expect(updatedCharacters.player.stats.currentHealth).toBe(
+        expectedPlayer.stats.currentHealth
+      );
+      expect(updatedCharacters.player.stats.currentShield).toBe(
+        expectedPlayer.stats.currentShield
+      );
+      expect(updatedCharacters.enemy).toEqual(expectedEnemy);
     });
   });
 });

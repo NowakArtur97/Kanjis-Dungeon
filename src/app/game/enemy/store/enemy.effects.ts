@@ -66,20 +66,6 @@ export default class EnemyEffects {
   );
 
   // TODO: TEST
-  // removeEnemyCurrentAction$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(GameActions.finishCharacterAnimation),
-  //     filter((action) => action.character.stats.type === CharacterType.ENEMY),
-  //     withLatestFrom(this.store.select((state) => state.enemy.enemies)),
-  //     map(([{ character }, enemies]) =>
-  //       EnemyActions.setEnemy({
-  //         enemy: this.enemyService.removeCurrentAction(character, enemies),
-  //       })
-  //     )
-  //   )
-  // );
-
-  // TODO: TEST
   startEnemyTurn$ = createEffect(() =>
     this.actions$.pipe(
       ofType(EnemyActions.startEnemyTurn),
@@ -102,31 +88,6 @@ export default class EnemyEffects {
   );
 
   // TODO: TEST
-  // startCharacterAnimation$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(GameActions.startCharacterAnimation),
-  //     filter(
-  //       (action) =>
-  //         action.playedAnimation.character.stats.type === CharacterType.ENEMY
-  //     ),
-  //     withLatestFrom(this.store.select((state) => state.player.player)),
-  //     switchMap(([{ playedAnimation }, player]) => {
-  //       console.log(playedAnimation.character);
-  //       return of(
-  //         this.enemyService.performAction(playedAnimation.character, player)
-  //       );
-  //     }),
-  //     mergeMap(({ enemy, player }) => {
-  //       console.log('startCharacterAnimation - setEnemy setPlayer');
-  //       return [
-  //         EnemyActions.setEnemy({ enemy }),
-  //         PlayerActions.setPlayer({ player }),
-  //       ];
-  //     })
-  //   )
-  // );
-
-  // TODO: TEST
   finishCharacterAnimation$ = createEffect(() =>
     this.actions$.pipe(
       ofType(GameActions.finishCharacterAnimation),
@@ -136,15 +97,10 @@ export default class EnemyEffects {
         this.store.select((state) => state.player.player)
       ),
       mergeMap(([{ character }, enemies, player]) => {
-        console.log(character.name);
         const {
           enemy: enemyAfterAction,
           player: playerAfterAction,
         } = this.enemyService.performAction(character, player);
-        const enemyWithoutAction = this.enemyService.removeCurrentAction(
-          enemyAfterAction,
-          enemies
-        );
         const enemyForAction = enemies.find(
           (enemy) => enemy.currentAction !== null && enemy.id !== character.id
         );
@@ -154,27 +110,23 @@ export default class EnemyEffects {
             animationName: enemyForAction.currentAction.action,
             animationPosition: player.position,
           };
-          console.log(
-            'finishCharacterAnimation - setEnemy startCharacterAnimation'
-          );
           return [
             EnemyActions.setEnemy({
-              enemy: enemyWithoutAction,
+              enemy: enemyAfterAction,
             }),
             GameActions.startCharacterAnimation({
               playedAnimation,
             }),
-            EnemyActions.setEnemy({ enemy: enemyWithoutAction }),
+            EnemyActions.setEnemy({ enemy: enemyAfterAction }),
             PlayerActions.setPlayer({ player: playerAfterAction }),
           ];
         } else {
-          console.log('finishCharacterAnimation - setEnemy endEnemyTurn');
           return [
             EnemyActions.setEnemy({
-              enemy: enemyWithoutAction,
+              enemy: enemyAfterAction,
             }),
             EnemyActions.endEnemyTurn(),
-            EnemyActions.setEnemy({ enemy: enemyWithoutAction }),
+            EnemyActions.setEnemy({ enemy: enemyAfterAction }),
             PlayerActions.setPlayer({ player: playerAfterAction }),
           ];
         }
