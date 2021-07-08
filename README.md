@@ -51,6 +51,7 @@ Run `ng e2e` to execute the end-to-end tests via Protractor.
 
 ## Features
 
+- Quiz mode
 - Character transformation into Japanese
 - Card validation
 - Randomizing properties for the quiz
@@ -64,6 +65,14 @@ Run `ng e2e` to execute the end-to-end tests via Protractor.
 Project is: in progress
 
 ## Screenshots
+
+![Alt text](./screenshotsbattle.gif) / ![](./screenshotsbattle.gif)
+
+A preliminary version of the game mode
+
+![Quiz mode](./screenshots/quiz.jpg)
+
+Quiz mode
 
 ![Example radical card](./screenshots/radical.jpg)
 
@@ -84,7 +93,3 @@ Example Card with Correct Answer
 ![Example correct card](./screenshots/wrong.jpg)
 
 Example Card with Wrong Answer
-
-![Game version](./screenshots/game.jpg)
-
-A preliminary version of the game mode
