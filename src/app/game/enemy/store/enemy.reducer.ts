@@ -14,6 +14,7 @@ const initialState: EnemyStoreState = {
   enemies: [],
   allEnemies,
 };
+export { initialState };
 
 const _enemyReducer = createReducer(
   initialState,

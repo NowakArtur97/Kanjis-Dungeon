@@ -1,24 +1,15 @@
 import Character from 'src/app/game/character/models/character.model';
 
-import {
-  allEnemies,
-  exampleEnemy1,
-  exampleEnemy2,
-  exampleEnemy3,
-} from '../../enemy.data';
+import { allEnemies, exampleEnemy1, exampleEnemy2, exampleEnemy3 } from '../../enemy.data';
 import * as EnemyActions from '../enemy.actions';
-import { enemyReducer, EnemyStoreState } from '../enemy.reducer';
+import { enemyReducer, EnemyStoreState, initialState } from '../enemy.reducer';
 
-const initialState: EnemyStoreState = {
-  enemies: [],
-  allEnemies,
-};
 const enemyWithId: Character = { ...exampleEnemy1, id: 1 };
 const enemyWithId2: Character = { ...exampleEnemy2, id: 2 };
 const enemyWithId3: Character = { ...exampleEnemy3, id: 3 };
-const enemies = [enemyWithId, enemyWithId2, enemyWithId3];
+const enemiesWithIds = [enemyWithId, enemyWithId2, enemyWithId3];
 const stateWithEnemies: EnemyStoreState = {
-  enemies,
+  enemies: enemiesWithIds,
   allEnemies,
 };
 
@@ -48,7 +39,7 @@ describe('enemyReducer', () => {
       expect(actualState.enemies.length).toBe(expectedEnemies.length);
     });
 
-    it('when enemy is dead should not set enemy', () => {
+    it('should not set dead enemy', () => {
       const enemyWithoutHealth: Character = {
         ...enemyWithId,
         stats: { ...enemyWithId.stats, currentHealth: 0 },
@@ -72,14 +63,10 @@ describe('enemyReducer', () => {
   describe('EnemyActions.setEnemies', () => {
     it('should set enemies', () => {
       const expectedEnemies: Character[] = [
-        exampleEnemy1,
-        exampleEnemy2,
-        exampleEnemy3,
+        enemyWithId,
+        enemyWithId2,
+        enemyWithId3,
       ];
-      const stateWithEnemies: EnemyStoreState = {
-        ...initialState,
-        enemies: expectedEnemies,
-      };
 
       const action = EnemyActions.setEnemies({ enemies: expectedEnemies });
       const actualState = enemyReducer(initialState, action);
@@ -92,22 +79,22 @@ describe('enemyReducer', () => {
 
     it('should set enemies without dead enemies', () => {
       const deadEnemy: Character = {
-        ...exampleEnemy3,
+        ...enemyWithId3,
         stats: {
-          ...exampleEnemy3.stats,
+          ...enemyWithId3.stats,
           currentHealth: 0,
         },
       };
-      const enemies: Character[] = [exampleEnemy1, exampleEnemy2, deadEnemy];
-      const expectedEnemies: Character[] = [exampleEnemy1, exampleEnemy2];
-      const stateWithEnemies: EnemyStoreState = {
+      const enemies: Character[] = [enemyWithId, enemyWithId2, deadEnemy];
+      const expectedEnemies: Character[] = [enemyWithId, enemyWithId2];
+      const stateWithoutDeadEnemies: EnemyStoreState = {
         ...initialState,
         enemies: expectedEnemies,
       };
 
       const action = EnemyActions.setEnemies({ enemies });
       const actualState = enemyReducer(initialState, action);
-      const expectedState = { ...stateWithEnemies };
+      const expectedState = { ...stateWithoutDeadEnemies };
 
       expect(actualState).toEqual(expectedState);
       expect(actualState.enemies).toEqual(expectedEnemies);
