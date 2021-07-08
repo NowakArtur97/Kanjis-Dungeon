@@ -434,6 +434,60 @@ const RADICALS: Radical[] = [
     meanings: ['window'],
     type: CharacterType.RADICAL,
   },
+  {
+    id: 108,
+    characters: '門',
+    meanings: ['gate'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    id: 109,
+    characters: '厂',
+    meanings: ['cliff'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    id: 110,
+    characters: '頁',
+    meanings: ['geoduck'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    id: 111,
+    characters: '言',
+    meanings: ['say'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    id: 112,
+    characters: '己',
+    meanings: ['oneself'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    id: 113,
+    characters: '刂',
+    meanings: ['knife'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    id: 114,
+    characters: 'ヨ',
+    meanings: ['wolverine'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    id: 115,
+    characters: '冖',
+    meanings: ['forehead'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    id: 116,
+    characters: '魚',
+    meanings: ['fish'],
+    type: CharacterType.RADICAL,
+  },
   // { id: 85, characters: '', meanings: [''], type: CharacterType.RADICAL },
 ];
 export default RADICALS;

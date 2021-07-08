@@ -1,4 +1,11 @@
-import { animate, AnimationEvent, state, style, transition, trigger } from '@angular/animations';
+import {
+  animate,
+  AnimationEvent,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 import {
   AfterViewChecked,
   ChangeDetectorRef,
@@ -258,7 +265,6 @@ export class CharacterSpriteComponent
       );
       this.setStylesBasedOnState(false);
       this.playDefaultAnimation();
-      console.log(this.character.name);
     }, this.animationTimeInMiliseconds - this.SPRITE_TIME_OFFSET);
   }
 
@@ -295,8 +301,6 @@ export class CharacterSpriteComponent
         offsetY *
           +CssUtil.getCSSVariable(this.SPRITE_SIZE_MULTIPLIER_VARIABLE) +
         'px';
-      if (this.character.name === 'ogre' && isInActionState)
-        console.log(yPositionWithOffsetBasedOnScreenSize);
       spriteElement.style.left = xPositionWithOffsetBasedOnScreenSize;
       spriteElement.style.top = yPositionWithOffsetBasedOnScreenSize;
       spriteElement.style.position = position;
