@@ -66,7 +66,7 @@ Project is: in progress
 
 ## Screenshots
 
-![Alt text](./screenshots/battle.gif) / ![](./screenshots/battle.gif)
+![Game mode](./screenshots/battle.gif)
 
 A preliminary version of the game mode
 
