@@ -18,7 +18,6 @@ export const startCharacterAnimation = createAction(
   props<{ playedAnimation: CharacterPlayedAnimation }>()
 );
 
-// TODO: TEST
 export const finishCharacterAnimation = createAction(
   '[Game] Finish Character Animation',
   props<{ character: Character }>()

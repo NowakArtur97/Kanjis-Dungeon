@@ -18,7 +18,6 @@ const initialState: EnemyStoreState = {
 const _enemyReducer = createReducer(
   initialState,
 
-  // TODO: TEST
   on(EnemyActions.setEnemy, (state, { enemy }) => ({
     ...state,
     enemies: state.enemies
