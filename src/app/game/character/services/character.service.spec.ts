@@ -28,14 +28,14 @@ describe('characterService', () => {
 
       const characterExpected: Character = {
         ...defaultPlayer,
-        position: { x: 0, y: topOffset },
+        position: { x: 0, y: 0, topOffset },
       };
       const characterCharacterActual = characterService.setRandomTopOffset(
         defaultPlayer
       );
 
       expect(characterCharacterActual).toEqual(characterExpected);
-      expect(characterCharacterActual.position.y).toBe(topOffset);
+      expect(characterCharacterActual.position.topOffset).toBe(topOffset);
       expect(MathUtil.getRandomIntValue).toHaveBeenCalledTimes(1);
     });
   });

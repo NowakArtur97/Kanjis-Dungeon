@@ -11,6 +11,7 @@ describe('gameReducer', () => {
   const animationPosition: CharacterPosition = {
     x: 10,
     y: 20,
+    topOffset: 50,
   };
   const playedAnimation: CharacterPlayedAnimation = {
     character: defaultPlayer,
@@ -27,7 +28,6 @@ describe('gameReducer', () => {
   const stateWithAnimationAndPosition: GameStoreState = {
     ...initialState,
     playedAnimation,
-    animationPosition,
   };
 
   describe('GameActions.chooseLevel', () => {
@@ -144,18 +144,6 @@ describe('gameReducer', () => {
 
       expect(actualState).toEqual(expectedState);
       expect(actualState.playedAnimation).toBeNull();
-      expect(actualState.animationPosition).toBeNull();
-    });
-  });
-
-  describe('GameActions.setAnimationPosition', () => {
-    it('should set animation position', () => {
-      const action = GameActions.setAnimationPosition({ animationPosition });
-      const actualState = gameReducer(stateWithAnimation, action);
-      const expectedState = { ...stateWithAnimationAndPosition };
-
-      expect(actualState).toEqual(expectedState);
-      expect(actualState.animationPosition).toEqual(animationPosition);
     });
   });
 });

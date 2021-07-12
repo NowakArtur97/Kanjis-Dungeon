@@ -82,15 +82,15 @@ describe('EnemyEffects', () => {
   const topOffsets = [50, 51, 52];
   const enemyWithPosition1: Character = {
     ...enemyWithAction1,
-    position: { x: 0, y: topOffsets[0] },
+    position: { x: 0, y: 0, topOffset: topOffsets[0] },
   };
   const enemyWithPosition2: Character = {
     ...enemyWithAction2,
-    position: { x: 0, y: topOffsets[1] },
+    position: { x: 0, y: 0, topOffset: topOffsets[1] },
   };
   const enemyWithPosition3: Character = {
     ...enemyWithAction3,
-    position: { x: 0, y: topOffsets[2] },
+    position: { x: 0, y: 0, topOffset: topOffsets[2] },
   };
   const enemiesWithPositions: Character[] = [
     enemyWithPosition1,
@@ -113,7 +113,7 @@ describe('EnemyEffects', () => {
       ...gameInitialState,
       playedAnimation: {
         character: exampleEnemy1,
-        animationPosition: { x: 0, y: 0 },
+        animationPosition: { x: 0, y: 0, topOffset: 50 },
         animationName: 'attack',
       },
     },
@@ -286,7 +286,7 @@ describe('EnemyEffects', () => {
         ...gameInitialState,
         playedAnimation: {
           character: exampleEnemy3,
-          animationPosition: { x: 0, y: 0 },
+          animationPosition: { x: 0, y: 0, topOffset: 50 },
           animationName: 'attack',
         },
       },
@@ -301,7 +301,7 @@ describe('EnemyEffects', () => {
         ...gameInitialState,
         playedAnimation: {
           character: exampleEnemy1,
-          animationPosition: { x: 0, y: 0 },
+          animationPosition: { x: 0, y: 0, topOffset: 50 },
           animationName: 'attack',
         },
       },
