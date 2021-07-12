@@ -18,8 +18,6 @@ import * as GameActions from '../../store/game.actions';
 import EnemyService from '../services/enemy.service';
 import * as EnemyActions from './enemy.actions';
 
-// TODO: REMOVE
-// import * as PlayerActions from '../../player/store/player.actions';
 @Injectable()
 export default class EnemyEffects {
   constructor(
@@ -65,7 +63,6 @@ export default class EnemyEffects {
     )
   );
 
-  // TODO: TEST
   startEnemyTurn$ = createEffect(() =>
     this.actions$.pipe(
       ofType(EnemyActions.startEnemyTurn),
@@ -87,7 +84,6 @@ export default class EnemyEffects {
     )
   );
 
-  // TODO: TEST
   finishCharacterAnimation$ = createEffect(() =>
     this.actions$.pipe(
       ofType(GameActions.finishCharacterAnimation),
@@ -117,7 +113,6 @@ export default class EnemyEffects {
             GameActions.startCharacterAnimation({
               playedAnimation,
             }),
-            EnemyActions.setEnemy({ enemy: enemyAfterAction }),
             PlayerActions.setPlayer({ player: playerAfterAction }),
           ];
         } else {
@@ -126,7 +121,6 @@ export default class EnemyEffects {
               enemy: enemyAfterAction,
             }),
             EnemyActions.endEnemyTurn(),
-            EnemyActions.setEnemy({ enemy: enemyAfterAction }),
             PlayerActions.setPlayer({ player: playerAfterAction }),
           ];
         }
