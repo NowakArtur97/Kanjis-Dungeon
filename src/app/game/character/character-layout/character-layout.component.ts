@@ -23,7 +23,7 @@ export class CharacterLayoutComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    this.randomTopOffset = this.character.position?.y;
+    this.randomTopOffset = this.character.position?.topOffset;
     this.changeDetectorRef.detectChanges();
   }
 

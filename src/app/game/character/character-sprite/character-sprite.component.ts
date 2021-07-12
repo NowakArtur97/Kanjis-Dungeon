@@ -124,13 +124,13 @@ export class CharacterSpriteComponent
       this.defaultXPosition = defaultPosition.left;
       this.defaultYPosition = defaultPosition.top;
 
-      // TODO: CharacterSpriteComponent: Set every character position for Action Animations on start of the level
       // TODO: TEST
       if (this.character.position.x === 0) {
         const character: Character = cloneDeep(this.character);
         const position = {
           x: this.defaultXPosition,
           y: this.defaultYPosition,
+          topOffset: character.position.topOffset,
         };
         character.position = position;
         this.store.dispatch(

@@ -10,12 +10,12 @@ export default class CharacterService {
   private readonly MAX_TOP_OFFSET = 55;
 
   setRandomTopOffset(character: Character): Character {
-    const randomTopOffset = MathUtil.getRandomIntValue(
+    const topOffset = MathUtil.getRandomIntValue(
       this.MIN_TOP_OFFSET,
       this.MAX_TOP_OFFSET
     );
     const updatedCharacter: Character = cloneDeep(character);
-    updatedCharacter.position = { x: 0, y: randomTopOffset };
+    updatedCharacter.position = { x: 0, y: 0, topOffset };
 
     return updatedCharacter;
   }
