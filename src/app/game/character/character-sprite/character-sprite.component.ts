@@ -102,18 +102,13 @@ export class CharacterSpriteComponent
 
     this.playedAnimationSubscription$ = this.store
       .select('game')
-      .subscribe(({ playedAnimation, animationPosition }) => {
+      .subscribe(({ playedAnimation }) => {
         this.playedAnimation = playedAnimation;
         this.isInActionState =
           this.character?.id === playedAnimation?.character.id;
-        if (
-          this.isInActionState &&
-          (animationPosition || playedAnimation?.animationPosition)
-        ) {
-          this.actionXPosition =
-            animationPosition?.x || playedAnimation.animationPosition.x;
-          this.actionYPosition =
-            animationPosition?.y || playedAnimation.animationPosition.y;
+        if (this.isInActionState && playedAnimation?.animationPosition) {
+          this.actionXPosition = playedAnimation.animationPosition.x;
+          this.actionYPosition = playedAnimation.animationPosition.y;
           this.playActionAnimation();
           this.setStylesBasedOnState(true);
         }
@@ -130,15 +125,19 @@ export class CharacterSpriteComponent
       this.defaultYPosition = defaultPosition.top;
 
       // TODO: CharacterSpriteComponent: Set every character position for Action Animations on start of the level
-      if (!this.isEnemy()) {
-        const player: Character = cloneDeep(this.character);
+      // TODO: TEST
+      if (this.character.position.x === 0) {
+        const character: Character = cloneDeep(this.character);
         const position = {
           x: this.defaultXPosition,
           y: this.defaultYPosition,
         };
-        player.position = position;
-        this.character.position = position;
-        this.store.dispatch(PlayerActions.setPlayer({ player }));
+        character.position = position;
+        this.store.dispatch(
+          this.isEnemy()
+            ? EnemyActions.setEnemy({ enemy: character })
+            : PlayerActions.setPlayer({ player: character })
+        );
       }
 
       this.playDefaultAnimation();
@@ -216,16 +215,6 @@ export class CharacterSpriteComponent
     }
 
     if (this.character.stats.type === CharacterType.ENEMY) {
-      const {
-        left: x,
-        top: y,
-      } = this.spriteImage.nativeElement.getBoundingClientRect();
-
-      this.store.dispatch(
-        GameActions.setAnimationPosition({
-          animationPosition: { x, y },
-        })
-      );
       this.store.dispatch(
         EnemyActions.useCardOnEnemy({ enemy: this.character })
       );

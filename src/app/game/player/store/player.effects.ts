@@ -2,7 +2,13 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
-import { filter, map, switchMap, withLatestFrom } from 'rxjs/operators';
+import {
+  filter,
+  map,
+  mergeMap,
+  switchMap,
+  withLatestFrom,
+} from 'rxjs/operators';
 import AppStoreState from 'src/app/store/app.state';
 
 import CharacterType from '../../character/enums/character-type.enum';
@@ -33,6 +39,7 @@ export default class PlayerEffects {
     )
   );
 
+  // TODO: TEST
   useCardOnPlayer$ = createEffect(() =>
     this.actions$.pipe(
       ofType(PlayerActions.useCardOnPlayer),
@@ -43,24 +50,34 @@ export default class PlayerEffects {
       switchMap(([, chosenCard, player]) =>
         of(this.playerService.updatePlayer(chosenCard, player))
       ),
-      map((player) => PlayerActions.setPlayer({ player }))
-    )
-  );
-
-  useCard$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(PlayerActions.useCardOnPlayer, EnemyActions.useCardOnEnemy),
-      withLatestFrom(
-        this.store.select((state) => state.deck.chosenCard),
-        this.store.select((state) => state.player.player),
-        this.store.select((state) => state.game.animationPosition)
-      ),
-      map(([, chosenCard, player, animationPosition]) =>
+      withLatestFrom(this.store.select((state) => state.deck.chosenCard)),
+      mergeMap(([player, chosenCard]) => [
+        PlayerActions.setPlayer({ player }),
         GameActions.startCharacterAnimation({
           playedAnimation: {
             character: player,
             animationName: chosenCard.animationName,
-            animationPosition,
+            animationPosition: player.position,
+          },
+        }),
+      ])
+    )
+  );
+
+  // TODO: TEST
+  useCardOnEnemy$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(EnemyActions.useCardOnEnemy),
+      withLatestFrom(
+        this.store.select((state) => state.deck.chosenCard),
+        this.store.select((state) => state.player.player)
+      ),
+      map(([{ enemy }, { animationName }, player]) =>
+        GameActions.startCharacterAnimation({
+          playedAnimation: {
+            character: player,
+            animationName: animationName,
+            animationPosition: enemy.position,
           },
         })
       )

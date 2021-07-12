@@ -1,7 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
 import CharacterPlayedAnimation from '../character/models/character-played-animation.model';
-import CharacterPosition from '../character/models/character-position.model';
 import Character from '../character/models/character.model';
 
 export const chooseLevel = createAction(
@@ -21,9 +20,4 @@ export const startCharacterAnimation = createAction(
 export const finishCharacterAnimation = createAction(
   '[Game] Finish Character Animation',
   props<{ character: Character }>()
-);
-
-export const setAnimationPosition = createAction(
-  '[Game] Set animation Position',
-  props<{ animationPosition: CharacterPosition }>()
 );
