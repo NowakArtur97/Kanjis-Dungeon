@@ -1,13 +1,13 @@
 .player_layout__wrapper {
   position: absolute;
-  top: 7%;
+  top: -10%;
   left: 13%;
   display: flex;
 }
 
 @media (min-width: 640px) {
   .player_layout__wrapper {
-    top: 17%;
+    top: 2%;
   }
 }
 
@@ -19,19 +19,19 @@
 
 @media (min-width: 667px) {
   .player_layout__wrapper {
-    top: 17%;
+    top: 1%;
   }
 }
 
 @media (min-width: 731px) {
   .player_layout__wrapper {
-    top: 22%;
+    top: 7%;
   }
 }
 
 @media (min-width: 812px) and (max-height: 375px) {
   .player_layout__wrapper {
-    top: 5%;
+    top: -7%;
   }
 }
 
@@ -43,13 +43,13 @@
 
 @media (min-width: 1024px) {
   .player_layout__wrapper {
-    top: 30%;
+    top: 18%;
     left: 12%;
   }
 }
 
 @media (min-width: 1366px) {
   .player_layout__wrapper {
-    top: 33%;
+    top: 20%;
   }
 }
