@@ -28,8 +28,8 @@ const defaultPlayer: Character = {
       animationIterationCount: '1',
       spriteWidth: 48,
       spriteHeight: 28,
-      spriteOffsetX: 25,
-      spriteOffsetY: 33,
+      spriteOffsetX: 32,
+      spriteOffsetY: 3,
     },
   ],
   statuses: [

@@ -1,13 +1,12 @@
 .player_layout__wrapper {
   position: absolute;
-  top: -10%;
+  top: 17%;
   left: 13%;
-  display: flex;
 }
 
 @media (min-width: 640px) {
   .player_layout__wrapper {
-    top: 2%;
+    top: 20%;
   }
 }
 
@@ -19,13 +18,13 @@
 
 @media (min-width: 667px) {
   .player_layout__wrapper {
-    top: 1%;
+    top: 21%;
   }
 }
 
 @media (min-width: 731px) {
   .player_layout__wrapper {
-    top: 7%;
+    top: 27%;
   }
 }
 
@@ -43,13 +42,13 @@
 
 @media (min-width: 1024px) {
   .player_layout__wrapper {
-    top: 18%;
+    top: 30%;
     left: 12%;
   }
 }
 
 @media (min-width: 1366px) {
   .player_layout__wrapper {
-    top: 20%;
+    top: 33%;
   }
 }

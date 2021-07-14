@@ -29,7 +29,7 @@ const exampleEnemy1: Character = {
       spriteWidth: 23,
       spriteHeight: 18,
       spriteOffsetX: 10,
-      spriteOffsetY: 33,
+      spriteOffsetY: 10,
     },
   ],
   statuses: [
@@ -85,7 +85,7 @@ const exampleEnemy2: Character = {
       spriteWidth: 45,
       spriteHeight: 45,
       spriteOffsetX: 9,
-      spriteOffsetY: 15,
+      spriteOffsetY: -13,
     },
   ],
   statuses: [
