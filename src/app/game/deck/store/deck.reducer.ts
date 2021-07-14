@@ -34,11 +34,13 @@ const _deckReducer = createReducer(
     allCards,
   })),
 
+  // TODO: TEST
   on(DeckActions.getCardsToHand, (state, { hand }) => ({
     ...state,
     hand,
-    remainingEnergy: state.remainingEnergy >= 0 ? state.remainingEnergy : 0,
-    maxEnergy: state.maxEnergy >= 0 ? state.maxEnergy : 0,
+    remainingEnergy:
+      state.remainingEnergy >= 0 ? state.remainingEnergy : state.defaultEnergy,
+    maxEnergy: state.maxEnergy >= 0 ? state.maxEnergy : state.defaultEnergy,
   })),
 
   on(DeckActions.chooseCard, (state, { chosenCard }) => ({
@@ -53,10 +55,12 @@ const _deckReducer = createReducer(
     remainingEnergy: state.remainingEnergy - cost,
   })),
 
+  // TODO: TEST
   on(DeckActions.changeEnergy, (state, { energy }) => ({
     ...state,
-    remainingEnergy: state.remainingEnergy + energy,
-    maxEnergy: state.maxEnergy + energy,
+    remainingEnergy:
+      state.remainingEnergy + energy > 0 ? state.remainingEnergy + energy : 0,
+    maxEnergy: state.maxEnergy + energy > 0 ? state.maxEnergy + energy : 0,
   })),
 
   on(DeckActions.resetEnergy, (state) => ({
