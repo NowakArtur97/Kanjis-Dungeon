@@ -13,10 +13,11 @@ import { AppCommonModule } from './common/app-common.module';
 import { GameModule } from './game/game.module';
 import { JapaneseModule } from './japanese/japanese.module';
 import { QuizModule } from './quiz/quiz.module';
+import { SharedModule } from './shared/shared.module';
 
 const appRoutes: Routes = [
-  { path: '', redirectTo: '/quiz', pathMatch: 'full' },
-  { path: '**', redirectTo: '/quiz', pathMatch: 'full' },
+  // TODO: AppModule: Redirect unknown
+  // { path: '**', redirectTo: '/quiz', pathMatch: 'full' },
 ];
 
 @NgModule({
@@ -31,6 +32,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
 
     AppCommonModule,
+    SharedModule,
     JapaneseModule,
     QuizModule,
     GameModule,
