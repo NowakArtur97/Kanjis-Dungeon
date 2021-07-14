@@ -1,28 +1,17 @@
-import {
-  ComponentFixture,
-  fakeAsync,
-  TestBed,
-  tick,
-} from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Store, StoreModule } from '@ngrx/store';
 import { of } from 'rxjs';
 import AppStoreState from 'src/app/store/app.state';
 
 import { attackCard, powerCard } from '../../deck/deck.data';
-import {
-  DeckStoreState,
-  initialState as deckInitialState,
-} from '../../deck/store/deck.reducer';
+import { DeckStoreState, initialState as deckInitialState } from '../../deck/store/deck.reducer';
 import { exampleEnemy1 } from '../../enemy/enemy.data';
 import * as EnemyActions from '../../enemy/store/enemy.actions';
 import defaultPlayer from '../../player/player.data';
 import * as PlayerActions from '../../player/store/player.actions';
 import * as GameActions from '../../store/game.actions';
-import {
-  GameStoreState,
-  initialState as gameInitialState,
-} from '../../store/game.reducer';
+import { GameStoreState, initialState as gameInitialState } from '../../store/game.reducer';
 import CharacterPosition from '../models/character-position.model';
 import Character from '../models/character.model';
 import SpriteService from '../services/sprite.service';
@@ -34,11 +23,20 @@ describe('CharacterSpriteComponent', () => {
   let store: Store<AppStoreState>;
   let spriteService: SpriteService;
 
-  const playerCharacter: Character = { ...defaultPlayer, id: 0 };
-  const enemyCharacter: Character = { ...exampleEnemy1, id: 1 };
   const animationPosition: CharacterPosition = {
-    x: 10,
-    y: 20,
+    x: 0,
+    y: 0,
+    topOffset: 50,
+  };
+  const playerCharacter: Character = {
+    ...defaultPlayer,
+    id: 0,
+    position: animationPosition,
+  };
+  const enemyCharacter: Character = {
+    ...exampleEnemy1,
+    id: 1,
+    position: animationPosition,
   };
   const stateWithAttackTypeCard: Partial<DeckStoreState> = {
     ...deckInitialState,
@@ -100,14 +98,21 @@ describe('CharacterSpriteComponent', () => {
       expect(store.select).toHaveBeenCalled();
     });
 
-    it('with player character should dispatch setPlayer action', () => {
-      component.character = playerCharacter;
+    it('with enemy character should dispatch setEnemy action', () => {
+      component.character = enemyCharacter;
       component.ngOnInit();
       component.ngAfterViewChecked();
 
+      const position = {
+        x: component.defaultXPosition,
+        y: component.defaultYPosition,
+        topOffset: enemyCharacter.position.topOffset,
+      };
+      component.character.position = position;
+
       expect(store.dispatch).toHaveBeenCalledWith(
-        PlayerActions.setPlayer({
-          player: component.character,
+        EnemyActions.setEnemy({
+          enemy: component.character,
         })
       );
       expect(spriteService.getAnimationSpriteOffset).toHaveBeenCalled();
@@ -207,7 +212,7 @@ describe('CharacterSpriteComponent', () => {
         );
       });
 
-      it('is Player and chosen card doesnt affect Player should not dispatch setAnimationPosition or useCardOnPlayer action', () => {
+      it('is Player and chosen card doesnt affect Player should not dispatch useCardOnPlayer action', () => {
         spyOn(store, 'select').and.callFake((selector) => {
           if (selector === 'deck') {
             return of(stateWithAttackTypeCard);
@@ -222,9 +227,6 @@ describe('CharacterSpriteComponent', () => {
         component.ngAfterViewChecked();
         component.onChooseCharacter();
 
-        expect(store.dispatch).not.toHaveBeenCalledWith(
-          GameActions.setAnimationPosition({ animationPosition })
-        );
         expect(store.dispatch).not.toHaveBeenCalledWith(
           PlayerActions.useCardOnPlayer()
         );
@@ -251,7 +253,7 @@ describe('CharacterSpriteComponent', () => {
         );
       });
 
-      it('is Enemy and chosen card doesnt affect Enemy should not dispatch setAnimationPosition or useCardOnEnemy action', () => {
+      it('is Enemy and chosen card doesnt affect Enemy should not dispatch setAnimationPosition action', () => {
         spyOn(store, 'select').and.callFake((selector) => {
           if (selector === 'deck') {
             return of(stateWithPowerTypeCard);
@@ -266,9 +268,6 @@ describe('CharacterSpriteComponent', () => {
         component.ngAfterViewChecked();
         component.onChooseCharacter();
 
-        expect(store.dispatch).not.toHaveBeenCalledWith(
-          GameActions.setAnimationPosition({ animationPosition })
-        );
         expect(store.dispatch).not.toHaveBeenCalledWith(
           EnemyActions.useCardOnEnemy({ enemy: component.character })
         );
@@ -303,10 +302,12 @@ describe('CharacterSpriteComponent', () => {
         .nativeElement as HTMLElement).getBoundingClientRect();
       component.defaultXPosition = defaultPosition.left;
       component.defaultYPosition = defaultPosition.top;
-      playerCharacter.position = {
+      const position = {
         x: component.defaultXPosition,
         y: component.defaultYPosition,
+        topOffset: playerCharacter.position.topOffset,
       };
+      component.character.position = position;
 
       const eventExpected = { toState: 'firstFrame' };
       component.onEndAnimation(eventExpected);
@@ -314,6 +315,11 @@ describe('CharacterSpriteComponent', () => {
 
       expect(store.dispatch).toHaveBeenCalledWith(
         GameActions.finishCharacterAnimation({ character: component.character })
+      );
+      expect(store.dispatch).toHaveBeenCalledWith(
+        PlayerActions.setPlayer({
+          player: component.character,
+        })
       );
       expect(spriteService.getAnimationSpriteOffset).toHaveBeenCalled();
       expect(spriteService.getCharacterSprite).toHaveBeenCalled();

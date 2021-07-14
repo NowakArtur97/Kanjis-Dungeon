@@ -1,11 +1,4 @@
-import {
-  animate,
-  AnimationEvent,
-  state,
-  style,
-  transition,
-  trigger,
-} from '@angular/animations';
+import { animate, AnimationEvent, state, style, transition, trigger } from '@angular/animations';
 import {
   AfterViewChecked,
   ChangeDetectorRef,
@@ -124,8 +117,7 @@ export class CharacterSpriteComponent
       this.defaultXPosition = defaultPosition.left;
       this.defaultYPosition = defaultPosition.top;
 
-      // TODO: TEST
-      if (this.character.position.x === 0) {
+      if (this.character.position?.x === 0) {
         const character: Character = cloneDeep(this.character);
         const position = {
           x: this.defaultXPosition,
