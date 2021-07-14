@@ -28,7 +28,6 @@ export default class DeckEffects {
     )
   );
 
-  // TODO: TEST
   startTurn$ = createEffect(() =>
     this.actions$.pipe(
       ofType(PlayerActions.startPlayerTurn),
@@ -40,7 +39,6 @@ export default class DeckEffects {
     )
   );
 
-  // TODO: TEST
   changePhase$ = createEffect(() =>
     this.actions$.pipe(
       ofType(GameActions.changePhase),

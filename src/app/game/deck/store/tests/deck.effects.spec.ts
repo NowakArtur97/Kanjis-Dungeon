@@ -3,7 +3,6 @@ import { provideMockActions } from '@ngrx/effects/testing';
 import { Store, StoreModule } from '@ngrx/store';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { ReplaySubject } from 'rxjs';
-import { skip, take } from 'rxjs/operators';
 import AppStoreState from 'src/app/store/app.state';
 
 import * as QuizActions from '../../../../quiz/store/quiz.actions';
@@ -68,6 +67,19 @@ describe('DeckEffects', () => {
         deckEffects.setAllCards$.subscribe((resultAction) => {
           expect(resultAction).toEqual(DeckActions.setAllCards({ allCards }));
           expect(deckService.getCards).toHaveBeenCalledTimes(1);
+        });
+      });
+    });
+
+    describe('changePhase$', () => {
+      beforeEach(() => {
+        actions$ = new ReplaySubject(1);
+        actions$.next(GameActions.chooseLevel);
+      });
+
+      it('should return a resetEnergy action', () => {
+        deckEffects.changePhase$.subscribe((resultAction) => {
+          expect(resultAction).toEqual(DeckActions.resetEnergy);
         });
       });
     });
@@ -236,14 +248,10 @@ describe('DeckEffects', () => {
         (deckService.getHand as jasmine.Spy).and.returnValue(hand);
       });
 
-      it('should return a getCardsToHand and resetEnergy actions', () => {
-        deckEffects.startTurn$.pipe(take(1)).subscribe((resultAction) => {
+      it('should return a getCardsToHand actions', () => {
+        deckEffects.startTurn$.subscribe((resultAction) => {
           expect(resultAction).toEqual(DeckActions.getCardsToHand({ hand }));
           expect(deckService.getHand).toHaveBeenCalledTimes(1);
-        });
-        deckEffects.startTurn$.pipe(skip(1)).subscribe((resultAction) => {
-          expect(resultAction).toEqual(DeckActions.resetEnergy());
-          expect(deckService.getHand).toHaveBeenCalledTimes(2);
         });
       });
     });
