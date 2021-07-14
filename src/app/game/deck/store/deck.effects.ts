@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
-import { map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
+import { map, switchMap, withLatestFrom } from 'rxjs/operators';
 import AppStoreState from 'src/app/store/app.state';
 
 import * as QuizActions from '../../../quiz/store/quiz.actions';
@@ -28,6 +28,7 @@ export default class DeckEffects {
     )
   );
 
+  // TODO: TEST
   startTurn$ = createEffect(() =>
     this.actions$.pipe(
       ofType(PlayerActions.startPlayerTurn),
@@ -35,10 +36,15 @@ export default class DeckEffects {
       switchMap(([, { allCards, numberOfCards }]) =>
         of(this.deckService.getHand(allCards, numberOfCards))
       ),
-      mergeMap((hand) => [
-        DeckActions.getCardsToHand({ hand }),
-        DeckActions.resetEnergy(),
-      ])
+      map((hand) => DeckActions.getCardsToHand({ hand }))
+    )
+  );
+
+  // TODO: TEST
+  changePhase$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(GameActions.changePhase),
+      map(() => DeckActions.resetEnergy())
     )
   );
 
