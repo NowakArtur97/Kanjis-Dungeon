@@ -86,12 +86,15 @@
   transition: color 1s;
 }
 
-.navigation__link--squares:hover {
+.navigation__link--rectangles:hover,
+.navigation__link--lines:hover {
   color: black;
 }
 
-.navigation__link--squares::before,
-.navigation__link--squares::after {
+.navigation__link--rectangles::before,
+.navigation__link--rectangles::after,
+.navigation__link--lines::before,
+.navigation__link--lines::after {
   content: "";
 
   position: absolute;
@@ -106,16 +109,16 @@
   z-index: -1;
 }
 
-.navigation__link--squares::before {
+.navigation__link--rectangles::before {
   background-color: #53d9d1;
   clip-path: circle(0% at 50% calc(50%));
 }
 
-.navigation__link--squares:hover::before {
+.navigation__link--rectangles:hover::before {
   clip-path: circle(100% at 50% 50%);
 }
 
-.navigation__link--squares::after {
+.navigation__link--rectangles::after {
   background-color: black;
   clip-path: polygon(
     40% 0%,
@@ -127,10 +130,9 @@
     60% 100%,
     40% 100%
   );
-  transition: clip-path 1s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
-.navigation__link--squares:hover::after {
+.navigation__link--rectangles:hover::after {
   clip-path: polygon(
     40% 10%,
     60% 10%,
@@ -141,4 +143,47 @@
     60% 65%,
     40% 65%
   );
+}
+
+.navigation__link--lines::before,
+.navigation__link--lines::after {
+  width: 50%;
+  background-color: #53d9d1;
+  transition: transform 1s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.navigation__link--lines::before {
+  clip-path: polygon(
+    20% 60%,
+    100% 60%,
+    100% 40%,
+    20% 40%,
+    20% 0%,
+    60% 0%,
+    60% 20%,
+    20% 20%
+  );
+  transform: translate(0, -50%) scaleY(0);
+}
+
+.navigation__link--lines:hover::before {
+  transform: translate(0, 0) scaleY(1);
+}
+
+.navigation__link--lines::after {
+  clip-path: polygon(
+    80% 40%,
+    0% 40%,
+    0% 60%,
+    80% 60%,
+    80% 100%,
+    40% 100%,
+    40% 80%,
+    80% 80%
+  );
+  transform: translate(100%, 50%) scaleY(0);
+}
+
+.navigation__link--lines:hover::after {
+  transform: translate(100%, 0) scaleY(1);
 }
