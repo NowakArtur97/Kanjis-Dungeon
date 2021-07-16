@@ -74,6 +74,10 @@ A preliminary version of the game mode
 
 Quiz mode
 
+![Navigation](./screenshots/navigation.gif)
+
+Navigation
+
 ![Example radical card](./screenshots/radical.jpg)
 
 Example Radical Card
