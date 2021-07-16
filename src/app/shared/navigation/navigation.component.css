@@ -1,0 +1,30 @@
+/* .navigation {
+  position: fixed;
+} */
+
+.navigation__check {
+  display: none;
+}
+
+.navigation__check:checked ~ .navigation__btn i:before {
+  content: "\f00d";
+}
+
+.navigation__btn {
+  position: fixed;
+  top: 2%;
+  right: 2%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 2em;
+  height: 2em;
+  border-radius: 50%;
+  font-size: 1.2em;
+  color: white;
+  background-color: black;
+
+  z-index: 3;
+}
