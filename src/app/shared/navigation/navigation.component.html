@@ -3,9 +3,9 @@
     type="checkbox"
     id="navigation__check"
     class="navigation__check"
-    checked
+    [checked]="isOnMainPage"
   />
-  <label for="navigation__check" class="navigation__btn"
+  <label *ngIf="!isOnMainPage" for="navigation__check" class="navigation__btn"
     ><i class="fas fa-bars"></i
   ></label>
   <div class="navigation__list_wrapper">

@@ -85,6 +85,7 @@
   text-transform: uppercase;
   color: #53d9d1;
 
+  cursor: pointer;
   transition: color 1s;
 }
 
