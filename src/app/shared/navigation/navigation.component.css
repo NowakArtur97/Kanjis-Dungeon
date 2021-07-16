@@ -2,6 +2,8 @@
   position: fixed;
   top: 0;
   left: 0;
+  width: 0;
+  height: 0;
 
   z-index: 3;
 }
@@ -12,17 +14,17 @@
 
 .navigation__btn {
   position: fixed;
-  top: 2%;
-  right: 2%;
+  top: 1%;
+  right: 1%;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  width: 2em;
-  height: 2em;
+  width: 2.1em;
+  height: 2.1em;
   border-radius: 50%;
-  font-size: 1.2em;
+  font-size: 1.4em;
   color: white;
   background-color: black;
 
@@ -51,8 +53,8 @@
 
 .navigation__list {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: 1fr;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(2, 1fr);
 
   width: 100%;
   height: 100%;
@@ -78,7 +80,7 @@
 }
 
 .navigation__link {
-  font-size: 3em;
+  font-size: 2.5em;
   text-decoration: none;
   text-transform: uppercase;
   color: #53d9d1;
@@ -186,4 +188,83 @@
 
 .navigation__link--lines:hover::after {
   transform: translate(100%, 0) scaleY(1);
+}
+
+@media (min-width: 375px) {
+  .navigation__btn {
+    top: 1.5%;
+    right: 1.5%;
+
+    width: 1.8em;
+    height: 1.8em;
+    font-size: 1.5em;
+  }
+
+  .navigation__link {
+    font-size: 3em;
+  }
+}
+
+@media (min-width: 411px) {
+  .navigation__btn {
+    width: 2em;
+    height: 2em;
+    font-size: 1.7em;
+  }
+}
+
+@media (min-width: 568px) {
+  .navigation__btn {
+    width: 2.2em;
+    height: 2.2em;
+    font-size: 2em;
+  }
+}
+
+@media (min-width: 640px) {
+  .navigation__list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
+  }
+
+  .navigation__link {
+    font-size: 3em;
+  }
+}
+
+@media (min-width: 731px) {
+  .navigation__btn {
+    top: 2%;
+    right: 2%;
+
+    width: 2.4em;
+    height: 2.4em;
+    font-size: 2.2em;
+  }
+
+  .navigation__link {
+    font-size: 3.5em;
+  }
+}
+
+@media (min-width: 1024px) {
+  .navigation__btn {
+    top: 2%;
+    right: 2%;
+
+    width: 2.7em;
+    height: 2.7em;
+    font-size: 2.6em;
+  }
+
+  .navigation__link {
+    font-size: 4.5em;
+  }
+}
+
+@media (min-width: 1366px) {
+  .navigation__link {
+    font-size: 5.5em;
+  }
 }
