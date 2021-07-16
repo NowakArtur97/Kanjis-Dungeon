@@ -1,12 +1,22 @@
 <nav class="navigation">
-  <input type="checkbox" id="navigation__check" class="navigation__check" />
+  <input
+    type="checkbox"
+    id="navigation__check"
+    class="navigation__check"
+    checked
+  />
   <label for="navigation__check" class="navigation__btn"
     ><i class="fas fa-bars"></i
   ></label>
   <div class="navigation__list_wrapper">
     <ul class="navigation__list">
       <li class="navigation__item">
-        <a routerLink="/quiz" href="#" class="navigation__link">Quiz Mode</a>
+        <a
+          routerLink="/quiz"
+          href="#"
+          class="navigation__link navigation__link--squares"
+          >Quiz Mode</a
+        >
       </li>
       <li class="navigation__item">
         <a routerLink="/game" href="#" class="navigation__link">Game Mode</a>
