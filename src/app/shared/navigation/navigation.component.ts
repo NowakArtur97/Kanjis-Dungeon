@@ -10,14 +10,22 @@ export class NavigationComponent implements OnInit {
   private readonly MAIN_PAGE_URL = '/';
 
   isOnMainPage: boolean;
+  isActive = false;
 
-  constructor(private router: Router) {
+  constructor(router: Router) {
     router.events.forEach((event) => {
       if (event instanceof NavigationStart) {
         this.isOnMainPage = event.url === this.MAIN_PAGE_URL;
+        if (this.isOnMainPage) {
+          this.isActive = true;
+        }
       }
     });
   }
 
   ngOnInit(): void {}
+
+  onToggleNavigation(): void {
+    this.isActive = !this.isActive;
+  }
 }
