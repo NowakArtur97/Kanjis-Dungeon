@@ -1,9 +1,9 @@
 import CharacterType from '../character/enums/character-type.enum';
 import Character from '../character/models/character.model';
-import { swordAction } from './enemy-action.data';
+import { shieldAction, swordAction } from './enemy-action.data';
 
-const exampleEnemy1: Character = {
-  name: 'goblin_archer',
+const pigWarrior: Character = {
+  name: 'pig_warrior',
   stats: {
     maxHealth: 30,
     currentHealth: 20,
@@ -15,19 +15,19 @@ const exampleEnemy1: Character = {
   animations: [
     {
       spriteSheet: 'idle',
-      numberOfFrames: 6,
+      numberOfFrames: 4,
       animationTimeInMiliseconds: 600,
       animationIterationCount: 'Infinite',
-      spriteWidth: 20,
-      spriteHeight: 19,
+      spriteWidth: 21,
+      spriteHeight: 22,
     },
     {
       spriteSheet: 'melee_attack',
-      numberOfFrames: 8,
-      animationTimeInMiliseconds: 600,
+      numberOfFrames: 7,
+      animationTimeInMiliseconds: 560,
       animationIterationCount: '1',
-      spriteWidth: 23,
-      spriteHeight: 18,
+      spriteWidth: 31,
+      spriteHeight: 32,
       spriteOffsetX: 10,
       spriteOffsetY: 10,
     },
@@ -58,8 +58,8 @@ const exampleEnemy1: Character = {
   allActions: [swordAction],
 };
 
-const exampleEnemy2: Character = {
-  name: 'ogre',
+const imp: Character = {
+  name: 'imp',
   stats: {
     maxHealth: 90,
     currentHealth: 85,
@@ -71,19 +71,29 @@ const exampleEnemy2: Character = {
   animations: [
     {
       spriteSheet: 'idle',
-      numberOfFrames: 11,
-      animationTimeInMiliseconds: 1700,
+      numberOfFrames: 4,
+      animationTimeInMiliseconds: 600,
       animationIterationCount: 'Infinite',
-      spriteWidth: 50,
-      spriteHeight: 33,
+      spriteWidth: 10,
+      spriteHeight: 17,
     },
     {
       spriteSheet: 'melee_attack',
-      numberOfFrames: 6,
-      animationTimeInMiliseconds: 600,
+      numberOfFrames: 7,
+      animationTimeInMiliseconds: 560,
       animationIterationCount: '1',
-      spriteWidth: 45,
-      spriteHeight: 45,
+      spriteWidth: 17,
+      spriteHeight: 17,
+      spriteOffsetX: 9,
+      spriteOffsetY: -13,
+    },
+    {
+      spriteSheet: 'defence',
+      numberOfFrames: 9,
+      animationTimeInMiliseconds: 720,
+      animationIterationCount: '1',
+      spriteWidth: 24,
+      spriteHeight: 108,
       spriteOffsetX: 9,
       spriteOffsetY: -13,
     },
@@ -115,37 +125,9 @@ const exampleEnemy2: Character = {
     },
   ],
   currentAction: swordAction,
-  allActions: [swordAction],
-};
-const exampleEnemy3: Character = {
-  name: 'goblin_archer',
-  stats: {
-    maxHealth: 20,
-    currentHealth: 10,
-    maxDamage: 11,
-    damage: 6,
-    currentShield: 105,
-    type: CharacterType.ENEMY,
-  },
-  animations: [...exampleEnemy1.animations],
-  statuses: [
-    {
-      spriteSheet: 'book',
-      remainingNumberOfActiveRounds: 3,
-    },
-    {
-      spriteSheet: 'heart',
-      remainingNumberOfActiveRounds: 2,
-    },
-    {
-      spriteSheet: 'book',
-      remainingNumberOfActiveRounds: 3,
-    },
-  ],
-  currentAction: swordAction,
-  allActions: [swordAction],
+  allActions: [swordAction, shieldAction],
 };
 
-export { exampleEnemy1, exampleEnemy2, exampleEnemy3 };
-const allEnemies = [exampleEnemy1, exampleEnemy2, exampleEnemy3];
+export { pigWarrior, imp };
+const allEnemies = [pigWarrior, imp];
 export { allEnemies };
