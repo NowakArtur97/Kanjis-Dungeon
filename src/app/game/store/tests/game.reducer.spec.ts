@@ -1,6 +1,6 @@
 import CharacterPlayedAnimation from '../../character/models/character-played-animation.model';
 import CharacterPosition from '../../character/models/character-position.model';
-import { attackCard } from '../../deck/deck.data';
+import { phoenixSummoningCard } from '../../deck/deck.data';
 import GamePhase from '../../enums/game-phase.enum';
 import GameTurn from '../../enums/game-turn.enum';
 import defaultPlayer from '../../player/player.data';
@@ -15,7 +15,7 @@ describe('gameReducer', () => {
   };
   const playedAnimation: CharacterPlayedAnimation = {
     character: defaultPlayer,
-    animationName: attackCard.animationName,
+    animationName: phoenixSummoningCard.animationName,
     animationPosition,
   };
   const stateWithoutAnimation: GameStoreState = {

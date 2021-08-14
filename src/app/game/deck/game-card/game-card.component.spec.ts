@@ -6,7 +6,7 @@ import { of } from 'rxjs';
 import { JapaneseModule } from 'src/app/japanese/japanese.module';
 import AppStoreState from 'src/app/store/app.state';
 
-import { attackCard, defenceCard, powerCard } from '../deck.data';
+import { defenceCard, phoenixSummoningCard, thunderStrikeCard } from '../deck.data';
 import GameCard from '../models/game-card.model';
 import * as DeckActions from '../store/deck.actions';
 import { DeckStoreState, initialState } from '../store/deck.reducer';
@@ -17,13 +17,17 @@ describe('GameCardComponent', () => {
   let fixture: ComponentFixture<GameCardComponent>;
   let store: Store<AppStoreState>;
 
-  const allCards: GameCard[] = [attackCard, defenceCard, powerCard];
-  const hand = [attackCard, defenceCard];
+  const allCards: GameCard[] = [
+    phoenixSummoningCard,
+    thunderStrikeCard,
+    defenceCard,
+  ];
+  const hand = [phoenixSummoningCard, defenceCard];
   const stateWithMaxEnergyAndChosenAttackCard: DeckStoreState = {
     ...initialState,
     allCards,
     hand,
-    chosenCard: attackCard,
+    chosenCard: phoenixSummoningCard,
   };
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -54,14 +58,14 @@ describe('GameCardComponent', () => {
       );
 
       fixture.detectChanges();
-      component.card = attackCard;
+      component.card = phoenixSummoningCard;
       component.ngOnInit();
 
       component.onChooseCard();
 
       expect(store.select).toHaveBeenCalled();
       expect(store.dispatch).toHaveBeenCalledWith(
-        DeckActions.chooseCard({ chosenCard: attackCard })
+        DeckActions.chooseCard({ chosenCard: phoenixSummoningCard })
       );
       expect(component.isChosen).toBe(true);
       expect(component.isAvailable).toBe(true);
@@ -84,7 +88,7 @@ describe('GameCardComponent', () => {
 
       expect(store.select).toHaveBeenCalled();
       expect(store.dispatch).not.toHaveBeenCalledWith(
-        DeckActions.chooseCard({ chosenCard: attackCard })
+        DeckActions.chooseCard({ chosenCard: phoenixSummoningCard })
       );
       expect(component.isChosen).toBe(false);
       expect(component.isAvailable).toBe(false);

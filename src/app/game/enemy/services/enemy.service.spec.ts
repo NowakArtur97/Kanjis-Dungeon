@@ -2,10 +2,10 @@ import { getTestBed, TestBed } from '@angular/core/testing';
 import MathUtil from 'src/app/common/utils/math.util';
 
 import Character from '../../character/models/character.model';
-import { attackCard } from '../../deck/deck.data';
+import { phoenixSummoningCard } from '../../deck/deck.data';
 import defaultPlayer from '../../player/player.data';
 import { shieldAction, swordAction } from '../enemy-action.data';
-import { exampleEnemy1, exampleEnemy2, exampleEnemy3 } from '../enemy.data';
+import { imp, pigWarrior } from '../enemy.data';
 import EnemyService from './enemy.service';
 
 describe('enemyService', () => {
@@ -13,21 +13,21 @@ describe('enemyService', () => {
   let enemyService: EnemyService;
 
   const enemyWithId1: Character = {
-    ...exampleEnemy1,
+    ...pigWarrior,
     id: 1,
     stats: {
-      ...exampleEnemy1.stats,
+      ...pigWarrior.stats,
       currentShield: 0,
     },
     allActions: [swordAction, shieldAction],
   };
   const enemyWithId2: Character = {
-    ...exampleEnemy2,
+    ...imp,
     id: 2,
     allActions: [swordAction, shieldAction],
   };
   const enemyWithId3: Character = {
-    ...exampleEnemy3,
+    ...pigWarrior,
     id: 3,
     allActions: [swordAction, shieldAction],
   };
@@ -51,7 +51,8 @@ describe('enemyService', () => {
         ...enemyWithId1,
         stats: {
           ...enemyWithId1.stats,
-          currentHealth: enemyWithId1.stats.currentHealth - attackCard.value,
+          currentHealth:
+            enemyWithId1.stats.currentHealth - phoenixSummoningCard.value,
         },
       };
       const updatedEnemiesExpected: Character[] = [
@@ -61,7 +62,7 @@ describe('enemyService', () => {
       ];
 
       const updatedEnemiesActual = enemyService.updateEnemies(
-        attackCard,
+        phoenixSummoningCard,
         enemyWithId1,
         enemies
       );
@@ -118,7 +119,7 @@ describe('enemyService', () => {
   describe('when perform action', () => {
     it('related to defence should update enemies stats', () => {
       const enemy: Character = {
-        ...exampleEnemy1,
+        ...pigWarrior,
         currentAction: shieldAction,
       };
       const enemyExpected: Character = {
@@ -147,11 +148,11 @@ describe('enemyService', () => {
 
     it('related to attack on player without shield should update player stats', () => {
       const enemy: Character = {
-        ...exampleEnemy1,
+        ...pigWarrior,
         currentAction: swordAction,
       };
       const expectedEnemy: Character = {
-        ...exampleEnemy1,
+        ...pigWarrior,
         currentAction: null,
       };
       const player: Character = {
@@ -184,11 +185,11 @@ describe('enemyService', () => {
 
     it('related to attack on player with shield should update player stats', () => {
       const enemy: Character = {
-        ...exampleEnemy1,
+        ...pigWarrior,
         currentAction: swordAction,
       };
       const expectedEnemy: Character = {
-        ...exampleEnemy1,
+        ...pigWarrior,
         currentAction: null,
       };
       const player: Character = {

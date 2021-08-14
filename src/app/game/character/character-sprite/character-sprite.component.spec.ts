@@ -4,9 +4,9 @@ import { Store, StoreModule } from '@ngrx/store';
 import { of } from 'rxjs';
 import AppStoreState from 'src/app/store/app.state';
 
-import { attackCard, powerCard } from '../../deck/deck.data';
+import { phoenixSummoningCard, powerCard } from '../../deck/deck.data';
 import { DeckStoreState, initialState as deckInitialState } from '../../deck/store/deck.reducer';
-import { exampleEnemy1 } from '../../enemy/enemy.data';
+import { pigWarrior } from '../../enemy/enemy.data';
 import * as EnemyActions from '../../enemy/store/enemy.actions';
 import defaultPlayer from '../../player/player.data';
 import * as PlayerActions from '../../player/store/player.actions';
@@ -34,13 +34,13 @@ describe('CharacterSpriteComponent', () => {
     position: animationPosition,
   };
   const enemyCharacter: Character = {
-    ...exampleEnemy1,
+    ...pigWarrior,
     id: 1,
     position: animationPosition,
   };
   const stateWithAttackTypeCard: Partial<DeckStoreState> = {
     ...deckInitialState,
-    chosenCard: attackCard,
+    chosenCard: phoenixSummoningCard,
   };
   const stateWithPowerTypeCard: Partial<DeckStoreState> = {
     ...deckInitialState,
@@ -50,7 +50,7 @@ describe('CharacterSpriteComponent', () => {
     ...gameInitialState,
     playedAnimation: {
       character: playerCharacter,
-      animationName: attackCard.animationName,
+      animationName: phoenixSummoningCard.animationName,
       animationPosition,
     },
   };
@@ -88,7 +88,7 @@ describe('CharacterSpriteComponent', () => {
     });
 
     it('should set animation sprite', () => {
-      component.character = exampleEnemy1;
+      component.character = pigWarrior;
       component.ngOnInit();
       component.ngAfterViewChecked();
 

@@ -6,7 +6,7 @@ import { ReplaySubject } from 'rxjs';
 import { skip, take } from 'rxjs/operators';
 import Character from 'src/app/game/character/models/character.model';
 import CharacterService from 'src/app/game/character/services/character.service';
-import { attackCard } from 'src/app/game/deck/deck.data';
+import { phoenixSummoningCard } from 'src/app/game/deck/deck.data';
 import * as DeckReducer from 'src/app/game/deck/store/deck.reducer';
 import defaultPlayer from 'src/app/game/player/player.data';
 import * as PlayerReducer from 'src/app/game/player/store/player.reducer';
@@ -16,7 +16,7 @@ import AppStoreState from 'src/app/store/app.state';
 import * as PlayerActions from '../../../player/store/player.actions';
 import * as GameActions from '../../../store/game.actions';
 import { shieldAction, swordAction } from '../../enemy-action.data';
-import { exampleEnemy1, exampleEnemy2, exampleEnemy3 } from '../../enemy.data';
+import { imp, pigWarrior } from '../../enemy.data';
 import EnemyService from '../../services/enemy.service';
 import * as EnemyActions from '../enemy.actions';
 import EnemyEffects from '../enemy.effects';
@@ -27,12 +27,12 @@ describe('EnemyEffects', () => {
   let enemyService: EnemyService;
   let characterService: CharacterService;
 
-  const enemies: Character[] = [exampleEnemy1, exampleEnemy2, exampleEnemy3];
+  const enemies: Character[] = [pigWarrior, imp, pigWarrior];
   const updatedEnemy1: Character = {
     id: 1,
-    ...exampleEnemy1,
+    ...pigWarrior,
     stats: {
-      ...exampleEnemy1.stats,
+      ...pigWarrior.stats,
       currentHealth: 70,
       damage: 12,
       currentShield: 10,
@@ -40,9 +40,9 @@ describe('EnemyEffects', () => {
   };
   const updatedEnemy2: Character = {
     id: 2,
-    ...exampleEnemy2,
+    ...imp,
     stats: {
-      ...exampleEnemy2.stats,
+      ...imp.stats,
       currentHealth: 35,
       damage: 12,
       currentShield: 18,
@@ -50,9 +50,9 @@ describe('EnemyEffects', () => {
   };
   const updatedEnemy3: Character = {
     id: 3,
-    ...exampleEnemy3,
+    ...pigWarrior,
     stats: {
-      ...exampleEnemy3.stats,
+      ...pigWarrior.stats,
       currentHealth: 30,
       currentShield: 6,
     },
@@ -103,7 +103,7 @@ describe('EnemyEffects', () => {
     },
     deck: {
       ...DeckReducer.initialState,
-      chosenCard: attackCard,
+      chosenCard: phoenixSummoningCard,
     },
     enemy: {
       allEnemies: enemies,
@@ -112,14 +112,14 @@ describe('EnemyEffects', () => {
     game: {
       ...gameInitialState,
       playedAnimation: {
-        character: exampleEnemy1,
+        character: pigWarrior,
         animationPosition: { x: 0, y: 0, topOffset: 50 },
         animationName: 'attack',
       },
     },
   };
   const enemyWithoutAction1: Character = {
-    ...exampleEnemy1,
+    ...pigWarrior,
     currentAction: null,
   };
   const playerAfterAction: Character = {
@@ -223,8 +223,8 @@ describe('EnemyEffects', () => {
       it('should return a startCharacterAnimation actions', () => {
         enemyEffects.startEnemyTurn$.subscribe((resultAction) => {
           const playedAnimation = {
-            character: exampleEnemy1,
-            animationName: exampleEnemy1.currentAction.action,
+            character: pigWarrior,
+            animationName: pigWarrior.currentAction.action,
             animationPosition: defaultPlayer.position,
           };
           expect(resultAction).toEqual(
@@ -264,17 +264,17 @@ describe('EnemyEffects', () => {
 
   describe('finishCharacterAnimation$', () => {
     const enemyWithoutAction2: Character = {
-      ...exampleEnemy2,
+      ...imp,
       currentAction: null,
     };
     const enemyWithoutAction3: Character = {
-      ...exampleEnemy3,
+      ...pigWarrior,
       currentAction: null,
     };
     const enemiesWithoutActions: Character[] = [
       enemyWithoutAction1,
       enemyWithoutAction2,
-      exampleEnemy3,
+      pigWarrior,
     ];
     const stateWithEnemiesWithoutActions: Partial<AppStoreState> = {
       ...stateWithEnemies,
@@ -285,7 +285,7 @@ describe('EnemyEffects', () => {
       game: {
         ...gameInitialState,
         playedAnimation: {
-          character: exampleEnemy3,
+          character: pigWarrior,
           animationPosition: { x: 0, y: 0, topOffset: 50 },
           animationName: 'attack',
         },
@@ -300,7 +300,7 @@ describe('EnemyEffects', () => {
       game: {
         ...gameInitialState,
         playedAnimation: {
-          character: exampleEnemy1,
+          character: pigWarrior,
           animationPosition: { x: 0, y: 0, topOffset: 50 },
           animationName: 'attack',
         },
@@ -420,7 +420,7 @@ describe('EnemyEffects', () => {
       beforeEach(() => {
         actions$ = new ReplaySubject(1);
         actions$.next(
-          GameActions.finishCharacterAnimation({ character: exampleEnemy3 })
+          GameActions.finishCharacterAnimation({ character: pigWarrior })
         );
         (enemyService.performAction as jasmine.Spy).and.returnValue({
           enemy: enemyWithoutAction3,

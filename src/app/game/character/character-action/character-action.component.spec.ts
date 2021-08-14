@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { exampleEnemy1 } from '../../enemy/enemy.data';
+import { pigWarrior } from '../../enemy/enemy.data';
 import SpriteService from '../services/sprite.service';
 import { CharacterActionComponent } from './character-action.component';
 
@@ -23,7 +23,7 @@ describe('CharacterActionComponent', () => {
 
     spyOn(spriteService, 'getActionSprite');
 
-    component.character = exampleEnemy1;
+    component.character = pigWarrior;
 
     fixture.detectChanges();
     component.ngOnInit();

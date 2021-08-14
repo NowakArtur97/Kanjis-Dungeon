@@ -9,7 +9,7 @@ import * as QuizActions from '../../../../quiz/store/quiz.actions';
 import * as EnemyActions from '../../../enemy/store/enemy.actions';
 import * as PlayerActions from '../../../player/store/player.actions';
 import * as GameActions from '../../../store/game.actions';
-import { attackCard, defenceCard, powerCard } from '../../deck.data';
+import { defenceCard, phoenixSummoningCard, powerCard } from '../../deck.data';
 import DeckService from '../../services/deck.service';
 import * as DeckActions from '../deck.actions';
 import DeckEffects from '../deck.effects';
@@ -21,13 +21,13 @@ describe('DeckEffects', () => {
   let deckService: DeckService;
 
   const allCards = [
-    attackCard,
+    phoenixSummoningCard,
     defenceCard,
     powerCard,
-    attackCard,
+    phoenixSummoningCard,
     defenceCard,
     powerCard,
-    attackCard,
+    phoenixSummoningCard,
     defenceCard,
     powerCard,
   ];
@@ -157,10 +157,10 @@ describe('DeckEffects', () => {
       });
 
       describe('on Enemy', () => {
-        const stateWithAttackCard: Partial<AppStoreState> = {
+        const stateWithphoenixSummoningCard: Partial<AppStoreState> = {
           deck: {
             ...initialState,
-            chosenCard: attackCard,
+            chosenCard: phoenixSummoningCard,
           },
         };
         beforeEach(() =>
@@ -168,7 +168,7 @@ describe('DeckEffects', () => {
             imports: [StoreModule.forRoot({})],
             providers: [
               DeckEffects,
-              provideMockStore({ initialState: stateWithAttackCard }),
+              provideMockStore({ initialState: stateWithphoenixSummoningCard }),
               {
                 provide: Store,
                 useClass: MockStore,
@@ -198,7 +198,7 @@ describe('DeckEffects', () => {
         it('should return a getCardsToHand action', () => {
           deckEffects.useCard$.subscribe((resultAction) => {
             expect(resultAction).toEqual(
-              DeckActions.useCard({ cost: attackCard.cost })
+              DeckActions.useCard({ cost: phoenixSummoningCard.cost })
             );
           });
         });

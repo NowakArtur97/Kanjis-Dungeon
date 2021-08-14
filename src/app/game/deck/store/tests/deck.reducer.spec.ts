@@ -1,10 +1,10 @@
-import { attackCard, defenceCard, powerCard } from '../../deck.data';
+import { defenceCard, phoenixSummoningCard, powerCard } from '../../deck.data';
 import GameCard from '../../models/game-card.model';
 import * as DeckActions from '../deck.actions';
 import { deckReducer, DeckStoreState, initialState } from '../deck.reducer';
 
-const allCards: GameCard[] = [attackCard, defenceCard, powerCard];
-const hand = [attackCard, defenceCard];
+const allCards: GameCard[] = [phoenixSummoningCard, defenceCard, powerCard];
+const hand = [phoenixSummoningCard, defenceCard];
 
 const stateWithHand: DeckStoreState = {
   ...initialState,
@@ -17,7 +17,7 @@ const stateWithCards: DeckStoreState = {
 };
 const stateWithChosenCards: DeckStoreState = {
   ...stateWithHand,
-  chosenCard: attackCard,
+  chosenCard: phoenixSummoningCard,
 };
 
 describe('deckReducer', () => {
@@ -50,21 +50,24 @@ describe('deckReducer', () => {
         ...initialState,
         allCards,
         hand,
-        chosenCard: attackCard,
+        chosenCard: phoenixSummoningCard,
       };
 
-      const action = DeckActions.chooseCard({ chosenCard: attackCard });
+      const action = DeckActions.chooseCard({
+        chosenCard: phoenixSummoningCard,
+      });
       const actualState = deckReducer(stateWithHand, action);
       const expectedState = { ...stateWithChosenCard };
 
       expect(actualState).toEqual(expectedState);
-      expect(actualState.chosenCard).toEqual(attackCard);
+      expect(actualState.chosenCard).toEqual(phoenixSummoningCard);
     });
   });
 
   describe('DeckActions.useCard', () => {
     it('should decrease deck energy, remove card from hand and set chosen card to null', () => {
-      const remainingEnergy = initialState.remainingEnergy - attackCard.cost;
+      const remainingEnergy =
+        initialState.remainingEnergy - phoenixSummoningCard.cost;
       const stateWithReducedEnergy: DeckStoreState = {
         ...initialState,
         allCards,
@@ -73,7 +76,7 @@ describe('deckReducer', () => {
         chosenCard: null,
       };
 
-      const action = DeckActions.useCard({ cost: attackCard.cost });
+      const action = DeckActions.useCard({ cost: phoenixSummoningCard.cost });
       const actualState = deckReducer(stateWithChosenCards, action);
       const expectedState = { ...stateWithReducedEnergy };
 

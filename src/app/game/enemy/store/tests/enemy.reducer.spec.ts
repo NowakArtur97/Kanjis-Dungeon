@@ -1,12 +1,12 @@
 import Character from 'src/app/game/character/models/character.model';
 
-import { allEnemies, exampleEnemy1, exampleEnemy2, exampleEnemy3 } from '../../enemy.data';
+import { allEnemies, imp, pigWarrior } from '../../enemy.data';
 import * as EnemyActions from '../enemy.actions';
 import { enemyReducer, EnemyStoreState, initialState } from '../enemy.reducer';
 
-const enemyWithId: Character = { ...exampleEnemy1, id: 1 };
-const enemyWithId2: Character = { ...exampleEnemy2, id: 2 };
-const enemyWithId3: Character = { ...exampleEnemy3, id: 3 };
+const enemyWithId: Character = { ...pigWarrior, id: 1 };
+const enemyWithId2: Character = { ...imp, id: 2 };
+const enemyWithId3: Character = { ...pigWarrior, id: 3 };
 const enemiesWithIds = [enemyWithId, enemyWithId2, enemyWithId3];
 const stateWithEnemies: EnemyStoreState = {
   enemies: enemiesWithIds,

@@ -8,9 +8,9 @@ import MathUtil from 'src/app/common/utils/math.util';
 import CharacterPosition from 'src/app/game/character/models/character-position.model';
 import Character from 'src/app/game/character/models/character.model';
 import CharacterService from 'src/app/game/character/services/character.service';
-import { attackCard } from 'src/app/game/deck/deck.data';
+import { phoenixSummoningCard } from 'src/app/game/deck/deck.data';
 import { initialState as deckInitialState } from 'src/app/game/deck/store/deck.reducer';
-import { exampleEnemy1 } from 'src/app/game/enemy/enemy.data';
+import { pigWarrior } from 'src/app/game/enemy/enemy.data';
 import { initialState as gameInitialState } from 'src/app/game/store/game.reducer';
 import AppStoreState from 'src/app/store/app.state';
 
@@ -49,7 +49,7 @@ describe('PlayerEffects', () => {
       },
       deck: {
         ...deckInitialState,
-        chosenCard: attackCard,
+        chosenCard: phoenixSummoningCard,
       },
       game: {
         ...gameInitialState,
@@ -140,7 +140,7 @@ describe('PlayerEffects', () => {
               GameActions.startCharacterAnimation({
                 playedAnimation: {
                   character: updatedPlayer,
-                  animationName: attackCard.animationName,
+                  animationName: phoenixSummoningCard.animationName,
                   animationPosition,
                 },
               })
@@ -152,7 +152,7 @@ describe('PlayerEffects', () => {
 
     describe('useCardOnEnemy$', () => {
       const enemyWithPosition: Character = {
-        ...exampleEnemy1,
+        ...pigWarrior,
         id: 0,
         position: animationPosition,
       };
@@ -170,7 +170,7 @@ describe('PlayerEffects', () => {
             GameActions.startCharacterAnimation({
               playedAnimation: {
                 character: defaultPlayer,
-                animationName: attackCard.animationName,
+                animationName: phoenixSummoningCard.animationName,
                 animationPosition: enemyWithPosition.position,
               },
             })
@@ -240,7 +240,7 @@ describe('PlayerEffects', () => {
       const stateWithToExpensiveCards: Partial<AppStoreState> = {
         deck: {
           ...deckInitialState,
-          allCards: [attackCard],
+          allCards: [phoenixSummoningCard],
           remainingEnergy: 1,
         },
         game: {

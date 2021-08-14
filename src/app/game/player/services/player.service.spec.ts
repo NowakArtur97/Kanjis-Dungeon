@@ -1,7 +1,7 @@
 import { getTestBed, TestBed } from '@angular/core/testing';
 
 import Character from '../../character/models/character.model';
-import { attackCard } from '../../deck/deck.data';
+import { phoenixSummoningCard } from '../../deck/deck.data';
 import defaultPlayer from '../player.data';
 import PlayerService from './player.service';
 
@@ -28,7 +28,7 @@ describe('playerService', () => {
         id: 0,
         stats: {
           ...defaultPlayer.stats,
-          currentShield: 10,
+          currentShield: 14,
         },
       };
       const updatedPlayerExpected: Character = {
@@ -36,11 +36,11 @@ describe('playerService', () => {
         stats: {
           ...playerWithShield.stats,
           currentShield:
-            playerWithShield.stats.currentShield - attackCard.value,
+            playerWithShield.stats.currentShield - phoenixSummoningCard.value,
         },
       };
       const updatedPlayerActual = playerService.updatePlayer(
-        attackCard,
+        phoenixSummoningCard,
         playerWithShield
       );
 
@@ -67,11 +67,12 @@ describe('playerService', () => {
         stats: {
           ...playerWithoutShield.stats,
           currentHealth:
-            playerWithoutShield.stats.currentHealth - attackCard.value,
+            playerWithoutShield.stats.currentHealth -
+            phoenixSummoningCard.value,
         },
       };
       const updatedPlayerActual = playerService.updatePlayer(
-        attackCard,
+        phoenixSummoningCard,
         playerWithoutShield
       );
 
