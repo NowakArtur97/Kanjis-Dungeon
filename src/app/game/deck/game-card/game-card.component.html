@@ -8,11 +8,7 @@
     <div class="game_card__content">
       <h1 class="game_card__title">{{ card.name }}</h1>
       <div class="game_card__image_container">
-        <img
-          class="game_card__image"
-          src="../../../../assets/card-images/example-card.png"
-          alt="Card image"
-        />
+        <img class="game_card__image" [src]="cardImageSrc" alt="Card image" />
       </div>
       <div class="game_card__type">
         <p class="game_card__type_name">{{ card.type }}</p>

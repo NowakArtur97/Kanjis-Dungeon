@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { attackCard, defenceCard, powerCard } from '../deck.data';
+import { phoenixSummoningCard, thunderStrikeCard } from '../deck.data';
 import GameCard from '../models/game-card.model';
 
 @Injectable({ providedIn: 'root' })
@@ -9,15 +9,16 @@ export default class DeckService {
     // TODO: DeckService: Get cards based on level of progression
     let startingId = 0;
     const cards: GameCard[] = [
-      attackCard,
-      powerCard,
-      defenceCard,
-      attackCard,
-      powerCard,
-      defenceCard,
-      attackCard,
-      powerCard,
-      defenceCard,
+      thunderStrikeCard,
+      phoenixSummoningCard,
+      thunderStrikeCard,
+      phoenixSummoningCard,
+      thunderStrikeCard,
+      phoenixSummoningCard,
+      thunderStrikeCard,
+      phoenixSummoningCard,
+      thunderStrikeCard,
+      phoenixSummoningCard,
     ].map((card) => {
       card = { ...card, id: startingId++ };
       return card;

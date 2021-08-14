@@ -16,6 +16,7 @@ export class GameCardComponent implements OnInit, OnDestroy {
   private deckEnergySubscription$: Subscription;
   isAvailable: boolean;
   isChosen: boolean;
+  cardImageSrc: string;
 
   constructor(private store: Store<AppStoreState>) {}
 
@@ -26,6 +27,8 @@ export class GameCardComponent implements OnInit, OnDestroy {
         if (deckState && this.card) {
           this.isAvailable = deckState.remainingEnergy >= this.card.cost;
           this.isChosen = deckState.chosenCard?.id === this.card.id;
+          // TODO: GameCardComponent: Move to Deck service
+          this.cardImageSrc = `../../../../assets/card_images/${this.card.animationName}.png`;
         }
       });
   }

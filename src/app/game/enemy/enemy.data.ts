@@ -3,7 +3,7 @@ import Character from '../character/models/character.model';
 import { swordAction } from './enemy-action.data';
 
 const exampleEnemy1: Character = {
-  name: 'goblin-archer',
+  name: 'goblin_archer',
   stats: {
     maxHealth: 30,
     currentHealth: 20,
@@ -118,7 +118,7 @@ const exampleEnemy2: Character = {
   allActions: [swordAction],
 };
 const exampleEnemy3: Character = {
-  name: 'goblin-archer',
+  name: 'goblin_archer',
   stats: {
     maxHealth: 20,
     currentHealth: 10,

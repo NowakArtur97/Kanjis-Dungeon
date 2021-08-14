@@ -14,7 +14,7 @@ export interface GameStoreState {
 const initialState: GameStoreState = {
   level: 0,
   turn: GameTurn.PLAYER_TURN,
-  phase: GamePhase.QUIZ,
+  phase: GamePhase.BATTLE,
   playedAnimation: null,
 };
 export { initialState };
