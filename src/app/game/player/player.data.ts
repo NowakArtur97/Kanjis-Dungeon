@@ -28,8 +28,8 @@ const defaultPlayer: Character = {
       animationIterationCount: '1',
       spriteWidth: 60,
       spriteHeight: 48,
-      spriteOffsetX: 32,
-      spriteOffsetY: 3,
+      spriteOffsetX: 40,
+      spriteOffsetY: -27,
     },
     {
       spriteSheet: 'phoenix_summoning',
@@ -38,8 +38,8 @@ const defaultPlayer: Character = {
       animationIterationCount: '1',
       spriteWidth: 79,
       spriteHeight: 48,
-      spriteOffsetX: 32,
-      spriteOffsetY: 3,
+      spriteOffsetX: 42,
+      spriteOffsetY: -29,
     },
   ],
   statuses: [

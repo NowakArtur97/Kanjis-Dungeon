@@ -28,8 +28,8 @@ const pigWarrior: Character = {
       animationIterationCount: '1',
       spriteWidth: 31,
       spriteHeight: 32,
-      spriteOffsetX: 10,
-      spriteOffsetY: 10,
+      spriteOffsetX: 17,
+      spriteOffsetY: 5,
     },
   ],
   statuses: [
@@ -84,8 +84,8 @@ const imp: Character = {
       animationIterationCount: '1',
       spriteWidth: 17,
       spriteHeight: 17,
-      spriteOffsetX: 9,
-      spriteOffsetY: -13,
+      spriteOffsetX: 15,
+      spriteOffsetY: 10,
     },
     {
       spriteSheet: 'defence',
@@ -94,8 +94,8 @@ const imp: Character = {
       animationIterationCount: '1',
       spriteWidth: 24,
       spriteHeight: 108,
-      spriteOffsetX: 9,
-      spriteOffsetY: -13,
+      spriteOffsetX: 18,
+      spriteOffsetY: -38,
     },
   ],
   statuses: [
