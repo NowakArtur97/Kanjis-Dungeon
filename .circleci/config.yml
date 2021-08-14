@@ -3,7 +3,7 @@ jobs:
   tests:
     working_directory: ~/kanjis-dungeon
     docker:
-      - image: circleci/node:14.17.0-browsers-legacy
+      - image: circleci/node:latest-browsers-legacy
     steps:
       - checkout:
           path: ~/kanjis-dungeon
