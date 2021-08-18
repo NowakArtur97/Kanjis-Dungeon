@@ -1,15 +1,27 @@
+import { damageAction } from './character-action/character-action.data';
 import CharacterStatus from './models/character-status.model';
 import Character from './models/character.model';
 
-// TODO: Delete unused statuses
+const decreaseRemainingNumberOfActiveRounds = (
+  characterStatus: CharacterStatus
+) => characterStatus.remainingNumberOfActiveRounds--;
+
+// TODO: Delete unused statuses from assets folder
 const stunnedStatus: CharacterStatus = {
   spriteSheet: 'stunned',
   remainingNumberOfActiveRounds: 3,
-};
-const onFire: CharacterStatus = {
-  spriteSheet: 'on_fire',
-  remainingNumberOfActiveRounds: 3,
-  apply(character: Character) {},
+  apply(value: number, character: Character) {
+    decreaseRemainingNumberOfActiveRounds(this);
+  },
 };
 
-export { stunnedStatus };
+const onFireStatus: CharacterStatus = {
+  spriteSheet: 'on_fire',
+  remainingNumberOfActiveRounds: 3,
+  apply(value: number, character: Character) {
+    damageAction(value, character);
+    decreaseRemainingNumberOfActiveRounds(this);
+  },
+};
+
+export { stunnedStatus, onFireStatus };

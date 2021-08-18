@@ -1,4 +1,5 @@
-import { changeShieldAction, damageAction } from '../character/character-action/character-action.data';
+import { addStatusAction, changeShieldAction, damageAction } from '../character/character-action/character-action.data';
+import { onFireStatus, stunnedStatus } from '../character/character-status.data';
 import Character from '../character/models/character.model';
 import GameCardType from './enums/game-card-type.enum';
 import GameCard from './models/game-card.model';
@@ -13,6 +14,7 @@ const thunderStrikeCard: GameCard = {
   value: 10,
   apply(character: Character): void {
     damageAction(this.value, character);
+    addStatusAction(stunnedStatus, character);
   },
 };
 const phoenixSummoningCard: GameCard = {
@@ -25,12 +27,13 @@ const phoenixSummoningCard: GameCard = {
   value: 14,
   apply(character: Character): void {
     damageAction(this.value, character);
+    addStatusAction(onFireStatus, character);
   },
 };
 const defenceCard: GameCard = {
   id: 3,
   name: 'Defence',
-  animationName: 'thunder_strike', // TODO: Create real animations and cards
+  animationName: 'thunder_strike', // TODO: Create real animation and card
   cost: 2,
   type: GameCardType.SKILL,
   description: 'Receive 10 block points',
@@ -42,7 +45,7 @@ const defenceCard: GameCard = {
 const powerCard: GameCard = {
   id: 4,
   name: 'Power',
-  animationName: 'phoenix_summoning', // TODO: Create real animations and cards
+  animationName: 'phoenix_summoning', // TODO: Create real animation and card
   cost: 2,
   type: GameCardType.POWER,
   description: 'Deal 2 times more damage',

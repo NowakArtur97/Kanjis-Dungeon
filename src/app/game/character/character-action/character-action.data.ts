@@ -1,3 +1,4 @@
+import CharacterStatus from '../models/character-status.model';
 import Character from '../models/character.model';
 
 const damageAction = (value: number, character: Character) => {
@@ -15,8 +16,10 @@ const damageAction = (value: number, character: Character) => {
   }
 };
 
-const changeShieldAction = (value: number, character: Character) => {
-  character.stats.currentShield += value;
-};
+const changeShieldAction = (value: number, character: Character) =>
+  (character.stats.currentShield += value);
 
-export { damageAction, changeShieldAction };
+const addStatusAction = (status: CharacterStatus, character: Character) =>
+  character.statuses.push(status);
+
+export { damageAction, changeShieldAction, addStatusAction };
