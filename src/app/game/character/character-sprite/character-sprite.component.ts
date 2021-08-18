@@ -257,14 +257,16 @@ export class CharacterSpriteComponent
   private setStylesBasedOnState(isInActionState: boolean): void {
     const spriteElement = this.spriteImage?.nativeElement as HTMLElement;
     if (spriteElement) {
-      const position = isInActionState
+      const isEnemy = this.isEnemy();
+      const isEnemyWithNoBuffState =
+        isEnemy &&
+        this.character.currentAction?.type !== CharacterActionType.BUFF;
+      const isCurrentCardAttackType = this.cardType === GameCardType.ATTACK;
+      const isInActionPosition =
+        isInActionState && (isEnemyWithNoBuffState || isCurrentCardAttackType);
+      const position = isInActionPosition
         ? this.ACTION_STYLES.position
         : this.DEFAULT_STYLES.position;
-      const isInActionPosition =
-        isInActionState &&
-        ((this.isEnemy() &&
-          this.character.currentAction?.type !== CharacterActionType.BUFF) ||
-          this.cardType === GameCardType.ATTACK);
       const yPosition = isInActionPosition
         ? this.actionYPosition
         : this.defaultYPosition;
@@ -275,7 +277,7 @@ export class CharacterSpriteComponent
         ? this.ACTION_STYLES.zIndex
         : this.DEFAULT_STYLES.zIndex;
       const offsetX = isInActionPosition
-        ? this.isEnemy()
+        ? isEnemy
           ? this.actionSpriteOffsetX
           : this.actionSpriteOffsetX * -1
         : 0;
