@@ -193,7 +193,7 @@ export class CharacterSpriteComponent
 
   private handleSelection(deckStore: DeckStoreState): void {
     const characterType = this.character?.stats.type;
-    this.cardType = deckStore?.chosenCard?.type;
+    this.cardType = deckStore?.chosenCard?.type || this.cardType; // leave previous if Card not chosen
     const isEnemyAndCardOfAttackType =
       characterType === CharacterType.ENEMY &&
       this.cardType === GameCardType.ATTACK;
@@ -279,18 +279,7 @@ export class CharacterSpriteComponent
           ? this.actionSpriteOffsetX
           : this.actionSpriteOffsetX * -1
         : 0;
-
       const offsetY = isInActionPosition ? this.actionSpriteOffsetY : 0;
-      if (this.character.name === 'pig_warrior') {
-        // console.log(this.cardType);
-        console.log(isInActionPosition);
-        console.log(offsetX);
-        console.log(offsetY);
-        console.log(this.defaultXPosition);
-        console.log(xPosition);
-        console.log(this.defaultYPosition);
-        console.log(yPosition);
-      }
       const xPositionWithOffsetBasedOnScreenSize =
         xPosition +
         offsetX *
