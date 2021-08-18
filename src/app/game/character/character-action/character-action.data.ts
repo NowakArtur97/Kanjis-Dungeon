@@ -1,3 +1,5 @@
+import cloneDeep from 'lodash/cloneDeep';
+
 import CharacterStatus from '../models/character-status.model';
 import Character from '../models/character.model';
 
@@ -19,7 +21,14 @@ const damageAction = (value: number, character: Character) => {
 const changeShieldAction = (value: number, character: Character) =>
   (character.stats.currentShield += value);
 
-const addStatusAction = (status: CharacterStatus, character: Character) =>
-  character.statuses.push(status);
+const addStatusAction = (
+  value: number,
+  status: CharacterStatus,
+  character: Character
+) => {
+  const statusForAction: CharacterStatus = cloneDeep(status);
+  statusForAction.value = value;
+  character.statuses.push(statusForAction);
+};
 
 export { damageAction, changeShieldAction, addStatusAction };

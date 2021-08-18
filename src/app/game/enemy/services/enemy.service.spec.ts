@@ -61,7 +61,7 @@ describe('enemyService', () => {
         enemyWithId3,
       ];
 
-      const updatedEnemiesActual = enemyService.updateEnemies(
+      const updatedEnemiesActual = enemyService.useCardOnEnemy(
         phoenixSummoningCard,
         enemyWithId1,
         enemies

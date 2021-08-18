@@ -9,5 +9,6 @@ export default interface GameCard {
   type: GameCardType;
   description: string;
   value?: number;
+  statusValue?: number;
   apply(character: Character): void;
 }

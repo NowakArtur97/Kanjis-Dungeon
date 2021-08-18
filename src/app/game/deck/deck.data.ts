@@ -10,11 +10,12 @@ const thunderStrikeCard: GameCard = {
   animationName: 'thunder_strike',
   cost: 2,
   type: GameCardType.ATTACK,
-  description: `Summon lightning and deal 10 damage points`,
+  description: `Summon lightning and deal 10 damage points`, // TODO: Update description
   value: 10,
+  statusValue: 1,
   apply(character: Character): void {
     damageAction(this.value, character);
-    addStatusAction(stunnedStatus, character);
+    addStatusAction(this.statusValue, stunnedStatus, character);
   },
 };
 const phoenixSummoningCard: GameCard = {
@@ -23,11 +24,12 @@ const phoenixSummoningCard: GameCard = {
   animationName: 'phoenix_summoning',
   cost: 2,
   type: GameCardType.ATTACK,
-  description: 'Summon phoenix and deal 14 damage points',
+  description: 'Summon phoenix and deal 14 damage points', // TODO: Update description
   value: 14,
+  statusValue: 5,
   apply(character: Character): void {
     damageAction(this.value, character);
-    addStatusAction(onFireStatus, character);
+    addStatusAction(this.statusValue, onFireStatus, character);
   },
 };
 const defenceCard: GameCard = {

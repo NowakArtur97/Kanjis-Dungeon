@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import cloneDeep from 'lodash/cloneDeep';
 import MathUtil from 'src/app/common/utils/math.util';
 
+import CharacterStatus from '../../character/models/character-status.model';
 import Character from '../../character/models/character.model';
 import GameCard from '../../deck/models/game-card.model';
 import { imp, pigWarrior } from '../enemy.data';
@@ -22,7 +23,7 @@ export default class EnemyService {
     return enemies;
   }
 
-  updateEnemies(
+  useCardOnEnemy(
     gameCard: GameCard,
     enemy: Character,
     enemies: Character[]
@@ -35,6 +36,17 @@ export default class EnemyService {
     gameCard.apply(enemyToUpdate);
 
     return updatedEnemies;
+  }
+
+  applyStatusesOnEnemies(enemies: Character[]): Character[] {
+    return enemies
+      .map((enemytoCopy) => cloneDeep(enemytoCopy))
+      .map((enemy: Character) => {
+        enemy.statuses.forEach((status: CharacterStatus) =>
+          status.apply(enemy)
+        );
+        return enemy;
+      });
   }
 
   chooseRandomEnemiesActions(enemies: Character[]): Character[] {

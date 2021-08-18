@@ -2,13 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
-import {
-  filter,
-  map,
-  mergeMap,
-  switchMap,
-  withLatestFrom,
-} from 'rxjs/operators';
+import { filter, map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
 import AppStoreState from 'src/app/store/app.state';
 
 import CharacterType from '../../character/enums/character-type.enum';
@@ -57,15 +51,31 @@ export default class EnemyEffects {
         this.store.select((state) => state.enemy.enemies)
       ),
       switchMap(([{ enemy }, chosenCard, enemies]) =>
-        of(this.enemyService.updateEnemies(chosenCard, enemy, enemies))
+        of(this.enemyService.useCardOnEnemy(chosenCard, enemy, enemies))
       ),
       map((enemies) => EnemyActions.setEnemies({ enemies }))
     )
   );
 
-  startEnemyTurn$ = createEffect(() =>
+  // TODO: TEST
+  applyStatusesOnEnemies$ = createEffect(() =>
     this.actions$.pipe(
       ofType(EnemyActions.startEnemyTurn),
+      withLatestFrom(this.store.select((state) => state.enemy.enemies)),
+      mergeMap(([, enemies]) => [
+        EnemyActions.applyStatusesOnEnemies(),
+        EnemyActions.setEnemies({
+          enemies: this.enemyService.applyStatusesOnEnemies(enemies),
+        }),
+      ])
+    )
+  );
+
+  // TODO: TEST
+  // TODO: EnemyEffects: Handle stun effect
+  startEnemyTurn$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(EnemyActions.applyStatusesOnEnemies),
       withLatestFrom(
         this.store.select((state) => state.enemy.enemies),
         this.store.select((state) => state.player.player)

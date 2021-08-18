@@ -146,7 +146,7 @@ describe('EnemyEffects', () => {
             provide: EnemyService,
             useValue: jasmine.createSpyObj('enemyService', [
               'chooseEnemies',
-              'updateEnemies',
+              'useCardOnEnemy',
               'chooseRandomEnemiesActions',
               'performAction',
             ]),
@@ -199,7 +199,7 @@ describe('EnemyEffects', () => {
       beforeEach(() => {
         actions$ = new ReplaySubject(1);
         actions$.next(EnemyActions.useCardOnEnemy);
-        (enemyService.updateEnemies as jasmine.Spy).and.returnValue(
+        (enemyService.useCardOnEnemy as jasmine.Spy).and.returnValue(
           updatedEnemies
         );
       });
@@ -209,7 +209,7 @@ describe('EnemyEffects', () => {
           expect(resultAction).toEqual(
             EnemyActions.setEnemies({ enemies: updatedEnemies })
           );
-          expect(enemyService.updateEnemies).toHaveBeenCalledTimes(1);
+          expect(enemyService.useCardOnEnemy).toHaveBeenCalledTimes(1);
         });
       });
     });
@@ -325,7 +325,7 @@ describe('EnemyEffects', () => {
               provide: EnemyService,
               useValue: jasmine.createSpyObj('enemyService', [
                 'chooseEnemies',
-                'updateEnemies',
+                'useCardOnEnemy',
                 'chooseRandomEnemiesActions',
                 'performAction',
               ]),
@@ -403,7 +403,7 @@ describe('EnemyEffects', () => {
               provide: EnemyService,
               useValue: jasmine.createSpyObj('enemyService', [
                 'chooseEnemies',
-                'updateEnemies',
+                'useCardOnEnemy',
                 'chooseRandomEnemiesActions',
                 'performAction',
               ]),
