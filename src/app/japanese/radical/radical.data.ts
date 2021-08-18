@@ -548,5 +548,29 @@ const RADICALS: Radical[] = [
     meanings: ['beggar'],
     type: CharacterType.RADICAL,
   },
+  {
+    id: 127,
+    characters: '冋',
+    meanings: ['mustache'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    id: 128,
+    characters: '黄',
+    meanings: ['yellow'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    id: 128,
+    characters: '合',
+    meanings: ['combine', 'join', 'union', 'fit', 'suit'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    id: 129,
+    characters: '谷',
+    meanings: ['valley'],
+    type: CharacterType.RADICAL,
+  },
 ];
 export default RADICALS;

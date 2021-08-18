@@ -20,6 +20,7 @@ import { DeckStoreState } from '../../deck/store/deck.reducer';
 import * as EnemyActions from '../../enemy/store/enemy.actions';
 import * as PlayerActions from '../../player/store/player.actions';
 import * as GameActions from '../../store/game.actions';
+import CharacterActionType from '../enums/character-action-type.enum';
 import CharacterType from '../enums/character-type.enum';
 import CharacterAnimation from '../models/character-animation.model';
 import CharacterPlayedAnimation from '../models/character-played-animation.model';
@@ -81,6 +82,7 @@ export class CharacterSpriteComponent
   defaultYPosition: number;
   actionXPosition: number;
   actionYPosition: number;
+  private cardType: GameCardType;
 
   constructor(
     private store: Store<AppStoreState>,
@@ -191,13 +193,14 @@ export class CharacterSpriteComponent
 
   private handleSelection(deckStore: DeckStoreState): void {
     const characterType = this.character?.stats.type;
-    const cardType = deckStore?.chosenCard?.type;
+    this.cardType = deckStore?.chosenCard?.type;
     const isEnemyAndCardOfAttackType =
-      characterType === CharacterType.ENEMY && cardType === GameCardType.ATTACK;
+      characterType === CharacterType.ENEMY &&
+      this.cardType === GameCardType.ATTACK;
     const isPlayerAndCardNotOfAttackType =
       characterType === CharacterType.PLAYER &&
-      cardType &&
-      cardType !== GameCardType.ATTACK;
+      this.cardType &&
+      this.cardType !== GameCardType.ATTACK;
     this.isSelectable =
       isEnemyAndCardOfAttackType || isPlayerAndCardNotOfAttackType;
   }
@@ -257,21 +260,37 @@ export class CharacterSpriteComponent
       const position = isInActionState
         ? this.ACTION_STYLES.position
         : this.DEFAULT_STYLES.position;
-      const yPosition = isInActionState
+      const isInActionPosition =
+        isInActionState &&
+        ((this.isEnemy() &&
+          this.character.currentAction?.type !== CharacterActionType.BUFF) ||
+          this.cardType === GameCardType.ATTACK);
+      const yPosition = isInActionPosition
         ? this.actionYPosition
         : this.defaultYPosition;
-      const xPosition = isInActionState
+      const xPosition = isInActionPosition
         ? this.actionXPosition
         : this.defaultXPosition;
       const zIndex = isInActionState
         ? this.ACTION_STYLES.zIndex
         : this.DEFAULT_STYLES.zIndex;
-      const offsetX = isInActionState
+      const offsetX = isInActionPosition
         ? this.isEnemy()
           ? this.actionSpriteOffsetX
           : this.actionSpriteOffsetX * -1
         : 0;
-      const offsetY = isInActionState ? this.actionSpriteOffsetY : 0;
+
+      const offsetY = isInActionPosition ? this.actionSpriteOffsetY : 0;
+      if (this.character.name === 'pig_warrior') {
+        // console.log(this.cardType);
+        console.log(isInActionPosition);
+        console.log(offsetX);
+        console.log(offsetY);
+        console.log(this.defaultXPosition);
+        console.log(xPosition);
+        console.log(this.defaultYPosition);
+        console.log(yPosition);
+      }
       const xPositionWithOffsetBasedOnScreenSize =
         xPosition +
         offsetX *

@@ -94,8 +94,8 @@ const imp: Character = {
       animationIterationCount: '1',
       spriteWidth: 24,
       spriteHeight: 108,
-      spriteOffsetX: 18,
-      spriteOffsetY: -38,
+      spriteOffsetX: 0,
+      spriteOffsetY: 0,
     },
   ],
   statuses: [

@@ -53,7 +53,7 @@ const phoenixSummoningCard: GameCard = {
 const defenceCard: GameCard = {
   id: 3,
   name: 'Defence',
-  animationName: 'sword_attack', // TODO: Create real animations
+  animationName: 'thunder_strike', // TODO: Create real animations
   cost: 2,
   type: GameCardType.SKILL,
   description: 'Receive 10 block points',
@@ -65,7 +65,7 @@ const defenceCard: GameCard = {
 const powerCard: GameCard = {
   id: 4,
   name: 'Power',
-  animationName: 'sword_attack', // TODO: Create real animations
+  animationName: 'phoenix_summoning', // TODO: Create real animations
   cost: 2,
   type: GameCardType.POWER,
   description: 'Deal 2 times more damage',

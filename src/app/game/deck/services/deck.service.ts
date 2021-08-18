@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { phoenixSummoningCard, thunderStrikeCard } from '../deck.data';
+import { defenceCard, phoenixSummoningCard, powerCard, thunderStrikeCard } from '../deck.data';
 import GameCard from '../models/game-card.model';
 
 @Injectable({ providedIn: 'root' })
@@ -11,14 +11,16 @@ export default class DeckService {
     const cards: GameCard[] = [
       thunderStrikeCard,
       phoenixSummoningCard,
+      defenceCard,
+      powerCard,
       thunderStrikeCard,
       phoenixSummoningCard,
+      defenceCard,
+      powerCard,
       thunderStrikeCard,
       phoenixSummoningCard,
-      thunderStrikeCard,
-      phoenixSummoningCard,
-      thunderStrikeCard,
-      phoenixSummoningCard,
+      defenceCard,
+      powerCard,
     ].map((card) => {
       card = { ...card, id: startingId++ };
       return card;
