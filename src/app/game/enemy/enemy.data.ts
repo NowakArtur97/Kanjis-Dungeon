@@ -32,28 +32,7 @@ const pigWarrior: Character = {
       spriteOffsetY: 5,
     },
   ],
-  statuses: [
-    {
-      spriteSheet: 'book',
-      remainingNumberOfActiveRounds: 3,
-    },
-    {
-      spriteSheet: 'book',
-      remainingNumberOfActiveRounds: 3,
-    },
-    {
-      spriteSheet: 'book',
-      remainingNumberOfActiveRounds: 3,
-    },
-    {
-      spriteSheet: 'book',
-      remainingNumberOfActiveRounds: 3,
-    },
-    {
-      spriteSheet: 'book',
-      remainingNumberOfActiveRounds: 3,
-    },
-  ],
+  statuses: [],
   currentAction: swordAction,
   allActions: [swordAction],
 };
@@ -98,32 +77,7 @@ const imp: Character = {
       spriteOffsetY: 0,
     },
   ],
-  statuses: [
-    {
-      spriteSheet: 'heart',
-      remainingNumberOfActiveRounds: 2,
-    },
-    {
-      spriteSheet: 'book',
-      remainingNumberOfActiveRounds: 3,
-    },
-    {
-      spriteSheet: 'heart',
-      remainingNumberOfActiveRounds: 2,
-    },
-    {
-      spriteSheet: 'book',
-      remainingNumberOfActiveRounds: 3,
-    },
-    {
-      spriteSheet: 'heart',
-      remainingNumberOfActiveRounds: 2,
-    },
-    {
-      spriteSheet: 'book',
-      remainingNumberOfActiveRounds: 3,
-    },
-  ],
+  statuses: [],
   currentAction: swordAction,
   allActions: [swordAction, shieldAction],
 };

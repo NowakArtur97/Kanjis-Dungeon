@@ -1,3 +1,4 @@
+import { changeShieldAction, damageAction } from '../character/character-action/character-action.data';
 import Character from '../character/models/character.model';
 import GameCardType from './enums/game-card-type.enum';
 import GameCard from './models/game-card.model';
@@ -11,19 +12,7 @@ const thunderStrikeCard: GameCard = {
   description: `Summon lightning and deal 10 damage points`,
   value: 10,
   apply(character: Character): void {
-    // TODO: Refactor with CharacterActions
-    const { stats } = character;
-    if (stats.currentShield > 0) {
-      const remainingDamage =
-        stats.currentShield < this.value ? this.value - stats.currentShield : 0;
-      stats.currentShield -= this.value;
-      if (stats.currentShield < 0) {
-        stats.currentShield = 0;
-      }
-      stats.currentHealth -= remainingDamage;
-    } else {
-      stats.currentHealth -= this.value;
-    }
+    damageAction(this.value, character);
   },
 };
 const phoenixSummoningCard: GameCard = {
@@ -35,37 +24,25 @@ const phoenixSummoningCard: GameCard = {
   description: 'Summon phoenix and deal 14 damage points',
   value: 14,
   apply(character: Character): void {
-    // TODO: Refactor with CharacterActions
-    const { stats } = character;
-    if (stats.currentShield > 0) {
-      const remainingDamage =
-        stats.currentShield < this.value ? this.value - stats.currentShield : 0;
-      stats.currentShield -= this.value;
-      if (stats.currentShield < 0) {
-        stats.currentShield = 0;
-      }
-      stats.currentHealth -= remainingDamage;
-    } else {
-      stats.currentHealth -= this.value;
-    }
+    damageAction(this.value, character);
   },
 };
 const defenceCard: GameCard = {
   id: 3,
   name: 'Defence',
-  animationName: 'thunder_strike', // TODO: Create real animations
+  animationName: 'thunder_strike', // TODO: Create real animations and cards
   cost: 2,
   type: GameCardType.SKILL,
   description: 'Receive 10 block points',
   value: 10,
   apply(character: Character): void {
-    character.stats.currentShield += this.value;
+    changeShieldAction(this.value, character);
   },
 };
 const powerCard: GameCard = {
   id: 4,
   name: 'Power',
-  animationName: 'phoenix_summoning', // TODO: Create real animations
+  animationName: 'phoenix_summoning', // TODO: Create real animations and cards
   cost: 2,
   type: GameCardType.POWER,
   description: 'Deal 2 times more damage',

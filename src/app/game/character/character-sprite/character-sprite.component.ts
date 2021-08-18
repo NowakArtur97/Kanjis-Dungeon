@@ -127,7 +127,6 @@ export class CharacterSpriteComponent
           topOffset: character.position.topOffset,
         };
         character.position = position;
-        // TODO: Fix issue with Enemy buff action position
         this.store.dispatch(
           this.isEnemy()
             ? EnemyActions.setEnemy({ enemy: character })
