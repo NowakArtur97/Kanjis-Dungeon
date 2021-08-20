@@ -38,6 +38,7 @@ export default class EnemyService {
     return updatedEnemies;
   }
 
+  // TODO: TEST
   applyStatusesOnEnemies(enemies: Character[]): Character[] {
     return enemies
       .map((enemytoCopy) => cloneDeep(enemytoCopy))
@@ -46,6 +47,16 @@ export default class EnemyService {
           status.apply(enemy)
         );
         return enemy;
+      })
+      .map((enemy) => {
+        const enemyCopy = cloneDeep(enemy);
+        return {
+          ...enemyCopy,
+          statuses: enemyCopy.statuses.filter(
+            (status: CharacterStatus) =>
+              status.remainingNumberOfActiveRounds !== 0
+          ),
+        };
       });
   }
 
