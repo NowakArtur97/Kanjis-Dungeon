@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import defaultPlayer from '../../player/player.data';
-import { onFireStatus } from '../character-status.data';
+import { burnedStatus } from '../character-status.data';
 import Character from '../models/character.model';
 import SpriteService from '../services/sprite.service';
 import { CharacterStatusesComponent } from './character-statuses.component';
@@ -29,7 +29,7 @@ describe('CharacterStatusesComponent', () => {
     it('with character with status should get status sprite', () => {
       const characterWithStatus: Character = {
         ...defaultPlayer,
-        statuses: [onFireStatus],
+        statuses: [burnedStatus],
       };
       component.character = characterWithStatus;
 

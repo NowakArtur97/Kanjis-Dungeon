@@ -4,7 +4,7 @@ import { Store, StoreModule } from '@ngrx/store';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { ReplaySubject } from 'rxjs';
 import { skip, take } from 'rxjs/operators';
-import { onFireStatus } from 'src/app/game/character/character-status.data';
+import { burnedStatus } from 'src/app/game/character/character-status.data';
 import CharacterStatus from 'src/app/game/character/models/character-status.model';
 import Character from 'src/app/game/character/models/character.model';
 import CharacterService from 'src/app/game/character/services/character.service';
@@ -82,7 +82,7 @@ describe('EnemyEffects', () => {
     enemyWithAction3,
   ];
   const onFireStatusWithValue: CharacterStatus = {
-    ...onFireStatus,
+    ...burnedStatus,
     value: 5,
   };
   const enemyWithStatus1: Character = {

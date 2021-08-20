@@ -21,14 +21,38 @@ const damageAction = (value: number, character: Character) => {
 const changeShieldAction = (value: number, character: Character) =>
   (character.stats.currentShield += value);
 
+// TODO: TEST
 const addStatusAction = (
   value: number,
+  maxNumberOfActiveRounds: number,
   status: CharacterStatus,
   character: Character
 ) => {
-  const statusForAction: CharacterStatus = cloneDeep(status);
-  statusForAction.value = value;
-  character.statuses.push(statusForAction);
+  const sameType = (characterStatus: CharacterStatus) =>
+    characterStatus.type === status.type;
+  const characterStatus = character.statuses.find(sameType);
+  if (characterStatus) {
+    const updatedValue =
+      characterStatus.remainingNumberOfActiveRounds +
+      status.remainingNumberOfActiveRounds;
+
+    characterStatus.maxRemainingNumberOfActiveRounds =
+      maxNumberOfActiveRounds >=
+      characterStatus.maxRemainingNumberOfActiveRounds
+        ? maxNumberOfActiveRounds
+        : characterStatus.maxRemainingNumberOfActiveRounds;
+
+    characterStatus.remainingNumberOfActiveRounds =
+      updatedValue >= maxNumberOfActiveRounds
+        ? maxNumberOfActiveRounds
+        : updatedValue;
+  } else {
+    const statusForAction: CharacterStatus = cloneDeep(status);
+    statusForAction.value = value;
+    statusForAction.maxRemainingNumberOfActiveRounds = maxNumberOfActiveRounds;
+    statusForAction.remainingNumberOfActiveRounds = maxNumberOfActiveRounds;
+    character.statuses.push(statusForAction);
+  }
 };
 
 export { damageAction, changeShieldAction, addStatusAction };

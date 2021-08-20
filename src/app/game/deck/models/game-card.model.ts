@@ -10,5 +10,6 @@ export default interface GameCard {
   description: string;
   value?: number;
   statusValue?: number;
+  maxStatusNumberOfActiveRounds?: number;
   apply(character: Character): void;
 }

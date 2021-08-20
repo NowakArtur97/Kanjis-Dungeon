@@ -1,6 +1,6 @@
 import { getTestBed, TestBed } from '@angular/core/testing';
 
-import { onFireStatus } from '../../character/character-status.data';
+import { burnedStatus } from '../../character/character-status.data';
 import CharacterStatus from '../../character/models/character-status.model';
 import Character from '../../character/models/character.model';
 import { phoenixSummoningCard } from '../../deck/deck.data';
@@ -34,7 +34,7 @@ describe('playerService', () => {
         },
       };
       const onFireStatusWithValue: CharacterStatus = {
-        ...onFireStatus,
+        ...burnedStatus,
         value: phoenixSummoningCard.statusValue,
       };
       const updatedPlayerExpected: Character = {
@@ -70,7 +70,7 @@ describe('playerService', () => {
         },
       };
       const onFireStatusWithValue: CharacterStatus = {
-        ...onFireStatus,
+        ...burnedStatus,
         value: phoenixSummoningCard.statusValue,
       };
       const updatedPlayerExpected: Character = {

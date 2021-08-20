@@ -1,7 +1,7 @@
 import { getTestBed, TestBed } from '@angular/core/testing';
 import MathUtil from 'src/app/common/utils/math.util';
 
-import { onFireStatus } from '../../character/character-status.data';
+import { burnedStatus } from '../../character/character-status.data';
 import CharacterStatus from '../../character/models/character-status.model';
 import Character from '../../character/models/character.model';
 import { phoenixSummoningCard } from '../../deck/deck.data';
@@ -34,7 +34,7 @@ describe('enemyService', () => {
     allActions: [swordAction, shieldAction],
   };
   const onFireStatusWithValue: CharacterStatus = {
-    ...onFireStatus,
+    ...burnedStatus,
     value: phoenixSummoningCard.statusValue,
   };
 

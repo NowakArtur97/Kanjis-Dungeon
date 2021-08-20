@@ -25,12 +25,7 @@ describe('playerReducer', () => {
         spriteHeight: 27,
       },
     ],
-    statuses: [
-      {
-        spriteSheet: 'heart',
-        remainingNumberOfActiveRounds: 2,
-      },
-    ],
+    statuses: [],
   };
   const initialState: PlayerStoreState = {
     player,

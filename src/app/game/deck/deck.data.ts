@@ -1,5 +1,5 @@
 import { addStatusAction, changeShieldAction, damageAction } from '../character/character-action/character-action.data';
-import { onFireStatus, stunnedStatus } from '../character/character-status.data';
+import { burnedStatus, stunnedStatus } from '../character/character-status.data';
 import Character from '../character/models/character.model';
 import GameCardType from './enums/game-card-type.enum';
 import GameCard from './models/game-card.model';
@@ -12,10 +12,16 @@ const thunderStrikeCard: GameCard = {
   type: GameCardType.ATTACK,
   description: `Summon lightning and deal 10 damage points`, // TODO: Update description
   value: 10,
+  maxStatusNumberOfActiveRounds: 2,
   statusValue: 1,
   apply(character: Character): void {
     damageAction(this.value, character);
-    addStatusAction(this.statusValue, stunnedStatus, character);
+    addStatusAction(
+      this.statusValue,
+      this.maxStatusNumberOfActiveRounds,
+      stunnedStatus,
+      character
+    );
   },
 };
 const phoenixSummoningCard: GameCard = {
@@ -27,9 +33,15 @@ const phoenixSummoningCard: GameCard = {
   description: 'Summon phoenix and deal 14 damage points', // TODO: Update description
   value: 14,
   statusValue: 5,
+  maxStatusNumberOfActiveRounds: 3,
   apply(character: Character): void {
     damageAction(this.value, character);
-    addStatusAction(this.statusValue, onFireStatus, character);
+    addStatusAction(
+      this.statusValue,
+      this.maxStatusNumberOfActiveRounds,
+      burnedStatus,
+      character
+    );
   },
 };
 const defenceCard: GameCard = {
