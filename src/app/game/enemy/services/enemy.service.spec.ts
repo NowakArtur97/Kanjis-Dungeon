@@ -33,7 +33,42 @@ describe('enemyService', () => {
     id: 3,
     allActions: [swordAction, shieldAction],
   };
+  const onFireStatusWithValue: CharacterStatus = {
+    ...onFireStatus,
+    value: phoenixSummoningCard.statusValue,
+  };
+
+  const enemyWithStatus1: Character = {
+    ...enemyWithId1,
+    stats: {
+      ...enemyWithId1.stats,
+      currentShield: 0,
+    },
+    statuses: [onFireStatusWithValue],
+  };
+  const enemyWithStatus2: Character = {
+    ...enemyWithId2,
+    stats: {
+      ...enemyWithId2.stats,
+      currentShield: 20,
+    },
+    statuses: [onFireStatusWithValue],
+  };
+  const enemyWithStatus3: Character = {
+    ...enemyWithId3,
+    stats: {
+      ...enemyWithId3.stats,
+      currentShield: 0,
+    },
+    statuses: [onFireStatusWithValue],
+  };
+
   const enemies: Character[] = [enemyWithId1, enemyWithId2, enemyWithId3];
+  const enemiesWithStatuses: Character[] = [
+    enemyWithStatus1,
+    enemyWithStatus2,
+    enemyWithStatus3,
+  ];
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -49,10 +84,6 @@ describe('enemyService', () => {
 
   describe('when use card on enemy', () => {
     it('should return updated enemies', () => {
-      const onFireStatusWithValue: CharacterStatus = {
-        ...onFireStatus,
-        value: phoenixSummoningCard.statusValue,
-      };
       const expectedEnemy1: Character = {
         ...enemyWithId1,
         stats: {
@@ -76,6 +107,146 @@ describe('enemyService', () => {
 
       expect(updatedEnemiesActual).toEqual(updatedEnemiesExpected);
       expect(updatedEnemiesActual).toContain(expectedEnemy1);
+      expect(updatedEnemiesActual.length).toBe(updatedEnemiesExpected.length);
+    });
+  });
+
+  describe('when apply statuses on enemies', () => {
+    it('should return updated enemies', () => {
+      const onFireStatusWithValueAndDecreasedRemainingNumberOfActiveRounds: CharacterStatus = {
+        ...onFireStatusWithValue,
+        remainingNumberOfActiveRounds:
+          onFireStatusWithValue.remainingNumberOfActiveRounds - 1,
+      };
+      const expectedEnemy1: Character = {
+        ...enemyWithId1,
+        stats: {
+          ...enemyWithStatus1.stats,
+          currentHealth:
+            enemyWithStatus1.stats.currentHealth - onFireStatusWithValue.value,
+        },
+        statuses: [
+          onFireStatusWithValueAndDecreasedRemainingNumberOfActiveRounds,
+        ],
+      };
+      const expectedEnemy2: Character = {
+        ...enemyWithStatus2,
+        stats: {
+          ...enemyWithStatus2.stats,
+          currentShield:
+            enemyWithStatus2.stats.currentShield - onFireStatusWithValue.value,
+        },
+        statuses: [
+          onFireStatusWithValueAndDecreasedRemainingNumberOfActiveRounds,
+        ],
+      };
+      const expectedEnemy3: Character = {
+        ...enemyWithStatus3,
+        stats: {
+          ...enemyWithStatus3.stats,
+          currentHealth:
+            enemyWithStatus3.stats.currentHealth - onFireStatusWithValue.value,
+        },
+        statuses: [
+          onFireStatusWithValueAndDecreasedRemainingNumberOfActiveRounds,
+        ],
+      };
+      const updatedEnemiesExpected: Character[] = [
+        expectedEnemy1,
+        expectedEnemy2,
+        expectedEnemy3,
+      ];
+
+      const updatedEnemiesActual = enemyService.applyStatusesOnEnemies(
+        enemiesWithStatuses
+      );
+
+      expect(updatedEnemiesActual).toEqual(updatedEnemiesExpected);
+      expect(updatedEnemiesActual).toContain(expectedEnemy1);
+      expect(updatedEnemiesActual).toContain(expectedEnemy2);
+      expect(updatedEnemiesActual).toContain(expectedEnemy3);
+      expect(updatedEnemiesActual.length).toBe(updatedEnemiesExpected.length);
+    });
+
+    it('should return updated enemies and remove status if completed', () => {
+      const onFireStatusWithValueWithOneRemainingActiveRound: CharacterStatus = {
+        ...onFireStatusWithValue,
+        remainingNumberOfActiveRounds: 1,
+      };
+      const enemyWithOneRoundRemainingStatus1: Character = {
+        ...enemyWithStatus1,
+        statuses: [onFireStatusWithValueWithOneRemainingActiveRound],
+      };
+      const enemyWithOneRoundRemainingStatus2: Character = {
+        ...enemyWithStatus2,
+        statuses: [onFireStatusWithValueWithOneRemainingActiveRound],
+      };
+      const enemyWithOneRoundRemainingStatus3: Character = {
+        ...enemyWithStatus3,
+        statuses: [onFireStatusWithValueWithOneRemainingActiveRound],
+      };
+      const enemiesWithOneRoundRemainingStatuses: Character[] = [
+        enemyWithOneRoundRemainingStatus1,
+        enemyWithOneRoundRemainingStatus2,
+        enemyWithOneRoundRemainingStatus3,
+      ];
+      const expectedEnemy1: Character = {
+        ...enemyWithOneRoundRemainingStatus1,
+        stats: {
+          ...enemyWithOneRoundRemainingStatus1.stats,
+          currentHealth:
+            enemyWithOneRoundRemainingStatus1.stats.currentHealth -
+            onFireStatusWithValue.value,
+        },
+        statuses: [],
+      };
+      const expectedEnemy2: Character = {
+        ...enemyWithOneRoundRemainingStatus2,
+        stats: {
+          ...enemyWithOneRoundRemainingStatus2.stats,
+          currentShield:
+            enemyWithOneRoundRemainingStatus2.stats.currentShield -
+            onFireStatusWithValue.value,
+        },
+        statuses: [],
+      };
+      const expectedEnemy3: Character = {
+        ...enemyWithOneRoundRemainingStatus3,
+        stats: {
+          ...enemyWithOneRoundRemainingStatus3.stats,
+          currentHealth:
+            enemyWithOneRoundRemainingStatus3.stats.currentHealth -
+            onFireStatusWithValue.value,
+        },
+        statuses: [],
+      };
+      const updatedEnemiesExpected: Character[] = [
+        expectedEnemy1,
+        expectedEnemy2,
+        expectedEnemy3,
+      ];
+
+      const updatedEnemiesActual = enemyService.applyStatusesOnEnemies(
+        enemiesWithOneRoundRemainingStatuses
+      );
+
+      expect(updatedEnemiesActual).toEqual(updatedEnemiesExpected);
+      expect(updatedEnemiesActual).toContain(expectedEnemy1);
+      expect(updatedEnemiesActual).toContain(expectedEnemy2);
+      expect(updatedEnemiesActual).toContain(expectedEnemy3);
+      expect(updatedEnemiesActual.length).toBe(updatedEnemiesExpected.length);
+    });
+
+    it('without statuses should return same enemies', () => {
+      const updatedEnemiesExpected: Character[] = [
+        enemyWithId1,
+        enemyWithId2,
+        enemyWithId3,
+      ];
+
+      const updatedEnemiesActual = enemyService.applyStatusesOnEnemies(enemies);
+
+      expect(updatedEnemiesActual).toEqual(updatedEnemiesExpected);
       expect(updatedEnemiesActual.length).toBe(updatedEnemiesExpected.length);
     });
   });

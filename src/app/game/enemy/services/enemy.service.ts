@@ -38,7 +38,6 @@ export default class EnemyService {
     return updatedEnemies;
   }
 
-  // TODO: TEST
   applyStatusesOnEnemies(enemies: Character[]): Character[] {
     return enemies
       .map((enemytoCopy) => cloneDeep(enemytoCopy))
