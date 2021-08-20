@@ -30,7 +30,7 @@ const cardRoutes: Routes = [
     CommonModule,
     StoreModule.forFeature('quiz', quizReducer),
     EffectsModule.forFeature([QuizEffects]),
-    ReactiveFormsModule,
+    ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: 'never' }),
     RouterModule.forRoot(cardRoutes),
 
     JapaneseModule,
