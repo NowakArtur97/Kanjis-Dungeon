@@ -36,6 +36,8 @@ describe('enemyService', () => {
   const onFireStatusWithValue: CharacterStatus = {
     ...burnedStatus,
     value: phoenixSummoningCard.statusValue,
+    maxRemainingNumberOfActiveRounds:
+      phoenixSummoningCard.maxStatusNumberOfActiveRounds,
   };
 
   const enemyWithStatus1: Character = {

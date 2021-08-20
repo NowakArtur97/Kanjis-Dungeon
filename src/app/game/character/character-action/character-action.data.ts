@@ -21,15 +21,14 @@ const damageAction = (value: number, character: Character) => {
 const changeShieldAction = (value: number, character: Character) =>
   (character.stats.currentShield += value);
 
-// TODO: TEST
 const addStatusAction = (
   value: number,
   maxNumberOfActiveRounds: number,
   status: CharacterStatus,
   character: Character
 ) => {
-  const sameType = (characterStatus: CharacterStatus) =>
-    characterStatus.type === status.type;
+  const sameType = (statusOnCharacter: CharacterStatus) =>
+    statusOnCharacter.type === status.type;
   const characterStatus = character.statuses.find(sameType);
   if (characterStatus) {
     const updatedValue =

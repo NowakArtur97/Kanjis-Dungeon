@@ -36,6 +36,8 @@ describe('playerService', () => {
       const onFireStatusWithValue: CharacterStatus = {
         ...burnedStatus,
         value: phoenixSummoningCard.statusValue,
+        maxRemainingNumberOfActiveRounds:
+          phoenixSummoningCard.maxStatusNumberOfActiveRounds,
       };
       const updatedPlayerExpected: Character = {
         ...playerWithShield,
@@ -72,6 +74,8 @@ describe('playerService', () => {
       const onFireStatusWithValue: CharacterStatus = {
         ...burnedStatus,
         value: phoenixSummoningCard.statusValue,
+        maxRemainingNumberOfActiveRounds:
+          phoenixSummoningCard.maxStatusNumberOfActiveRounds,
       };
       const updatedPlayerExpected: Character = {
         ...playerWithoutShield,
