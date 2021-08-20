@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import defaultPlayer from '../../player/player.data';
+import { onFireStatus } from '../character-status.data';
+import Character from '../models/character.model';
 import SpriteService from '../services/sprite.service';
 import { CharacterStatusesComponent } from './character-statuses.component';
 
@@ -21,16 +23,29 @@ describe('CharacterStatusesComponent', () => {
     spriteService = TestBed.inject(SpriteService);
 
     spyOn(spriteService, 'getStatusSprite');
-
-    component.character = defaultPlayer;
-
-    fixture.detectChanges();
-    component.ngOnInit();
   });
 
   describe('when initialize component', () => {
-    it('should get status sprite', () => {
+    it('with character with status should get status sprite', () => {
+      const characterWithStatus: Character = {
+        ...defaultPlayer,
+        statuses: [onFireStatus],
+      };
+      component.character = characterWithStatus;
+
+      fixture.detectChanges();
+      component.ngOnInit();
+
       expect(spriteService.getStatusSprite).toHaveBeenCalled();
+    });
+
+    it('with character without any statuses should not get status sprite', () => {
+      component.character = defaultPlayer;
+
+      fixture.detectChanges();
+      component.ngOnInit();
+
+      expect(spriteService.getStatusSprite).not.toHaveBeenCalled();
     });
   });
 });

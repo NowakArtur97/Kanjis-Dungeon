@@ -1,6 +1,8 @@
 import { getTestBed, TestBed } from '@angular/core/testing';
 import MathUtil from 'src/app/common/utils/math.util';
 
+import { onFireStatus } from '../../character/character-status.data';
+import CharacterStatus from '../../character/models/character-status.model';
 import Character from '../../character/models/character.model';
 import { phoenixSummoningCard } from '../../deck/deck.data';
 import defaultPlayer from '../../player/player.data';
@@ -45,15 +47,20 @@ describe('enemyService', () => {
     enemyService = injector.inject(EnemyService);
   });
 
-  describe('when update enemies', () => {
+  describe('when use card on enemy', () => {
     it('should return updated enemies', () => {
-      const expectedEnemy1 = {
+      const onFireStatusWithValue: CharacterStatus = {
+        ...onFireStatus,
+        value: phoenixSummoningCard.statusValue,
+      };
+      const expectedEnemy1: Character = {
         ...enemyWithId1,
         stats: {
           ...enemyWithId1.stats,
           currentHealth:
             enemyWithId1.stats.currentHealth - phoenixSummoningCard.value,
         },
+        statuses: [onFireStatusWithValue],
       };
       const updatedEnemiesExpected: Character[] = [
         expectedEnemy1,

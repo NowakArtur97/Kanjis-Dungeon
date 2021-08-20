@@ -42,32 +42,7 @@ const defaultPlayer: Character = {
       spriteOffsetY: -29,
     },
   ],
-  statuses: [
-    {
-      spriteSheet: 'heart',
-      remainingNumberOfActiveRounds: 2,
-    },
-    {
-      spriteSheet: 'book',
-      remainingNumberOfActiveRounds: 3,
-    },
-    {
-      spriteSheet: 'heart',
-      remainingNumberOfActiveRounds: 2,
-    },
-    {
-      spriteSheet: 'book',
-      remainingNumberOfActiveRounds: 3,
-    },
-    {
-      spriteSheet: 'heart',
-      remainingNumberOfActiveRounds: 2,
-    },
-    {
-      spriteSheet: 'book',
-      remainingNumberOfActiveRounds: 3,
-    },
-  ],
+  statuses: [],
 };
 
 export default defaultPlayer;

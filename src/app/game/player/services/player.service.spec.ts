@@ -1,5 +1,7 @@
 import { getTestBed, TestBed } from '@angular/core/testing';
 
+import { onFireStatus } from '../../character/character-status.data';
+import CharacterStatus from '../../character/models/character-status.model';
 import Character from '../../character/models/character.model';
 import { phoenixSummoningCard } from '../../deck/deck.data';
 import defaultPlayer from '../player.data';
@@ -31,6 +33,10 @@ describe('playerService', () => {
           currentShield: 14,
         },
       };
+      const onFireStatusWithValue: CharacterStatus = {
+        ...onFireStatus,
+        value: phoenixSummoningCard.statusValue,
+      };
       const updatedPlayerExpected: Character = {
         ...playerWithShield,
         stats: {
@@ -38,6 +44,7 @@ describe('playerService', () => {
           currentShield:
             playerWithShield.stats.currentShield - phoenixSummoningCard.value,
         },
+        statuses: [onFireStatusWithValue],
       };
       const updatedPlayerActual = playerService.updatePlayer(
         phoenixSummoningCard,
@@ -62,6 +69,10 @@ describe('playerService', () => {
           currentShield: 0,
         },
       };
+      const onFireStatusWithValue: CharacterStatus = {
+        ...onFireStatus,
+        value: phoenixSummoningCard.statusValue,
+      };
       const updatedPlayerExpected: Character = {
         ...playerWithoutShield,
         stats: {
@@ -70,6 +81,7 @@ describe('playerService', () => {
             playerWithoutShield.stats.currentHealth -
             phoenixSummoningCard.value,
         },
+        statuses: [onFireStatusWithValue],
       };
       const updatedPlayerActual = playerService.updatePlayer(
         phoenixSummoningCard,
