@@ -10,7 +10,7 @@ const decreaseRemainingNumberOfActiveRounds = (
 const stunnedStatus: CharacterStatus = {
   spriteSheet: 'stunned',
   remainingNumberOfActiveRounds: 3,
-  apply() {
+  apply(): void {
     decreaseRemainingNumberOfActiveRounds(this);
   },
 };
@@ -18,7 +18,7 @@ const stunnedStatus: CharacterStatus = {
 const onFireStatus: CharacterStatus = {
   spriteSheet: 'on_fire',
   remainingNumberOfActiveRounds: 3,
-  apply(character: Character) {
+  apply(character: Character): void {
     damageAction(this.value, character);
     decreaseRemainingNumberOfActiveRounds(this);
   },
