@@ -4,6 +4,8 @@ import { Store, StoreModule } from '@ngrx/store';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { ReplaySubject } from 'rxjs';
 import { skip, take } from 'rxjs/operators';
+import { onFireStatus } from 'src/app/game/character/character-status.data';
+import CharacterStatus from 'src/app/game/character/models/character-status.model';
 import Character from 'src/app/game/character/models/character.model';
 import CharacterService from 'src/app/game/character/services/character.service';
 import { phoenixSummoningCard } from 'src/app/game/deck/deck.data';
@@ -79,6 +81,53 @@ describe('EnemyEffects', () => {
     enemyWithAction2,
     enemyWithAction3,
   ];
+  const onFireStatusWithValue: CharacterStatus = {
+    ...onFireStatus,
+    value: 5,
+  };
+  const enemyWithStatus1: Character = {
+    ...enemyWithAction1,
+    statuses: [onFireStatusWithValue],
+  };
+  const enemyWithStatus2: Character = {
+    ...enemyWithAction2,
+    statuses: [onFireStatusWithValue],
+  };
+  const enemyWithStatus3: Character = {
+    ...enemyWithAction2,
+    statuses: [onFireStatusWithValue],
+  };
+  const enemiesWithStatuses: Character[] = [
+    enemyWithStatus1,
+    enemyWithStatus2,
+    enemyWithStatus3,
+  ];
+  const updatedEnemiesWithStatuses: Character[] = [
+    {
+      ...enemyWithStatus1,
+      stats: {
+        ...enemyWithStatus1.stats,
+        currentShield:
+          enemyWithStatus1.stats.currentShield - onFireStatusWithValue.value,
+      },
+    },
+    {
+      ...enemyWithStatus2,
+      stats: {
+        ...enemyWithStatus2.stats,
+        currentShield:
+          enemyWithStatus2.stats.currentShield - onFireStatusWithValue.value,
+      },
+    },
+    {
+      ...enemyWithStatus3,
+      stats: {
+        ...enemyWithStatus3.stats,
+        currentShield:
+          enemyWithStatus3.stats.currentShield - onFireStatusWithValue.value,
+      },
+    },
+  ];
   const topOffsets = [50, 51, 52];
   const enemyWithPosition1: Character = {
     ...enemyWithAction1,
@@ -149,6 +198,7 @@ describe('EnemyEffects', () => {
               'useCardOnEnemy',
               'chooseRandomEnemiesActions',
               'performAction',
+              'applyStatusesOnEnemies',
             ]),
           },
           {
@@ -214,6 +264,22 @@ describe('EnemyEffects', () => {
       });
     });
 
+    describe('applyStatusesOnEnemies$', () => {
+      beforeEach(() => {
+        actions$ = new ReplaySubject(1);
+        actions$.next(PlayerActions.startPlayerTurn);
+      });
+
+      it('with enemies without statuses should return a setEnemies action', () => {
+        enemyEffects.useCardOnEnemy$.subscribe((resultAction) => {
+          expect(resultAction).toEqual(
+            EnemyActions.setEnemies({ enemies: updatedEnemies })
+          );
+          expect(enemyService.applyStatusesOnEnemies).toHaveBeenCalledTimes(1);
+        });
+      });
+    });
+
     describe('startEnemyTurn$', () => {
       beforeEach(() => {
         actions$ = new ReplaySubject(1);
@@ -262,7 +328,7 @@ describe('EnemyEffects', () => {
     });
   });
 
-  describe('finishCharacterAnimation$', () => {
+  describe('custom states', () => {
     const enemyWithoutAction2: Character = {
       ...imp,
       currentAction: null,
@@ -306,6 +372,13 @@ describe('EnemyEffects', () => {
         },
       },
     };
+    const stateWithEnemiesWithStatuses: Partial<AppStoreState> = {
+      ...stateWithEnemiesWithActions,
+      enemy: {
+        allEnemies: enemies,
+        enemies: enemiesWithStatuses,
+      },
+    };
 
     describe('state with enemies with actions', () => {
       beforeEach(() =>
@@ -328,6 +401,7 @@ describe('EnemyEffects', () => {
                 'useCardOnEnemy',
                 'chooseRandomEnemiesActions',
                 'performAction',
+                'applyStatusesOnEnemies',
               ]),
             },
           ],
@@ -339,60 +413,109 @@ describe('EnemyEffects', () => {
         enemyService = TestBed.inject(EnemyService);
       });
 
-      beforeEach(() => {
-        actions$ = new ReplaySubject(1);
-        actions$.next(EnemyActions.endEnemyTurn);
-        actions$.next(
-          GameActions.finishCharacterAnimation({ character: enemyWithAction1 })
-        );
-        (enemyService.performAction as jasmine.Spy).and.returnValue({
-          enemy: enemyWithoutAction1,
-          player: playerAfterAction,
+      describe('finishCharacterAnimation$', () => {
+        beforeEach(() => {
+          actions$ = new ReplaySubject(1);
+          actions$.next(EnemyActions.endEnemyTurn);
+          actions$.next(
+            GameActions.finishCharacterAnimation({
+              character: enemyWithAction1,
+            })
+          );
+          (enemyService.performAction as jasmine.Spy).and.returnValue({
+            enemy: enemyWithoutAction1,
+            player: playerAfterAction,
+          });
+        });
+
+        it('should return a setEnemy, startCharacterAnimation and setPlayer actions', () => {
+          enemyEffects.finishCharacterAnimation$
+            .pipe(take(1))
+            .subscribe((resultAction) => {
+              expect(resultAction).toEqual(
+                EnemyActions.setEnemy({ enemy: enemyWithoutAction1 })
+              );
+              expect(enemyService.performAction).toHaveBeenCalledTimes(1);
+            });
+          enemyEffects.finishCharacterAnimation$
+            .pipe(skip(1), take(1))
+            .subscribe((resultAction) => {
+              expect(resultAction).toEqual(
+                GameActions.startCharacterAnimation({
+                  playedAnimation: {
+                    character: enemyWithAction2,
+                    animationName: enemyWithAction2.currentAction.action,
+                    animationPosition: playerAfterAction.position,
+                  },
+                })
+              );
+              expect(enemyService.performAction).toHaveBeenCalledTimes(2);
+            });
+          enemyEffects.finishCharacterAnimation$
+            .pipe(skip(2))
+            .subscribe((resultAction) => {
+              expect(resultAction).toEqual(
+                PlayerActions.setPlayer({ player: playerAfterAction })
+              );
+              expect(enemyService.performAction).toHaveBeenCalledTimes(3);
+            });
         });
       });
 
-      it('should return a setEnemy, startCharacterAnimation and setPlayer actions', () => {
-        enemyEffects.finishCharacterAnimation$
-          .pipe(take(1))
-          .subscribe((resultAction) => {
-            expect(resultAction).toEqual(
-              EnemyActions.setEnemy({ enemy: enemyWithoutAction1 })
-            );
-            expect(enemyService.performAction).toHaveBeenCalledTimes(1);
+      describe('state with enemies without actions', () => {
+        beforeEach(() =>
+          TestBed.configureTestingModule({
+            imports: [StoreModule.forRoot({})],
+            providers: [
+              EnemyEffects,
+              provideMockStore({
+                initialState: stateWithEnemiesWithoutActions,
+              }),
+              {
+                provide: Store,
+                useClass: MockStore,
+              },
+              provideMockActions(() => actions$),
+              {
+                provide: EnemyService,
+                useValue: jasmine.createSpyObj('enemyService', [
+                  'chooseEnemies',
+                  'useCardOnEnemy',
+                  'chooseRandomEnemiesActions',
+                  'performAction',
+                  'applyStatusesOnEnemies',
+                ]),
+              },
+            ],
+          })
+        );
+
+        beforeEach(() => {
+          enemyEffects = TestBed.inject(EnemyEffects);
+          enemyService = TestBed.inject(EnemyService);
+        });
+
+        beforeEach(() => {
+          actions$ = new ReplaySubject(1);
+          actions$.next(
+            GameActions.finishCharacterAnimation({ character: pigWarrior })
+          );
+          (enemyService.performAction as jasmine.Spy).and.returnValue({
+            enemy: enemyWithoutAction3,
+            player: playerAfterAction,
           });
-        enemyEffects.finishCharacterAnimation$
-          .pipe(skip(1), take(1))
-          .subscribe((resultAction) => {
-            expect(resultAction).toEqual(
-              GameActions.startCharacterAnimation({
-                playedAnimation: {
-                  character: enemyWithAction2,
-                  animationName: enemyWithAction2.currentAction.action,
-                  animationPosition: playerAfterAction.position,
-                },
-              })
-            );
-            expect(enemyService.performAction).toHaveBeenCalledTimes(2);
-          });
-        enemyEffects.finishCharacterAnimation$
-          .pipe(skip(2))
-          .subscribe((resultAction) => {
-            expect(resultAction).toEqual(
-              PlayerActions.setPlayer({ player: playerAfterAction })
-            );
-            expect(enemyService.performAction).toHaveBeenCalledTimes(3);
-          });
+        });
       });
     });
 
-    describe('state with enemies without actions', () => {
+    describe('state with enemies with statuses', () => {
       beforeEach(() =>
         TestBed.configureTestingModule({
           imports: [StoreModule.forRoot({})],
           providers: [
             EnemyEffects,
             provideMockStore({
-              initialState: stateWithEnemiesWithoutActions,
+              initialState: stateWithEnemiesWithStatuses,
             }),
             {
               provide: Store,
@@ -406,6 +529,7 @@ describe('EnemyEffects', () => {
                 'useCardOnEnemy',
                 'chooseRandomEnemiesActions',
                 'performAction',
+                'applyStatusesOnEnemies',
               ]),
             },
           ],
@@ -419,38 +543,19 @@ describe('EnemyEffects', () => {
 
       beforeEach(() => {
         actions$ = new ReplaySubject(1);
-        actions$.next(
-          GameActions.finishCharacterAnimation({ character: pigWarrior })
+        actions$.next(PlayerActions.startPlayerTurn());
+        (enemyService.applyStatusesOnEnemies as jasmine.Spy).and.returnValue(
+          updatedEnemiesWithStatuses
         );
-        (enemyService.performAction as jasmine.Spy).and.returnValue({
-          enemy: enemyWithoutAction3,
-          player: playerAfterAction,
-        });
       });
 
-      it('should return a setEnemy, endEnemyTurn and setPlayer actions', () => {
-        enemyEffects.finishCharacterAnimation$
-          .pipe(take(1))
-          .subscribe((resultAction) => {
-            expect(resultAction).toEqual(
-              EnemyActions.setEnemy({ enemy: enemyWithoutAction3 })
-            );
-            expect(enemyService.performAction).toHaveBeenCalledTimes(1);
-          });
-        enemyEffects.finishCharacterAnimation$
-          .pipe(skip(1), take(1))
-          .subscribe((resultAction) => {
-            expect(resultAction).toEqual(EnemyActions.endEnemyTurn());
-            expect(enemyService.performAction).toHaveBeenCalledTimes(2);
-          });
-        enemyEffects.finishCharacterAnimation$
-          .pipe(skip(2))
-          .subscribe((resultAction) => {
-            expect(resultAction).toEqual(
-              PlayerActions.setPlayer({ player: playerAfterAction })
-            );
-            expect(enemyService.performAction).toHaveBeenCalledTimes(3);
-          });
+      it('with enemies with statuses should return a setEnemies action', () => {
+        enemyEffects.useCardOnEnemy$.subscribe((resultAction) => {
+          expect(resultAction).toEqual(
+            EnemyActions.setEnemies({ enemies: updatedEnemiesWithStatuses })
+          );
+          expect(enemyService.applyStatusesOnEnemies).toHaveBeenCalledTimes(1);
+        });
       });
     });
   });

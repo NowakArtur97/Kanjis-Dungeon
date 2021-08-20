@@ -12,10 +12,6 @@ export const setEnemies = createAction(
   props<{ enemies: Character[] }>()
 );
 
-export const applyStatusesOnEnemies = createAction(
-  '[Enemy] Apply Statuses on Enemies'
-);
-
 export const startEnemyTurn = createAction('[Enemy] Start Enemy Turn');
 
 export const endEnemyTurn = createAction('[Enemy] End Enemy Turn');
