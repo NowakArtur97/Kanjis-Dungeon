@@ -67,7 +67,7 @@ export class CharacterSpriteComponent
   private isInActionState: boolean;
   private isPlayingActionAnimation = false;
 
-  @ViewChild('characterSpriteImage') spriteImage: ElementRef;
+  @ViewChild('characterSpriteImage', { static: true }) spriteImage: ElementRef;
   spriteOffset: string;
   animationSteps: string;
   animationDuration: string;
@@ -181,11 +181,11 @@ export class CharacterSpriteComponent
   }
 
   private setSprite(spriteSheet: string): void {
+    // TODO: CharacterSpriteComponent: nativeElement is undefined?
     this.spriteImage.nativeElement.style.background = this.spriteService.getCharacterSprite(
       spriteSheet,
       this.character.name
     );
-
     this.animationState = this.FIRST_FRAME_STATE;
     this.changeDetectorRef.detectChanges();
   }

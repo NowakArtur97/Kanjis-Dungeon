@@ -94,7 +94,7 @@ describe('GameEffects', () => {
           actions$.next(GameActions.chooseLevel);
         });
         it('should return a startEnemyTurn action', () => {
-          gameEffects.chooseLevel$.subscribe((resultAction) => {
+          gameEffects.changeTurn$.subscribe((resultAction) => {
             expect(resultAction).toEqual(EnemyActions.startEnemyTurn());
           });
         });
@@ -106,7 +106,7 @@ describe('GameEffects', () => {
           actions$.next(GameActions.changeTurn);
         });
         it('should return a startEnemyTurn action', () => {
-          gameEffects.chooseLevel$.subscribe((resultAction) => {
+          gameEffects.changeTurn$.subscribe((resultAction) => {
             expect(resultAction).toEqual(EnemyActions.startEnemyTurn());
           });
         });
@@ -141,7 +141,7 @@ describe('GameEffects', () => {
         });
 
         it('should return a startPlayerTurn action', () => {
-          gameEffects.chooseLevel$.subscribe((resultAction) => {
+          gameEffects.changeTurn$.subscribe((resultAction) => {
             expect(resultAction).toEqual(PlayerActions.startPlayerTurn());
           });
         });
@@ -154,7 +154,7 @@ describe('GameEffects', () => {
         });
 
         it('should return a startPlayerTurn action', () => {
-          gameEffects.chooseLevel$.subscribe((resultAction) => {
+          gameEffects.changeTurn$.subscribe((resultAction) => {
             expect(resultAction).toEqual(PlayerActions.startPlayerTurn());
           });
         });

@@ -20,7 +20,7 @@ export default class GameEffects {
     private gameService: GameService
   ) {}
 
-  chooseLevel$ = createEffect(() =>
+  changeTurn$ = createEffect(() =>
     this.actions$.pipe(
       ofType(GameActions.chooseLevel, GameActions.changeTurn),
       withLatestFrom(this.store.select((state) => state.game?.turn)),

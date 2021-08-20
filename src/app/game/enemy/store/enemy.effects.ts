@@ -60,7 +60,7 @@ export default class EnemyEffects {
   // TODO: TEST
   applyStatusesOnEnemies$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(EnemyActions.startEnemyTurn),
+      ofType(PlayerActions.startPlayerTurn),
       withLatestFrom(this.store.select((state) => state.enemy.enemies)),
       mergeMap(([, enemies]) => [
         EnemyActions.applyStatusesOnEnemies(),
@@ -75,7 +75,7 @@ export default class EnemyEffects {
   // TODO: EnemyEffects: Handle stun effect
   startEnemyTurn$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(EnemyActions.applyStatusesOnEnemies),
+      ofType(EnemyActions.startEnemyTurn),
       withLatestFrom(
         this.store.select((state) => state.enemy.enemies),
         this.store.select((state) => state.player.player)
