@@ -353,7 +353,7 @@ describe('EnemyEffects', () => {
     const enemiesWithoutActions: Character[] = [
       enemyWithoutAction1,
       enemyWithoutAction2,
-      pigWarrior,
+      enemyWithoutAction3,
     ];
     const stateWithEnemiesWithoutActions: Partial<AppStoreState> = {
       ...stateWithEnemies,
@@ -467,6 +467,9 @@ describe('EnemyEffects', () => {
             enemy: enemyWithoutAction1,
             player: playerAfterAction,
           });
+          (enemyService.chooseEnemyForAction as jasmine.Spy).and.returnValue(
+            enemyWithAction2
+          );
         });
 
         it('should return a setEnemy, startCharacterAnimation and setPlayer actions', () => {
@@ -477,6 +480,9 @@ describe('EnemyEffects', () => {
                 EnemyActions.setEnemy({ enemy: enemyWithoutAction1 })
               );
               expect(enemyService.performAction).toHaveBeenCalledTimes(1);
+              expect(enemyService.chooseEnemyForAction).toHaveBeenCalledTimes(
+                1
+              );
             });
           enemyEffects.finishCharacterAnimation$
             .pipe(skip(1), take(1))
@@ -491,6 +497,9 @@ describe('EnemyEffects', () => {
                 })
               );
               expect(enemyService.performAction).toHaveBeenCalledTimes(2);
+              expect(enemyService.chooseEnemyForAction).toHaveBeenCalledTimes(
+                2
+              );
             });
           enemyEffects.finishCharacterAnimation$
             .pipe(skip(2))
@@ -499,6 +508,9 @@ describe('EnemyEffects', () => {
                 PlayerActions.setPlayer({ player: playerAfterAction })
               );
               expect(enemyService.performAction).toHaveBeenCalledTimes(3);
+              expect(enemyService.chooseEnemyForAction).toHaveBeenCalledTimes(
+                3
+              );
             });
         });
       });
@@ -548,13 +560,66 @@ describe('EnemyEffects', () => {
           );
         });
 
-        it('with only stunned enemies should return a startCharacterAnimation actions', () => {
+        it('with only stunned enemies should return a endEnemyTurn action', () => {
           enemyEffects.startEnemyTurn$.subscribe((resultAction) => {
             expect(resultAction).toEqual(EnemyActions.endEnemyTurn());
             expect(
               enemyService.chooseFirstEnemyForAction
             ).toHaveBeenCalledTimes(1);
           });
+        });
+      });
+
+      describe('finishCharacterAnimation$', () => {
+        beforeEach(() => {
+          actions$ = new ReplaySubject(1);
+          actions$.next(EnemyActions.endEnemyTurn);
+          actions$.next(
+            GameActions.finishCharacterAnimation({
+              character: enemyWithAction1,
+            })
+          );
+          (enemyService.performAction as jasmine.Spy).and.returnValue({
+            enemy: enemyWithoutAction1,
+            player: playerAfterAction,
+          });
+          (enemyService.chooseEnemyForAction as jasmine.Spy).and.returnValue(
+            undefined
+          );
+        });
+
+        it('should return a setEnemy, startCharacterAnimation and setPlayer actions', () => {
+          enemyEffects.finishCharacterAnimation$
+            .pipe(take(1))
+            .subscribe((resultAction) => {
+              expect(resultAction).toEqual(
+                EnemyActions.setEnemy({ enemy: enemyWithoutAction1 })
+              );
+              expect(enemyService.performAction).toHaveBeenCalledTimes(1);
+              expect(enemyService.chooseEnemyForAction).toHaveBeenCalledTimes(
+                1
+              );
+            });
+          enemyEffects.finishCharacterAnimation$
+            .pipe(skip(1), take(1))
+            .subscribe((resultAction) => {
+              expect(resultAction).toEqual(EnemyActions.endEnemyTurn());
+              expect(enemyService.performAction).toHaveBeenCalledTimes(2);
+              expect(enemyService.chooseEnemyForAction).toHaveBeenCalledTimes(
+                2
+              );
+            });
+          enemyEffects.finishCharacterAnimation$
+            .pipe(skip(2))
+            .subscribe((resultAction) => {
+              expect(resultAction).toEqual(
+                PlayerActions.setPlayer({ player: playerAfterAction })
+              );
+              expect(enemyService.performAction).toHaveBeenCalledTimes(3);
+              expect(enemyService.chooseEnemyForAction).toHaveBeenCalledTimes(
+                3
+              );
+            });
         });
       });
     });

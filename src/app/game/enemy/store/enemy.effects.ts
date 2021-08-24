@@ -96,7 +96,6 @@ export default class EnemyEffects {
     )
   );
 
-  // TODO: TEST
   finishCharacterAnimation$ = createEffect(() =>
     this.actions$.pipe(
       ofType(GameActions.finishCharacterAnimation),
