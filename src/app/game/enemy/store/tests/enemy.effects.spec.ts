@@ -4,7 +4,8 @@ import { Store, StoreModule } from '@ngrx/store';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { ReplaySubject } from 'rxjs';
 import { skip, take } from 'rxjs/operators';
-import { burnedStatus } from 'src/app/game/character/character-status.data';
+import { stunnedAction } from 'src/app/game/character/character-action/character-action.data';
+import { burnedStatus, stunnedStatus } from 'src/app/game/character/character-status.data';
 import CharacterStatus from 'src/app/game/character/models/character-status.model';
 import Character from 'src/app/game/character/models/character.model';
 import CharacterService from 'src/app/game/character/services/character.service';
@@ -85,9 +86,13 @@ describe('EnemyEffects', () => {
     ...burnedStatus,
     value: 5,
   };
+  const stunnedStatusWithValue: CharacterStatus = {
+    ...stunnedStatus,
+    remainingNumberOfActiveRounds: 1,
+  };
   const enemyWithStatus1: Character = {
     ...enemyWithAction1,
-    statuses: [onFireStatusWithValue],
+    statuses: [stunnedStatusWithValue],
   };
   const enemyWithStatus2: Character = {
     ...enemyWithAction2,
@@ -199,6 +204,8 @@ describe('EnemyEffects', () => {
               'chooseRandomEnemiesActions',
               'performAction',
               'applyStatusesOnEnemies',
+              'chooseFirstEnemyForAction',
+              'chooseEnemyForAction',
             ]),
           },
           {
@@ -284,6 +291,9 @@ describe('EnemyEffects', () => {
       beforeEach(() => {
         actions$ = new ReplaySubject(1);
         actions$.next(EnemyActions.startEnemyTurn);
+        (enemyService.chooseFirstEnemyForAction as jasmine.Spy).and.returnValue(
+          enemies[0]
+        );
       });
 
       it('should return a startCharacterAnimation actions', () => {
@@ -295,6 +305,9 @@ describe('EnemyEffects', () => {
           };
           expect(resultAction).toEqual(
             GameActions.startCharacterAnimation({ playedAnimation })
+          );
+          expect(enemyService.chooseFirstEnemyForAction).toHaveBeenCalledTimes(
+            1
           );
         });
       });
@@ -372,11 +385,37 @@ describe('EnemyEffects', () => {
         },
       },
     };
+    const stateWithEnemiesWithStunnedActions: Partial<AppStoreState> = {
+      ...stateWithEnemiesWithoutActions,
+      enemy: {
+        allEnemies: enemies,
+        enemies: enemiesWithActions,
+      },
+      game: {
+        ...gameInitialState,
+        playedAnimation: {
+          character: pigWarrior,
+          animationPosition: { x: 0, y: 0, topOffset: 50 },
+          animationName: 'attack',
+        },
+      },
+    };
     const stateWithEnemiesWithStatuses: Partial<AppStoreState> = {
       ...stateWithEnemiesWithActions,
       enemy: {
         allEnemies: enemies,
         enemies: enemiesWithStatuses,
+      },
+    };
+    const enemyWithStunnedAction1: Character = {
+      ...imp,
+      currentAction: stunnedAction,
+    };
+    const stateWithOnlyStunnedActions: Partial<AppStoreState> = {
+      ...stateWithEnemiesWithStunnedActions,
+      enemy: {
+        allEnemies: enemies,
+        enemies: [enemyWithStunnedAction1],
       },
     };
 
@@ -402,6 +441,8 @@ describe('EnemyEffects', () => {
                 'chooseRandomEnemiesActions',
                 'performAction',
                 'applyStatusesOnEnemies',
+                'chooseFirstEnemyForAction',
+                'chooseEnemyForAction',
               ]),
             },
           ],
@@ -461,48 +502,58 @@ describe('EnemyEffects', () => {
             });
         });
       });
+    });
 
-      describe('state with enemies without actions', () => {
-        beforeEach(() =>
-          TestBed.configureTestingModule({
-            imports: [StoreModule.forRoot({})],
-            providers: [
-              EnemyEffects,
-              provideMockStore({
-                initialState: stateWithEnemiesWithoutActions,
-              }),
-              {
-                provide: Store,
-                useClass: MockStore,
-              },
-              provideMockActions(() => actions$),
-              {
-                provide: EnemyService,
-                useValue: jasmine.createSpyObj('enemyService', [
-                  'chooseEnemies',
-                  'useCardOnEnemy',
-                  'chooseRandomEnemiesActions',
-                  'performAction',
-                  'applyStatusesOnEnemies',
-                ]),
-              },
-            ],
-          })
-        );
+    describe('state with enemies with stunned actions', () => {
+      beforeEach(() =>
+        TestBed.configureTestingModule({
+          imports: [StoreModule.forRoot({})],
+          providers: [
+            EnemyEffects,
+            provideMockStore({
+              initialState: stateWithOnlyStunnedActions,
+            }),
+            {
+              provide: Store,
+              useClass: MockStore,
+            },
+            provideMockActions(() => actions$),
+            {
+              provide: EnemyService,
+              useValue: jasmine.createSpyObj('enemyService', [
+                'chooseEnemies',
+                'useCardOnEnemy',
+                'chooseRandomEnemiesActions',
+                'performAction',
+                'applyStatusesOnEnemies',
+                'chooseFirstEnemyForAction',
+                'chooseEnemyForAction',
+              ]),
+            },
+          ],
+        })
+      );
 
-        beforeEach(() => {
-          enemyEffects = TestBed.inject(EnemyEffects);
-          enemyService = TestBed.inject(EnemyService);
-        });
+      beforeEach(() => {
+        enemyEffects = TestBed.inject(EnemyEffects);
+        enemyService = TestBed.inject(EnemyService);
+      });
 
+      describe('startEnemyTurn$', () => {
         beforeEach(() => {
           actions$ = new ReplaySubject(1);
-          actions$.next(
-            GameActions.finishCharacterAnimation({ character: pigWarrior })
+          actions$.next(EnemyActions.startEnemyTurn);
+          (enemyService.chooseFirstEnemyForAction as jasmine.Spy).and.returnValue(
+            undefined
           );
-          (enemyService.performAction as jasmine.Spy).and.returnValue({
-            enemy: enemyWithoutAction3,
-            player: playerAfterAction,
+        });
+
+        it('with only stunned enemies should return a startCharacterAnimation actions', () => {
+          enemyEffects.startEnemyTurn$.subscribe((resultAction) => {
+            expect(resultAction).toEqual(EnemyActions.endEnemyTurn());
+            expect(
+              enemyService.chooseFirstEnemyForAction
+            ).toHaveBeenCalledTimes(1);
           });
         });
       });
@@ -530,6 +581,8 @@ describe('EnemyEffects', () => {
                 'chooseRandomEnemiesActions',
                 'performAction',
                 'applyStatusesOnEnemies',
+                'chooseFirstEnemyForAction',
+                'chooseEnemyForAction',
               ]),
             },
           ],
@@ -541,20 +594,50 @@ describe('EnemyEffects', () => {
         enemyService = TestBed.inject(EnemyService);
       });
 
-      beforeEach(() => {
-        actions$ = new ReplaySubject(1);
-        actions$.next(PlayerActions.startPlayerTurn());
-        (enemyService.applyStatusesOnEnemies as jasmine.Spy).and.returnValue(
-          updatedEnemiesWithStatuses
-        );
+      describe('startPlayerTurn$', () => {
+        beforeEach(() => {
+          actions$ = new ReplaySubject(1);
+          actions$.next(PlayerActions.startPlayerTurn());
+          (enemyService.applyStatusesOnEnemies as jasmine.Spy).and.returnValue(
+            updatedEnemiesWithStatuses
+          );
+        });
+
+        it('with enemies with statuses should return a setEnemies action', () => {
+          enemyEffects.useCardOnEnemy$.subscribe((resultAction) => {
+            expect(resultAction).toEqual(
+              EnemyActions.setEnemies({ enemies: updatedEnemiesWithStatuses })
+            );
+            expect(enemyService.applyStatusesOnEnemies).toHaveBeenCalledTimes(
+              1
+            );
+          });
+        });
       });
 
-      it('with enemies with statuses should return a setEnemies action', () => {
-        enemyEffects.useCardOnEnemy$.subscribe((resultAction) => {
-          expect(resultAction).toEqual(
-            EnemyActions.setEnemies({ enemies: updatedEnemiesWithStatuses })
+      describe('startEnemyTurn$', () => {
+        beforeEach(() => {
+          actions$ = new ReplaySubject(1);
+          actions$.next(EnemyActions.startEnemyTurn);
+          (enemyService.chooseFirstEnemyForAction as jasmine.Spy).and.returnValue(
+            enemiesWithStatuses[1]
           );
-          expect(enemyService.applyStatusesOnEnemies).toHaveBeenCalledTimes(1);
+        });
+
+        it('should skip stunned enemy and return a startCharacterAnimation actions', () => {
+          enemyEffects.startEnemyTurn$.subscribe((resultAction) => {
+            const playedAnimation = {
+              character: enemyWithStatus2,
+              animationName: enemyWithStatus2.currentAction.action,
+              animationPosition: defaultPlayer.position,
+            };
+            expect(resultAction).toEqual(
+              GameActions.startCharacterAnimation({ playedAnimation })
+            );
+            expect(
+              enemyService.chooseFirstEnemyForAction
+            ).toHaveBeenCalledTimes(1);
+          });
         });
       });
     });

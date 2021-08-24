@@ -69,8 +69,6 @@ export default class EnemyEffects {
     )
   );
 
-  // TODO: EnemyEffects: Handle stun effect
-  // TODO: TEST
   startEnemyTurn$ = createEffect(() =>
     this.actions$.pipe(
       ofType(EnemyActions.startEnemyTurn),
