@@ -15,23 +15,20 @@ export interface QuizStoreState {
 
 const DEFAULT_EXCLUDED_PROPERTIES = ['characters', 'type'];
 const DEFAULT_MIN_NUMBER_OF_PROPERTIES = 1;
+const DEFAULT_QUIZ_OPTIONS = {
+  numberOfQuestions: 200,
+  minNumberOfProperties: DEFAULT_MIN_NUMBER_OF_PROPERTIES,
+  shouldShowAnswer: true,
+  shouldHideRandomProperties: false,
+  excludedProperties: new Map([
+    [CharacterType.RADICAL, DEFAULT_EXCLUDED_PROPERTIES],
+    [CharacterType.KANJI, DEFAULT_EXCLUDED_PROPERTIES],
+    [CharacterType.VOCABULARY, DEFAULT_EXCLUDED_PROPERTIES],
+  ]),
+  questionTypes: [CharacterType.KANJI],
+};
 const initialState: QuizStoreState = {
-  quizOptions: {
-    numberOfQuestions: 12,
-    minNumberOfProperties: DEFAULT_MIN_NUMBER_OF_PROPERTIES,
-    shouldShowAnswer: true,
-    shouldHideRandomProperties: false,
-    excludedProperties: new Map([
-      [CharacterType.RADICAL, DEFAULT_EXCLUDED_PROPERTIES],
-      [CharacterType.KANJI, DEFAULT_EXCLUDED_PROPERTIES],
-      [CharacterType.VOCABULARY, DEFAULT_EXCLUDED_PROPERTIES],
-    ]),
-    questionTypes: [
-      CharacterType.RADICAL,
-      CharacterType.KANJI,
-      CharacterType.VOCABULARY,
-    ],
-  },
+  quizOptions: DEFAULT_QUIZ_OPTIONS,
   nextQuestion: null,
   questions: [],
   answers: [],
@@ -39,6 +36,7 @@ const initialState: QuizStoreState = {
 };
 export {
   initialState,
+  DEFAULT_QUIZ_OPTIONS,
   DEFAULT_EXCLUDED_PROPERTIES,
   DEFAULT_MIN_NUMBER_OF_PROPERTIES,
 };

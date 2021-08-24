@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import cloneDeep from 'lodash/cloneDeep';
 import MathUtil from 'src/app/common/utils/math.util';
 
+import { stunnedAction } from '../../character/character-action/character-action.data';
+import CharacterActionType from '../../character/enums/character-action-type.enum';
+import CharacterStatusType from '../../character/enums/character-status-type.enum';
 import CharacterStatus from '../../character/models/character-status.model';
 import Character from '../../character/models/character.model';
 import GameCard from '../../deck/models/game-card.model';
@@ -23,6 +26,25 @@ export default class EnemyService {
     return enemies;
   }
 
+  // TODO: TEST
+  chooseFirstEnemyForAction = (enemies: Character[]): Character =>
+    enemies.find(this.isNotStunned);
+
+  // TODO: TEST
+  chooseEnemyForAction = (
+    enemies: Character[],
+    character: Character
+  ): Character =>
+    enemies.find(
+      (enemy) =>
+        enemy.currentAction !== null &&
+        enemy.id !== character.id &&
+        this.isNotStunned(enemy)
+    );
+
+  private isNotStunned = (enemy: Character): boolean =>
+    enemy.currentAction.type !== CharacterActionType.NOTHING;
+
   useCardOnEnemy(
     gameCard: GameCard,
     enemy: Character,
@@ -38,8 +60,8 @@ export default class EnemyService {
     return updatedEnemies;
   }
 
-  applyStatusesOnEnemies(enemies: Character[]): Character[] {
-    return enemies
+  applyStatusesOnEnemies = (enemies: Character[]): Character[] =>
+    enemies
       .map((enemytoCopy) => cloneDeep(enemytoCopy))
       .map((enemy: Character) => {
         enemy.statuses.forEach((status: CharacterStatus) =>
@@ -57,14 +79,20 @@ export default class EnemyService {
           ),
         };
       });
-  }
 
+  // TODO: TEST
   chooseRandomEnemiesActions(enemies: Character[]): Character[] {
     const updatedEnemies = enemies
       .map((enemytoCopy) => cloneDeep(enemytoCopy))
       .map((enemy: Character) => {
-        enemy.currentAction =
-          enemy.allActions[MathUtil.getRandomIndex(enemy.allActions)];
+        const { statuses } = enemy;
+        const isStunned = statuses.some(
+          (action) => action.type === CharacterStatusType.STUNNED
+        );
+
+        enemy.currentAction = isStunned
+          ? stunnedAction
+          : enemy.allActions[MathUtil.getRandomIndex(enemy.allActions)];
         return enemy;
       });
 

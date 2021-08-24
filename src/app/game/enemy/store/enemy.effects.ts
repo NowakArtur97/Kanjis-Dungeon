@@ -70,6 +70,7 @@ export default class EnemyEffects {
   );
 
   // TODO: EnemyEffects: Handle stun effect
+  // TODO: TEST
   startEnemyTurn$ = createEffect(() =>
     this.actions$.pipe(
       ofType(EnemyActions.startEnemyTurn),
@@ -78,19 +79,26 @@ export default class EnemyEffects {
         this.store.select((state) => state.player.player)
       ),
       map(([, enemies, player]) => {
-        const enemyForAction = enemies[0];
-        const playedAnimation = {
-          character: enemyForAction,
-          animationName: enemyForAction.currentAction.action,
-          animationPosition: player.position,
-        };
-        return GameActions.startCharacterAnimation({
-          playedAnimation,
-        });
+        const enemyForAction = this.enemyService.chooseFirstEnemyForAction(
+          enemies
+        );
+        if (enemyForAction === undefined) {
+          return EnemyActions.endEnemyTurn();
+        } else {
+          const playedAnimation = {
+            character: enemyForAction,
+            animationName: enemyForAction.currentAction.action,
+            animationPosition: player.position,
+          };
+          return GameActions.startCharacterAnimation({
+            playedAnimation,
+          });
+        }
       })
     )
   );
 
+  // TODO: TEST
   finishCharacterAnimation$ = createEffect(() =>
     this.actions$.pipe(
       ofType(GameActions.finishCharacterAnimation),
@@ -104,8 +112,9 @@ export default class EnemyEffects {
           enemy: enemyAfterAction,
           player: playerAfterAction,
         } = this.enemyService.performAction(character, player);
-        const enemyForAction = enemies.find(
-          (enemy) => enemy.currentAction !== null && enemy.id !== character.id
+        const enemyForAction = this.enemyService.chooseEnemyForAction(
+          enemies,
+          character
         );
         if (enemyForAction) {
           const playedAnimation = {

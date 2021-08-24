@@ -1,5 +1,7 @@
 import cloneDeep from 'lodash/cloneDeep';
 
+import CharacterActionType from '../enums/character-action-type.enum';
+import CharacterAction from '../models/character-action.model';
 import CharacterStatus from '../models/character-status.model';
 import Character from '../models/character.model';
 
@@ -54,4 +56,9 @@ const addStatusAction = (
   }
 };
 
-export { damageAction, changeShieldAction, addStatusAction };
+const stunnedAction: CharacterAction = {
+  action: 'stunned',
+  type: CharacterActionType.NOTHING,
+};
+
+export { damageAction, changeShieldAction, addStatusAction, stunnedAction };
