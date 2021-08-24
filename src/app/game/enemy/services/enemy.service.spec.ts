@@ -1,6 +1,7 @@
 import { getTestBed, TestBed } from '@angular/core/testing';
 import MathUtil from 'src/app/common/utils/math.util';
 
+import { stunnedAction } from '../../character/character-action/character-action.data';
 import { burnedStatus } from '../../character/character-status.data';
 import CharacterStatus from '../../character/models/character-status.model';
 import Character from '../../character/models/character.model';
@@ -33,6 +34,23 @@ describe('enemyService', () => {
     id: 3,
     allActions: [swordAction, shieldAction],
   };
+  const enemyWithAction1: Character = {
+    ...enemyWithId1,
+    currentAction: shieldAction,
+  };
+  const enemyWithAction2: Character = {
+    ...enemyWithId2,
+    currentAction: swordAction,
+  };
+  const enemyWithAction3: Character = {
+    ...enemyWithId3,
+    currentAction: swordAction,
+  };
+  const enemyStunned1: Character = {
+    ...enemyWithAction1,
+    currentAction: stunnedAction,
+  };
+
   const onFireStatusWithValue: CharacterStatus = {
     ...burnedStatus,
     value: phoenixSummoningCard.statusValue,
@@ -82,6 +100,43 @@ describe('enemyService', () => {
   beforeEach(() => {
     injector = getTestBed();
     enemyService = injector.inject(EnemyService);
+  });
+
+  describe('when choose enemies', () => {
+    it('should return enemies with ids', () => {
+      const level = 1;
+      const allEnemies: Character[] = [pigWarrior, imp];
+      const expectedEnemy1: Character = { ...allEnemies[0], id: 1 };
+      const expectedEnemy2: Character = { ...allEnemies[1], id: 2 };
+      const enemiesExpected: Character[] = [expectedEnemy1, expectedEnemy2];
+
+      const enemiesActual = enemyService.chooseEnemies(level, allEnemies);
+
+      expect(enemiesActual).toEqual(enemiesExpected);
+      expect(enemiesActual).toContain(expectedEnemy1);
+      expect(enemiesActual).toContain(expectedEnemy2);
+      expect(enemiesActual.length).toBe(enemiesExpected.length);
+    });
+  });
+
+  describe('when choose first enemy for action', () => {
+    it('and no enemy is stunned should return first enemy', () => {
+      const enemies = [enemyWithId1, enemyWithId2, enemyWithId3];
+      const enemyExpected = enemyWithId1;
+
+      const enemyActual = enemyService.chooseFirstEnemyForAction(enemies);
+
+      expect(enemyActual).toEqual(enemyExpected);
+    });
+
+    it('and first enemy is stunned should return second enemy', () => {
+      const enemies = [enemyStunned1, enemyWithAction2, enemyWithAction3];
+      const enemyExpected = enemyWithAction2;
+
+      const enemyActual = enemyService.chooseFirstEnemyForAction(enemies);
+
+      expect(enemyActual).toEqual(enemyExpected);
+    });
   });
 
   describe('when use card on enemy', () => {
@@ -256,23 +311,10 @@ describe('enemyService', () => {
   describe('when choose random enemies actions', () => {
     it('should return enemies with actions', () => {
       spyOn(MathUtil, 'getRandomIndex').and.returnValues(1, 0, 0);
-
-      const expectedEnemy1: Character = {
-        ...enemyWithId1,
-        currentAction: shieldAction,
-      };
-      const expectedEnemy2: Character = {
-        ...enemyWithId2,
-        currentAction: swordAction,
-      };
-      const expectedEnemy3: Character = {
-        ...enemyWithId3,
-        currentAction: swordAction,
-      };
       const updatedEnemiesExpected: Character[] = [
-        expectedEnemy1,
-        expectedEnemy2,
-        expectedEnemy3,
+        enemyWithAction1,
+        enemyWithAction2,
+        enemyWithAction3,
       ];
 
       const updatedEnemiesActual = enemyService.chooseRandomEnemiesActions(
@@ -280,17 +322,17 @@ describe('enemyService', () => {
       );
 
       expect(updatedEnemiesActual).toEqual(updatedEnemiesExpected);
-      expect(updatedEnemiesActual).toContain(expectedEnemy1);
-      expect(updatedEnemiesActual).toContain(expectedEnemy2);
-      expect(updatedEnemiesActual).toContain(expectedEnemy3);
+      expect(updatedEnemiesActual).toContain(enemyWithAction1);
+      expect(updatedEnemiesActual).toContain(enemyWithAction2);
+      expect(updatedEnemiesActual).toContain(enemyWithAction3);
       expect(updatedEnemiesActual[0].currentAction).toEqual(
-        expectedEnemy1.currentAction
+        enemyWithAction1.currentAction
       );
       expect(updatedEnemiesActual[1].currentAction).toEqual(
-        expectedEnemy2.currentAction
+        enemyWithAction2.currentAction
       );
       expect(updatedEnemiesActual[2].currentAction).toEqual(
-        expectedEnemy3.currentAction
+        enemyWithAction3.currentAction
       );
       expect(MathUtil.getRandomIndex).toHaveBeenCalledTimes(3);
     });

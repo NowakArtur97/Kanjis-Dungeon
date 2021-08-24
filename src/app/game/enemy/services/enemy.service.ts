@@ -8,25 +8,20 @@ import CharacterStatusType from '../../character/enums/character-status-type.enu
 import CharacterStatus from '../../character/models/character-status.model';
 import Character from '../../character/models/character.model';
 import GameCard from '../../deck/models/game-card.model';
-import { imp, pigWarrior } from '../enemy.data';
 
 @Injectable({ providedIn: 'root' })
 export default class EnemyService {
   private FIRST_ID = 1;
 
   // TODO: EnemyService: Get random enemies
-  chooseEnemies(level: number, allEnemies: Character[]): Character[] {
-    const enemiesCopy = [pigWarrior, imp].map((enemytoCopy) =>
-      cloneDeep(enemytoCopy)
-    );
-    const enemies = enemiesCopy.map((enemy) => {
-      enemy.id = this.FIRST_ID++;
-      return enemy;
-    });
-    return enemies;
-  }
+  chooseEnemies = (level: number, allEnemies: Character[]): Character[] =>
+    allEnemies
+      .map((enemytoCopy) => cloneDeep(enemytoCopy))
+      .map((enemy) => {
+        enemy.id = this.FIRST_ID++;
+        return enemy;
+      });
 
-  // TODO: TEST
   chooseFirstEnemyForAction = (enemies: Character[]): Character =>
     enemies.find(this.isNotStunned);
 
