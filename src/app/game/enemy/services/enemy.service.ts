@@ -25,7 +25,6 @@ export default class EnemyService {
   chooseFirstEnemyForAction = (enemies: Character[]): Character =>
     enemies.find(this.isNotStunned);
 
-  // TODO: TEST
   chooseEnemyForAction = (
     enemies: Character[],
     character: Character

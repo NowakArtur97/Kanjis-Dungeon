@@ -15,25 +15,40 @@ describe('enemyService', () => {
   let injector: TestBed;
   let enemyService: EnemyService;
 
-  const enemyWithId1: Character = {
+  const enemy1: Character = {
     ...pigWarrior,
-    id: 1,
     stats: {
       ...pigWarrior.stats,
       currentShield: 0,
     },
     allActions: [swordAction, shieldAction],
   };
-  const enemyWithId2: Character = {
+  const enemy2: Character = {
     ...imp,
-    id: 2,
     allActions: [swordAction, shieldAction],
+  };
+  const enemy3: Character = {
+    ...pigWarrior,
+    allActions: [swordAction, shieldAction],
+  };
+  const allEnemies: Character[] = [enemy1, enemy2, enemy3];
+  const enemyWithId1: Character = {
+    ...enemy1,
+    id: 1,
+  };
+  const enemyWithId2: Character = {
+    ...enemy2,
+    id: 2,
   };
   const enemyWithId3: Character = {
-    ...pigWarrior,
+    ...enemy3,
     id: 3,
-    allActions: [swordAction, shieldAction],
   };
+  const enemiesWithIds: Character[] = [
+    enemyWithId1,
+    enemyWithId2,
+    enemyWithId3,
+  ];
   const enemyWithAction1: Character = {
     ...enemyWithId1,
     currentAction: shieldAction,
@@ -50,14 +65,24 @@ describe('enemyService', () => {
     ...enemyWithAction1,
     currentAction: stunnedAction,
   };
-
+  const enemyStunned2: Character = {
+    ...enemyWithAction2,
+    currentAction: stunnedAction,
+  };
+  const enemyWithoutAction1: Character = {
+    ...enemyWithAction1,
+    currentAction: null,
+  };
+  const enemyWithoutAction2: Character = {
+    ...enemyWithAction2,
+    currentAction: null,
+  };
   const onFireStatusWithValue: CharacterStatus = {
     ...burnedStatus,
     value: phoenixSummoningCard.statusValue,
     maxRemainingNumberOfActiveRounds:
       phoenixSummoningCard.maxStatusNumberOfActiveRounds,
   };
-
   const enemyWithStatus1: Character = {
     ...enemyWithId1,
     stats: {
@@ -82,8 +107,6 @@ describe('enemyService', () => {
     },
     statuses: [onFireStatusWithValue],
   };
-
-  const enemies: Character[] = [enemyWithId1, enemyWithId2, enemyWithId3];
   const enemiesWithStatuses: Character[] = [
     enemyWithStatus1,
     enemyWithStatus2,
@@ -105,24 +128,21 @@ describe('enemyService', () => {
   describe('when choose enemies', () => {
     it('should return enemies with ids', () => {
       const level = 1;
-      const allEnemies: Character[] = [pigWarrior, imp];
-      const expectedEnemy1: Character = { ...allEnemies[0], id: 1 };
-      const expectedEnemy2: Character = { ...allEnemies[1], id: 2 };
-      const enemiesExpected: Character[] = [expectedEnemy1, expectedEnemy2];
 
       const enemiesActual = enemyService.chooseEnemies(level, allEnemies);
-
-      expect(enemiesActual).toEqual(enemiesExpected);
-      expect(enemiesActual).toContain(expectedEnemy1);
-      expect(enemiesActual).toContain(expectedEnemy2);
-      expect(enemiesActual.length).toBe(enemiesExpected.length);
+      console.log(enemiesActual);
+      expect(enemiesActual).toEqual(enemiesWithIds);
+      expect(enemiesActual).toContain(enemyWithId1);
+      expect(enemiesActual).toContain(enemyWithId2);
+      expect(enemiesActual).toContain(enemyWithId3);
+      expect(enemiesActual.length).toBe(enemiesWithIds.length);
     });
   });
 
   describe('when choose first enemy for action', () => {
     it('and no enemy is stunned should return first enemy', () => {
-      const enemies = [enemyWithId1, enemyWithId2, enemyWithId3];
-      const enemyExpected = enemyWithId1;
+      const enemies = [enemyWithAction1, enemyWithAction2, enemyWithAction3];
+      const enemyExpected = enemies[0];
 
       const enemyActual = enemyService.chooseFirstEnemyForAction(enemies);
 
@@ -131,9 +151,51 @@ describe('enemyService', () => {
 
     it('and first enemy is stunned should return second enemy', () => {
       const enemies = [enemyStunned1, enemyWithAction2, enemyWithAction3];
-      const enemyExpected = enemyWithAction2;
+      const enemyExpected = enemies[1];
 
       const enemyActual = enemyService.chooseFirstEnemyForAction(enemies);
+
+      expect(enemyActual).toEqual(enemyExpected);
+    });
+  });
+
+  describe('when choose enemy for action', () => {
+    it('should return first not chosen enemy', () => {
+      const enemies = [enemyWithAction1, enemyWithAction2, enemyWithAction3];
+      const enemyExpected = enemies[1];
+
+      const enemyActual = enemyService.chooseEnemyForAction(
+        enemies,
+        enemyWithAction1
+      );
+
+      expect(enemyActual).toEqual(enemyExpected);
+    });
+
+    it('and no enemy is stunned and first enemy was already chosen should return not already chosen enemy', () => {
+      const enemies = [
+        enemyWithoutAction1,
+        enemyWithoutAction2,
+        enemyWithAction3,
+      ];
+      const enemyExpected = enemies[2];
+
+      const enemyActual = enemyService.chooseEnemyForAction(
+        enemies,
+        enemyWithoutAction2
+      );
+
+      expect(enemyActual).toEqual(enemyExpected);
+    });
+
+    it('and first enemy was already chosen and second enemy is stunned should return third enemy', () => {
+      const enemies = [enemyWithAction1, enemyStunned2, enemyWithAction3];
+      const enemyExpected = enemies[2];
+
+      const enemyActual = enemyService.chooseEnemyForAction(
+        enemies,
+        enemyWithAction1
+      );
 
       expect(enemyActual).toEqual(enemyExpected);
     });
@@ -159,7 +221,7 @@ describe('enemyService', () => {
       const updatedEnemiesActual = enemyService.useCardOnEnemy(
         phoenixSummoningCard,
         enemyWithId1,
-        enemies
+        enemiesWithIds
       );
 
       expect(updatedEnemiesActual).toEqual(updatedEnemiesExpected);
@@ -301,7 +363,9 @@ describe('enemyService', () => {
         enemyWithId3,
       ];
 
-      const updatedEnemiesActual = enemyService.applyStatusesOnEnemies(enemies);
+      const updatedEnemiesActual = enemyService.applyStatusesOnEnemies(
+        enemiesWithIds
+      );
 
       expect(updatedEnemiesActual).toEqual(updatedEnemiesExpected);
       expect(updatedEnemiesActual.length).toBe(updatedEnemiesExpected.length);
@@ -318,7 +382,7 @@ describe('enemyService', () => {
       ];
 
       const updatedEnemiesActual = enemyService.chooseRandomEnemiesActions(
-        enemies
+        enemiesWithIds
       );
 
       expect(updatedEnemiesActual).toEqual(updatedEnemiesExpected);
