@@ -5,7 +5,7 @@ import LevelType from '../enums/level-type.enum';
 
 export default interface Level {
   id?: number;
-  levelType: LevelType;
-  enemies: Character[];
-  quizOptions: QuizOptions;
+  readonly levelType: LevelType;
+  readonly enemies: Character[];
+  readonly quizOptions: QuizOptions;
 }

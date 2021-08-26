@@ -2,7 +2,7 @@ import { Action, createReducer, on } from '@ngrx/store';
 import cloneDeep from 'lodash/cloneDeep';
 
 import Character from '../../character/models/character.model';
-import { allEnemies } from '../enemy.data';
+import { ALL_ENEMIES } from '../enemy.data';
 import * as EnemyActions from './enemy.actions';
 
 export interface EnemyStoreState {
@@ -12,7 +12,7 @@ export interface EnemyStoreState {
 
 const initialState: EnemyStoreState = {
   enemies: [],
-  allEnemies,
+  allEnemies: ALL_ENEMIES,
 };
 export { initialState };
 

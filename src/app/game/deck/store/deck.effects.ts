@@ -7,6 +7,7 @@ import AppStoreState from 'src/app/store/app.state';
 
 import * as QuizActions from '../../../quiz/store/quiz.actions';
 import * as EnemyActions from '../../enemy/store/enemy.actions';
+import * as LevelActions from '../../level/store/level.actions';
 import * as PlayerActions from '../../player/store/player.actions';
 import * as GameActions from '../../store/game.actions';
 import DeckService from '../services/deck.service';
@@ -20,9 +21,10 @@ export default class DeckEffects {
     private deckService: DeckService
   ) {}
 
+  // TODO: TEST
   setAllCards$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(GameActions.chooseLevel),
+      ofType(LevelActions.chooseLevel),
       switchMap(({ level }) => of(this.deckService.getCards(level))),
       map((allCards) => DeckActions.setAllCards({ allCards }))
     )

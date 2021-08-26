@@ -83,5 +83,5 @@ const imp: Character = {
 };
 
 export { pigWarrior, imp };
-const allEnemies = [pigWarrior, imp];
-export { allEnemies };
+const ALL_ENEMIES = [pigWarrior, imp];
+export { ALL_ENEMIES };

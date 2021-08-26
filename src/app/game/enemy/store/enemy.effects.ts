@@ -7,6 +7,7 @@ import AppStoreState from 'src/app/store/app.state';
 
 import CharacterType from '../../character/enums/character-type.enum';
 import CharacterService from '../../character/services/character.service';
+import * as LevelActions from '../../level/store/level.actions';
 import * as PlayerActions from '../../player/store/player.actions';
 import * as GameActions from '../../store/game.actions';
 import EnemyService from '../services/enemy.service';
@@ -21,14 +22,15 @@ export default class EnemyEffects {
     private characterService: CharacterService
   ) {}
 
+  // TODO: TEST
   chooseLevel$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(GameActions.chooseLevel),
-      withLatestFrom(this.store.select((state) => state.enemy.allEnemies)),
-      switchMap(([{ level }, allEnemies]) =>
+      ofType(LevelActions.chooseLevel),
+      withLatestFrom(this.store.select((state) => state.level?.allLevels)),
+      switchMap(([{ level }, allLevels]) =>
         of(
           this.enemyService.chooseRandomEnemiesActions(
-            this.enemyService.chooseEnemies(level, allEnemies)
+            this.enemyService.chooseEnemies(level, allLevels)
           )
         )
       ),

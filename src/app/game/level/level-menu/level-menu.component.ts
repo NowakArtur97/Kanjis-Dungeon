@@ -12,8 +12,12 @@ import * as LevelActions from '../store/level.actions';
 export class LevelMenuComponent implements OnInit {
   constructor(private store: Store<AppStoreState>) {}
 
-  ngOnInit(): void {}
+  //TODO: TEST
+  ngOnInit(): void {
+    this.store.dispatch(LevelActions.setupLevels());
+  }
 
+  //TODO: TEST
   onChoseLevel() {
     const level = 1;
     this.store.dispatch(LevelActions.chooseLevel({ level }));

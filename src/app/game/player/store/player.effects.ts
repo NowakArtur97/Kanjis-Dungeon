@@ -9,6 +9,7 @@ import CharacterType from '../../character/enums/character-type.enum';
 import CharacterService from '../../character/services/character.service';
 import * as EnemyActions from '../../enemy/store/enemy.actions';
 import GameTurn from '../../enums/game-turn.enum';
+import * as LevelActions from '../../level/store/level.actions';
 import * as GameActions from '../../store/game.actions';
 import PlayerService from '../services/player.service';
 import * as PlayerActions from '../store/player.actions';
@@ -22,9 +23,10 @@ export default class PlayerEffects {
     private characterService: CharacterService
   ) {}
 
+  // TODO: TEST
   chooseLevel$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(GameActions.chooseLevel),
+      ofType(LevelActions.chooseLevel),
       withLatestFrom(this.store.select((state) => state.player.player)),
       switchMap(([, player]) =>
         of(this.characterService.setRandomTopOffset(player))

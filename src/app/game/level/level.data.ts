@@ -5,7 +5,7 @@ import { imp, pigWarrior } from '../enemy/enemy.data';
 import LevelType from './enums/level-type.enum';
 import Level from './models/level.model';
 
-const levels: Level[] = [
+const ALL_LEVELS: Level[] = [
   {
     levelType: LevelType.RADICAL,
     enemies: [pigWarrior],
@@ -118,4 +118,4 @@ const levels: Level[] = [
   },
 ];
 
-export default levels;
+export default ALL_LEVELS;
