@@ -8,6 +8,7 @@ import AppStoreState from 'src/app/store/app.state';
 import * as QuizActions from '../../quiz/store/quiz.actions';
 import * as EnemyActions from '../enemy/store/enemy.actions';
 import GameTurn from '../enums/game-turn.enum';
+import * as LevelActions from '../level/store/level.actions';
 import * as PlayerActions from '../player/store/player.actions';
 import GameService from '../services/game.service';
 import * as GameActions from '../store/game.actions';
@@ -20,9 +21,10 @@ export default class GameEffects {
     private gameService: GameService
   ) {}
 
+  // TODO: TEST
   changeTurn$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(GameActions.chooseLevel, GameActions.changeTurn),
+      ofType(LevelActions.chooseLevel, GameActions.changeTurn),
       withLatestFrom(this.store.select((state) => state.game?.turn)),
       map(([, turn]) => {
         if (turn === GameTurn.ENEMY_TURN) {

@@ -1,5 +1,6 @@
 import * as fromDeck from '../game/deck/store/deck.reducer';
 import * as fromEnemy from '../game/enemy/store/enemy.reducer';
+import * as fromLevel from '../game/level/store/level.reducer';
 import * as fromPlayer from '../game/player/store/player.reducer';
 import * as fromGame from '../game/store/game.reducer';
 import * as fromKanji from '../japanese/kanji/store/kanji.reducer';
@@ -18,4 +19,5 @@ export default interface AppStoreState {
   player: fromPlayer.PlayerStoreState;
   enemy: fromEnemy.EnemyStoreState;
   deck: fromDeck.DeckStoreState;
+  level: fromLevel.LevelStoreState;
 }
