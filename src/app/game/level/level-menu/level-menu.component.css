@@ -11,7 +11,7 @@
   justify-content: center;
   align-items: center;
 
-  font-size: 4em;
+  font-size: 4.5em;
 }
 
 .level_menu__group {
@@ -27,25 +27,102 @@
 
   min-height: 15vh;
   min-width: 15vh;
-  margin: 2%;
+  margin: 1%;
 
-  font-size: 3em;
+  font-size: 3.5em;
+
+  transition: opacity 0.3s;
 }
 
-@media (min-width: 667px) {
+.level_menu__level:hover {
+  opacity: 0.65;
+  cursor: pointer;
 }
 
-@media (min-width: 736px) {
+@media (min-width: 375px) {
+  .level_menu__level {
+    min-height: 12vh;
+    min-width: 12vh;
+  }
 }
 
-@media (min-width: 823px) {
+@media (min-width: 411px) {
+  .level_menu__level {
+    min-height: 14vh;
+    min-width: 14vh;
+  }
 }
 
-@media (min-width: 850px) {
+@media (min-width: 540px) {
+  .level_menu__level {
+    min-height: 18vh;
+    min-width: 18vh;
+  }
+}
+
+@media (min-width: 568px) {
+  .level_menu__level {
+    min-height: 23vh;
+    min-width: 23vh;
+  }
+}
+
+@media (min-width: 640px) {
+  .level_menu__group_name {
+    font-size: 5em;
+  }
+
+  .level_menu__level {
+    font-size: 4em;
+  }
+}
+
+@media (min-width: 731px) {
+  .level_menu__group_name {
+    font-size: 5.5em;
+  }
+
+  .level_menu__level {
+    min-height: 22vh;
+    min-width: 22vh;
+
+    font-size: 4.5em;
+  }
+}
+
+@media (min-width: 812px) {
+  .level_menu__level {
+    min-height: 25vh;
+    min-width: 25vh;
+  }
 }
 
 @media (min-width: 1024px) {
+  .level_menu__group_name {
+    font-size: 5.5em;
+  }
+
+  .level_menu__level {
+    min-height: 15vh;
+    min-width: 15vh;
+
+    margin: 0.5%;
+
+    font-size: 4.5em;
+  }
 }
 
 @media (min-width: 1366px) {
+  .level_menu__group_name {
+    font-size: 6.5em;
+  }
+
+  .level_menu__level {
+    min-height: 22vh;
+    min-width: 22vh;
+
+    margin: 0.4%;
+
+    font-size: 5.5em;
+  }
 }
