@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } fr
 import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
+import COLORS from 'src/app/common/color.data';
 import CharacterUtil from 'src/app/common/utils/character.util';
 import CssUtil from 'src/app/common/utils/css.util';
 import CommonValidators from 'src/app/common/validators/common.validator';
@@ -30,13 +31,6 @@ export class QuizCardComponent implements OnInit, AfterViewInit, OnDestroy {
   private nextQuestionSubscription$: Subscription;
   private currentCharacter: Radical;
   private quizOptions: QuizOptions;
-  private cardColors = {
-    radical: '#08c',
-    kanji: '#f0a',
-    vocabulary: '#a0f',
-    correct: '#08c66c',
-    wrong: '#f03',
-  };
   cardStatus = CardStatus.CHECK;
   charactersValue: QuizCard;
   quizFormGroup: FormGroup;
@@ -76,13 +70,13 @@ export class QuizCardComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private initForm(): void {
-    let cardColor = this.cardColors.radical;
+    let cardColor = COLORS.radical;
 
     if (this.currentCharacter?.id) {
       if (CharacterUtil.isKanji(this.currentCharacter)) {
-        cardColor = this.cardColors.kanji;
+        cardColor = COLORS.kanji;
       } else if (CharacterUtil.isVocabulary(this.currentCharacter)) {
-        cardColor = this.cardColors.vocabulary;
+        cardColor = COLORS.vocabulary;
       }
 
       CssUtil.changeQuizCardColor(cardColor);
@@ -155,9 +149,7 @@ export class QuizCardComponent implements OnInit, AfterViewInit, OnDestroy {
       this.initForm();
     }
     CssUtil.changeQuizCardColor(
-      this.cardStatus === CardStatus.CORRECT
-        ? this.cardColors.correct
-        : this.cardColors.wrong
+      this.cardStatus === CardStatus.CORRECT ? COLORS.correct : COLORS.wrong
     );
   }
 

@@ -1,0 +1,51 @@
+.level_menu {
+  min-height: 100vh;
+  width: 100vw;
+
+  background-color: hsl(0, 0%, 11%);
+  color: white;
+}
+
+.level_menu__group_name {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 4em;
+}
+
+.level_menu__group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.level_menu__level {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  min-height: 15vh;
+  min-width: 15vh;
+  margin: 2%;
+
+  font-size: 3em;
+}
+
+@media (min-width: 667px) {
+}
+
+@media (min-width: 736px) {
+}
+
+@media (min-width: 823px) {
+}
+
+@media (min-width: 850px) {
+}
+
+@media (min-width: 1024px) {
+}
+
+@media (min-width: 1366px) {
+}

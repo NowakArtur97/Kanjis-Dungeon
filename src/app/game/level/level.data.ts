@@ -51,6 +51,60 @@ const ALL_LEVELS: Level[] = [
       questionTypes: [CharacterType.RADICAL],
     },
   },
+  {
+    levelType: LevelType.RADICAL,
+    enemies: [pigWarrior],
+    quizOptions: {
+      ...DEFAULT_QUIZ_OPTIONS,
+      numberOfQuestions: 6,
+      questionTypes: [CharacterType.RADICAL],
+    },
+  },
+  {
+    levelType: LevelType.RADICAL,
+    enemies: [pigWarrior],
+    quizOptions: {
+      ...DEFAULT_QUIZ_OPTIONS,
+      numberOfQuestions: 6,
+      questionTypes: [CharacterType.RADICAL],
+    },
+  },
+  {
+    levelType: LevelType.RADICAL,
+    enemies: [pigWarrior],
+    quizOptions: {
+      ...DEFAULT_QUIZ_OPTIONS,
+      numberOfQuestions: 6,
+      questionTypes: [CharacterType.RADICAL],
+    },
+  },
+  {
+    levelType: LevelType.RADICAL,
+    enemies: [pigWarrior],
+    quizOptions: {
+      ...DEFAULT_QUIZ_OPTIONS,
+      numberOfQuestions: 6,
+      questionTypes: [CharacterType.RADICAL],
+    },
+  },
+  {
+    levelType: LevelType.RADICAL,
+    enemies: [pigWarrior, imp],
+    quizOptions: {
+      ...DEFAULT_QUIZ_OPTIONS,
+      numberOfQuestions: 24,
+      questionTypes: [CharacterType.RADICAL],
+    },
+  },
+  {
+    levelType: LevelType.RADICAL,
+    enemies: [pigWarrior],
+    quizOptions: {
+      ...DEFAULT_QUIZ_OPTIONS,
+      numberOfQuestions: 6,
+      questionTypes: [CharacterType.RADICAL],
+    },
+  },
 
   {
     levelType: LevelType.KANJI,
@@ -97,6 +151,60 @@ const ALL_LEVELS: Level[] = [
       questionTypes: [CharacterType.KANJI],
     },
   },
+  {
+    levelType: LevelType.KANJI,
+    enemies: [imp],
+    quizOptions: {
+      ...DEFAULT_QUIZ_OPTIONS,
+      numberOfQuestions: 6,
+      questionTypes: [CharacterType.KANJI],
+    },
+  },
+  {
+    levelType: LevelType.KANJI,
+    enemies: [imp],
+    quizOptions: {
+      ...DEFAULT_QUIZ_OPTIONS,
+      numberOfQuestions: 6,
+      questionTypes: [CharacterType.KANJI],
+    },
+  },
+  {
+    levelType: LevelType.KANJI,
+    enemies: [imp],
+    quizOptions: {
+      ...DEFAULT_QUIZ_OPTIONS,
+      numberOfQuestions: 6,
+      questionTypes: [CharacterType.KANJI],
+    },
+  },
+  {
+    levelType: LevelType.KANJI,
+    enemies: [imp],
+    quizOptions: {
+      ...DEFAULT_QUIZ_OPTIONS,
+      numberOfQuestions: 6,
+      questionTypes: [CharacterType.KANJI],
+    },
+  },
+  {
+    levelType: LevelType.KANJI,
+    enemies: [pigWarrior, imp],
+    quizOptions: {
+      ...DEFAULT_QUIZ_OPTIONS,
+      numberOfQuestions: 24,
+      questionTypes: [CharacterType.KANJI],
+    },
+  },
+  {
+    levelType: LevelType.KANJI,
+    enemies: [imp],
+    quizOptions: {
+      ...DEFAULT_QUIZ_OPTIONS,
+      numberOfQuestions: 6,
+      questionTypes: [CharacterType.KANJI],
+    },
+  },
 
   {
     levelType: LevelType.VOCABULARY,
@@ -114,6 +222,33 @@ const ALL_LEVELS: Level[] = [
       ...DEFAULT_QUIZ_OPTIONS,
       numberOfQuestions: 5,
       questionTypes: [CharacterType.VOCABULARY],
+    },
+  },
+
+  {
+    levelType: LevelType.MIX,
+    enemies: [pigWarrior],
+    quizOptions: {
+      ...DEFAULT_QUIZ_OPTIONS,
+      numberOfQuestions: 24,
+      questionTypes: [
+        CharacterType.RADICAL,
+        CharacterType.KANJI,
+        CharacterType.VOCABULARY,
+      ],
+    },
+  },
+  {
+    levelType: LevelType.MIX,
+    enemies: [imp],
+    quizOptions: {
+      ...DEFAULT_QUIZ_OPTIONS,
+      numberOfQuestions: 24,
+      questionTypes: [
+        CharacterType.RADICAL,
+        CharacterType.KANJI,
+        CharacterType.VOCABULARY,
+      ],
     },
   },
 ];

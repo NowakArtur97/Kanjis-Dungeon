@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
+import COLORS from 'src/app/common/color.data';
 import AppStoreState from 'src/app/store/app.state';
 
 import LevelType from '../enums/level-type.enum';
@@ -19,6 +20,8 @@ export class LevelMenuComponent implements OnInit, OnDestroy {
   allKanjiLevels: Level[] = [];
   allVocabularyLevels: Level[] = [];
   allMixLevels: Level[] = [];
+
+  color = COLORS;
 
   constructor(private store: Store<AppStoreState>) {}
 
