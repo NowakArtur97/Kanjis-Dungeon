@@ -12,6 +12,7 @@ import { CharacterModule } from './character/character.module';
 import { DeckModule } from './deck/deck.module';
 import { EnemyModule } from './enemy/enemy.module';
 import { GameLayoutComponent } from './game-layout/game-layout.component';
+import { LevelModule } from './level/level.module';
 import { PlayerModule } from './player/player.module';
 import GameEffects from './store/game.effects';
 import { gameReducer } from './store/game.reducer';
@@ -37,6 +38,7 @@ const gameRoutes: Routes = [
     EnemyModule,
     PlayerModule,
     QuizModule,
+    LevelModule,
   ],
   exports: [GameLayoutComponent],
 })

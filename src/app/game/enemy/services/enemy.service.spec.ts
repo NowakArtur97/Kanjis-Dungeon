@@ -130,7 +130,7 @@ describe('enemyService', () => {
       const level = 1;
 
       const enemiesActual = enemyService.chooseEnemies(level, allEnemies);
-      console.log(enemiesActual);
+
       expect(enemiesActual).toEqual(enemiesWithIds);
       expect(enemiesActual).toContain(enemyWithId1);
       expect(enemiesActual).toContain(enemyWithId2);
