@@ -17,7 +17,7 @@ export default class LevelEffects {
   ) {}
 
   // TODO: TEST
-  changeTurn$ = createEffect(() =>
+  setupLevels$ = createEffect(() =>
     this.actions$.pipe(
       ofType(LevelActions.setupLevels),
       withLatestFrom(this.store.select((state) => state.level?.allLevels)),

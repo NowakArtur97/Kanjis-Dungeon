@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
 import AppStoreState from 'src/app/store/app.state';
 
+import LevelType from '../enums/level-type.enum';
+import Level from '../models/level.model';
 import * as LevelActions from '../store/level.actions';
 
 @Component({
@@ -9,17 +12,47 @@ import * as LevelActions from '../store/level.actions';
   templateUrl: './level-menu.component.html',
   styleUrls: ['./level-menu.component.css'],
 })
-export class LevelMenuComponent implements OnInit {
+export class LevelMenuComponent implements OnInit, OnDestroy {
+  private allLevelsSubscription$: Subscription;
+
+  allRadicalLevels: Level[] = [];
+  allKanjiLevels: Level[] = [];
+  allVocabularyLevels: Level[] = [];
+  allMixLevels: Level[] = [];
+
   constructor(private store: Store<AppStoreState>) {}
 
   //TODO: TEST
   ngOnInit(): void {
     this.store.dispatch(LevelActions.setupLevels());
+
+    this.allLevelsSubscription$ = this.store
+      .select('level')
+      .subscribe(({ allLevels }) => this.prepareLevels(allLevels));
+  }
+
+  ngOnDestroy(): void {
+    this.allLevelsSubscription$.unsubscribe();
   }
 
   //TODO: TEST
   onChoseLevel() {
     const level = 1;
     this.store.dispatch(LevelActions.chooseLevel({ level }));
+  }
+
+  private prepareLevels(allLevels: Level[]): void {
+    allLevels.forEach((level) => {
+      const { levelType } = level;
+      if (levelType === LevelType.RADICAL) {
+        this.allRadicalLevels.push(level);
+      } else if (levelType === LevelType.KANJI) {
+        this.allKanjiLevels.push(level);
+      } else if (levelType === LevelType.VOCABULARY) {
+        this.allVocabularyLevels.push(level);
+      } else {
+        this.allMixLevels.push(level);
+      }
+    });
   }
 }

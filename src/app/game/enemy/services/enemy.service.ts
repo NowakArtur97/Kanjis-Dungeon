@@ -16,9 +16,8 @@ export default class EnemyService {
 
   // TODO: TEST
   chooseEnemies = (level: number, allLevels: Level[]): Character[] =>
-    allLevels
+    cloneDeep(allLevels)
       .find((levelData) => levelData.id === level)
-      .enemies.map((enemytoCopy) => cloneDeep(enemytoCopy))
       .map((enemy) => {
         enemy.id = this.FIRST_ID++;
         return enemy;
@@ -46,9 +45,9 @@ export default class EnemyService {
     enemy: Character,
     enemies: Character[]
   ): Character[] {
-    const updatedEnemies = enemies.map((enemytoCopy) => cloneDeep(enemytoCopy));
+    const updatedEnemies = cloneDeep(enemies);
     const enemyToUpdate: Character = updatedEnemies.find(
-      (e) => e.id === enemy.id
+      (e: Character) => e.id === enemy.id
     );
 
     gameCard.apply(enemyToUpdate);
@@ -57,15 +56,14 @@ export default class EnemyService {
   }
 
   applyStatusesOnEnemies = (enemies: Character[]): Character[] =>
-    enemies
-      .map((enemytoCopy) => cloneDeep(enemytoCopy))
+    cloneDeep(enemies)
       .map((enemy: Character) => {
         enemy.statuses.forEach((status: CharacterStatus) =>
           status.apply(enemy)
         );
         return enemy;
       })
-      .map((enemy) => {
+      .map((enemy: Character) => {
         const enemyCopy = cloneDeep(enemy);
         return {
           ...enemyCopy,
@@ -78,19 +76,17 @@ export default class EnemyService {
 
   // TODO: TEST
   chooseRandomEnemiesActions(enemies: Character[]): Character[] {
-    const updatedEnemies = enemies
-      .map((enemytoCopy) => cloneDeep(enemytoCopy))
-      .map((enemy: Character) => {
-        const { statuses } = enemy;
-        const isStunned = statuses.some(
-          (action) => action.type === CharacterStatusType.STUNNED
-        );
+    const updatedEnemies = cloneDeep(enemies).map((enemy: Character) => {
+      const { statuses } = enemy;
+      const isStunned = statuses.some(
+        (action) => action.type === CharacterStatusType.STUNNED
+      );
 
-        enemy.currentAction = isStunned
-          ? stunnedAction
-          : enemy.allActions[MathUtil.getRandomIndex(enemy.allActions)];
-        return enemy;
-      });
+      enemy.currentAction = isStunned
+        ? stunnedAction
+        : enemy.allActions[MathUtil.getRandomIndex(enemy.allActions)];
+      return enemy;
+    });
 
     return updatedEnemies;
   }

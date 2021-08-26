@@ -1,1 +1,37 @@
-HELLO
+<div class="level_menu">
+  <div class="level_menu__radicals">
+    <div
+      *ngFor="let level of allRadicalLevels"
+      class="level_menu__option level_menu__option--radical"
+    >
+      {{ level.id }}
+    </div>
+  </div>
+
+  <div class="level_menu__kanjis">
+    <div
+      *ngFor="let level of allKanjiLevels"
+      class="level_menu__option level_menu__option--kanji"
+    >
+      {{ level.id }}
+    </div>
+  </div>
+
+  <div class="level_menu__vocabulary">
+    <div
+      *ngFor="let level of allVocabularyLevels"
+      class="level_menu__option level_menu__option--vocabulary"
+    >
+      {{ level.id }}
+    </div>
+  </div>
+
+  <div class="level_menu__mix">
+    <div
+      *ngFor="let level of allMixLevels"
+      class="level_menu__option level_menu__option--mix"
+    >
+      {{ level.id }}
+    </div>
+  </div>
+</div>

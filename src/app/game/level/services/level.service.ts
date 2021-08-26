@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { cloneDeep } from 'lodash';
 import QuizOptions from 'src/app/quiz/models/quiz-options.model';
 
 import Level from '../models/level.model';
@@ -8,7 +9,12 @@ export default class LevelService {
   // TODO: TEST
   setupLevelsIds(allLevels: Level[]): Level[] {
     let id = 1;
-    return allLevels.map((level) => {
+    let [{ levelType: previousLevelType }] = allLevels;
+    return cloneDeep(allLevels).map((level: Level) => {
+      if (previousLevelType !== level.levelType) {
+        id = 1;
+        previousLevelType = level.levelType;
+      }
       level.id = id++;
       return level;
     });
