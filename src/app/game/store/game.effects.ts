@@ -8,9 +8,9 @@ import AppStoreState from 'src/app/store/app.state';
 import * as QuizActions from '../../quiz/store/quiz.actions';
 import * as EnemyActions from '../enemy/store/enemy.actions';
 import GameTurn from '../enums/game-turn.enum';
+import LevelService from '../level/services/level.service';
 import * as LevelActions from '../level/store/level.actions';
 import * as PlayerActions from '../player/store/player.actions';
-import GameService from '../services/game.service';
 import * as GameActions from '../store/game.actions';
 
 @Injectable()
@@ -18,7 +18,7 @@ export default class GameEffects {
   constructor(
     private actions$: Actions,
     private store: Store<AppStoreState>,
-    private gameService: GameService
+    private levelService: LevelService
   ) {}
 
   // TODO: TEST
@@ -37,12 +37,13 @@ export default class GameEffects {
   );
 
   // TODO: GameEffects: Select options only at the start of level
+  // TODO: TEST
   startPlayerTurn$ = createEffect(() =>
     this.actions$.pipe(
       ofType(PlayerActions.startPlayerTurn),
-      withLatestFrom(this.store.select((state) => state.game?.level)),
-      switchMap(([, level]) =>
-        of(this.gameService.chooseQuizOptionsForLevel(level))
+      withLatestFrom(this.store.select((state) => state.level)),
+      switchMap(([, { level, allLevels }]) =>
+        of(this.levelService.chooseQuizOptionsForLevel(level, allLevels))
       ),
       map((quizOptions) => QuizActions.changeQuizOptions({ quizOptions }))
     )

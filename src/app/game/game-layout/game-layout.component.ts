@@ -4,7 +4,6 @@ import { Subscription } from 'rxjs';
 import AppStoreState from 'src/app/store/app.state';
 
 import GamePhase from '../enums/game-phase.enum';
-import * as GameActions from '../store/game.actions';
 
 @Component({
   selector: 'app-game-layout',
@@ -19,10 +18,6 @@ export class GameLayoutComponent implements OnInit, OnDestroy {
   constructor(private store: Store<AppStoreState>) {}
 
   ngOnInit(): void {
-    // TODO: GameLayoutComponent: Get level from routing(?)
-    const level = 1;
-    this.store.dispatch(GameActions.chooseLevel({ level }));
-
     this.gameTurnSubscription$ = this.store
       .select('game')
       .subscribe(({ phase }) => {

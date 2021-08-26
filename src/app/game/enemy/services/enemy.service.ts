@@ -8,15 +8,17 @@ import CharacterStatusType from '../../character/enums/character-status-type.enu
 import CharacterStatus from '../../character/models/character-status.model';
 import Character from '../../character/models/character.model';
 import GameCard from '../../deck/models/game-card.model';
+import Level from '../../level/models/level.model';
 
 @Injectable({ providedIn: 'root' })
 export default class EnemyService {
   private FIRST_ID = 1;
 
-  // TODO: EnemyService: Get random enemies
-  chooseEnemies = (level: number, allEnemies: Character[]): Character[] =>
-    allEnemies
-      .map((enemytoCopy) => cloneDeep(enemytoCopy))
+  // TODO: TEST
+  chooseEnemies = (level: number, allLevels: Level[]): Character[] =>
+    allLevels
+      .find((levelData) => levelData.id === level)
+      .enemies.map((enemytoCopy) => cloneDeep(enemytoCopy))
       .map((enemy) => {
         enemy.id = this.FIRST_ID++;
         return enemy;

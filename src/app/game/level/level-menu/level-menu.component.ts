@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import AppStoreState from 'src/app/store/app.state';
+
+import * as LevelActions from '../store/level.actions';
 
 @Component({
   selector: 'app-level-menu',
@@ -6,7 +10,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./level-menu.component.css'],
 })
 export class LevelMenuComponent implements OnInit {
-  constructor() {}
+  constructor(private store: Store<AppStoreState>) {}
 
   ngOnInit(): void {}
+
+  onChoseLevel() {
+    const level = 1;
+    this.store.dispatch(LevelActions.chooseLevel({ level }));
+  }
 }
