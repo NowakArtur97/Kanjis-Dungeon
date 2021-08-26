@@ -21,6 +21,7 @@ const gameRoutes: Routes = [
   {
     path: 'game',
     component: GameLayoutComponent,
+    // TODO: gameRoutes: Load in Level Menu(?)
     resolve: [RadicalResolver, KanjiResolver, VocabularyResolver],
   },
 ];
