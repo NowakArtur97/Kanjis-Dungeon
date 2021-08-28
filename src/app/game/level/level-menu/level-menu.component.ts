@@ -25,7 +25,6 @@ export class LevelMenuComponent implements OnInit, OnDestroy {
 
   constructor(private store: Store<AppStoreState>) {}
 
-  //TODO: TEST
   ngOnInit(): void {
     this.store.dispatch(LevelActions.setupLevels());
 
@@ -34,15 +33,10 @@ export class LevelMenuComponent implements OnInit, OnDestroy {
       .subscribe(({ allLevels }) => this.prepareLevels(allLevels));
   }
 
-  ngOnDestroy(): void {
-    this.allLevelsSubscription$.unsubscribe();
-  }
+  ngOnDestroy = (): void => this.allLevelsSubscription$.unsubscribe();
 
-  //TODO: TEST
-  onChoseLevel() {
-    const level = 1;
+  onChoseLevel = (level: Level): void =>
     this.store.dispatch(LevelActions.chooseLevel({ level }));
-  }
 
   private prepareLevels(allLevels: Level[]): void {
     allLevels.forEach((level) => {
