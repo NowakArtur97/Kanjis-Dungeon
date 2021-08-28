@@ -1,11 +1,14 @@
 import { getTestBed, TestBed } from '@angular/core/testing';
 import MathUtil from 'src/app/common/utils/math.util';
+import { DEFAULT_QUIZ_OPTIONS } from 'src/app/quiz/store/quiz.reducer';
 
 import { stunnedAction } from '../../character/character-action/character-action.data';
 import { burnedStatus } from '../../character/character-status.data';
 import CharacterStatus from '../../character/models/character-status.model';
 import Character from '../../character/models/character.model';
 import { phoenixSummoningCard } from '../../deck/deck.data';
+import LevelType from '../../level/enums/level-type.enum';
+import Level from '../../level/models/level.model';
 import defaultPlayer from '../../player/player.data';
 import { shieldAction, swordAction } from '../enemy-action.data';
 import { imp, pigWarrior } from '../enemy.data';
@@ -113,6 +116,21 @@ describe('enemyService', () => {
     enemyWithStatus3,
   ];
 
+  const allLevels: Level[] = [
+    {
+      id: 1,
+      levelType: LevelType.RADICAL,
+      enemies: [enemyWithId1, enemyWithId2],
+      quizOptions: DEFAULT_QUIZ_OPTIONS,
+    },
+    {
+      id: 2,
+      levelType: LevelType.KANJI,
+      enemies: [enemyWithId1, enemyWithId2, enemyWithId3],
+      quizOptions: DEFAULT_QUIZ_OPTIONS,
+    },
+  ];
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [],
@@ -127,9 +145,7 @@ describe('enemyService', () => {
 
   describe('when choose enemies', () => {
     it('should return enemies with ids', () => {
-      const level = 1;
-
-      const enemiesActual = enemyService.chooseEnemies(level, allEnemies);
+      const enemiesActual = enemyService.chooseEnemies(allEnemies);
 
       expect(enemiesActual).toEqual(enemiesWithIds);
       expect(enemiesActual).toContain(enemyWithId1);

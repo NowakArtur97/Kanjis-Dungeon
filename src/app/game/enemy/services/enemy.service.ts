@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import cloneDeep from 'lodash/cloneDeep';
+import * as cloneDeep from 'lodash/cloneDeep';
 import MathUtil from 'src/app/common/utils/math.util';
 
 import { stunnedAction } from '../../character/character-action/character-action.data';
@@ -8,20 +8,16 @@ import CharacterStatusType from '../../character/enums/character-status-type.enu
 import CharacterStatus from '../../character/models/character-status.model';
 import Character from '../../character/models/character.model';
 import GameCard from '../../deck/models/game-card.model';
-import Level from '../../level/models/level.model';
 
 @Injectable({ providedIn: 'root' })
 export default class EnemyService {
-  private FIRST_ID = 1;
-
-  // TODO: TEST
-  chooseEnemies = (level: number, allLevels: Level[]): Character[] =>
-    cloneDeep(allLevels)
-      .find((levelData) => levelData.id === level)
-      .map((enemy) => {
-        enemy.id = this.FIRST_ID++;
-        return enemy;
-      });
+  chooseEnemies(enemies: Character[]): Character[] {
+    let id = 1;
+    return cloneDeep(enemies).map((enemy: Character) => {
+      enemy.id = id++;
+      return enemy;
+    });
+  }
 
   chooseFirstEnemyForAction = (enemies: Character[]): Character =>
     enemies.find(this.isNotStunned);

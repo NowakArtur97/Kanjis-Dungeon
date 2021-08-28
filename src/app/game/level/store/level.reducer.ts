@@ -5,12 +5,12 @@ import Level from '../models/level.model';
 import * as LevelActions from './level.actions';
 
 export interface LevelStoreState {
-  level: number;
+  level: Level;
   allLevels: Level[];
 }
-let id = 1;
+
 const initialState: LevelStoreState = {
-  level: 0,
+  level: null,
   allLevels: ALL_LEVELS,
 };
 

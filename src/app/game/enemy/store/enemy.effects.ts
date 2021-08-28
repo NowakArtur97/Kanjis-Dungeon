@@ -25,11 +25,10 @@ export default class EnemyEffects {
   chooseLevel$ = createEffect(() =>
     this.actions$.pipe(
       ofType(LevelActions.chooseLevel),
-      withLatestFrom(this.store.select((state) => state.level?.allLevels)),
-      switchMap(([{ level }, allLevels]) =>
+      switchMap(({ level }) =>
         of(
           this.enemyService.chooseRandomEnemiesActions(
-            this.enemyService.chooseEnemies(level, allLevels)
+            this.enemyService.chooseEnemies(level.enemies)
           )
         )
       ),

@@ -3,7 +3,7 @@ import { Store, StoreModule } from '@ngrx/store';
 import { of } from 'rxjs';
 import AppStoreState from 'src/app/store/app.state';
 
-import { allEnemies, imp, pigWarrior } from '../enemy.data';
+import { ALL_ENEMIES, imp, pigWarrior } from '../enemy.data';
 import { EnemyStoreState } from '../store/enemy.reducer';
 import { EnemiesLayoutComponent } from './enemies-layout.component';
 
@@ -14,7 +14,7 @@ describe('EnemiesLayoutComponent', () => {
 
   const initialState: EnemyStoreState = {
     enemies: [pigWarrior, imp, pigWarrior],
-    allEnemies,
+    allEnemies: ALL_ENEMIES,
   };
 
   beforeEach(async () => {

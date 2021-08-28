@@ -14,9 +14,12 @@ import {
 import AppStoreState from 'src/app/store/app.state';
 
 import * as QuizActions from '../../../quiz/store/quiz.actions';
+import { pigWarrior } from '../../enemy/enemy.data';
 import * as EnemyActions from '../../enemy/store/enemy.actions';
 import GamePhase from '../../enums/game-phase.enum';
 import GameTurn from '../../enums/game-turn.enum';
+import LevelType from '../../level/enums/level-type.enum';
+import Level from '../../level/models/level.model';
 import LevelService from '../../level/services/level.service';
 import * as LevelActions from '../../level/store/level.actions';
 import { initialState as levelInitialState } from '../../level/store/level.reducer';
@@ -29,8 +32,24 @@ describe('GameEffects', () => {
   let gameEffects: GameEffects;
   let actions$: ReplaySubject<any>;
   let store: any;
-  let levelService: LevelService;
 
+  const quizOptions: QuizOptions = {
+    numberOfQuestions: 3,
+    minNumberOfProperties: DEFAULT_MIN_NUMBER_OF_PROPERTIES,
+    shouldShowAnswer: true,
+    shouldHideRandomProperties: false,
+    excludedProperties: new Map([
+      [CharacterType.RADICAL, DEFAULT_EXCLUDED_PROPERTIES],
+      [CharacterType.KANJI, DEFAULT_EXCLUDED_PROPERTIES],
+      [CharacterType.VOCABULARY, DEFAULT_EXCLUDED_PROPERTIES],
+    ]),
+    questionTypes: [CharacterType.RADICAL],
+  };
+  const level: Level = {
+    levelType: LevelType.RADICAL,
+    enemies: [pigWarrior],
+    quizOptions,
+  };
   const stateWithZeroQuestions: Partial<AppStoreState> = {
     quiz: {
       ...quizInitialState,
@@ -178,50 +197,24 @@ describe('GameEffects', () => {
           GameEffects,
           provideMockStore({ initialState: stateWithPlayerTurn }),
           provideMockActions(() => actions$),
-          {
-            provide: LevelService,
-            useValue: jasmine.createSpyObj('levelService', [
-              'chooseQuizOptionsForLevel',
-            ]),
-          },
         ],
       })
     );
 
     beforeEach(() => {
       gameEffects = TestBed.inject(GameEffects);
-      levelService = TestBed.inject(LevelService);
     });
 
     describe('when starting level', () => {
       beforeEach(() => {
         actions$ = new ReplaySubject(1);
-        actions$.next(PlayerActions.startPlayerTurn);
+        actions$.next(LevelActions.chooseLevel({ level }));
       });
 
       it('should return a changeQuizOptions action', () => {
-        const quizOptions: QuizOptions = {
-          numberOfQuestions: 3,
-          minNumberOfProperties: DEFAULT_MIN_NUMBER_OF_PROPERTIES,
-          shouldShowAnswer: true,
-          shouldHideRandomProperties: false,
-          excludedProperties: new Map([
-            [CharacterType.RADICAL, DEFAULT_EXCLUDED_PROPERTIES],
-            [CharacterType.KANJI, DEFAULT_EXCLUDED_PROPERTIES],
-            [CharacterType.VOCABULARY, DEFAULT_EXCLUDED_PROPERTIES],
-          ]),
-          questionTypes: [CharacterType.RADICAL],
-        };
-        (levelService.chooseQuizOptionsForLevel as jasmine.Spy).and.returnValue(
-          quizOptions
-        );
-
         gameEffects.startPlayerTurn$.subscribe((resultAction) => {
           expect(resultAction).toEqual(
             QuizActions.changeQuizOptions({ quizOptions })
-          );
-          expect(levelService.chooseQuizOptionsForLevel).toHaveBeenCalledTimes(
-            1
           );
         });
       });

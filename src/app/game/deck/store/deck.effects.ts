@@ -24,7 +24,7 @@ export default class DeckEffects {
   setAllCards$ = createEffect(() =>
     this.actions$.pipe(
       ofType(LevelActions.chooseLevel),
-      switchMap(({ level }) => of(this.deckService.getCards(level))),
+      switchMap(({ level }) => of(this.deckService.getCards(level.id))),
       map((allCards) => DeckActions.setAllCards({ allCards }))
     )
   );

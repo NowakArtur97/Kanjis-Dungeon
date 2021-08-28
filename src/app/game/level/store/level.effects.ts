@@ -16,7 +16,6 @@ export default class LevelEffects {
     private levelService: LevelService
   ) {}
 
-  // TODO: TEST
   setupLevels$ = createEffect(() =>
     this.actions$.pipe(
       ofType(LevelActions.setupLevels),

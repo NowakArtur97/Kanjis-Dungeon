@@ -3,6 +3,11 @@ import { provideMockActions } from '@ngrx/effects/testing';
 import { Store, StoreModule } from '@ngrx/store';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { ReplaySubject } from 'rxjs';
+import { pigWarrior } from 'src/app/game/enemy/enemy.data';
+import LevelType from 'src/app/game/level/enums/level-type.enum';
+import Level from 'src/app/game/level/models/level.model';
+import CharacterType from 'src/app/japanese/common/enums/character-type.enum';
+import { DEFAULT_QUIZ_OPTIONS } from 'src/app/quiz/store/quiz.reducer';
 import AppStoreState from 'src/app/store/app.state';
 
 import * as QuizActions from '../../../../quiz/store/quiz.actions';
@@ -31,6 +36,15 @@ describe('DeckEffects', () => {
     defenceCard,
     powerCard,
   ];
+  const level: Level = {
+    levelType: LevelType.RADICAL,
+    enemies: [pigWarrior],
+    quizOptions: {
+      ...DEFAULT_QUIZ_OPTIONS,
+      numberOfQuestions: 6,
+      questionTypes: [CharacterType.RADICAL],
+    },
+  };
 
   describe('with default store', () => {
     beforeEach(() =>
@@ -59,7 +73,7 @@ describe('DeckEffects', () => {
     describe('setAllCards$', () => {
       beforeEach(() => {
         actions$ = new ReplaySubject(1);
-        actions$.next(LevelActions.chooseLevel);
+        actions$.next(LevelActions.chooseLevel({ level }));
         (deckService.getCards as jasmine.Spy).and.returnValue(allCards);
       });
 
@@ -74,7 +88,7 @@ describe('DeckEffects', () => {
     describe('changePhase$', () => {
       beforeEach(() => {
         actions$ = new ReplaySubject(1);
-        actions$.next(LevelActions.chooseLevel);
+        actions$.next(LevelActions.chooseLevel({ level }));
       });
 
       it('should return a resetEnergy action', () => {

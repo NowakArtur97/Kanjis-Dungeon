@@ -4,7 +4,7 @@ import Level from '../models/level.model';
 
 export const chooseLevel = createAction(
   '[Level] Choose Level',
-  props<{ level: number }>()
+  props<{ level: Level }>()
 );
 
 export const setupLevels = createAction('[Level] Setup Levels');

@@ -8,9 +8,13 @@ import Character from 'src/app/game/character/models/character.model';
 import CharacterService from 'src/app/game/character/services/character.service';
 import { phoenixSummoningCard } from 'src/app/game/deck/deck.data';
 import * as DeckReducer from 'src/app/game/deck/store/deck.reducer';
+import LevelType from 'src/app/game/level/enums/level-type.enum';
+import Level from 'src/app/game/level/models/level.model';
 import defaultPlayer from 'src/app/game/player/player.data';
 import * as PlayerReducer from 'src/app/game/player/store/player.reducer';
 import { initialState as gameInitialState } from 'src/app/game/store/game.reducer';
+import CharacterType from 'src/app/japanese/common/enums/character-type.enum';
+import { DEFAULT_QUIZ_OPTIONS } from 'src/app/quiz/store/quiz.reducer';
 import AppStoreState from 'src/app/store/app.state';
 
 import * as LevelActions from '../../../level/store/level.actions';
@@ -119,6 +123,15 @@ describe('EnemyEffects', () => {
       },
     },
   };
+  const level: Level = {
+    levelType: LevelType.RADICAL,
+    enemies: [pigWarrior],
+    quizOptions: {
+      ...DEFAULT_QUIZ_OPTIONS,
+      numberOfQuestions: 6,
+      questionTypes: [CharacterType.RADICAL],
+    },
+  };
 
   describe('', () => {
     beforeEach(() =>
@@ -163,7 +176,7 @@ describe('EnemyEffects', () => {
     describe('chooseLevel$', () => {
       beforeEach(() => {
         actions$ = new ReplaySubject(1);
-        actions$.next(LevelActions.chooseLevel);
+        actions$.next(LevelActions.chooseLevel({ level }));
 
         (enemyService.chooseEnemies as jasmine.Spy).and.returnValue(enemies);
         (enemyService.chooseRandomEnemiesActions as jasmine.Spy).and.returnValue(
