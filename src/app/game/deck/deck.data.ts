@@ -1,5 +1,5 @@
 import { addStatusAction, changeShieldAction, damageAction } from '../character/character-action/character-action.data';
-import { burnedStatus, stunnedStatus } from '../character/character-status.data';
+import { burnedStatus, stunnedStatus } from '../character/character-statuses/character-status.data';
 import Character from '../character/models/character.model';
 import GameCardType from './enums/game-card-type.enum';
 import GameCard from './models/game-card.model';

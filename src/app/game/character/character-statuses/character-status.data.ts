@@ -1,7 +1,7 @@
-import { damageAction } from './character-action/character-action.data';
-import CharacterStatusType from './enums/character-status-type.enum';
-import CharacterStatus from './models/character-status.model';
-import Character from './models/character.model';
+import { damageAction } from '../character-action/character-action.data';
+import CharacterStatusType from '../enums/character-status-type.enum';
+import CharacterStatus from '../models/character-status.model';
+import Character from '../models/character.model';
 
 const decreaseRemainingNumberOfActiveRounds = (
   characterStatus: CharacterStatus

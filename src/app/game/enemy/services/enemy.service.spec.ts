@@ -1,14 +1,11 @@
 import { getTestBed, TestBed } from '@angular/core/testing';
 import MathUtil from 'src/app/common/utils/math.util';
-import { DEFAULT_QUIZ_OPTIONS } from 'src/app/quiz/store/quiz.reducer';
 
 import { stunnedAction } from '../../character/character-action/character-action.data';
-import { burnedStatus } from '../../character/character-status.data';
+import { burnedStatus, stunnedStatus } from '../../character/character-statuses/character-status.data';
 import CharacterStatus from '../../character/models/character-status.model';
 import Character from '../../character/models/character.model';
 import { phoenixSummoningCard } from '../../deck/deck.data';
-import LevelType from '../../level/enums/level-type.enum';
-import Level from '../../level/models/level.model';
 import defaultPlayer from '../../player/player.data';
 import { shieldAction, swordAction } from '../enemy-action.data';
 import { imp, pigWarrior } from '../enemy.data';
@@ -65,12 +62,22 @@ describe('enemyService', () => {
     currentAction: swordAction,
   };
   const enemyStunned1: Character = {
-    ...enemyWithAction1,
-    currentAction: stunnedAction,
+    ...enemyWithId1,
+    statuses: [stunnedStatus],
   };
   const enemyStunned2: Character = {
+    ...enemyWithId2,
+    statuses: [stunnedStatus],
+  };
+  const enemyWithStunnedAction1: Character = {
+    ...enemyWithAction1,
+    currentAction: stunnedAction,
+    statuses: [stunnedStatus],
+  };
+  const enemyWithStunnedAction2: Character = {
     ...enemyWithAction2,
     currentAction: stunnedAction,
+    statuses: [stunnedStatus],
   };
   const enemyWithoutAction1: Character = {
     ...enemyWithAction1,
@@ -85,6 +92,11 @@ describe('enemyService', () => {
     value: phoenixSummoningCard.statusValue,
     maxRemainingNumberOfActiveRounds:
       phoenixSummoningCard.maxStatusNumberOfActiveRounds,
+  };
+  const onFireStatusWithValueAndDecreasedRemainingNumberOfActiveRounds: CharacterStatus = {
+    ...onFireStatusWithValue,
+    remainingNumberOfActiveRounds:
+      onFireStatusWithValue.remainingNumberOfActiveRounds - 1,
   };
   const enemyWithStatus1: Character = {
     ...enemyWithId1,
@@ -114,21 +126,6 @@ describe('enemyService', () => {
     enemyWithStatus1,
     enemyWithStatus2,
     enemyWithStatus3,
-  ];
-
-  const allLevels: Level[] = [
-    {
-      id: 1,
-      levelType: LevelType.RADICAL,
-      enemies: [enemyWithId1, enemyWithId2],
-      quizOptions: DEFAULT_QUIZ_OPTIONS,
-    },
-    {
-      id: 2,
-      levelType: LevelType.KANJI,
-      enemies: [enemyWithId1, enemyWithId2, enemyWithId3],
-      quizOptions: DEFAULT_QUIZ_OPTIONS,
-    },
   ];
 
   beforeEach(() => {
@@ -166,7 +163,11 @@ describe('enemyService', () => {
     });
 
     it('and first enemy is stunned should return second enemy', () => {
-      const enemies = [enemyStunned1, enemyWithAction2, enemyWithAction3];
+      const enemies = [
+        enemyWithStunnedAction1,
+        enemyWithAction2,
+        enemyWithAction3,
+      ];
       const enemyExpected = enemies[1];
 
       const enemyActual = enemyService.chooseFirstEnemyForAction(enemies);
@@ -205,7 +206,11 @@ describe('enemyService', () => {
     });
 
     it('and first enemy was already chosen and second enemy is stunned should return third enemy', () => {
-      const enemies = [enemyWithAction1, enemyStunned2, enemyWithAction3];
+      const enemies = [
+        enemyWithAction1,
+        enemyWithStunnedAction2,
+        enemyWithAction3,
+      ];
       const enemyExpected = enemies[2];
 
       const enemyActual = enemyService.chooseEnemyForAction(
@@ -248,11 +253,6 @@ describe('enemyService', () => {
 
   describe('when apply statuses on enemies', () => {
     it('should return updated enemies', () => {
-      const onFireStatusWithValueAndDecreasedRemainingNumberOfActiveRounds: CharacterStatus = {
-        ...onFireStatusWithValue,
-        remainingNumberOfActiveRounds:
-          onFireStatusWithValue.remainingNumberOfActiveRounds - 1,
-      };
       const expectedEnemy1: Character = {
         ...enemyWithId1,
         stats: {
@@ -415,6 +415,32 @@ describe('enemyService', () => {
         enemyWithAction3.currentAction
       );
       expect(MathUtil.getRandomIndex).toHaveBeenCalledTimes(3);
+    });
+
+    it('with stunned state should return enemies with stunned action', () => {
+      spyOn(MathUtil, 'getRandomIndex').and.returnValues(0);
+      const updatedEnemiesExpected: Character[] = [
+        enemyWithStunnedAction1,
+        enemyWithStunnedAction2,
+        enemyWithAction3,
+      ];
+
+      const updatedEnemiesActual = enemyService.chooseRandomEnemiesActions([
+        enemyStunned1,
+        enemyStunned2,
+        enemyWithId3,
+      ]);
+
+      expect(updatedEnemiesActual).toEqual(updatedEnemiesExpected);
+      expect(updatedEnemiesActual).toContain(enemyWithStunnedAction1);
+      expect(updatedEnemiesActual).toContain(enemyWithStunnedAction2);
+      expect(updatedEnemiesActual).toContain(enemyWithAction3);
+      expect(updatedEnemiesActual[0].currentAction).toEqual(stunnedAction);
+      expect(updatedEnemiesActual[1].currentAction).toEqual(stunnedAction);
+      expect(updatedEnemiesActual[2].currentAction).toEqual(
+        enemyWithAction3.currentAction
+      );
+      expect(MathUtil.getRandomIndex).toHaveBeenCalledTimes(1);
     });
   });
 

@@ -41,18 +41,21 @@ export default class EnemyService {
     enemy: Character,
     enemies: Character[]
   ): Character[] {
-    const updatedEnemies = cloneDeep(enemies);
-    const enemyToUpdate: Character = updatedEnemies.find(
+    const updatedEnemies: Character[] = [...enemies];
+    const enemyToUpdateIndex = enemies.findIndex(
       (e: Character) => e.id === enemy.id
     );
 
+    const enemyToUpdate = cloneDeep(updatedEnemies[enemyToUpdateIndex]);
     gameCard.apply(enemyToUpdate);
 
+    updatedEnemies[enemyToUpdateIndex] = enemyToUpdate;
     return updatedEnemies;
   }
 
   applyStatusesOnEnemies = (enemies: Character[]): Character[] =>
-    cloneDeep(enemies)
+    enemies
+      .map((enemy: Character) => cloneDeep(enemy))
       .map((enemy: Character) => {
         enemy.statuses.forEach((status: CharacterStatus) =>
           status.apply(enemy)
@@ -60,17 +63,15 @@ export default class EnemyService {
         return enemy;
       })
       .map((enemy: Character) => {
-        const enemyCopy = cloneDeep(enemy);
         return {
-          ...enemyCopy,
-          statuses: enemyCopy.statuses.filter(
+          ...enemy,
+          statuses: enemy.statuses.filter(
             (status: CharacterStatus) =>
-              status.remainingNumberOfActiveRounds !== 0
+              status.remainingNumberOfActiveRounds > 0
           ),
         };
       });
 
-  // TODO: TEST
   chooseRandomEnemiesActions(enemies: Character[]): Character[] {
     const updatedEnemies = cloneDeep(enemies).map((enemy: Character) => {
       const { statuses } = enemy;

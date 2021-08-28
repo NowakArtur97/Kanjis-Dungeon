@@ -3,7 +3,7 @@ import { provideMockActions } from '@ngrx/effects/testing';
 import { Store, StoreModule } from '@ngrx/store';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { ReplaySubject } from 'rxjs';
-import { burnedStatus, stunnedStatus } from 'src/app/game/character/character-status.data';
+import { burnedStatus, stunnedStatus } from 'src/app/game/character/character-statuses/character-status.data';
 import CharacterStatus from 'src/app/game/character/models/character-status.model';
 import Character from 'src/app/game/character/models/character.model';
 import { phoenixSummoningCard } from 'src/app/game/deck/deck.data';

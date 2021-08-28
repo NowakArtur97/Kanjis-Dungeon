@@ -1,6 +1,6 @@
 import { getTestBed, TestBed } from '@angular/core/testing';
 
-import { burnedStatus } from '../../character/character-status.data';
+import { burnedStatus } from '../../character/character-statuses/character-status.data';
 import CharacterStatus from '../../character/models/character-status.model';
 import Character from '../../character/models/character.model';
 import { phoenixSummoningCard } from '../../deck/deck.data';
