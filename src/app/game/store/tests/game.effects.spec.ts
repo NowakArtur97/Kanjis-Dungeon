@@ -17,8 +17,10 @@ import * as QuizActions from '../../../quiz/store/quiz.actions';
 import * as EnemyActions from '../../enemy/store/enemy.actions';
 import GamePhase from '../../enums/game-phase.enum';
 import GameTurn from '../../enums/game-turn.enum';
+import LevelService from '../../level/services/level.service';
+import * as LevelActions from '../../level/store/level.actions';
+import { initialState as levelInitialState } from '../../level/store/level.reducer';
 import * as PlayerActions from '../../player/store/player.actions';
-import GameService from '../../services/game.service';
 import * as GameActions from '../../store/game.actions';
 import GameEffects from '../game.effects';
 import { initialState } from '../game.reducer';
@@ -27,20 +29,25 @@ describe('GameEffects', () => {
   let gameEffects: GameEffects;
   let actions$: ReplaySubject<any>;
   let store: any;
-  let gameService: GameService;
+  let levelService: LevelService;
 
   const stateWithZeroQuestions: Partial<AppStoreState> = {
     quiz: {
       ...quizInitialState,
     },
+    level: {
+      ...levelInitialState,
+    },
   };
   const stateWithQuestions: Partial<AppStoreState> = {
+    ...stateWithZeroQuestions,
     quiz: {
       ...quizInitialState,
       questions: [RADICALS[0]],
     },
   };
   const stateWithEnemyTurn: Partial<AppStoreState> = {
+    ...stateWithZeroQuestions,
     game: {
       ...initialState,
       turn: GameTurn.ENEMY_TURN,
@@ -48,6 +55,7 @@ describe('GameEffects', () => {
     },
   };
   const stateWithPlayerTurn: Partial<AppStoreState> = {
+    ...stateWithZeroQuestions,
     game: {
       ...initialState,
       turn: GameTurn.PLAYER_TURN,
@@ -69,8 +77,8 @@ describe('GameEffects', () => {
             },
             provideMockActions(() => actions$),
             {
-              provide: GameService,
-              useValue: jasmine.createSpyObj('gameService', [
+              provide: LevelService,
+              useValue: jasmine.createSpyObj('levelService', [
                 'chooseQuizOptionsForLevel',
               ]),
             },
@@ -85,13 +93,13 @@ describe('GameEffects', () => {
 
       beforeEach(() => {
         actions$ = new ReplaySubject(1);
-        actions$.next(GameActions.chooseLevel);
+        actions$.next(LevelActions.chooseLevel);
       });
 
       describe('when chosing level', () => {
         beforeEach(() => {
           actions$ = new ReplaySubject(1);
-          actions$.next(GameActions.chooseLevel);
+          actions$.next(LevelActions.chooseLevel);
         });
         it('should return a startEnemyTurn action', () => {
           gameEffects.changeTurn$.subscribe((resultAction) => {
@@ -137,7 +145,7 @@ describe('GameEffects', () => {
       describe('when chosing level', () => {
         beforeEach(() => {
           actions$ = new ReplaySubject(1);
-          actions$.next(GameActions.chooseLevel);
+          actions$.next(LevelActions.chooseLevel);
         });
 
         it('should return a startPlayerTurn action', () => {
@@ -168,11 +176,11 @@ describe('GameEffects', () => {
         imports: [StoreModule.forRoot({})],
         providers: [
           GameEffects,
-          Store,
+          provideMockStore({ initialState: stateWithPlayerTurn }),
           provideMockActions(() => actions$),
           {
-            provide: GameService,
-            useValue: jasmine.createSpyObj('gameService', [
+            provide: LevelService,
+            useValue: jasmine.createSpyObj('levelService', [
               'chooseQuizOptionsForLevel',
             ]),
           },
@@ -182,7 +190,7 @@ describe('GameEffects', () => {
 
     beforeEach(() => {
       gameEffects = TestBed.inject(GameEffects);
-      gameService = TestBed.inject(GameService);
+      levelService = TestBed.inject(LevelService);
     });
 
     describe('when starting level', () => {
@@ -204,7 +212,7 @@ describe('GameEffects', () => {
           ]),
           questionTypes: [CharacterType.RADICAL],
         };
-        (gameService.chooseQuizOptionsForLevel as jasmine.Spy).and.returnValue(
+        (levelService.chooseQuizOptionsForLevel as jasmine.Spy).and.returnValue(
           quizOptions
         );
 
@@ -212,7 +220,7 @@ describe('GameEffects', () => {
           expect(resultAction).toEqual(
             QuizActions.changeQuizOptions({ quizOptions })
           );
-          expect(gameService.chooseQuizOptionsForLevel).toHaveBeenCalledTimes(
+          expect(levelService.chooseQuizOptionsForLevel).toHaveBeenCalledTimes(
             1
           );
         });

@@ -268,7 +268,7 @@ const KANJI: Kanji[] = [
   {
     id: 34,
     characters: '才',
-    meanings: ['genius'],
+    meanings: ['genius', 'wit', 'talent', 'ability'],
     onyomi: ['さい'],
     type: CharacterType.KANJI,
   },
@@ -591,8 +591,8 @@ const KANJI: Kanji[] = [
   {
     id: 75,
     characters: '今',
-    meanings: ['now'],
-    onyomi: ['こん'],
+    meanings: ['now', 'immediately'],
+    onyomi: ['こん', 'きん'],
     kunyomi: ['いま'],
     type: CharacterType.KANJI,
   },
@@ -1242,6 +1242,22 @@ const KANJI: Kanji[] = [
     meanings: ['black'],
     onyomi: ['こく'],
     kunyomi: ['くろ'],
+    type: CharacterType.KANJI,
+  },
+  {
+    id: 157,
+    characters: '作',
+    meanings: ['make', 'work'],
+    onyomi: ['さく', 'さ'],
+    kunyomi: ['つく'],
+    type: CharacterType.KANJI,
+  },
+  {
+    id: 158,
+    characters: '算',
+    meanings: ['calculate', 'count'],
+    onyomi: ['さん'],
+    kunyomi: ['そろ'],
     type: CharacterType.KANJI,
   },
 ];

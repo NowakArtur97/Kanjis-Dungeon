@@ -13,6 +13,7 @@ import * as PlayerReducer from 'src/app/game/player/store/player.reducer';
 import { initialState as gameInitialState } from 'src/app/game/store/game.reducer';
 import AppStoreState from 'src/app/store/app.state';
 
+import * as LevelActions from '../../../level/store/level.actions';
 import * as PlayerActions from '../../../player/store/player.actions';
 import * as GameActions from '../../../store/game.actions';
 import { shieldAction, swordAction } from '../../enemy-action.data';
@@ -162,7 +163,7 @@ describe('EnemyEffects', () => {
     describe('chooseLevel$', () => {
       beforeEach(() => {
         actions$ = new ReplaySubject(1);
-        actions$.next(GameActions.chooseLevel);
+        actions$.next(LevelActions.chooseLevel);
 
         (enemyService.chooseEnemies as jasmine.Spy).and.returnValue(enemies);
         (enemyService.chooseRandomEnemiesActions as jasmine.Spy).and.returnValue(

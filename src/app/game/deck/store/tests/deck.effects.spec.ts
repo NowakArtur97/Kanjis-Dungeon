@@ -7,8 +7,8 @@ import AppStoreState from 'src/app/store/app.state';
 
 import * as QuizActions from '../../../../quiz/store/quiz.actions';
 import * as EnemyActions from '../../../enemy/store/enemy.actions';
+import * as LevelActions from '../../../level/store/level.actions';
 import * as PlayerActions from '../../../player/store/player.actions';
-import * as GameActions from '../../../store/game.actions';
 import { defenceCard, phoenixSummoningCard, powerCard } from '../../deck.data';
 import DeckService from '../../services/deck.service';
 import * as DeckActions from '../deck.actions';
@@ -59,7 +59,7 @@ describe('DeckEffects', () => {
     describe('setAllCards$', () => {
       beforeEach(() => {
         actions$ = new ReplaySubject(1);
-        actions$.next(GameActions.chooseLevel);
+        actions$.next(LevelActions.chooseLevel);
         (deckService.getCards as jasmine.Spy).and.returnValue(allCards);
       });
 
@@ -74,7 +74,7 @@ describe('DeckEffects', () => {
     describe('changePhase$', () => {
       beforeEach(() => {
         actions$ = new ReplaySubject(1);
-        actions$.next(GameActions.chooseLevel);
+        actions$.next(LevelActions.chooseLevel);
       });
 
       it('should return a resetEnergy action', () => {

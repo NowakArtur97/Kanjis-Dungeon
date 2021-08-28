@@ -21,7 +21,6 @@ export default class DeckEffects {
     private deckService: DeckService
   ) {}
 
-  // TODO: TEST
   setAllCards$ = createEffect(() =>
     this.actions$.pipe(
       ofType(LevelActions.chooseLevel),

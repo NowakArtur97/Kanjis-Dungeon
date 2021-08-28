@@ -21,7 +21,6 @@ export default class GameEffects {
     private levelService: LevelService
   ) {}
 
-  // TODO: TEST
   changeTurn$ = createEffect(() =>
     this.actions$.pipe(
       ofType(LevelActions.chooseLevel, GameActions.changeTurn),
@@ -37,7 +36,6 @@ export default class GameEffects {
   );
 
   // TODO: GameEffects: Select options only at the start of level
-  // TODO: TEST
   startPlayerTurn$ = createEffect(() =>
     this.actions$.pipe(
       ofType(PlayerActions.startPlayerTurn),

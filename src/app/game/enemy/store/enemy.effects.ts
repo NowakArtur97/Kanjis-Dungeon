@@ -22,7 +22,6 @@ export default class EnemyEffects {
     private characterService: CharacterService
   ) {}
 
-  // TODO: TEST
   chooseLevel$ = createEffect(() =>
     this.actions$.pipe(
       ofType(LevelActions.chooseLevel),

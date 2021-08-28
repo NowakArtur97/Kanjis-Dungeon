@@ -15,6 +15,7 @@ import { initialState as gameInitialState } from 'src/app/game/store/game.reduce
 import AppStoreState from 'src/app/store/app.state';
 
 import * as EnemyActions from '../../../enemy/store/enemy.actions';
+import * as LevelActions from '../../../level/store/level.actions';
 import * as GameActions from '../../../store/game.actions';
 import defaultPlayer from '../../player.data';
 import PlayerService from '../../services/player.service';
@@ -95,7 +96,7 @@ describe('PlayerEffects', () => {
       };
       beforeEach(() => {
         actions$ = new ReplaySubject(1);
-        actions$.next(GameActions.chooseLevel);
+        actions$.next(LevelActions.chooseLevel);
         spyOn(MathUtil, 'getRandomIntValue').and.returnValue(topOffset);
         (characterService.setRandomTopOffset as jasmine.Spy).and.returnValue(
           playerWithPosition
