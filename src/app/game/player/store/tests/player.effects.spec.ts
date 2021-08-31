@@ -11,9 +11,15 @@ import CharacterService from 'src/app/game/character/services/character.service'
 import { phoenixSummoningCard } from 'src/app/game/deck/deck.data';
 import { initialState as deckInitialState } from 'src/app/game/deck/store/deck.reducer';
 import { pigWarrior } from 'src/app/game/enemy/enemy.data';
+import LevelType from 'src/app/game/level/enums/level-type.enum';
+import Level from 'src/app/game/level/models/level.model';
 import { initialState as gameInitialState } from 'src/app/game/store/game.reducer';
+import CharacterType from 'src/app/japanese/common/enums/character-type.enum';
+import QuizOptions from 'src/app/quiz/models/quiz-options.model';
+import { DEFAULT_EXCLUDED_PROPERTIES, DEFAULT_MIN_NUMBER_OF_PROPERTIES } from 'src/app/quiz/store/quiz.reducer';
 import AppStoreState from 'src/app/store/app.state';
 
+import * as QuizActions from '../../../../quiz/store/quiz.actions';
 import * as EnemyActions from '../../../enemy/store/enemy.actions';
 import * as LevelActions from '../../../level/store/level.actions';
 import * as GameActions from '../../../store/game.actions';
@@ -21,6 +27,7 @@ import defaultPlayer from '../../player.data';
 import PlayerService from '../../services/player.service';
 import * as PlayerActions from '../player.actions';
 import PlayerEffects from '../player.effects';
+import { initialState } from '../player.reducer';
 
 describe('PlayerEffects', () => {
   let playerEffects: PlayerEffects;
@@ -175,6 +182,71 @@ describe('PlayerEffects', () => {
                 animationPosition: enemyWithPosition.position,
               },
             })
+          );
+        });
+      });
+    });
+  });
+
+  describe('startPlayerTurn$', () => {
+    const quizOptions: QuizOptions = {
+      numberOfQuestions: 3,
+      minNumberOfProperties: DEFAULT_MIN_NUMBER_OF_PROPERTIES,
+      shouldShowAnswer: true,
+      shouldHideRandomProperties: false,
+      excludedProperties: new Map([
+        [CharacterType.RADICAL, DEFAULT_EXCLUDED_PROPERTIES],
+        [CharacterType.KANJI, DEFAULT_EXCLUDED_PROPERTIES],
+        [CharacterType.VOCABULARY, DEFAULT_EXCLUDED_PROPERTIES],
+      ]),
+      questionTypes: [CharacterType.RADICAL],
+    };
+    const level: Level = {
+      levelType: LevelType.RADICAL,
+      enemies: [pigWarrior],
+      quizOptions,
+    };
+    beforeEach(() =>
+      TestBed.configureTestingModule({
+        imports: [StoreModule.forRoot({})],
+        providers: [
+          PlayerEffects,
+          provideMockStore({ initialState }),
+          {
+            provide: Store,
+            useClass: MockStore,
+          },
+          provideMockActions(() => actions$),
+          {
+            provide: PlayerService,
+            useValue: jasmine.createSpyObj('playerService', ['updatePlayer']),
+          },
+          {
+            provide: CharacterService,
+            useValue: jasmine.createSpyObj('characterService', [
+              'setRandomTopOffset',
+            ]),
+          },
+        ],
+      })
+    );
+
+    beforeEach(() => {
+      playerEffects = TestBed.inject(PlayerEffects);
+      playerService = TestBed.inject(PlayerService);
+      characterService = TestBed.inject(CharacterService);
+    });
+
+    describe('when starting level', () => {
+      beforeEach(() => {
+        actions$ = new ReplaySubject(1);
+        actions$.next(LevelActions.chooseLevel({ level }));
+      });
+
+      it('should return a changeQuizOptions action', () => {
+        playerEffects.startPlayerTurn$.subscribe((resultAction) => {
+          expect(resultAction).toEqual(
+            QuizActions.changeQuizOptions({ quizOptions })
           );
         });
       });

@@ -13,7 +13,7 @@ import { levelReducer } from './store/level.reducer';
 
 const levelRoutes: Routes = [
   {
-    path: 'level-menu',
+    path: 'levels',
     component: LevelMenuComponent,
     resolve: [RadicalResolver, KanjiResolver, VocabularyResolver],
   },

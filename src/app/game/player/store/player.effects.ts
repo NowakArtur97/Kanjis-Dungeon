@@ -5,6 +5,7 @@ import { of } from 'rxjs';
 import { filter, map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
 import AppStoreState from 'src/app/store/app.state';
 
+import * as QuizActions from '../../../quiz/store/quiz.actions';
 import CharacterType from '../../character/enums/character-type.enum';
 import CharacterService from '../../character/services/character.service';
 import * as EnemyActions from '../../enemy/store/enemy.actions';
@@ -73,6 +74,16 @@ export default class PlayerEffects {
             animationPosition: enemy.position,
           },
         })
+      )
+    )
+  );
+
+  startPlayerTurn$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(PlayerActions.startPlayerTurn),
+      withLatestFrom(this.store.select((state) => state.level?.level)),
+      map(([, level]) =>
+        QuizActions.changeQuizOptions({ quizOptions: level.quizOptions })
       )
     )
   );

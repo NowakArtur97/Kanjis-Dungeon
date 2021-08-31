@@ -23,6 +23,7 @@
       <div
         *ngFor="let level of allKanjiLevels"
         [ngStyle]="{ backgroundColor: color.kanji }"
+        (click)="onChoseLevel(level)"
         class="level_menu__level"
       >
         {{ level.id }}
@@ -38,6 +39,7 @@
       <div
         *ngFor="let level of allVocabularyLevels"
         [ngStyle]="{ backgroundColor: color.vocabulary }"
+        (click)="onChoseLevel(level)"
         class="level_menu__level"
       >
         {{ level.id }}
@@ -51,6 +53,7 @@
       <div
         *ngFor="let level of allMixLevels"
         [ngStyle]="{ backgroundColor: color.mix }"
+        (click)="onChoseLevel(level)"
         class="level_menu__level"
       >
         {{ level.id }}

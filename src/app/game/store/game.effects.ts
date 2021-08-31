@@ -7,18 +7,13 @@ import AppStoreState from 'src/app/store/app.state';
 import * as QuizActions from '../../quiz/store/quiz.actions';
 import * as EnemyActions from '../enemy/store/enemy.actions';
 import GameTurn from '../enums/game-turn.enum';
-import LevelService from '../level/services/level.service';
 import * as LevelActions from '../level/store/level.actions';
 import * as PlayerActions from '../player/store/player.actions';
 import * as GameActions from '../store/game.actions';
 
 @Injectable()
 export default class GameEffects {
-  constructor(
-    private actions$: Actions,
-    private store: Store<AppStoreState>,
-    private levelService: LevelService
-  ) {}
+  constructor(private actions$: Actions, private store: Store<AppStoreState>) {}
 
   changeTurn$ = createEffect(() =>
     this.actions$.pipe(
@@ -31,15 +26,6 @@ export default class GameEffects {
           return PlayerActions.startPlayerTurn();
         }
       })
-    )
-  );
-
-  startPlayerTurn$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(LevelActions.chooseLevel),
-      map(({ level }) =>
-        QuizActions.changeQuizOptions({ quizOptions: level.quizOptions })
-      )
     )
   );
 
