@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import COLORS from 'src/app/common/color.data';
@@ -23,7 +24,7 @@ export class LevelMenuComponent implements OnInit, OnDestroy {
 
   color = COLORS;
 
-  constructor(private store: Store<AppStoreState>) {}
+  constructor(private store: Store<AppStoreState>, private router: Router) {}
 
   ngOnInit(): void {
     this.store.dispatch(LevelActions.setupLevels());
@@ -35,8 +36,10 @@ export class LevelMenuComponent implements OnInit, OnDestroy {
 
   ngOnDestroy = (): void => this.allLevelsSubscription$.unsubscribe();
 
-  onChoseLevel = (level: Level): void =>
+  onChoseLevel(level: Level): void {
     this.store.dispatch(LevelActions.chooseLevel({ level }));
+    this.router.navigate(['./game']);
+  }
 
   private prepareLevels(allLevels: Level[]): void {
     allLevels.forEach((level) => {

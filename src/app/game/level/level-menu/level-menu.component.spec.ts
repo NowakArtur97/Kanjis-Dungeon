@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 import { Store, StoreModule } from '@ngrx/store';
 import { of } from 'rxjs';
 import CharacterType from 'src/app/japanese/common/enums/character-type.enum';
@@ -16,11 +18,12 @@ describe('LevelMenuComponent', () => {
   let component: LevelMenuComponent;
   let fixture: ComponentFixture<LevelMenuComponent>;
   let store: Store<AppStoreState>;
+  let router: Router;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [LevelMenuComponent],
-      imports: [StoreModule.forRoot({})],
+      imports: [StoreModule.forRoot({}), RouterTestingModule.withRoutes([])],
       providers: [Store],
     }).compileComponents();
   });
@@ -30,6 +33,7 @@ describe('LevelMenuComponent', () => {
     component = fixture.componentInstance;
 
     store = TestBed.inject(Store);
+    router = TestBed.inject(Router);
   });
 
   describe('when initialize component with quiz phase', () => {
@@ -51,12 +55,13 @@ describe('LevelMenuComponent', () => {
     beforeEach(() => {
       spyOn(store, 'dispatch');
       spyOn(store, 'select').and.callFake(() => of(initialState));
+      spyOn(router, 'navigate');
 
       fixture.detectChanges();
       component.ngOnInit();
     });
 
-    it('should dispatch chooseLevel action', () => {
+    it('should dispatch chooseLevel action and redirect to game path', () => {
       const level: Level = {
         levelType: LevelType.RADICAL,
         enemies: [pigWarrior],
@@ -71,6 +76,7 @@ describe('LevelMenuComponent', () => {
       expect(store.dispatch).toHaveBeenCalledWith(
         LevelActions.chooseLevel({ level })
       );
+      expect(router.navigate).toHaveBeenCalledWith(['./game']);
       expect(store.select).toHaveBeenCalled();
     });
   });

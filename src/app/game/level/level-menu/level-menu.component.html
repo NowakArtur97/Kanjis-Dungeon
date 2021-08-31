@@ -7,6 +7,7 @@
       <div
         *ngFor="let level of allRadicalLevels"
         [ngStyle]="{ backgroundColor: color.radical }"
+        (click)="onChoseLevel(level)"
         class="level_menu__level"
       >
         {{ level.id }}
