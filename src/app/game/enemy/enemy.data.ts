@@ -5,8 +5,8 @@ import { shieldAction, swordAction } from './enemy-action.data';
 const pigWarrior: Character = {
   name: 'pig_warrior',
   stats: {
-    maxHealth: 3,
-    currentHealth: 2,
+    maxHealth: 30,
+    currentHealth: 20,
     maxDamage: 12,
     damage: 8,
     currentShield: 15,
@@ -40,8 +40,8 @@ const pigWarrior: Character = {
 const imp: Character = {
   name: 'imp',
   stats: {
-    maxHealth: 9,
-    currentHealth: 8,
+    maxHealth: 90,
+    currentHealth: 85,
     maxDamage: 20,
     damage: 14,
     currentShield: 2,

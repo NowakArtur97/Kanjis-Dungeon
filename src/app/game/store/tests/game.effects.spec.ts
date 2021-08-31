@@ -1,4 +1,6 @@
 import { TestBed } from '@angular/core/testing';
+import { Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Store, StoreModule } from '@ngrx/store';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
@@ -11,7 +13,6 @@ import * as QuizActions from '../../../quiz/store/quiz.actions';
 import * as EnemyActions from '../../enemy/store/enemy.actions';
 import GamePhase from '../../enums/game-phase.enum';
 import GameTurn from '../../enums/game-turn.enum';
-import LevelService from '../../level/services/level.service';
 import * as LevelActions from '../../level/store/level.actions';
 import { initialState as levelInitialState } from '../../level/store/level.reducer';
 import * as PlayerActions from '../../player/store/player.actions';
@@ -23,6 +24,7 @@ describe('GameEffects', () => {
   let gameEffects: GameEffects;
   let actions$: ReplaySubject<any>;
   let store: any;
+  let router: Router;
 
   const stateWithZeroQuestions: Partial<AppStoreState> = {
     quiz: {
@@ -60,7 +62,10 @@ describe('GameEffects', () => {
     describe('with enemy turn', () => {
       beforeEach(() =>
         TestBed.configureTestingModule({
-          imports: [StoreModule.forRoot({})],
+          imports: [
+            StoreModule.forRoot({}),
+            RouterTestingModule.withRoutes([]),
+          ],
           providers: [
             GameEffects,
             provideMockStore({ initialState: stateWithEnemyTurn }),
@@ -69,12 +74,6 @@ describe('GameEffects', () => {
               useClass: MockStore,
             },
             provideMockActions(() => actions$),
-            {
-              provide: LevelService,
-              useValue: jasmine.createSpyObj('levelService', [
-                'chooseQuizOptionsForLevel',
-              ]),
-            },
           ],
         })
       );
@@ -117,7 +116,10 @@ describe('GameEffects', () => {
     describe('with player turn', () => {
       beforeEach(() =>
         TestBed.configureTestingModule({
-          imports: [StoreModule.forRoot({})],
+          imports: [
+            StoreModule.forRoot({}),
+            RouterTestingModule.withRoutes([]),
+          ],
           providers: [
             GameEffects,
             provideMockStore({ initialState: stateWithPlayerTurn }),
@@ -167,7 +169,10 @@ describe('GameEffects', () => {
     describe('with zero number of question', () => {
       beforeEach(() =>
         TestBed.configureTestingModule({
-          imports: [StoreModule.forRoot({})],
+          imports: [
+            StoreModule.forRoot({}),
+            RouterTestingModule.withRoutes([]),
+          ],
           providers: [
             GameEffects,
             provideMockStore({ initialState: stateWithZeroQuestions }),
@@ -215,7 +220,10 @@ describe('GameEffects', () => {
     describe('with not answered questions', () => {
       beforeEach(() =>
         TestBed.configureTestingModule({
-          imports: [StoreModule.forRoot({})],
+          imports: [
+            StoreModule.forRoot({}),
+            RouterTestingModule.withRoutes([]),
+          ],
           providers: [
             GameEffects,
             provideMockStore({ initialState: stateWithQuestions }),
@@ -257,6 +265,43 @@ describe('GameEffects', () => {
             expect(resultAction).not.toEqual(GameActions.changePhase());
           });
         });
+      });
+    });
+  });
+
+  describe('completeLevel$', () => {
+    beforeEach(() =>
+      TestBed.configureTestingModule({
+        imports: [StoreModule.forRoot({}), RouterTestingModule.withRoutes([])],
+        providers: [
+          GameEffects,
+          provideMockStore({ initialState }),
+          {
+            provide: Store,
+            useClass: MockStore,
+          },
+          provideMockActions(() => actions$),
+        ],
+      })
+    );
+
+    beforeEach(() => {
+      gameEffects = TestBed.inject(GameEffects);
+      store = TestBed.inject(MockStore);
+      router = TestBed.inject(Router);
+    });
+
+    describe('when answered correctly', () => {
+      beforeEach(() => {
+        actions$ = new ReplaySubject(1);
+        actions$.next(GameActions.completeLevel);
+        spyOn(router, 'navigate');
+      });
+
+      it('should not return a changePhase action', () => {
+        gameEffects.completeLevel$.subscribe(() =>
+          expect(router.navigate).toHaveBeenCalledWith(['./levels'])
+        );
       });
     });
   });

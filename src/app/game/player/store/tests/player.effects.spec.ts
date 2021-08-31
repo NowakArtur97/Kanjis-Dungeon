@@ -10,7 +10,7 @@ import Character from 'src/app/game/character/models/character.model';
 import CharacterService from 'src/app/game/character/services/character.service';
 import { phoenixSummoningCard } from 'src/app/game/deck/deck.data';
 import { initialState as deckInitialState } from 'src/app/game/deck/store/deck.reducer';
-import { pigWarrior } from 'src/app/game/enemy/enemy.data';
+import { ALL_ENEMIES, pigWarrior } from 'src/app/game/enemy/enemy.data';
 import LevelType from 'src/app/game/level/enums/level-type.enum';
 import Level from 'src/app/game/level/models/level.model';
 import { initialState as gameInitialState } from 'src/app/game/store/game.reducer';
@@ -22,6 +22,7 @@ import AppStoreState from 'src/app/store/app.state';
 import * as QuizActions from '../../../../quiz/store/quiz.actions';
 import * as EnemyActions from '../../../enemy/store/enemy.actions';
 import * as LevelActions from '../../../level/store/level.actions';
+import { initialState as levelInitialState } from '../../../level/store/level.reducer';
 import * as GameActions from '../../../store/game.actions';
 import defaultPlayer from '../../player.data';
 import PlayerService from '../../services/player.service';
@@ -189,65 +190,146 @@ describe('PlayerEffects', () => {
   });
 
   describe('startPlayerTurn$', () => {
-    const quizOptions: QuizOptions = {
-      numberOfQuestions: 3,
-      minNumberOfProperties: DEFAULT_MIN_NUMBER_OF_PROPERTIES,
-      shouldShowAnswer: true,
-      shouldHideRandomProperties: false,
-      excludedProperties: new Map([
-        [CharacterType.RADICAL, DEFAULT_EXCLUDED_PROPERTIES],
-        [CharacterType.KANJI, DEFAULT_EXCLUDED_PROPERTIES],
-        [CharacterType.VOCABULARY, DEFAULT_EXCLUDED_PROPERTIES],
-      ]),
-      questionTypes: [CharacterType.RADICAL],
-    };
-    const level: Level = {
-      levelType: LevelType.RADICAL,
-      enemies: [pigWarrior],
-      quizOptions,
-    };
-    beforeEach(() =>
-      TestBed.configureTestingModule({
-        imports: [StoreModule.forRoot({})],
-        providers: [
-          PlayerEffects,
-          provideMockStore({ initialState }),
-          {
-            provide: Store,
-            useClass: MockStore,
-          },
-          provideMockActions(() => actions$),
-          {
-            provide: PlayerService,
-            useValue: jasmine.createSpyObj('playerService', ['updatePlayer']),
-          },
-          {
-            provide: CharacterService,
-            useValue: jasmine.createSpyObj('characterService', [
-              'setRandomTopOffset',
-            ]),
-          },
-        ],
-      })
-    );
+    describe('with alive enemies', () => {
+      const quizOptions: QuizOptions = {
+        numberOfQuestions: 3,
+        minNumberOfProperties: DEFAULT_MIN_NUMBER_OF_PROPERTIES,
+        shouldShowAnswer: true,
+        shouldHideRandomProperties: false,
+        excludedProperties: new Map([
+          [CharacterType.RADICAL, DEFAULT_EXCLUDED_PROPERTIES],
+          [CharacterType.KANJI, DEFAULT_EXCLUDED_PROPERTIES],
+          [CharacterType.VOCABULARY, DEFAULT_EXCLUDED_PROPERTIES],
+        ]),
+        questionTypes: [CharacterType.RADICAL],
+      };
+      const level: Level = {
+        levelType: LevelType.RADICAL,
+        enemies: [pigWarrior],
+        quizOptions,
+      };
+      const stateWithLevel: Partial<AppStoreState> = {
+        player: {
+          ...initialState,
+        },
+        game: {
+          ...gameInitialState,
+        },
+        level: {
+          ...levelInitialState,
+          level,
+        },
+        enemy: {
+          allEnemies: ALL_ENEMIES,
+          enemies: [pigWarrior],
+        },
+      };
 
-    beforeEach(() => {
-      playerEffects = TestBed.inject(PlayerEffects);
-      playerService = TestBed.inject(PlayerService);
-      characterService = TestBed.inject(CharacterService);
-    });
+      beforeEach(() =>
+        TestBed.configureTestingModule({
+          imports: [StoreModule.forRoot({})],
+          providers: [
+            PlayerEffects,
+            provideMockStore({ initialState: stateWithLevel }),
+            {
+              provide: Store,
+              useClass: MockStore,
+            },
+            provideMockActions(() => actions$),
+          ],
+        })
+      );
 
-    describe('when starting level', () => {
       beforeEach(() => {
-        actions$ = new ReplaySubject(1);
-        actions$.next(LevelActions.chooseLevel({ level }));
+        playerEffects = TestBed.inject(PlayerEffects);
+        playerService = TestBed.inject(PlayerService);
+        characterService = TestBed.inject(CharacterService);
       });
 
-      it('should return a changeQuizOptions action', () => {
-        playerEffects.startPlayerTurn$.subscribe((resultAction) => {
-          expect(resultAction).toEqual(
-            QuizActions.changeQuizOptions({ quizOptions })
-          );
+      describe('when starting level', () => {
+        beforeEach(() => {
+          actions$ = new ReplaySubject(1);
+          actions$.next(PlayerActions.startPlayerTurn());
+        });
+
+        it('should return a completeLevel action', () => {
+          playerEffects.startPlayerTurn$.subscribe((resultAction) => {
+            expect(resultAction).toEqual(
+              QuizActions.changeQuizOptions({ quizOptions })
+            );
+          });
+        });
+      });
+    });
+  });
+
+  describe('startPlayerTurn$', () => {
+    describe('with dead enemies', () => {
+      const quizOptions: QuizOptions = {
+        numberOfQuestions: 3,
+        minNumberOfProperties: DEFAULT_MIN_NUMBER_OF_PROPERTIES,
+        shouldShowAnswer: true,
+        shouldHideRandomProperties: false,
+        excludedProperties: new Map([
+          [CharacterType.RADICAL, DEFAULT_EXCLUDED_PROPERTIES],
+          [CharacterType.KANJI, DEFAULT_EXCLUDED_PROPERTIES],
+          [CharacterType.VOCABULARY, DEFAULT_EXCLUDED_PROPERTIES],
+        ]),
+        questionTypes: [CharacterType.RADICAL],
+      };
+      const level: Level = {
+        levelType: LevelType.RADICAL,
+        enemies: [pigWarrior],
+        quizOptions,
+      };
+      const stateWithLevel: Partial<AppStoreState> = {
+        player: {
+          ...initialState,
+        },
+        game: {
+          ...gameInitialState,
+        },
+        level: {
+          ...levelInitialState,
+          level,
+        },
+        enemy: {
+          allEnemies: ALL_ENEMIES,
+          enemies: [],
+        },
+      };
+
+      beforeEach(() =>
+        TestBed.configureTestingModule({
+          imports: [StoreModule.forRoot({})],
+          providers: [
+            PlayerEffects,
+            provideMockStore({ initialState: stateWithLevel }),
+            {
+              provide: Store,
+              useClass: MockStore,
+            },
+            provideMockActions(() => actions$),
+          ],
+        })
+      );
+
+      beforeEach(() => {
+        playerEffects = TestBed.inject(PlayerEffects);
+        playerService = TestBed.inject(PlayerService);
+        characterService = TestBed.inject(CharacterService);
+      });
+
+      describe('when starting level', () => {
+        beforeEach(() => {
+          actions$ = new ReplaySubject(1);
+          actions$.next(PlayerActions.startPlayerTurn());
+        });
+
+        it('should return a completeLevel action', () => {
+          playerEffects.startPlayerTurn$.subscribe((resultAction) => {
+            expect(resultAction).toEqual(GameActions.completeLevel());
+          });
         });
       });
     });
@@ -275,16 +357,6 @@ describe('PlayerEffects', () => {
               useClass: MockStore,
             },
             provideMockActions(() => actions$),
-            {
-              provide: PlayerService,
-              useValue: jasmine.createSpyObj('playerService', ['updatePlayer']),
-            },
-            {
-              provide: CharacterService,
-              useValue: jasmine.createSpyObj('characterService', [
-                'setRandomTopOffset',
-              ]),
-            },
           ],
         })
       );
@@ -331,16 +403,6 @@ describe('PlayerEffects', () => {
               useClass: MockStore,
             },
             provideMockActions(() => actions$),
-            {
-              provide: PlayerService,
-              useValue: jasmine.createSpyObj('playerService', ['updatePlayer']),
-            },
-            {
-              provide: CharacterService,
-              useValue: jasmine.createSpyObj('characterService', [
-                'setRandomTopOffset',
-              ]),
-            },
           ],
         })
       );

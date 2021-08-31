@@ -151,10 +151,8 @@ describe('EnemyEffects', () => {
               'chooseEnemies',
               'useCardOnEnemy',
               'chooseRandomEnemiesActions',
-              'performAction',
               'applyStatusesOnEnemies',
               'chooseFirstEnemyForAction',
-              'chooseEnemyForAction',
             ]),
           },
           {

@@ -49,7 +49,6 @@ export default class GameEffects {
     )
   );
 
-  //TODO: TEST
   // TODO: GameEffects: Show summary before navigating
   completeLevel$ = createEffect(
     () =>

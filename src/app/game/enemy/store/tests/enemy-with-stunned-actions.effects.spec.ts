@@ -110,11 +110,7 @@ describe('EnemyEffects', () => {
           {
             provide: EnemyService,
             useValue: jasmine.createSpyObj('enemyService', [
-              'chooseEnemies',
-              'useCardOnEnemy',
-              'chooseRandomEnemiesActions',
               'performAction',
-              'applyStatusesOnEnemies',
               'chooseFirstEnemyForAction',
               'chooseEnemyForAction',
             ]),
