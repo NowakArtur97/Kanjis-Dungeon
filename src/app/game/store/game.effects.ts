@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { filter, map, withLatestFrom } from 'rxjs/operators';
+import { filter, map, tap, withLatestFrom } from 'rxjs/operators';
 import AppStoreState from 'src/app/store/app.state';
 
 import * as QuizActions from '../../quiz/store/quiz.actions';
@@ -13,7 +14,11 @@ import * as GameActions from '../store/game.actions';
 
 @Injectable()
 export default class GameEffects {
-  constructor(private actions$: Actions, private store: Store<AppStoreState>) {}
+  constructor(
+    private actions$: Actions,
+    private store: Store<AppStoreState>,
+    private router: Router
+  ) {}
 
   changeTurn$ = createEffect(() =>
     this.actions$.pipe(
@@ -42,5 +47,16 @@ export default class GameEffects {
       }),
       filter((action) => !!action)
     )
+  );
+
+  //TODO: TEST
+  // TODO: GameEffects: Show summary before navigating
+  completeLevel$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(GameActions.completeLevel),
+        tap(() => this.router.navigate(['./levels']))
+      ),
+    { dispatch: false }
   );
 }

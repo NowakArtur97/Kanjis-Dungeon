@@ -16,3 +16,5 @@ export const finishCharacterAnimation = createAction(
   '[Game] Finish Character Animation',
   props<{ character: Character }>()
 );
+
+export const completeLevel = createAction('[Game] Complete Level');

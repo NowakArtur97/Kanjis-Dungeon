@@ -78,12 +78,20 @@ export default class PlayerEffects {
     )
   );
 
+  // TODO: TEST
   startPlayerTurn$ = createEffect(() =>
     this.actions$.pipe(
       ofType(PlayerActions.startPlayerTurn),
-      withLatestFrom(this.store.select((state) => state.level?.level)),
-      map(([, level]) =>
-        QuizActions.changeQuizOptions({ quizOptions: level.quizOptions })
+      withLatestFrom(
+        this.store.select((state) => state.level.level),
+        this.store.select((state) => state.enemy.enemies)
+      ),
+      map(([, level, enemies]) =>
+        enemies.length === 0
+          ? GameActions.completeLevel()
+          : QuizActions.changeQuizOptions({
+              quizOptions: level.quizOptions,
+            })
       )
     )
   );

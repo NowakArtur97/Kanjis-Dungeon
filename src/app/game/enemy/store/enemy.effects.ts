@@ -69,6 +69,7 @@ export default class EnemyEffects {
     )
   );
 
+  // TODO: TEST
   startEnemyTurn$ = createEffect(() =>
     this.actions$.pipe(
       ofType(EnemyActions.startEnemyTurn),
@@ -77,6 +78,9 @@ export default class EnemyEffects {
         this.store.select((state) => state.player.player)
       ),
       map(([, enemies, player]) => {
+        if (player.stats.currentHealth <= 0) {
+          return GameActions.completeLevel();
+        }
         const enemyForAction = this.enemyService.chooseFirstEnemyForAction(
           enemies
         );
