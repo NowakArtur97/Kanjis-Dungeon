@@ -93,7 +93,7 @@ export class QuizQuestionCardComponent
             : ''
         ),
       ]),
-      meaning: new FormControl(
+      meanings: new FormControl(
         this.charactersValue.meanings,
         this.currentCharacter?.meanings &&
         this.currentCharacter.meanings !== ['']
@@ -162,5 +162,13 @@ export class QuizQuestionCardComponent
         : QuizActions.addMistake({ mistake: this.currentCharacter })
     );
     this.cardStatus = CardStatus.CHECK;
+  }
+
+  isDisabled(property: string): boolean {
+    return this.quizOptions?.excludedProperties
+      .get(this.currentCharacter?.type)
+      .includes(property)
+      ? true
+      : null;
   }
 }

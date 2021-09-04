@@ -88,10 +88,6 @@
   color: var(--main-card-color);
 }
 
-.quiz_card__input:disabled {
-  background-color: gray;
-}
-
 .quiz_card__input--big {
   height: 100%;
   flex-basis: 100%;

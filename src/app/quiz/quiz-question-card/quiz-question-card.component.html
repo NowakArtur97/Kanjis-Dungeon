@@ -11,6 +11,7 @@
           formControlName="characters"
           [ngModel]="charactersValue.characters | japanese"
           (ngModelChange)="charactersValue.characters = $event"
+          [attr.disabled]="isDisabled('characters')"
           class="quiz_card__input quiz_card__input--lowercase quiz_card__input--big"
           type="text"
           name="characters"
@@ -19,14 +20,15 @@
       </div>
       <div class="quiz_card__details">
         <div class="quiz_card__controls">
-          <label class="quiz_card__label" for="meaning">Meaning</label>
+          <label class="quiz_card__label" for="meanings">Meaning</label>
           <input
             #meaningInput
-            formControlName="meaning"
+            formControlName="meanings"
+            [attr.disabled]="isDisabled('meanings')"
             class="quiz_card__input"
             type="text"
-            name="meaning"
-            id="meaning"
+            name="meanings"
+            id="meanings"
           />
         </div>
         <div
@@ -38,6 +40,7 @@
             formControlName="onyomi"
             [ngModel]="charactersValue.onyomi | japanese"
             (ngModelChange)="charactersValue.onyomi = $event"
+            [attr.disabled]="isDisabled('onyomi')"
             class="quiz_card__input"
             type="text"
             name="onyomi"
@@ -53,6 +56,7 @@
             formControlName="kunyomi"
             [ngModel]="charactersValue.kunyomi | japanese"
             (ngModelChange)="charactersValue.kunyomi = $event"
+            [attr.disabled]="isDisabled('kunyomi')"
             class="quiz_card__input"
             type="text"
             name="kunyomi"
@@ -68,6 +72,7 @@
             formControlName="nanori"
             [ngModel]="charactersValue.nanori | japanese"
             (ngModelChange)="charactersValue.nanori = $event"
+            [attr.disabled]="isDisabled('nanori')"
             class="quiz_card__input"
             type="text"
             name="nanori"
@@ -83,6 +88,7 @@
             formControlName="reading"
             [ngModel]="charactersValue.reading | japanese"
             (ngModelChange)="charactersValue.reading = $event"
+            [attr.disabled]="isDisabled('reading')"
             class="quiz_card__input"
             type="text"
             name="reading"

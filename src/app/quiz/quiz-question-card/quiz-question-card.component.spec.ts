@@ -12,6 +12,7 @@ import { JapaneseModule } from 'src/app/japanese/japanese.module';
 import AppStoreState from 'src/app/store/app.state';
 
 import * as QuizActions from '../../quiz/store/quiz.actions';
+import QuizOptions from '../models/quiz-options.model';
 import QuizService from '../services/quiz.service';
 import { QuizStoreState } from '../store/quiz.reducer';
 import { QuizQuestionCardComponent } from './quiz-question-card.component';
@@ -44,33 +45,27 @@ describe('QuizQuestionCardComponent', () => {
     reading: 'おとな',
     type: CharacterType.VOCABULARY,
   };
+  const quizOptions: QuizOptions = {
+    numberOfQuestions: 12,
+    minNumberOfProperties: 1,
+    shouldShowAnswer: true,
+    shouldHideRandomProperties: true,
+    excludedProperties: new Map([
+      [CharacterType.RADICAL, ['characters', 'type']],
+      [CharacterType.KANJI, ['characters', 'type']],
+      [CharacterType.VOCABULARY, ['characters', 'type', 'meanings']],
+    ]),
+    questionTypes: [CharacterType.VOCABULARY],
+  };
+
   const quizStateWithOnlyVocabularyType: Partial<QuizStoreState> = {
-    quizOptions: {
-      numberOfQuestions: 12,
-      minNumberOfProperties: 1,
-      shouldShowAnswer: true,
-      shouldHideRandomProperties: true,
-      excludedProperties: new Map([
-        [CharacterType.RADICAL, ['characters', 'type']],
-        [CharacterType.KANJI, ['characters', 'type']],
-        [CharacterType.VOCABULARY, ['characters', 'type', 'meanings']],
-      ]),
-      questionTypes: [CharacterType.VOCABULARY],
-    },
+    quizOptions,
     nextQuestion: word,
     questions: [word],
   };
   const quizStateWithRadicalAsQuestion: Partial<QuizStoreState> = {
     quizOptions: {
-      numberOfQuestions: 12,
-      minNumberOfProperties: 1,
-      shouldShowAnswer: true,
-      shouldHideRandomProperties: true,
-      excludedProperties: new Map([
-        [CharacterType.RADICAL, ['characters', 'type']],
-        [CharacterType.KANJI, ['characters', 'type']],
-        [CharacterType.VOCABULARY, ['characters', 'type']],
-      ]),
+      ...quizOptions,
       questionTypes: [
         CharacterType.RADICAL,
         CharacterType.KANJI,
@@ -82,10 +77,7 @@ describe('QuizQuestionCardComponent', () => {
   };
   const quizStateWithKanjiAsQuestion: Partial<QuizStoreState> = {
     quizOptions: {
-      numberOfQuestions: 12,
-      minNumberOfProperties: 1,
-      shouldShowAnswer: true,
-      shouldHideRandomProperties: true,
+      ...quizOptions,
       excludedProperties: new Map([
         [CharacterType.RADICAL, ['characters', 'type']],
         [CharacterType.KANJI, ['characters', 'type']],
@@ -102,10 +94,7 @@ describe('QuizQuestionCardComponent', () => {
   };
   const quizStateWithWordAsQuestion: Partial<QuizStoreState> = {
     quizOptions: {
-      numberOfQuestions: 12,
-      minNumberOfProperties: 1,
-      shouldShowAnswer: true,
-      shouldHideRandomProperties: true,
+      ...quizOptions,
       excludedProperties: new Map([
         [CharacterType.RADICAL, ['characters', 'type']],
         [CharacterType.KANJI, ['characters', 'type']],
@@ -167,7 +156,7 @@ describe('QuizQuestionCardComponent', () => {
       component.ngOnInit();
 
       expect(component.quizFormGroup.get('characters').value).toBe('');
-      expect(component.quizFormGroup.get('meaning').value).toEqual(['']);
+      expect(component.quizFormGroup.get('meanings').value).toEqual(['']);
       expect(component.quizFormGroup.get('onyomi').value).toEqual(['']);
       expect(component.quizFormGroup.get('kunyomi').value).toEqual(['']);
       expect(component.quizFormGroup.get('nanori').value).toEqual(['']);
@@ -198,7 +187,7 @@ describe('QuizQuestionCardComponent', () => {
         expect(component.quizFormGroup.get('characters').value).toBe(
           radical.characters
         );
-        expect(component.quizFormGroup.get('meaning').value).toEqual(
+        expect(component.quizFormGroup.get('meanings').value).toEqual(
           radical.meanings
         );
         expect(component.quizFormGroup.get('onyomi').value).toEqual(['']);
@@ -227,7 +216,7 @@ describe('QuizQuestionCardComponent', () => {
         expect(component.quizFormGroup.get('characters').value).toBe(
           kanji.characters
         );
-        expect(component.quizFormGroup.get('meaning').value).toEqual(
+        expect(component.quizFormGroup.get('meanings').value).toEqual(
           kanji.meanings
         );
         expect(component.quizFormGroup.get('onyomi').value).toEqual(
@@ -264,7 +253,7 @@ describe('QuizQuestionCardComponent', () => {
         expect(component.quizFormGroup.get('characters').value).toBe(
           word.characters
         );
-        expect(component.quizFormGroup.get('meaning').value).toEqual(
+        expect(component.quizFormGroup.get('meanings').value).toEqual(
           word.meanings
         );
         expect(component.quizFormGroup.get('onyomi').value).toEqual(['']);
@@ -290,7 +279,7 @@ describe('QuizQuestionCardComponent', () => {
         component.ngOnInit();
 
         component.quizFormGroup.get('characters').setValue(radical.characters);
-        component.quizFormGroup.get('meaning').setValue(radical.meanings[0]);
+        component.quizFormGroup.get('meanings').setValue(radical.meanings[0]);
 
         component.onValidateCard();
 
@@ -311,7 +300,7 @@ describe('QuizQuestionCardComponent', () => {
         component.ngOnInit();
 
         component.quizFormGroup.get('characters').setValue(kanji.characters);
-        component.quizFormGroup.get('meaning').setValue(kanji.meanings[0]);
+        component.quizFormGroup.get('meanings').setValue(kanji.meanings[0]);
         component.quizFormGroup.get('onyomi').setValue(kanji.onyomi[0]);
         component.quizFormGroup.get('kunyomi').setValue(kanji.kunyomi[0]);
         component.quizFormGroup.get('nanori').setValue(kanji.nanori[0]);
@@ -335,7 +324,7 @@ describe('QuizQuestionCardComponent', () => {
         component.ngOnInit();
 
         component.quizFormGroup.get('characters').setValue(word.characters);
-        component.quizFormGroup.get('meaning').setValue(word.meanings[0]);
+        component.quizFormGroup.get('meanings').setValue(word.meanings[0]);
         component.quizFormGroup.get('reading').setValue(word.reading);
 
         component.onValidateCard();
@@ -377,7 +366,7 @@ describe('QuizQuestionCardComponent', () => {
         component.ngOnInit();
 
         component.quizFormGroup.get('characters').setValue(radical.characters);
-        component.quizFormGroup.get('meaning').setValue(radical.meanings[0]);
+        component.quizFormGroup.get('meanings').setValue(radical.meanings[0]);
 
         component.onValidateCard();
         component.onValidateCard();
@@ -419,7 +408,7 @@ describe('QuizQuestionCardComponent', () => {
         expect(component.quizFormGroup.get('characters').value).toBe(
           word.characters
         );
-        expect(component.quizFormGroup.get('meaning').value).toEqual(
+        expect(component.quizFormGroup.get('meanings').value).toEqual(
           word.meanings
         );
         expect(component.quizFormGroup.get('onyomi').value).toEqual('');
@@ -451,7 +440,7 @@ describe('QuizQuestionCardComponent', () => {
 
         component.quizFormGroup.get('characters').setValue(kanji.characters);
         component.quizFormGroup
-          .get('meaning')
+          .get('meanings')
           .setValue(kanji.meanings[0].toUpperCase());
         component.quizFormGroup.get('onyomi').setValue(kanji.onyomi[0]);
         component.quizFormGroup.get('kunyomi').setValue(kanji.kunyomi[0]);
@@ -466,7 +455,7 @@ describe('QuizQuestionCardComponent', () => {
         expect(component.quizFormGroup.get('characters').value).toBe(
           kanji.characters
         );
-        expect(component.quizFormGroup.get('meaning').value).toEqual(
+        expect(component.quizFormGroup.get('meanings').value).toEqual(
           kanji.meanings
         );
         expect(component.quizFormGroup.get('onyomi').value).toEqual(
@@ -503,7 +492,7 @@ describe('QuizQuestionCardComponent', () => {
         component.ngOnInit();
 
         component.quizFormGroup.get('characters').setValue(kanji.characters);
-        component.quizFormGroup.get('meaning').setValue(kanji.meanings);
+        component.quizFormGroup.get('meanings').setValue(kanji.meanings);
         component.quizFormGroup.get('onyomi').setValue(kanji.onyomi);
         component.quizFormGroup.get('kunyomi').setValue(kanji.kunyomi);
         component.quizFormGroup.get('nanori').setValue(kanji.nanori);
@@ -517,7 +506,7 @@ describe('QuizQuestionCardComponent', () => {
         expect(component.quizFormGroup.get('characters').value).toBe(
           kanji.characters
         );
-        expect(component.quizFormGroup.get('meaning').value).toEqual(
+        expect(component.quizFormGroup.get('meanings').value).toEqual(
           kanji.meanings
         );
         expect(component.quizFormGroup.get('onyomi').value).toEqual(
@@ -550,7 +539,7 @@ describe('QuizQuestionCardComponent', () => {
         component.ngOnInit();
 
         component.quizFormGroup.get('characters').setValue('something wrong');
-        component.quizFormGroup.get('meaning').setValue('something wrong');
+        component.quizFormGroup.get('meanings').setValue('something wrong');
 
         component.onValidateCard();
         component.onValidateCard();
@@ -577,7 +566,7 @@ describe('QuizQuestionCardComponent', () => {
         component.ngOnInit();
 
         component.quizFormGroup.get('characters').setValue('something wrong');
-        component.quizFormGroup.get('meaning').setValue('something wrong');
+        component.quizFormGroup.get('meanings').setValue('something wrong');
 
         component.onValidateCard();
         component.onValidateCard();
@@ -588,7 +577,7 @@ describe('QuizQuestionCardComponent', () => {
         expect(component.quizFormGroup.get('characters').value).toBe(
           radical.characters
         );
-        expect(component.quizFormGroup.get('meaning').value).toEqual(
+        expect(component.quizFormGroup.get('meanings').value).toEqual(
           radical.meanings
         );
         expect(component.quizFormGroup.get('onyomi').value).toEqual('');
@@ -617,14 +606,14 @@ describe('QuizQuestionCardComponent', () => {
         component.ngOnInit();
 
         component.quizFormGroup.get('characters').setValue('');
-        component.quizFormGroup.get('meaning').setValue('');
+        component.quizFormGroup.get('meanings').setValue('');
 
         component.onValidateCard();
 
         expect(component.quizFormGroup.get('characters').value).toBe(
           radical.characters
         );
-        expect(component.quizFormGroup.get('meaning').value).toEqual(
+        expect(component.quizFormGroup.get('meanings').value).toEqual(
           radical.meanings
         );
         expect(component.quizFormGroup.get('onyomi').value).toEqual('');
@@ -649,7 +638,7 @@ describe('QuizQuestionCardComponent', () => {
         component.ngOnInit();
 
         component.quizFormGroup.get('characters').setValue('');
-        component.quizFormGroup.get('meaning').setValue('');
+        component.quizFormGroup.get('meanings').setValue('');
         component.quizFormGroup.get('onyomi').setValue('');
         component.quizFormGroup.get('kunyomi').setValue('');
         component.quizFormGroup.get('nanori').setValue('');
@@ -659,7 +648,7 @@ describe('QuizQuestionCardComponent', () => {
         expect(component.quizFormGroup.get('characters').value).toBe(
           kanji.characters
         );
-        expect(component.quizFormGroup.get('meaning').value).toEqual(
+        expect(component.quizFormGroup.get('meanings').value).toEqual(
           kanji.meanings
         );
         expect(component.quizFormGroup.get('onyomi').value).toEqual(
@@ -690,7 +679,7 @@ describe('QuizQuestionCardComponent', () => {
         component.ngOnInit();
 
         component.quizFormGroup.get('characters').setValue('');
-        component.quizFormGroup.get('meaning').setValue('');
+        component.quizFormGroup.get('meanings').setValue('');
         component.quizFormGroup.get('reading').setValue('');
 
         component.onValidateCard();
@@ -698,7 +687,7 @@ describe('QuizQuestionCardComponent', () => {
         expect(component.quizFormGroup.get('characters').value).toBe(
           word.characters
         );
-        expect(component.quizFormGroup.get('meaning').value).toEqual(
+        expect(component.quizFormGroup.get('meanings').value).toEqual(
           word.meanings
         );
         expect(component.quizFormGroup.get('onyomi').value).toEqual('');
