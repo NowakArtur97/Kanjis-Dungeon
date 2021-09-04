@@ -3,7 +3,7 @@
     <div class="quiz_card__form">
       <div class="quiz_card__controls quiz_card__controls--big">
         <input
-          value="{{ character.characters }}"
+          value="{{ currentCharacter.characters }}"
           class="quiz_card__input quiz_card__input--lowercase quiz_card__input--big"
           type="text"
           name="characters"
@@ -14,7 +14,7 @@
         <div class="quiz_card__controls">
           <label class="quiz_card__label" for="meaning">Meaning</label>
           <input
-            value="{{ character.meanings }}"
+            value="{{ currentCharacter.meanings }}"
             class="quiz_card__input"
             type="text"
             name="meaning"
@@ -27,7 +27,7 @@
         >
           <label class="quiz_card__label" for="onyomi">Onyomi</label>
           <input
-            value="{{ character.onyomi }}"
+            value="{{ currentCharacter.onyomi }}"
             class="quiz_card__input"
             type="text"
             name="onyomi"
@@ -40,7 +40,7 @@
         >
           <label class="quiz_card__label" for="kunyomi">Kunyomi</label>
           <input
-            value="{{ character.kunyomi }}"
+            value="{{ currentCharacter.kunyomi }}"
             class="quiz_card__input"
             type="text"
             name="kunyomi"
@@ -53,7 +53,7 @@
         >
           <label class="quiz_card__label" for="nanori">Nanori</label>
           <input
-            value="{{ character.nanori }}"
+            value="{{ currentCharacter.nanori }}"
             class="quiz_card__input"
             type="text"
             name="nanori"
@@ -66,7 +66,7 @@
         >
           <label class="quiz_card__label" for="reading">Reading</label>
           <input
-            value="{{ character.reading }}"
+            value="{{ currentCharacter.reading }}"
             class="quiz_card__input"
             type="text"
             name="reading"

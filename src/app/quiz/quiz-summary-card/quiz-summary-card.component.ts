@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import CharacterUtil from 'src/app/common/utils/character.util';
 import Radical from 'src/app/japanese/radical/models/radical.model';
+
+import { QuizCardComponent } from '../quiz-card/quiz-card.component';
 
 @Component({
   selector: 'app-quiz-summary-card',
@@ -10,17 +11,15 @@ import Radical from 'src/app/japanese/radical/models/radical.model';
     './quiz-summary-card.component.css',
   ],
 })
-export class QuizSummaryCardComponent implements OnInit {
+export class QuizSummaryCardComponent
+  extends QuizCardComponent
+  implements OnInit {
   @Input()
-  character: Radical;
+  currentCharacter: Radical;
 
-  constructor() {}
+  constructor() {
+    super();
+  }
 
   ngOnInit(): void {}
-
-  isKanji = (): boolean => CharacterUtil.isKanji(this.character);
-
-  isVocabulary = (): boolean => CharacterUtil.isVocabulary(this.character);
-
-  hasProperty = (property: string) => this.character[property] !== undefined;
 }

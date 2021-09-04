@@ -10,7 +10,6 @@ import { JapaneseModule } from '../japanese/japanese.module';
 import KanjiResolver from '../japanese/kanji/kanji.resolver';
 import RadicalResolver from '../japanese/radical/radical.resolver';
 import VocabularyResolver from '../japanese/vocabulary/vocabulary.resolver';
-import { QuizCardComponent } from './quiz-card/quiz-card.component';
 import { QuizLayoutComponent } from './quiz-layout/quiz-layout.component';
 import { QuizOptionsComponent } from './quiz-options/quiz-options.component';
 import { QuizQuestionCardComponent } from './quiz-question-card/quiz-question-card.component';
@@ -35,7 +34,6 @@ const cardRoutes: Routes = [
 @NgModule({
   declarations: [
     QuizLayoutComponent,
-    QuizCardComponent,
     QuizOptionsComponent,
     QuizSummaryComponent,
     QuizSummaryCardComponent,

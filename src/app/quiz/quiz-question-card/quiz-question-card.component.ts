@@ -6,13 +6,13 @@ import COLORS from 'src/app/common/color.data';
 import CharacterUtil from 'src/app/common/utils/character.util';
 import CssUtil from 'src/app/common/utils/css.util';
 import CommonValidators from 'src/app/common/validators/common.validator';
-import Radical from 'src/app/japanese/radical/models/radical.model';
 import QuizCard from 'src/app/quiz/models/quiz-card.model';
 import AppStoreState from 'src/app/store/app.state';
 
 import * as QuizActions from '../../quiz/store/quiz.actions';
 import { initialState } from '../../quiz/store/quiz.reducer';
 import QuizOptions from '../models/quiz-options.model';
+import { QuizCardComponent } from '../quiz-card/quiz-card.component';
 import QuizService from '../services/quiz.service';
 
 enum CardStatus {
@@ -30,10 +30,10 @@ enum CardStatus {
   ],
 })
 export class QuizQuestionCardComponent
+  extends QuizCardComponent
   implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('meaningInput') meaningInputElement: ElementRef;
   private nextQuestionSubscription$: Subscription;
-  private currentCharacter: Radical;
   private quizOptions: QuizOptions;
   cardStatus = CardStatus.CHECK;
   charactersValue: QuizCard;
@@ -43,7 +43,9 @@ export class QuizQuestionCardComponent
   constructor(
     private store: Store<AppStoreState>,
     private quizService: QuizService
-  ) {}
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
     this.charactersValue = this.quizService.choosePropertiesForQuestion(
@@ -161,12 +163,4 @@ export class QuizQuestionCardComponent
     );
     this.cardStatus = CardStatus.CHECK;
   }
-
-  isKanji = (): boolean => CharacterUtil.isKanji(this.currentCharacter);
-
-  isVocabulary = (): boolean =>
-    CharacterUtil.isVocabulary(this.currentCharacter);
-
-  hasProperty = (property: string) =>
-    this.currentCharacter[property] !== undefined;
 }
