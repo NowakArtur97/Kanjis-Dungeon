@@ -24,7 +24,10 @@ enum CardStatus {
 @Component({
   selector: 'app-quiz-question-card',
   templateUrl: './quiz-question-card.component.html',
-  styleUrls: ['./quiz-question-card.component.css'],
+  styleUrls: [
+    '../quiz-card/quiz-card.component.css',
+    './quiz-question-card.component.css',
+  ],
 })
 export class QuizQuestionCardComponent
   implements OnInit, AfterViewInit, OnDestroy {

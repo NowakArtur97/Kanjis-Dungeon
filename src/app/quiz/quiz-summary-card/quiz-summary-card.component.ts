@@ -5,7 +5,10 @@ import Radical from 'src/app/japanese/radical/models/radical.model';
 @Component({
   selector: 'app-quiz-summary-card',
   templateUrl: './quiz-summary-card.component.html',
-  styleUrls: ['./quiz-summary-card.component.css'],
+  styleUrls: [
+    '../quiz-card/quiz-card.component.css',
+    './quiz-summary-card.component.css',
+  ],
 })
 export class QuizSummaryCardComponent implements OnInit {
   @Input()
