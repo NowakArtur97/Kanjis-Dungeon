@@ -59,9 +59,6 @@ const _quizReducer = createReducer(
     questions: state.questions.filter((question) =>
       question.id !== answer.id ? true : question.type !== answer.type
     ),
-    mistakes: state.mistakes.filter((mistake) =>
-      mistake.id !== answer.id ? true : mistake.type !== answer.type
-    ),
     answers: [...state.answers, answer],
   })),
 

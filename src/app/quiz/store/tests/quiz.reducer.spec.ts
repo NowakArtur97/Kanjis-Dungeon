@@ -188,7 +188,8 @@ describe('quizReducer', () => {
       expect(actualState.answers).toContain(radical);
       expect(actualState.mistakes).not.toContain(radical);
     });
-    it('should add answer and remove from mistakes', () => {
+
+    it('should add answer and not remove from mistakes', () => {
       const stateWithAnswerAndMistakes: QuizStoreState = {
         quizOptions: {
           numberOfQuestions: 12,
@@ -209,7 +210,7 @@ describe('quizReducer', () => {
         nextQuestion: null,
         questions: [kanji, word],
         answers: [radical],
-        mistakes: [kanji, word],
+        mistakes: [radical, kanji, word],
       };
       const action = QuizActions.addAnswer({ answer: radical });
       const actualState = quizReducer(stateWithMistakes, action);
@@ -217,7 +218,7 @@ describe('quizReducer', () => {
 
       expect(actualState).toEqual(expectedState);
       expect(actualState.answers).toContain(radical);
-      expect(actualState.mistakes).not.toContain(radical);
+      expect(actualState.mistakes).toContain(radical);
     });
   });
 
@@ -244,6 +245,7 @@ describe('quizReducer', () => {
       answers: [],
       mistakes: [radical],
     };
+
     it('should add mistake', () => {
       const action = QuizActions.addMistake({ mistake: radical });
       const actualState = quizReducer(stateWithQuestions, action);
@@ -253,6 +255,7 @@ describe('quizReducer', () => {
       expect(actualState.mistakes).toContain(radical);
       expect(actualState.answers).not.toContain(radical);
     });
+
     it('should add mistake only if doesnt already include', () => {
       const action = QuizActions.addMistake({ mistake: radical });
       const actualState = quizReducer(stateWithMistake, action);
