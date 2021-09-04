@@ -1279,7 +1279,7 @@ const KANJI: Kanji[] = [
   {
     id: 161,
     characters: '時',
-    meanings: ['time', "o'clock", 'hour', 'occasion'],
+    meanings: ['time', `o'clock`, 'hour', 'occasion'],
     onyomi: ['じ'],
     kunyomi: ['とき'],
     type: CharacterType.KANJI,

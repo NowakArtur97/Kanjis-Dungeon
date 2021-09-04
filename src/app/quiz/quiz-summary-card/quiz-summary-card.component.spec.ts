@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import KANJI from 'src/app/japanese/kanji/kanji.data';
 
 import { QuizSummaryCardComponent } from './quiz-summary-card.component';
 
@@ -8,14 +9,16 @@ describe('QuizSummaryCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ QuizSummaryCardComponent ]
-    })
-    .compileComponents();
+      declarations: [QuizSummaryCardComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(QuizSummaryCardComponent);
     component = fixture.componentInstance;
+
+    component.currentCharacter = KANJI[0];
+
     fixture.detectChanges();
   });
 
