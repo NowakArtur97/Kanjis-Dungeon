@@ -13,10 +13,10 @@ import VocabularyResolver from '../japanese/vocabulary/vocabulary.resolver';
 import { QuizCardComponent } from './quiz-card/quiz-card.component';
 import { QuizLayoutComponent } from './quiz-layout/quiz-layout.component';
 import { QuizOptionsComponent } from './quiz-options/quiz-options.component';
+import { QuizSummaryCardComponent } from './quiz-summary-card/quiz-summary-card.component';
+import { QuizSummaryComponent } from './quiz-summary/quiz-summary.component';
 import QuizEffects from './store/quiz.effects';
 import { quizReducer } from './store/quiz.reducer';
-import { QuizSummaryComponent } from './quiz-summary/quiz-summary.component';
-import { QuizCardSummaryComponent } from './quiz-card-summary/quiz-card-summary.component';
 
 const cardRoutes: Routes = [
   {
@@ -24,10 +24,21 @@ const cardRoutes: Routes = [
     component: QuizLayoutComponent,
     resolve: [RadicalResolver, KanjiResolver, VocabularyResolver],
   },
+  {
+    path: 'summary',
+    component: QuizSummaryComponent,
+    resolve: [RadicalResolver, KanjiResolver, VocabularyResolver],
+  },
 ];
 
 @NgModule({
-  declarations: [QuizLayoutComponent, QuizCardComponent, QuizOptionsComponent, QuizSummaryComponent, QuizCardSummaryComponent],
+  declarations: [
+    QuizLayoutComponent,
+    QuizCardComponent,
+    QuizOptionsComponent,
+    QuizSummaryComponent,
+    QuizSummaryCardComponent,
+  ],
   imports: [
     CommonModule,
     StoreModule.forFeature('quiz', quizReducer),

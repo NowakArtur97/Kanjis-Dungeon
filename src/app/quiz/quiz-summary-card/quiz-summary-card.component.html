@@ -1,0 +1,79 @@
+<section class="quiz_card__wrapper">
+  <div class="quiz_card">
+    <div class="quiz_card__form">
+      <div class="quiz_card__controls quiz_card__controls--big">
+        <input
+          value="{{ character.characters }}"
+          class="quiz_card__input quiz_card__input--lowercase quiz_card__input--big"
+          type="text"
+          name="characters"
+          id="characters"
+        />
+      </div>
+      <div class="quiz_card__details">
+        <div class="quiz_card__controls">
+          <label class="quiz_card__label" for="meaning">Meaning</label>
+          <input
+            value="{{ character.meanings }}"
+            class="quiz_card__input"
+            type="text"
+            name="meaning"
+            id="meaning"
+          />
+        </div>
+        <div
+          *ngIf="isKanji() && hasProperty('onyomi')"
+          class="quiz_card__controls"
+        >
+          <label class="quiz_card__label" for="onyomi">Onyomi</label>
+          <input
+            value="{{ character.onyomi }}"
+            class="quiz_card__input"
+            type="text"
+            name="onyomi"
+            id="onyomi"
+          />
+        </div>
+        <div
+          *ngIf="isKanji() && hasProperty('kunyomi')"
+          class="quiz_card__controls"
+        >
+          <label class="quiz_card__label" for="kunyomi">Kunyomi</label>
+          <input
+            value="{{ character.kunyomi }}"
+            class="quiz_card__input"
+            type="text"
+            name="kunyomi"
+            id="kunyomi"
+          />
+        </div>
+        <div
+          *ngIf="isKanji() && hasProperty('nanori')"
+          class="quiz_card__controls"
+        >
+          <label class="quiz_card__label" for="nanori">Nanori</label>
+          <input
+            value="{{ character.nanori }}"
+            class="quiz_card__input"
+            type="text"
+            name="nanori"
+            id="nanori"
+          />
+        </div>
+        <div
+          *ngIf="isVocabulary() && hasProperty('reading')"
+          class="quiz_card__controls"
+        >
+          <label class="quiz_card__label" for="reading">Reading</label>
+          <input
+            value="{{ character.reading }}"
+            class="quiz_card__input"
+            type="text"
+            name="reading"
+            id="reading"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
