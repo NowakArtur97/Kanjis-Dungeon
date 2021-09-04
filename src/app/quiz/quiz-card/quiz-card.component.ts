@@ -61,13 +61,9 @@ export class QuizCardComponent implements OnInit, AfterViewInit, OnDestroy {
       });
   }
 
-  ngAfterViewInit(): void {
-    this.meaningInputElement.nativeElement.focus();
-  }
+  ngAfterViewInit = (): void => this.meaningInputElement.nativeElement.focus();
 
-  ngOnDestroy(): void {
-    this.nextQuestionSubscription$?.unsubscribe();
-  }
+  ngOnDestroy = (): void => this.nextQuestionSubscription$?.unsubscribe();
 
   private initForm(): void {
     let cardColor = COLORS.radical;

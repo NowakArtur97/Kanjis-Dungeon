@@ -21,5 +21,5 @@ export class QuizSummaryComponent implements OnInit, OnDestroy {
       .subscribe(({ mistakes }) => (this.mistakes = mistakes));
   }
 
-  ngOnDestroy = (): void => this.mistakesSubscription$.unsubscribe();
+  ngOnDestroy = (): void => this.mistakesSubscription$?.unsubscribe();
 }
