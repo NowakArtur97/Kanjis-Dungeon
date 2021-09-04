@@ -1,0 +1,126 @@
+.quiz_card__wrapper {
+  height: 70vh;
+  min-height: 560px;
+  width: 80vw;
+  max-width: 300px;
+
+  margin: 0 auto;
+  border: 3px solid black;
+  background-color: rgb(177, 177, 177);
+  box-shadow: 10px 10px 5px 0px var(--main-card-color);
+}
+
+.quiz_card {
+  height: 100%;
+  width: 100%;
+}
+
+.quiz_card__form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  height: 100%;
+  width: 100%;
+}
+
+.quiz_card__details {
+  display: flex;
+  flex-direction: column;
+
+  flex-basis: 40%;
+  width: 100%;
+
+  color: white;
+}
+
+.quiz_card__controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+  flex-basis: 25%;
+  min-height: 25%;
+  width: 100%;
+  padding: 0.2em;
+
+  color: white;
+}
+
+.quiz_card__controls--big {
+  flex-basis: 50%;
+  height: 100%;
+}
+
+.quiz_card__label {
+  flex-basis: 30%;
+
+  font-size: 2em;
+  text-align: center;
+  background-color: transparent;
+  color: black;
+}
+
+.quiz_card__input {
+  flex-basis: 70%;
+
+  display: block;
+  width: 100%;
+
+  height: auto;
+  border: none;
+  background-color: var(--main-card-color);
+
+  text-align: center;
+  font-size: 2.4em;
+  font-family: "Source Sans Pro", Arial, Helvetica, sans-serif;
+  text-transform: uppercase;
+  color: white;
+  outline: none;
+
+  transition: 0.2s;
+}
+
+.quiz_card__input:focus {
+  background-color: white;
+  color: var(--main-card-color);
+}
+
+.quiz_card__input:disabled {
+  background-color: gray;
+}
+
+.quiz_card__input--big {
+  height: 100%;
+  flex-basis: 100%;
+  font-size: 6em;
+}
+
+.quiz_card__input--lowercase {
+  text-transform: none;
+}
+
+.quiz_card__submit_button {
+  display: block;
+  width: 98%;
+  flex-basis: 10%;
+
+  margin-bottom: 0.1em;
+  border: none;
+
+  font-size: 3.3em;
+  background-color: var(--main-card-color);
+  color: white;
+  text-transform: capitalize;
+  cursor: pointer;
+  font-family: "Source Sans Pro", Arial, Helvetica, sans-serif;
+
+  transition: 0.2s;
+}
+
+.quiz_card__submit_button:hover {
+  background-color: white;
+  color: var(--main-card-color);
+}
