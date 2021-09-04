@@ -1,6 +1,9 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import CharacterType from 'src/app/japanese/common/enums/character-type.enum';
+import KANJI from 'src/app/japanese/kanji/kanji.data';
 import Radical from 'src/app/japanese/radical/models/radical.model';
+import RADICALS from 'src/app/japanese/radical/radical.data';
+import VOCABULARY from 'src/app/japanese/vocabulary/vocabulary.data';
 
 import QuizOptions from '../models/quiz-options.model';
 import * as QuizActions from './quiz.actions';
@@ -32,7 +35,7 @@ const initialState: QuizStoreState = {
   nextQuestion: null,
   questions: [],
   answers: [],
-  mistakes: [],
+  mistakes: [RADICALS[0], KANJI[0], VOCABULARY[0]], // TODO: QuizRedcure: Remove
 };
 export {
   initialState,

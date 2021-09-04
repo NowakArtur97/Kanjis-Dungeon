@@ -16,6 +16,7 @@ import { QuizOptionsComponent } from './quiz-options/quiz-options.component';
 import QuizEffects from './store/quiz.effects';
 import { quizReducer } from './store/quiz.reducer';
 import { QuizSummaryComponent } from './quiz-summary/quiz-summary.component';
+import { QuizCardSummaryComponent } from './quiz-card-summary/quiz-card-summary.component';
 
 const cardRoutes: Routes = [
   {
@@ -26,7 +27,7 @@ const cardRoutes: Routes = [
 ];
 
 @NgModule({
-  declarations: [QuizLayoutComponent, QuizCardComponent, QuizOptionsComponent, QuizSummaryComponent],
+  declarations: [QuizLayoutComponent, QuizCardComponent, QuizOptionsComponent, QuizSummaryComponent, QuizCardSummaryComponent],
   imports: [
     CommonModule,
     StoreModule.forFeature('quiz', quizReducer),
