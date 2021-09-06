@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import COLORS from 'src/app/common/color.data';
 import CharacterUtil from 'src/app/common/utils/character.util';
 import Radical from 'src/app/japanese/radical/models/radical.model';
 
@@ -19,4 +20,17 @@ export abstract class QuizCardComponent {
 
   hasProperty = (property: string) =>
     this.currentCharacter[property] !== undefined;
+
+  getCardColor(): string {
+    let cardColor = COLORS.radical;
+    if (this.currentCharacter?.id) {
+      if (this.isKanji()) {
+        cardColor = COLORS.kanji;
+      } else if (this.isVocabulary()) {
+        cardColor = COLORS.vocabulary;
+      }
+    }
+
+    return cardColor;
+  }
 }

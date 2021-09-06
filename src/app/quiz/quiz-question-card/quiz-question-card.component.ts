@@ -72,17 +72,9 @@ export class QuizQuestionCardComponent
   ngOnDestroy = (): void => this.nextQuestionSubscription$?.unsubscribe();
 
   private initForm(): void {
-    let cardColor = COLORS.radical;
+    let cardColor = this.getCardColor();
 
-    if (this.currentCharacter?.id) {
-      if (CharacterUtil.isKanji(this.currentCharacter)) {
-        cardColor = COLORS.kanji;
-      } else if (CharacterUtil.isVocabulary(this.currentCharacter)) {
-        cardColor = COLORS.vocabulary;
-      }
-
-      CssUtil.changeQuizCardColor(cardColor);
-    }
+    CssUtil.changeQuizCardColor(cardColor);
 
     this.quizFormGroup = new FormGroup({
       characters: new FormControl(this.charactersValue.characters, [

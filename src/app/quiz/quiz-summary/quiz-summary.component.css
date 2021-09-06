@@ -4,5 +4,9 @@
   align-items: center;
   flex-wrap: wrap;
 
-  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  background-color: hsl(0, 0%, 11%);
 }
