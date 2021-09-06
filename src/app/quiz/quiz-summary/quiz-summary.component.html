@@ -1,4 +1,8 @@
-<div class="quiz_summary">
+<div
+  *ngIf="shouldShowSummary"
+  [ngStyle]="{ display: shouldShowSummary ? null : 'none' }"
+  class="quiz_summary"
+>
   <app-quiz-summary-card
     *ngFor="let mistake of mistakes"
     [currentCharacter]="mistake"

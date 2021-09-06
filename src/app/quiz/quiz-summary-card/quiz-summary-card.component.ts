@@ -18,12 +18,7 @@ export class QuizSummaryCardComponent
   currentCharacter: Radical;
   cardColor: string;
 
-  constructor() {
-    super();
-  }
-
   ngOnInit(): void {
     this.cardColor = this.getCardColor();
-    console.log(this.cardColor);
   }
 }

@@ -72,9 +72,7 @@ export class QuizQuestionCardComponent
   ngOnDestroy = (): void => this.nextQuestionSubscription$?.unsubscribe();
 
   private initForm(): void {
-    let cardColor = this.getCardColor();
-
-    CssUtil.changeQuizCardColor(cardColor);
+    CssUtil.changeQuizCardColor(this.getCardColor());
 
     this.quizFormGroup = new FormGroup({
       characters: new FormControl(this.charactersValue.characters, [
@@ -159,7 +157,7 @@ export class QuizQuestionCardComponent
   isDisabled(property: string): boolean {
     return this.quizOptions?.excludedProperties
       .get(this.currentCharacter?.type)
-      .includes(property)
+      ?.includes(property)
       ? true
       : null;
   }
