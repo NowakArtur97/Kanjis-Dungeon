@@ -16,12 +16,11 @@ export class QuizSummaryComponent implements OnInit, OnDestroy {
 
   constructor(private store: Store<AppStoreState>) {}
 
-  // TODO: TEST
   ngOnInit(): void {
     this.mistakesSubscription$ = this.store
       .select('quiz')
-      .subscribe(({ mistakes, questions }) => {
-        this.shouldShowSummary = questions.length === 0;
+      .subscribe(({ mistakes, shouldShowSummary }) => {
+        this.shouldShowSummary = shouldShowSummary;
         this.mistakes = mistakes;
       });
   }

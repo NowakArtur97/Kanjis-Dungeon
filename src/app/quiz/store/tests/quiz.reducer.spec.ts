@@ -4,7 +4,7 @@ import Radical from 'src/app/japanese/radical/models/radical.model';
 import Word from 'src/app/japanese/vocabulary/models/word.model';
 
 import * as QuizActions from '../quiz.actions';
-import { quizReducer, QuizStoreState } from '../quiz.reducer';
+import { initialState, quizReducer, QuizStoreState } from '../quiz.reducer';
 
 const radical: Radical = {
   id: 1,
@@ -28,7 +28,8 @@ const word: Word = {
   type: CharacterType.VOCABULARY,
 };
 const questions = [radical, kanji, word];
-const initialState: QuizStoreState = {
+const quizInitialState: QuizStoreState = {
+  ...initialState,
   quizOptions: {
     numberOfQuestions: 12,
     minNumberOfProperties: 1,
@@ -45,61 +46,25 @@ const initialState: QuizStoreState = {
       CharacterType.VOCABULARY,
     ],
   },
-  nextQuestion: null,
-  questions: [],
-  answers: [],
-  mistakes: [],
 };
 const stateWithQuestions: QuizStoreState = {
-  quizOptions: {
-    numberOfQuestions: 12,
-    minNumberOfProperties: 1,
-    shouldShowAnswer: true,
-    shouldHideRandomProperties: true,
-    excludedProperties: new Map([
-      [CharacterType.RADICAL, ['characters', 'type']],
-      [CharacterType.KANJI, ['characters', 'type']],
-      [CharacterType.VOCABULARY, ['characters', 'type']],
-    ]),
-    questionTypes: [
-      CharacterType.RADICAL,
-      CharacterType.KANJI,
-      CharacterType.VOCABULARY,
-    ],
-  },
-  nextQuestion: null,
+  ...quizInitialState,
   questions,
-  answers: [],
-  mistakes: [],
 };
 const stateWithMistakes: QuizStoreState = {
-  quizOptions: {
-    numberOfQuestions: 12,
-    minNumberOfProperties: 1,
-    shouldShowAnswer: true,
-    shouldHideRandomProperties: true,
-    excludedProperties: new Map([
-      [CharacterType.RADICAL, ['characters', 'type']],
-      [CharacterType.KANJI, ['characters', 'type']],
-      [CharacterType.VOCABULARY, ['characters', 'type']],
-    ]),
-    questionTypes: [
-      CharacterType.RADICAL,
-      CharacterType.KANJI,
-      CharacterType.VOCABULARY,
-    ],
-  },
-  nextQuestion: null,
-  questions,
-  answers: [],
+  ...stateWithQuestions,
   mistakes: questions,
+};
+const stateWithSummary: QuizStoreState = {
+  ...initialState,
+  shouldShowSummary: true,
 };
 
 describe('quizReducer', () => {
   describe('QuizActions.setQuiz', () => {
     it('should store questions', () => {
       const action = QuizActions.setQuestions({ questions });
-      const actualState = quizReducer(initialState, action);
+      const actualState = quizReducer(quizInitialState, action);
       const expectedState = { ...stateWithQuestions };
 
       expect(actualState).toEqual(expectedState);
@@ -112,8 +77,8 @@ describe('quizReducer', () => {
     it('should store empty questions list', () => {
       const emptyQuizList = [];
       const action = QuizActions.setQuestions({ questions: emptyQuizList });
-      const actualState = quizReducer(initialState, action);
-      const expectedState = { ...initialState };
+      const actualState = quizReducer(quizInitialState, action);
+      const expectedState = { ...quizInitialState };
 
       expect(actualState).toEqual(expectedState);
       expect(actualState.questions[0]).not.toEqual(radical);
@@ -126,26 +91,9 @@ describe('quizReducer', () => {
   describe('QuizActions.setNextQuestion', () => {
     it('should set next question', () => {
       const stateWithNextQuestion: QuizStoreState = {
-        quizOptions: {
-          numberOfQuestions: 12,
-          minNumberOfProperties: 1,
-          shouldShowAnswer: true,
-          shouldHideRandomProperties: true,
-          excludedProperties: new Map([
-            [CharacterType.RADICAL, ['characters', 'type']],
-            [CharacterType.KANJI, ['characters', 'type']],
-            [CharacterType.VOCABULARY, ['characters', 'type']],
-          ]),
-          questionTypes: [
-            CharacterType.RADICAL,
-            CharacterType.KANJI,
-            CharacterType.VOCABULARY,
-          ],
-        },
+        ...stateWithQuestions,
         nextQuestion: radical,
         questions,
-        answers: [],
-        mistakes: [],
       };
       const action = QuizActions.setNextQuestion({ nextQuestion: radical });
       const actualState = quizReducer(stateWithQuestions, action);
@@ -159,26 +107,9 @@ describe('quizReducer', () => {
   describe('QuizActions.addAnswer', () => {
     it('should add answer', () => {
       const stateWithAnswer: QuizStoreState = {
-        quizOptions: {
-          numberOfQuestions: 12,
-          minNumberOfProperties: 1,
-          shouldShowAnswer: true,
-          shouldHideRandomProperties: true,
-          excludedProperties: new Map([
-            [CharacterType.RADICAL, ['characters', 'type']],
-            [CharacterType.KANJI, ['characters', 'type']],
-            [CharacterType.VOCABULARY, ['characters', 'type']],
-          ]),
-          questionTypes: [
-            CharacterType.RADICAL,
-            CharacterType.KANJI,
-            CharacterType.VOCABULARY,
-          ],
-        },
-        nextQuestion: null,
+        ...stateWithQuestions,
         questions: [kanji, word],
         answers: [radical],
-        mistakes: [],
       };
       const action = QuizActions.addAnswer({ answer: radical });
       const actualState = quizReducer(stateWithQuestions, action);
@@ -191,22 +122,7 @@ describe('quizReducer', () => {
 
     it('should add answer and not remove from mistakes', () => {
       const stateWithAnswerAndMistakes: QuizStoreState = {
-        quizOptions: {
-          numberOfQuestions: 12,
-          minNumberOfProperties: 1,
-          shouldShowAnswer: true,
-          shouldHideRandomProperties: true,
-          excludedProperties: new Map([
-            [CharacterType.RADICAL, ['characters', 'type']],
-            [CharacterType.KANJI, ['characters', 'type']],
-            [CharacterType.VOCABULARY, ['characters', 'type']],
-          ]),
-          questionTypes: [
-            CharacterType.RADICAL,
-            CharacterType.KANJI,
-            CharacterType.VOCABULARY,
-          ],
-        },
+        ...stateWithMistakes,
         nextQuestion: null,
         questions: [kanji, word],
         answers: [radical],
@@ -224,25 +140,7 @@ describe('quizReducer', () => {
 
   describe('QuizActions.addMistake', () => {
     const stateWithMistake: QuizStoreState = {
-      quizOptions: {
-        numberOfQuestions: 12,
-        minNumberOfProperties: 1,
-        shouldShowAnswer: true,
-        shouldHideRandomProperties: true,
-        excludedProperties: new Map([
-          [CharacterType.RADICAL, ['characters', 'type']],
-          [CharacterType.KANJI, ['characters', 'type']],
-          [CharacterType.VOCABULARY, ['characters', 'type']],
-        ]),
-        questionTypes: [
-          CharacterType.RADICAL,
-          CharacterType.KANJI,
-          CharacterType.VOCABULARY,
-        ],
-      },
-      nextQuestion: null,
-      questions,
-      answers: [],
+      ...stateWithQuestions,
       mistakes: [radical],
     };
 
@@ -265,6 +163,32 @@ describe('quizReducer', () => {
       expect(actualState.mistakes).toContain(radical);
       expect(actualState.mistakes.length).toBe(1);
       expect(actualState.answers).not.toContain(radical);
+    });
+  });
+
+  describe('QuizActions.shouldShowSummary', () => {
+    it('should show summary', () => {
+      const shouldShowSummary = true;
+      const action = QuizActions.shouldShowSummary({
+        shouldShowSummary,
+      });
+      const actualState = quizReducer(initialState, action);
+      const expectedState = { ...stateWithSummary };
+
+      expect(actualState).toEqual(expectedState);
+      expect(actualState.shouldShowSummary).toEqual(shouldShowSummary);
+    });
+
+    it('should hide summary', () => {
+      const shouldShowSummary = false;
+      const action = QuizActions.shouldShowSummary({
+        shouldShowSummary,
+      });
+      const actualState = quizReducer(stateWithSummary, action);
+      const expectedState = { ...initialState };
+
+      expect(actualState).toEqual(expectedState);
+      expect(actualState.shouldShowSummary).toEqual(shouldShowSummary);
     });
   });
 });

@@ -30,9 +30,7 @@ export class QuizOptionsComponent implements OnInit, OnDestroy {
       });
   }
 
-  ngOnDestroy(): void {
-    this.quizOptionsSubscription$?.unsubscribe();
-  }
+  ngOnDestroy = (): void => this.quizOptionsSubscription$?.unsubscribe();
 
   private initForm(): void {
     this.quizOptionsFormGroup = new FormGroup({

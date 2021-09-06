@@ -80,70 +80,128 @@ describe('QuizEffects', () => {
     kanji: { kanji: KANJI },
     vocabulary: { vocabulary: VOCABULARY },
   };
+  const stateWithoutQuestions: Partial<AppStoreState> = {
+    quiz: {
+      ...initialState,
+      questions: [],
+    },
+    radical: { radicals: RADICALS },
+    kanji: { kanji: KANJI },
+    vocabulary: { vocabulary: VOCABULARY },
+  };
 
-  beforeEach(() =>
-    TestBed.configureTestingModule({
-      imports: [StoreModule.forRoot({})],
-      providers: [
-        QuizEffects,
-        provideMockStore({ initialState: stateWithQuestions }),
-        {
-          provide: Store,
-          useClass: MockStore,
-        },
-        provideMockActions(() => actions$),
-        {
-          provide: QuizService,
-          useValue: jasmine.createSpyObj('quizService', [
-            'getNextQuestion',
-            'prepareQuestions',
-          ]),
-        },
-      ],
-    })
-  );
+  describe('state with questions', () => {
+    beforeEach(() =>
+      TestBed.configureTestingModule({
+        imports: [StoreModule.forRoot({})],
+        providers: [
+          QuizEffects,
+          provideMockStore({ initialState: stateWithQuestions }),
+          {
+            provide: Store,
+            useClass: MockStore,
+          },
+          provideMockActions(() => actions$),
+          {
+            provide: QuizService,
+            useValue: jasmine.createSpyObj('quizService', [
+              'getNextQuestion',
+              'prepareQuestions',
+            ]),
+          },
+        ],
+      })
+    );
 
-  beforeEach(() => {
-    quizEffects = TestBed.inject(QuizEffects);
-    quizService = TestBed.inject(QuizService);
-  });
-
-  describe('setNextQuestion$', () => {
     beforeEach(() => {
-      actions$ = new ReplaySubject(1);
-      actions$.next(QuizActions.setQuestions);
-      (quizService.getNextQuestion as jasmine.Spy).and.returnValue(radical);
+      quizEffects = TestBed.inject(QuizEffects);
+      quizService = TestBed.inject(QuizService);
     });
 
-    it('should return a setNextQuestion action', () => {
-      quizEffects.setNextQuestion$.subscribe((resultAction) => {
-        expect(resultAction).toEqual(
-          QuizActions.setNextQuestion({ nextQuestion: radical })
+    describe('setNextQuestion$', () => {
+      beforeEach(() => {
+        actions$ = new ReplaySubject(1);
+        actions$.next(QuizActions.setQuestions);
+        (quizService.getNextQuestion as jasmine.Spy).and.returnValue(radical);
+      });
+
+      it('should return a setNextQuestion action', () => {
+        quizEffects.setNextQuestion$.subscribe((resultAction) => {
+          expect(resultAction).toEqual(
+            QuizActions.setNextQuestion({ nextQuestion: radical })
+          );
+          expect(quizService.getNextQuestion).toHaveBeenCalledWith(
+            stateWithQuestions.quiz.questions
+          );
+        });
+      });
+    });
+
+    describe('setQuestions$', () => {
+      beforeEach(() => {
+        actions$ = new ReplaySubject(1);
+        actions$.next(QuizActions.changeQuizOptions);
+        (quizService.prepareQuestions as jasmine.Spy).and.returnValues(
+          radicals,
+          [...radicals, ...kanji],
+          [...radicals, ...kanji, ...vocabulary]
         );
-        expect(quizService.getNextQuestion).toHaveBeenCalled();
+      });
+
+      it('should return setQuestions action', () => {
+        quizEffects.setQuestions$.subscribe((resultAction) => {
+          expect(resultAction).toEqual(
+            QuizActions.setQuestions({
+              questions: [...radicals, ...kanji, ...vocabulary],
+            })
+          );
+          expect(quizService.prepareQuestions).toHaveBeenCalledTimes(3);
+        });
       });
     });
   });
 
-  describe('setQuestions$', () => {
+  describe('state without questions', () => {
+    beforeEach(() =>
+      TestBed.configureTestingModule({
+        imports: [StoreModule.forRoot({})],
+        providers: [
+          QuizEffects,
+          provideMockStore({ initialState: stateWithoutQuestions }),
+          {
+            provide: Store,
+            useClass: MockStore,
+          },
+          provideMockActions(() => actions$),
+          {
+            provide: QuizService,
+            useValue: jasmine.createSpyObj('quizService', ['getNextQuestion']),
+          },
+        ],
+      })
+    );
+
     beforeEach(() => {
-      actions$ = new ReplaySubject(1);
-      actions$.next(QuizActions.changeQuizOptions);
-      (quizService.prepareQuestions as jasmine.Spy).and.returnValues(
-        radicals,
-        [...radicals, ...kanji],
-        [...radicals, ...kanji, ...vocabulary]
-      );
+      quizEffects = TestBed.inject(QuizEffects);
+      quizService = TestBed.inject(QuizService);
     });
 
-    it('should return setQuestions action', () => {
-      quizEffects.setQuestions$.subscribe((resultAction) => {
-        expect(resultAction).toEqual(
-          QuizActions.setQuestions({
-            questions: [...radicals, ...kanji, ...vocabulary],
-          })
-        );
-        expect(quizService.prepareQuestions).toHaveBeenCalledTimes(3);
+    describe('setNextQuestion$', () => {
+      beforeEach(() => {
+        actions$ = new ReplaySubject(1);
+        actions$.next(QuizActions.setQuestions);
+        (quizService.getNextQuestion as jasmine.Spy).and.returnValue(undefined);
+      });
+
+      it('should return a shouldShowSummary action', () => {
+        quizEffects.setNextQuestion$.subscribe((resultAction) => {
+          expect(resultAction).toEqual(
+            QuizActions.shouldShowSummary({ shouldShowSummary: true })
+          );
+          expect(quizService.getNextQuestion).toHaveBeenCalledWith(
+            stateWithoutQuestions.quiz.questions
+          );
+        });
       });
     });
   });

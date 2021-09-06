@@ -1,9 +1,6 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import CharacterType from 'src/app/japanese/common/enums/character-type.enum';
-import KANJI from 'src/app/japanese/kanji/kanji.data';
 import Radical from 'src/app/japanese/radical/models/radical.model';
-import RADICALS from 'src/app/japanese/radical/radical.data';
-import VOCABULARY from 'src/app/japanese/vocabulary/vocabulary.data';
 
 import QuizOptions from '../models/quiz-options.model';
 import * as QuizActions from './quiz.actions';
@@ -14,6 +11,7 @@ export interface QuizStoreState {
   questions: Radical[];
   answers: Radical[];
   mistakes: Radical[];
+  shouldShowSummary: boolean;
 }
 
 const DEFAULT_EXCLUDED_PROPERTIES = ['characters', 'type'];
@@ -35,7 +33,8 @@ const initialState: QuizStoreState = {
   nextQuestion: null,
   questions: [],
   answers: [],
-  mistakes: [...RADICALS, ...KANJI, ...VOCABULARY], // TODO: QuizReducer: Remove
+  mistakes: [],
+  shouldShowSummary: false,
 };
 export {
   initialState,
@@ -82,6 +81,11 @@ const _quizReducer = createReducer(
     questions: [],
     answers: [],
     mistakes: [],
+  })),
+
+  on(QuizActions.shouldShowSummary, (state, { shouldShowSummary }) => ({
+    ...state,
+    shouldShowSummary,
   }))
 );
 

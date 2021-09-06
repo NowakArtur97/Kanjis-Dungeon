@@ -24,6 +24,11 @@ const cardRoutes: Routes = [
     component: QuizLayoutComponent,
     resolve: [RadicalResolver, KanjiResolver, VocabularyResolver],
   },
+  {
+    path: 'summary',
+    component: QuizSummaryComponent,
+    resolve: [RadicalResolver, KanjiResolver, VocabularyResolver],
+  },
 ];
 
 @NgModule({

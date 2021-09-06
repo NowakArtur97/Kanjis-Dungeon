@@ -27,3 +27,8 @@ export const changeQuizOptions = createAction(
   '[Quiz] Change Quiz Options',
   props<{ quizOptions: QuizOptions }>()
 );
+
+export const shouldShowSummary = createAction(
+  '[Quiz] Should show Summary',
+  props<{ shouldShowSummary: boolean }>()
+);
