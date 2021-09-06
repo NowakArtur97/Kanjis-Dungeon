@@ -1,5 +1,4 @@
 import { TestBed } from '@angular/core/testing';
-import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Store, StoreModule } from '@ngrx/store';
@@ -24,7 +23,6 @@ describe('GameEffects', () => {
   let gameEffects: GameEffects;
   let actions$: ReplaySubject<any>;
   let store: any;
-  let router: Router;
 
   const stateWithZeroQuestions: Partial<AppStoreState> = {
     quiz: {
@@ -288,20 +286,20 @@ describe('GameEffects', () => {
     beforeEach(() => {
       gameEffects = TestBed.inject(GameEffects);
       store = TestBed.inject(MockStore);
-      router = TestBed.inject(Router);
     });
 
     describe('when answered correctly', () => {
       beforeEach(() => {
         actions$ = new ReplaySubject(1);
         actions$.next(GameActions.completeLevel);
-        spyOn(router, 'navigate');
       });
 
-      it('should not return a changePhase action', () => {
-        gameEffects.completeLevel$.subscribe(() =>
-          expect(router.navigate).toHaveBeenCalledWith(['./levels'])
-        );
+      it('should return a shouldShowSummary action', () => {
+        gameEffects.completeLevel$.subscribe((resultAction) => {
+          expect(resultAction).toEqual(
+            QuizActions.shouldShowSummary({ shouldShowSummary: true })
+          );
+        });
       });
     });
   });
