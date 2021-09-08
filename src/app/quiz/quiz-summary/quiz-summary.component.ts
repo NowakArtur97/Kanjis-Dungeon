@@ -29,18 +29,21 @@ export class QuizSummaryComponent implements OnInit, OnDestroy {
   constructor(private store: Store<AppStoreState>) {}
 
   ngOnInit(): void {
+    console.log(this.state);
     this.mistakesSubscription$ = this.store
       .select('quiz')
       .subscribe(({ mistakes, shouldShowSummary }) => {
         this.shouldShowSummary = shouldShowSummary;
         this.mistakes = mistakes;
+        setTimeout(
+          () =>
+            (this.state = this.shouldShowSummary
+              ? this.REVEALED_STATE
+              : this.HIDDEN_STATE),
+          1000
+        );
+        this.message = 'message';
       });
-    setTimeout(() => {
-      this.state = this.shouldShowSummary
-        ? this.REVEALED_STATE
-        : this.HIDDEN_STATE;
-      this.message = 'message';
-    }, 2000);
   }
 
   ngOnDestroy = (): void => this.mistakesSubscription$?.unsubscribe();

@@ -36,7 +36,7 @@ describe('QuizSummaryComponent', () => {
   });
 
   describe('when initialize component', () => {
-    it('should select mistakes from store', () => {
+    it('should select data from store', () => {
       expect(store.select).toHaveBeenCalled();
     });
   });
