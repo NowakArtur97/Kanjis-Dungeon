@@ -28,11 +28,7 @@ export default class QuizEffects {
       switchMap(([, questions]) =>
         of(this.quizService.getNextQuestion(questions))
       ),
-      map((nextQuestion) =>
-        nextQuestion
-          ? QuizActions.setNextQuestion({ nextQuestion })
-          : QuizActions.shouldShowSummary({ shouldShowSummary: true })
-      )
+      map((nextQuestion) => QuizActions.setNextQuestion({ nextQuestion }))
     )
   );
 

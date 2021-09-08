@@ -161,48 +161,49 @@ describe('QuizEffects', () => {
     });
   });
 
-  describe('state without questions', () => {
-    beforeEach(() =>
-      TestBed.configureTestingModule({
-        imports: [StoreModule.forRoot({})],
-        providers: [
-          QuizEffects,
-          provideMockStore({ initialState: stateWithoutQuestions }),
-          {
-            provide: Store,
-            useClass: MockStore,
-          },
-          provideMockActions(() => actions$),
-          {
-            provide: QuizService,
-            useValue: jasmine.createSpyObj('quizService', ['getNextQuestion']),
-          },
-        ],
-      })
-    );
+  // TODO: TEST/REMOVE
+  // describe('state without questions', () => {
+  //   beforeEach(() =>
+  //     TestBed.configureTestingModule({
+  //       imports: [StoreModule.forRoot({})],
+  //       providers: [
+  //         QuizEffects,
+  //         provideMockStore({ initialState: stateWithoutQuestions }),
+  //         {
+  //           provide: Store,
+  //           useClass: MockStore,
+  //         },
+  //         provideMockActions(() => actions$),
+  //         {
+  //           provide: QuizService,
+  //           useValue: jasmine.createSpyObj('quizService', ['getNextQuestion']),
+  //         },
+  //       ],
+  //     })
+  //   );
 
-    beforeEach(() => {
-      quizEffects = TestBed.inject(QuizEffects);
-      quizService = TestBed.inject(QuizService);
-    });
+  //   beforeEach(() => {
+  //     quizEffects = TestBed.inject(QuizEffects);
+  //     quizService = TestBed.inject(QuizService);
+  //   });
 
-    describe('setNextQuestion$', () => {
-      beforeEach(() => {
-        actions$ = new ReplaySubject(1);
-        actions$.next(QuizActions.setQuestions);
-        (quizService.getNextQuestion as jasmine.Spy).and.returnValue(undefined);
-      });
+  //   describe('setNextQuestion$', () => {
+  //     beforeEach(() => {
+  //       actions$ = new ReplaySubject(1);
+  //       actions$.next(QuizActions.setQuestions);
+  //       (quizService.getNextQuestion as jasmine.Spy).and.returnValue(undefined);
+  //     });
 
-      it('should return a shouldShowSummary action', () => {
-        quizEffects.setNextQuestion$.subscribe((resultAction) => {
-          expect(resultAction).toEqual(
-            QuizActions.shouldShowSummary({ shouldShowSummary: true })
-          );
-          expect(quizService.getNextQuestion).toHaveBeenCalledWith(
-            stateWithoutQuestions.quiz.questions
-          );
-        });
-      });
-    });
-  });
+  //     it('should return a shouldShowSummary action', () => {
+  //       quizEffects.setNextQuestion$.subscribe((resultAction) => {
+  //         expect(resultAction).toEqual(
+  //           QuizActions.shouldShowSummary({ shouldShowSummary: true })
+  //         );
+  //         expect(quizService.getNextQuestion).toHaveBeenCalledWith(
+  //           stateWithoutQuestions.quiz.questions
+  //         );
+  //       });
+  //     });
+  //   });
+  // });
 });

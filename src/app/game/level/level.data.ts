@@ -11,7 +11,7 @@ const ALL_LEVELS: Level[] = [
     enemies: [pigWarrior],
     quizOptions: {
       ...DEFAULT_QUIZ_OPTIONS,
-      numberOfQuestions: 6,
+      numberOfQuestions: 1,
       questionTypes: [CharacterType.RADICAL],
     },
   },

@@ -1,1 +1,9 @@
+.quiz_card__submit_button[disabled] {
+  background-color: rgb(177, 177, 177);
+  color: rgb(177, 177, 177);
+  cursor: default;
+}
 
+.quiz_card__submit_button[disabled]:hover {
+  cursor: default;
+}

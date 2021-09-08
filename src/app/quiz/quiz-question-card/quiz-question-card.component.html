@@ -96,7 +96,11 @@
           />
         </div>
       </div>
-      <button class="quiz_card__submit_button" type="submit">
+      <button
+        [attr.disabled]="hasCharacter()"
+        class="quiz_card__submit_button"
+        type="submit"
+      >
         {{ CardStatus[cardStatus] | lowercase }}
       </button>
     </form>
