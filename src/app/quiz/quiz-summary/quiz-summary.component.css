@@ -1,9 +1,4 @@
 .quiz_summary {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-
   position: absolute;
   top: 0;
   left: 0;
@@ -11,4 +6,11 @@
   min-width: 100vw;
 
   background-color: hsl(0, 0%, 11%);
+}
+
+.quiz_summary__mistakes {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
 }

@@ -3,8 +3,10 @@
   [ngStyle]="{ display: shouldShowSummary ? null : 'none' }"
   class="quiz_summary"
 >
-  <app-quiz-summary-card
-    *ngFor="let mistake of mistakes"
-    [currentCharacter]="mistake"
-  ></app-quiz-summary-card>
+  <div class="quiz_summary__mistakes">
+    <app-quiz-summary-card
+      *ngFor="let mistake of mistakes"
+      [currentCharacter]="mistake"
+    ></app-quiz-summary-card>
+  </div>
 </div>

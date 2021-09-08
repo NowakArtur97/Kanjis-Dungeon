@@ -13,6 +13,7 @@
     <ul (click)="onToggleNavigation()" class="navigation__list">
       <li class="navigation__item">
         <a
+          (click)="onChangeView()"
           routerLink="/quiz"
           href="#"
           class="navigation__link navigation__link--rectangles"
@@ -21,6 +22,7 @@
       </li>
       <li class="navigation__item">
         <a
+          (click)="onChangeView()"
           routerLink="/levels"
           href="#"
           class="navigation__link navigation__link--lines"

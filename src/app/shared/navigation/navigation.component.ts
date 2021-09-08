@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import AppStoreState from 'src/app/store/app.state';
+
+import * as QuizActions from '../../quiz/store/quiz.actions';
 
 @Component({
   selector: 'app-navigation',
@@ -12,7 +16,7 @@ export class NavigationComponent implements OnInit {
   isOnMainPage: boolean;
   isActive = false;
 
-  constructor(router: Router) {
+  constructor(router: Router, private store: Store<AppStoreState>) {
     router.events.forEach((event) => {
       if (event instanceof NavigationStart) {
         this.isOnMainPage = event.url === this.MAIN_PAGE_URL;
@@ -28,4 +32,9 @@ export class NavigationComponent implements OnInit {
   onToggleNavigation(): void {
     this.isActive = !this.isActive;
   }
+
+  onChangeView = (): void =>
+    this.store.dispatch(
+      QuizActions.shouldShowSummary({ shouldShowSummary: false })
+    );
 }
