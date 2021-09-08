@@ -1,5 +1,6 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import CharacterType from 'src/app/japanese/common/enums/character-type.enum';
+import KANJI from 'src/app/japanese/kanji/kanji.data';
 import Radical from 'src/app/japanese/radical/models/radical.model';
 
 import QuizOptions from '../models/quiz-options.model';
@@ -33,8 +34,8 @@ const initialState: QuizStoreState = {
   nextQuestion: null,
   questions: [],
   answers: [],
-  mistakes: [],
-  shouldShowSummary: false,
+  mistakes: [...KANJI],
+  shouldShowSummary: true,
 };
 export {
   initialState,

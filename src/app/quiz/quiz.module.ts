@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
@@ -45,6 +46,7 @@ const cardRoutes: Routes = [
     EffectsModule.forFeature([QuizEffects]),
     ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: 'never' }),
     RouterModule.forRoot(cardRoutes),
+    BrowserAnimationsModule,
 
     JapaneseModule,
     AppCommonModule,
