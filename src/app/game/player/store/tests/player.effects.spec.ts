@@ -11,6 +11,7 @@ import CharacterService from 'src/app/game/character/services/character.service'
 import { phoenixSummoningCard } from 'src/app/game/deck/deck.data';
 import { initialState as deckInitialState } from 'src/app/game/deck/store/deck.reducer';
 import { ALL_ENEMIES, pigWarrior } from 'src/app/game/enemy/enemy.data';
+import GameResult from 'src/app/game/enums/game-result.enum';
 import LevelType from 'src/app/game/level/enums/level-type.enum';
 import Level from 'src/app/game/level/models/level.model';
 import { initialState as gameInitialState } from 'src/app/game/store/game.reducer';
@@ -328,7 +329,9 @@ describe('PlayerEffects', () => {
 
         it('should return a completeLevel action', () => {
           playerEffects.startPlayerTurn$.subscribe((resultAction) => {
-            expect(resultAction).toEqual(GameActions.completeLevel());
+            expect(resultAction).toEqual(
+              GameActions.completeLevel({ result: GameResult.WIN })
+            );
           });
         });
       });

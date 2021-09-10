@@ -70,7 +70,6 @@ export default class EnemyEffects {
     )
   );
 
-  // TODO: TEST
   startEnemyTurn$ = createEffect(() =>
     this.actions$.pipe(
       ofType(EnemyActions.startEnemyTurn),

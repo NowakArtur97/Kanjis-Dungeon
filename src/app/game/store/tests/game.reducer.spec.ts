@@ -2,6 +2,7 @@ import CharacterPlayedAnimation from '../../character/models/character-played-an
 import CharacterPosition from '../../character/models/character-position.model';
 import { phoenixSummoningCard } from '../../deck/deck.data';
 import GamePhase from '../../enums/game-phase.enum';
+import GameResult from '../../enums/game-result.enum';
 import GameTurn from '../../enums/game-turn.enum';
 import defaultPlayer from '../../player/player.data';
 import * as GameActions from '../game.actions';
@@ -127,6 +128,36 @@ describe('gameReducer', () => {
 
       expect(actualState).toEqual(expectedState);
       expect(actualState.playedAnimation).toBeNull();
+    });
+  });
+
+  describe('GameActions.completeLevel', () => {
+    it('should set Win result', () => {
+      const result = GameResult.WIN;
+      const action = GameActions.completeLevel({ result });
+      const stateWithResult: GameStoreState = {
+        ...initialState,
+        result,
+      };
+      const actualState = gameReducer(initialState, action);
+      const expectedState = { ...stateWithResult };
+
+      expect(actualState).toEqual(expectedState);
+      expect(actualState.result).toBe(result);
+    });
+
+    it('should set Lose result', () => {
+      const result = GameResult.LOSE;
+      const action = GameActions.completeLevel({ result });
+      const stateWithResult: GameStoreState = {
+        ...initialState,
+        result,
+      };
+      const actualState = gameReducer(initialState, action);
+      const expectedState = { ...stateWithResult };
+
+      expect(actualState).toEqual(expectedState);
+      expect(actualState.result).toBe(result);
     });
   });
 });

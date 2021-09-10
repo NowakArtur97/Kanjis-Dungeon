@@ -3,6 +3,7 @@ import { provideMockActions } from '@ngrx/effects/testing';
 import { Store, StoreModule } from '@ngrx/store';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { ReplaySubject } from 'rxjs';
+import GameResult from 'src/app/game/enums/game-result.enum';
 import defaultPlayer from 'src/app/game/player/player.data';
 import AppStoreState from 'src/app/store/app.state';
 
@@ -16,7 +17,7 @@ describe('EnemyEffects', () => {
   let enemyEffects: EnemyEffects;
   let actions$: ReplaySubject<any>;
   let enemyService: EnemyService;
-  const stateWithoutEnemies: Partial<AppStoreState> = {
+  const stateWithDeadPlayer: Partial<AppStoreState> = {
     enemy: {
       ...initialState,
     },
@@ -37,7 +38,7 @@ describe('EnemyEffects', () => {
         imports: [StoreModule.forRoot({})],
         providers: [
           EnemyEffects,
-          provideMockStore({ initialState: stateWithoutEnemies }),
+          provideMockStore({ initialState: stateWithDeadPlayer }),
           {
             provide: Store,
             useClass: MockStore,
@@ -65,7 +66,9 @@ describe('EnemyEffects', () => {
 
     it('should return a completeLevel actions', () => {
       enemyEffects.startEnemyTurn$.subscribe((resultAction) => {
-        expect(resultAction).toEqual(GameActions.completeLevel());
+        expect(resultAction).toEqual(
+          GameActions.completeLevel({ result: GameResult.LOSE })
+        );
         expect(enemyService.chooseFirstEnemyForAction).not.toHaveBeenCalled();
       });
     });

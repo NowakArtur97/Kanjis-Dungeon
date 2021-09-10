@@ -62,6 +62,27 @@ describe('GameEffects', () => {
       actions$ = new ReplaySubject(1);
       actions$.next(LevelActions.chooseLevel);
     });
+
+    beforeEach(() =>
+      TestBed.configureTestingModule({
+        imports: [StoreModule.forRoot({}), RouterTestingModule.withRoutes([])],
+        providers: [
+          GameEffects,
+          provideMockStore({ initialState }),
+          {
+            provide: Store,
+            useClass: MockStore,
+          },
+          provideMockActions(() => actions$),
+        ],
+      })
+    );
+
+    beforeEach(() => {
+      gameEffects = TestBed.inject(GameEffects);
+      store = TestBed.inject(MockStore);
+    });
+
     it('should return a resetGame and chooseLevel actions', () => {
       gameEffects.chooseLevel$.pipe(take(1)).subscribe((resultAction) => {
         expect(resultAction).toEqual(GameActions.resetGame());
@@ -103,6 +124,7 @@ describe('GameEffects', () => {
         actions$ = new ReplaySubject(1);
         actions$.next(GameActions.changeTurn);
       });
+
       it('should return a startEnemyTurn action', () => {
         gameEffects.changeTurn$.subscribe((resultAction) => {
           expect(resultAction).toEqual(EnemyActions.startEnemyTurn());

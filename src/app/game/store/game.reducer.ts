@@ -46,7 +46,6 @@ const _gameReducer = createReducer(
     playedAnimation: null,
   })),
 
-  // TODO: TEST
   on(GameActions.completeLevel, (state, { result }) => ({
     ...state,
     result,
