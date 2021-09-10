@@ -17,6 +17,8 @@
 
   min-height: 100vh;
   min-width: 100vw;
+
+  transform: scale(0);
 }
 
 .quiz_summary__message {

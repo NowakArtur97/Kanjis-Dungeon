@@ -1,4 +1,4 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import { animate, keyframes, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
@@ -10,10 +10,29 @@ import AppStoreState from 'src/app/store/app.state';
   templateUrl: './quiz-summary.component.html',
   styleUrls: ['./quiz-summary.component.css'],
   animations: [
+    trigger('blink', [
+      transition(
+        'hidden => revealed',
+        animate(
+          2000,
+          keyframes([
+            style({
+              transform: 'scale(0) translate(-50%, -50%)',
+              offset: 0,
+            }),
+            style({
+              transform: 'scale(1) translate(-50%, -50%)',
+              offset: 0.3,
+            }),
+            style({ transform: 'scale(0) translate(-50%, -50%)', offset: 1 }),
+          ])
+        )
+      ),
+    ]),
     trigger('show', [
-      state('hidden', style({ transform: 'scale(0) translate(-50%, -50%)' })),
-      state('revealed', style({ transform: 'scale(1) translate(-50%, -50%)' })),
-      transition('hidden => revealed', animate(2000)),
+      state('hidden', style({ transform: 'translateY(-100%)' })),
+      state('revealed', style({ transform: 'translateY(0)' })),
+      transition('hidden => revealed', animate('2000ms 1800ms')),
     ]),
   ],
 })
@@ -23,7 +42,8 @@ export class QuizSummaryComponent implements OnInit, OnDestroy {
   shouldShowSummary: boolean;
   private readonly HIDDEN_STATE = 'hidden';
   private readonly REVEALED_STATE = 'revealed';
-  state = this.HIDDEN_STATE;
+  messageState = this.HIDDEN_STATE;
+  mistakesState = this.HIDDEN_STATE;
   message: string;
 
   constructor(private store: Store<AppStoreState>) {}
@@ -34,13 +54,14 @@ export class QuizSummaryComponent implements OnInit, OnDestroy {
       .subscribe(({ mistakes, shouldShowSummary }) => {
         this.shouldShowSummary = shouldShowSummary;
         this.mistakes = mistakes;
-        setTimeout(
-          () =>
-            (this.state = this.shouldShowSummary
-              ? this.REVEALED_STATE
-              : this.HIDDEN_STATE),
-          1000
-        );
+        setTimeout(() => {
+          this.messageState = this.shouldShowSummary
+            ? this.REVEALED_STATE
+            : this.HIDDEN_STATE;
+          this.mistakesState = this.shouldShowSummary
+            ? this.REVEALED_STATE
+            : this.HIDDEN_STATE;
+        }, 1000);
         this.message = 'message';
       });
   }

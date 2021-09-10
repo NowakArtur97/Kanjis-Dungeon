@@ -25,6 +25,7 @@ const cardRoutes: Routes = [
     component: QuizLayoutComponent,
     resolve: [RadicalResolver, KanjiResolver, VocabularyResolver],
   },
+  // TODO: QuizModule: REMOVE
   {
     path: 'summary',
     component: QuizSummaryComponent,

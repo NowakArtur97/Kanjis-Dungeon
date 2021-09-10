@@ -3,11 +3,13 @@
   [ngStyle]="{ display: shouldShowSummary ? null : 'none' }"
   class="quiz_summary"
 >
-  <div class="quiz_summary__mistakes">
+  <div [@show]="mistakesState" class="quiz_summary__mistakes">
     <app-quiz-summary-card
       *ngFor="let mistake of mistakes"
       [currentCharacter]="mistake"
     ></app-quiz-summary-card>
   </div>
-  <span [@show]="state" class="quiz_summary__message">{{ message }}</span>
+  <span [@blink]="messageState" class="quiz_summary__message">{{
+    message
+  }}</span>
 </div>

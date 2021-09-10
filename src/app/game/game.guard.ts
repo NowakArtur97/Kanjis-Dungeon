@@ -11,17 +11,16 @@ export default class GameGuard implements CanActivate {
 
   private readonly LEVELS_PATH = 'levels';
 
-  canActivate():
+  canActivate = ():
     | boolean
     | UrlTree
     | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree> {
-    return this.store.select('level').pipe(
+    | Promise<boolean | UrlTree> =>
+    this.store.select('level').pipe(
       take(1),
       map(({ level }) => level),
       map((level) =>
         level ? true : this.router.createUrlTree([`/${this.LEVELS_PATH}`])
       )
     );
-  }
 }
