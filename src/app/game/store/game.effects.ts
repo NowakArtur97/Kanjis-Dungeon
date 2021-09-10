@@ -54,6 +54,7 @@ export default class GameEffects {
   completeLevel$ = createEffect(() =>
     this.actions$.pipe(
       ofType(GameActions.completeLevel),
+      withLatestFrom(this.store.select((state) => state.game?.result)),
       map(() => QuizActions.showSummary())
     )
   );

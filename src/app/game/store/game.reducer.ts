@@ -2,17 +2,20 @@ import { Action, createReducer, on } from '@ngrx/store';
 
 import CharacterPlayedAnimation from '../character/models/character-played-animation.model';
 import GamePhase from '../enums/game-phase.enum';
+import GameResult from '../enums/game-result.enum';
 import GameTurn from '../enums/game-turn.enum';
 import * as GameActions from './game.actions';
 
 export interface GameStoreState {
   turn: GameTurn;
   phase: GamePhase;
+  result: GameResult;
   playedAnimation: CharacterPlayedAnimation;
 }
 const initialState: GameStoreState = {
   turn: GameTurn.PLAYER_TURN,
   phase: GamePhase.QUIZ,
+  result: null,
   playedAnimation: null,
 };
 export { initialState };
@@ -41,6 +44,12 @@ const _gameReducer = createReducer(
   on(GameActions.finishCharacterAnimation, (state) => ({
     ...state,
     playedAnimation: null,
+  })),
+
+  // TODO: TEST
+  on(GameActions.completeLevel, (state, { result }) => ({
+    ...state,
+    result,
   })),
 
   on(GameActions.resetGame, () => ({

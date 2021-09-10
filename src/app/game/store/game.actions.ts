@@ -2,6 +2,7 @@ import { createAction, props } from '@ngrx/store';
 
 import CharacterPlayedAnimation from '../character/models/character-played-animation.model';
 import Character from '../character/models/character.model';
+import GameResult from '../enums/game-result.enum';
 
 export const changeTurn = createAction('[Game] Change Turn');
 
@@ -17,6 +18,9 @@ export const finishCharacterAnimation = createAction(
   props<{ character: Character }>()
 );
 
-export const completeLevel = createAction('[Game] Complete Level');
+export const completeLevel = createAction(
+  '[Game] Complete Level',
+  props<{ result: GameResult }>()
+);
 
 export const resetGame = createAction('[Game] Reset Game');

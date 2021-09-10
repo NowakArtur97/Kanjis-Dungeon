@@ -2,6 +2,7 @@ import { animate, keyframes, state, style, transition, trigger } from '@angular/
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
+import GameResult from 'src/app/game/enums/game-result.enum';
 import Radical from 'src/app/japanese/radical/models/radical.model';
 import AppStoreState from 'src/app/store/app.state';
 
@@ -38,13 +39,20 @@ import AppStoreState from 'src/app/store/app.state';
 })
 export class QuizSummaryComponent implements OnInit, OnDestroy {
   private mistakesSubscription$: Subscription;
+  private resultSubscription$: Subscription;
   mistakes: Radical[];
-  shouldShowSummary: boolean;
+  isVisible: boolean;
   private readonly HIDDEN_STATE = 'hidden';
   private readonly REVEALED_STATE = 'revealed';
   messageState = this.HIDDEN_STATE;
   mistakesState = this.HIDDEN_STATE;
   message: string;
+
+  private messages = {
+    victory: 'Victory',
+    defeat: 'Defeat',
+    default: 'Congratulations!',
+  };
 
   constructor(private store: Store<AppStoreState>) {}
 
@@ -52,19 +60,34 @@ export class QuizSummaryComponent implements OnInit, OnDestroy {
     this.mistakesSubscription$ = this.store
       .select('quiz')
       .subscribe(({ mistakes, shouldShowSummary }) => {
-        this.shouldShowSummary = shouldShowSummary;
+        this.isVisible = shouldShowSummary;
+        console.log(shouldShowSummary);
         this.mistakes = mistakes;
         setTimeout(() => {
-          this.messageState = this.shouldShowSummary
+          this.messageState = this.isVisible
             ? this.REVEALED_STATE
             : this.HIDDEN_STATE;
-          this.mistakesState = this.shouldShowSummary
+          this.mistakesState = this.isVisible
             ? this.REVEALED_STATE
             : this.HIDDEN_STATE;
         }, 1000);
-        this.message = 'message';
       });
+
+    this.resultSubscription$ = this.store
+      .select('game')
+      .subscribe(
+        ({ result }) =>
+          (this.message =
+            result != null
+              ? result === GameResult.WIN
+                ? this.messages.victory
+                : this.messages.defeat
+              : this.messages.default)
+      );
   }
 
-  ngOnDestroy = (): void => this.mistakesSubscription$?.unsubscribe();
+  ngOnDestroy(): void {
+    this.mistakesSubscription$?.unsubscribe();
+    this.resultSubscription$?.unsubscribe();
+  }
 }

@@ -7,6 +7,7 @@ import AppStoreState from 'src/app/store/app.state';
 
 import CharacterType from '../../character/enums/character-type.enum';
 import CharacterService from '../../character/services/character.service';
+import GameResult from '../../enums/game-result.enum';
 import * as LevelActions from '../../level/store/level.actions';
 import * as PlayerActions from '../../player/store/player.actions';
 import * as GameActions from '../../store/game.actions';
@@ -69,6 +70,7 @@ export default class EnemyEffects {
     )
   );
 
+  // TODO: TEST
   startEnemyTurn$ = createEffect(() =>
     this.actions$.pipe(
       ofType(EnemyActions.startEnemyTurn),
@@ -78,7 +80,7 @@ export default class EnemyEffects {
       ),
       map(([, enemies, player]) => {
         if (player.stats.currentHealth <= 0) {
-          return GameActions.completeLevel();
+          return GameActions.completeLevel({ result: GameResult.LOSE });
         }
         const enemyForAction = this.enemyService.chooseFirstEnemyForAction(
           enemies

@@ -9,6 +9,7 @@ import * as QuizActions from '../../../quiz/store/quiz.actions';
 import CharacterType from '../../character/enums/character-type.enum';
 import CharacterService from '../../character/services/character.service';
 import * as EnemyActions from '../../enemy/store/enemy.actions';
+import GameResult from '../../enums/game-result.enum';
 import GameTurn from '../../enums/game-turn.enum';
 import * as LevelActions from '../../level/store/level.actions';
 import * as GameActions from '../../store/game.actions';
@@ -78,6 +79,7 @@ export default class PlayerEffects {
     )
   );
 
+  // TODO: TEST
   startPlayerTurn$ = createEffect(() =>
     this.actions$.pipe(
       ofType(PlayerActions.startPlayerTurn),
@@ -87,7 +89,7 @@ export default class PlayerEffects {
       ),
       map(([, level, enemies]) =>
         enemies.length === 0
-          ? GameActions.completeLevel()
+          ? GameActions.completeLevel({ result: GameResult.WIN })
           : QuizActions.changeQuizOptions({
               quizOptions: level.quizOptions,
             })

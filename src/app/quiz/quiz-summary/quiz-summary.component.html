@@ -1,6 +1,6 @@
 <div
-  *ngIf="shouldShowSummary"
-  [ngStyle]="{ display: shouldShowSummary ? null : 'none' }"
+  *ngIf="isVisible"
+  [ngStyle]="{ display: isVisible ? null : 'none' }"
   class="quiz_summary"
 >
   <div [@show]="mistakesState" class="quiz_summary__mistakes">
