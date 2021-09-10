@@ -75,7 +75,6 @@ const _quizReducer = createReducer(
       : [...state.mistakes, mistake],
   })),
 
-  // TODO: TEST
   on(QuizActions.changeQuizOptions, (state, { quizOptions }) => ({
     ...state,
     quizOptions,
@@ -87,15 +86,8 @@ const _quizReducer = createReducer(
     shouldShowSummary: true,
   })),
 
-  // TODO: TEST
-  on(QuizActions.resetQuiz, (state) => ({
-    ...state,
-    quizOptions: DEFAULT_QUIZ_OPTIONS,
-    nextQuestion: null,
-    questions: [],
-    answers: [],
-    mistakes: [],
-    shouldShowSummary: false,
+  on(QuizActions.resetQuiz, () => ({
+    ...initialState,
   }))
 );
 

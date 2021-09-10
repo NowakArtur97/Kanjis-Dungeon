@@ -3,6 +3,7 @@ import Kanji from 'src/app/japanese/kanji/models/kanji.model';
 import Radical from 'src/app/japanese/radical/models/radical.model';
 import Word from 'src/app/japanese/vocabulary/models/word.model';
 
+import QuizOptions from '../../models/quiz-options.model';
 import * as QuizActions from '../quiz.actions';
 import { initialState, quizReducer, QuizStoreState } from '../quiz.reducer';
 
@@ -166,6 +167,32 @@ describe('quizReducer', () => {
     });
   });
 
+  describe('QuizActions.changeQuizOptions', () => {
+    it('should change quiz options and reset question', () => {
+      const quizOptions: QuizOptions = {
+        numberOfQuestions: 1,
+        minNumberOfProperties: 1,
+        shouldShowAnswer: true,
+        shouldHideRandomProperties: true,
+        excludedProperties: new Map([
+          [CharacterType.RADICAL, ['characters', 'type']],
+        ]),
+        questionTypes: [CharacterType.RADICAL],
+      };
+      const quizWithNewQuizOptions: QuizStoreState = {
+        ...initialState,
+        questions: [],
+        quizOptions,
+      };
+      const action = QuizActions.changeQuizOptions({ quizOptions });
+      const actualState = quizReducer(stateWithQuestions, action);
+      const expectedState = { ...quizWithNewQuizOptions };
+
+      expect(actualState).toEqual(expectedState);
+      expect(actualState.quizOptions).toEqual(quizOptions);
+    });
+  });
+
   describe('QuizActions.showSummary', () => {
     it('should show summary', () => {
       const shouldShowSummary = true;
@@ -175,6 +202,15 @@ describe('quizReducer', () => {
 
       expect(actualState).toEqual(expectedState);
       expect(actualState.shouldShowSummary).toEqual(shouldShowSummary);
+    });
+  });
+
+  describe('QuizActions.resetQuiz', () => {
+    it('should reset state', () => {
+      const action = QuizActions.resetQuiz();
+      const actualState = quizReducer(stateWithMistakes, action);
+
+      expect(actualState).toEqual(initialState);
     });
   });
 });

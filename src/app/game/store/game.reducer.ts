@@ -43,7 +43,6 @@ const _gameReducer = createReducer(
     playedAnimation: null,
   })),
 
-  // TODO: TEST
   on(GameActions.resetGame, () => ({
     ...initialState,
   }))
