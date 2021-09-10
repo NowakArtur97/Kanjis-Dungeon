@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
@@ -14,8 +15,11 @@ export default class QuizEffects {
   constructor(
     private actions$: Actions,
     private store: Store<AppStoreState>,
-    private quizService: QuizService
+    private quizService: QuizService,
+    private router: Router
   ) {}
+
+  private readonly QUIZ_ROUTE = 'quiz';
 
   setNextQuestion$ = createEffect(() =>
     this.actions$.pipe(
@@ -28,7 +32,11 @@ export default class QuizEffects {
       switchMap(([, questions]) =>
         of(this.quizService.getNextQuestion(questions))
       ),
-      map((nextQuestion) => QuizActions.setNextQuestion({ nextQuestion }))
+      map((nextQuestion) =>
+        nextQuestion === undefined && this.router.url === `/${this.QUIZ_ROUTE}`
+          ? QuizActions.shouldShowSummary({ shouldShowSummary: true })
+          : QuizActions.setNextQuestion({ nextQuestion })
+      )
     )
   );
 
