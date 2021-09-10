@@ -12,6 +12,7 @@ import { CharacterModule } from './character/character.module';
 import { DeckModule } from './deck/deck.module';
 import { EnemyModule } from './enemy/enemy.module';
 import { GameLayoutComponent } from './game-layout/game-layout.component';
+import GameGuard from './game.guard';
 import { LevelModule } from './level/level.module';
 import { PlayerModule } from './player/player.module';
 import GameEffects from './store/game.effects';
@@ -21,6 +22,7 @@ const gameRoutes: Routes = [
   {
     path: 'game',
     component: GameLayoutComponent,
+    canActivate: [GameGuard],
     // TODO: gameRoutes: Load in Level Menu(?)
     resolve: [RadicalResolver, KanjiResolver, VocabularyResolver],
   },
@@ -42,5 +44,6 @@ const gameRoutes: Routes = [
     LevelModule,
   ],
   exports: [GameLayoutComponent],
+  providers: [GameGuard],
 })
 export class GameModule {}

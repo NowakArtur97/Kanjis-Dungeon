@@ -27,7 +27,5 @@ export class GameLayoutComponent implements OnInit, OnDestroy {
       });
   }
 
-  ngOnDestroy(): void {
-    this.gameTurnSubscription$?.unsubscribe();
-  }
+  ngOnDestroy = (): void => this.gameTurnSubscription$?.unsubscribe();
 }
