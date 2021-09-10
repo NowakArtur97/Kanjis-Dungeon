@@ -15,7 +15,6 @@ import * as GameActions from '../store/game.actions';
 export default class GameEffects {
   constructor(private actions$: Actions, private store: Store<AppStoreState>) {}
 
-  // TODO: TEST
   chooseLevel$ = createEffect(() =>
     this.actions$.pipe(
       ofType(LevelActions.chooseLevel),
@@ -23,7 +22,6 @@ export default class GameEffects {
     )
   );
 
-  // TODO: TEST
   changeTurn$ = createEffect(() =>
     this.actions$.pipe(
       ofType(GameActions.changeTurn),
@@ -53,7 +51,6 @@ export default class GameEffects {
     )
   );
 
-  // TODO: TEST
   completeLevel$ = createEffect(() =>
     this.actions$.pipe(
       ofType(GameActions.completeLevel),

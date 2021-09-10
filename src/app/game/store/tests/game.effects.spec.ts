@@ -4,6 +4,7 @@ import { provideMockActions } from '@ngrx/effects/testing';
 import { Store, StoreModule } from '@ngrx/store';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { ReplaySubject } from 'rxjs';
+import { skip, take } from 'rxjs/operators';
 import RADICALS from 'src/app/japanese/radical/radical.data';
 import { initialState as quizInitialState } from 'src/app/quiz/store/quiz.reducer';
 import AppStoreState from 'src/app/store/app.state';
@@ -56,7 +57,24 @@ describe('GameEffects', () => {
     },
   };
 
-  describe('chooseLevel$', () => {
+  describe('choseLevel$', () => {
+    beforeEach(() => {
+      actions$ = new ReplaySubject(1);
+      actions$.next(LevelActions.chooseLevel);
+    });
+    it('should return a resetGame and chooseLevel actions', () => {
+      gameEffects.chooseLevel$.pipe(take(1)).subscribe((resultAction) => {
+        expect(resultAction).toEqual(GameActions.resetGame());
+      });
+      gameEffects.chooseLevel$
+        .pipe(skip(1), take(1))
+        .subscribe((resultAction) => {
+          expect(resultAction).toEqual(PlayerActions.startPlayerTurn());
+        });
+    });
+  });
+
+  describe('changeTurn$', () => {
     describe('with enemy turn', () => {
       beforeEach(() =>
         TestBed.configureTestingModule({
@@ -83,30 +101,11 @@ describe('GameEffects', () => {
 
       beforeEach(() => {
         actions$ = new ReplaySubject(1);
-        actions$.next(LevelActions.chooseLevel);
+        actions$.next(GameActions.changeTurn);
       });
-
-      describe('when chosing level', () => {
-        beforeEach(() => {
-          actions$ = new ReplaySubject(1);
-          actions$.next(LevelActions.chooseLevel);
-        });
-        it('should return a startEnemyTurn action', () => {
-          gameEffects.changeTurn$.subscribe((resultAction) => {
-            expect(resultAction).toEqual(EnemyActions.startEnemyTurn());
-          });
-        });
-      });
-
-      describe('when changing turn', () => {
-        beforeEach(() => {
-          actions$ = new ReplaySubject(1);
-          actions$.next(GameActions.changeTurn);
-        });
-        it('should return a startEnemyTurn action', () => {
-          gameEffects.changeTurn$.subscribe((resultAction) => {
-            expect(resultAction).toEqual(EnemyActions.startEnemyTurn());
-          });
+      it('should return a startEnemyTurn action', () => {
+        gameEffects.changeTurn$.subscribe((resultAction) => {
+          expect(resultAction).toEqual(EnemyActions.startEnemyTurn());
         });
       });
     });
@@ -135,29 +134,14 @@ describe('GameEffects', () => {
         store = TestBed.inject(MockStore);
       });
 
-      describe('when chosing level', () => {
-        beforeEach(() => {
-          actions$ = new ReplaySubject(1);
-          actions$.next(PlayerActions.startPlayerTurn);
-        });
-
-        it('should return a startPlayerTurn action', () => {
-          gameEffects.changeTurn$.subscribe((resultAction) => {
-            expect(resultAction).toEqual(PlayerActions.startPlayerTurn());
-          });
-        });
+      beforeEach(() => {
+        actions$ = new ReplaySubject(1);
+        actions$.next(GameActions.changeTurn);
       });
 
-      describe('when changing turn', () => {
-        beforeEach(() => {
-          actions$ = new ReplaySubject(1);
-          actions$.next(GameActions.changeTurn);
-        });
-
-        it('should return a startPlayerTurn action', () => {
-          gameEffects.changeTurn$.subscribe((resultAction) => {
-            expect(resultAction).toEqual(PlayerActions.startPlayerTurn());
-          });
+      it('should return a startPlayerTurn action', () => {
+        gameEffects.changeTurn$.subscribe((resultAction) => {
+          expect(resultAction).toEqual(PlayerActions.startPlayerTurn());
         });
       });
     });
