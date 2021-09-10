@@ -3,6 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { Store, StoreModule } from '@ngrx/store';
 import AppStoreState from 'src/app/store/app.state';
 
+import * as GameActions from '../../game/store/game.actions';
 import * as QuizActions from '../../quiz/store/quiz.actions';
 import { NavigationComponent } from './navigation.component';
 
@@ -28,15 +29,14 @@ describe('NavigationComponent', () => {
   });
 
   describe('when change view', () => {
-    it('should dispatch shouldShowSummary action', () => {
+    it('should dispatch resetQuiz and resetGame actions', () => {
       fixture.detectChanges();
       component.ngOnInit();
 
       component.onChangeView();
 
-      expect(store.dispatch).toHaveBeenCalledWith(
-        QuizActions.shouldShowSummary({ shouldShowSummary: false })
-      );
+      expect(store.dispatch).toHaveBeenCalledWith(QuizActions.resetQuiz());
+      expect(store.dispatch).toHaveBeenCalledWith(GameActions.resetGame());
     });
   });
 });

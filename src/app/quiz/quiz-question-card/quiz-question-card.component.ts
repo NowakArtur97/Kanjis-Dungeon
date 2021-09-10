@@ -55,9 +55,7 @@ export class QuizQuestionCardComponent
     this.nextQuestionSubscription$ = this.store
       .select('quiz')
       .subscribe(({ nextQuestion, quizOptions }) => {
-        if (nextQuestion) {
-          this.currentCharacter = nextQuestion;
-        }
+        this.currentCharacter = nextQuestion;
         this.quizOptions = quizOptions;
         this.charactersValue = this.quizService.choosePropertiesForQuestion(
           this.currentCharacter,

@@ -34,7 +34,7 @@ export default class QuizEffects {
       ),
       map((nextQuestion) =>
         nextQuestion === undefined && this.router.url === `/${this.QUIZ_ROUTE}`
-          ? QuizActions.shouldShowSummary({ shouldShowSummary: true })
+          ? QuizActions.showSummary()
           : QuizActions.setNextQuestion({ nextQuestion })
       )
     )

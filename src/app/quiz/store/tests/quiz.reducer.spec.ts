@@ -166,26 +166,12 @@ describe('quizReducer', () => {
     });
   });
 
-  describe('QuizActions.shouldShowSummary', () => {
+  describe('QuizActions.showSummary', () => {
     it('should show summary', () => {
       const shouldShowSummary = true;
-      const action = QuizActions.shouldShowSummary({
-        shouldShowSummary,
-      });
+      const action = QuizActions.showSummary();
       const actualState = quizReducer(initialState, action);
       const expectedState = { ...stateWithSummary };
-
-      expect(actualState).toEqual(expectedState);
-      expect(actualState.shouldShowSummary).toEqual(shouldShowSummary);
-    });
-
-    it('should hide summary', () => {
-      const shouldShowSummary = false;
-      const action = QuizActions.shouldShowSummary({
-        shouldShowSummary,
-      });
-      const actualState = quizReducer(stateWithSummary, action);
-      const expectedState = { ...initialState };
 
       expect(actualState).toEqual(expectedState);
       expect(actualState.shouldShowSummary).toEqual(shouldShowSummary);

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { filter, map, withLatestFrom } from 'rxjs/operators';
+import { filter, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 import AppStoreState from 'src/app/store/app.state';
 
 import * as QuizActions from '../../quiz/store/quiz.actions';
@@ -15,9 +15,18 @@ import * as GameActions from '../store/game.actions';
 export default class GameEffects {
   constructor(private actions$: Actions, private store: Store<AppStoreState>) {}
 
+  // TODO: TEST
+  chooseLevel$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(LevelActions.chooseLevel),
+      mergeMap(() => [GameActions.resetGame(), PlayerActions.startPlayerTurn()])
+    )
+  );
+
+  // TODO: TEST
   changeTurn$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(LevelActions.chooseLevel, GameActions.changeTurn),
+      ofType(GameActions.changeTurn),
       withLatestFrom(this.store.select((state) => state.game?.turn)),
       map(([, turn]) => {
         if (turn === GameTurn.ENEMY_TURN) {
@@ -44,10 +53,11 @@ export default class GameEffects {
     )
   );
 
+  // TODO: TEST
   completeLevel$ = createEffect(() =>
     this.actions$.pipe(
       ofType(GameActions.completeLevel),
-      map(() => QuizActions.shouldShowSummary({ shouldShowSummary: true }))
+      map(() => QuizActions.showSummary())
     )
   );
 }

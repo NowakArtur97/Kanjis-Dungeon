@@ -297,7 +297,7 @@ describe('GameEffects', () => {
       it('should return a shouldShowSummary action', () => {
         gameEffects.completeLevel$.subscribe((resultAction) => {
           expect(resultAction).toEqual(
-            QuizActions.shouldShowSummary({ shouldShowSummary: true })
+            QuizActions.showSummary({ shouldShowSummary: true })
           );
         });
       });

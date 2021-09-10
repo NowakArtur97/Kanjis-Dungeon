@@ -6,13 +6,15 @@ export default class CharacterUtil {
   static isKanji(character: Radical): character is Kanji {
     return (
       character !== undefined &&
-      ((character as Kanji).onyomi !== undefined ||
-        (character as Kanji).kunyomi !== undefined ||
-        (character as Kanji).nanori !== undefined)
+      ((character as Kanji)?.onyomi !== undefined ||
+        (character as Kanji)?.kunyomi !== undefined ||
+        (character as Kanji)?.nanori !== undefined)
     );
   }
 
   static isVocabulary(character: Radical): character is Word {
-    return character !== undefined && (character as Word).reading !== undefined;
+    return (
+      character !== undefined && (character as Word)?.reading !== undefined
+    );
   }
 }

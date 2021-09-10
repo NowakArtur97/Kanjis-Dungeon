@@ -201,11 +201,9 @@ describe('QuizEffects', () => {
         (quizService.getNextQuestion as jasmine.Spy).and.returnValue(undefined);
       });
 
-      it('should return a shouldShowSummary action', () => {
+      it('should return a showSummary action', () => {
         quizEffects.setNextQuestion$.subscribe((resultAction) => {
-          expect(resultAction).toEqual(
-            QuizActions.shouldShowSummary({ shouldShowSummary: true })
-          );
+          expect(resultAction).toEqual(QuizActions.showSummary());
           expect(quizService.getNextQuestion).toHaveBeenCalledWith(
             stateWithoutQuestions.quiz.questions
           );

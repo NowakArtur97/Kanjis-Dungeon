@@ -75,17 +75,27 @@ const _quizReducer = createReducer(
       : [...state.mistakes, mistake],
   })),
 
+  // TODO: TEST
   on(QuizActions.changeQuizOptions, (state, { quizOptions }) => ({
     ...state,
     quizOptions,
     questions: [],
-    answers: [],
-    mistakes: [],
   })),
 
-  on(QuizActions.shouldShowSummary, (state, { shouldShowSummary }) => ({
+  on(QuizActions.showSummary, (state) => ({
     ...state,
-    shouldShowSummary,
+    shouldShowSummary: true,
+  })),
+
+  // TODO: TEST
+  on(QuizActions.resetQuiz, (state) => ({
+    ...state,
+    quizOptions: DEFAULT_QUIZ_OPTIONS,
+    nextQuestion: null,
+    questions: [],
+    answers: [],
+    mistakes: [],
+    shouldShowSummary: false,
   }))
 );
 

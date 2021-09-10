@@ -18,3 +18,5 @@ export const finishCharacterAnimation = createAction(
 );
 
 export const completeLevel = createAction('[Game] Complete Level');
+
+export const resetGame = createAction('[Game] Reset Game');
