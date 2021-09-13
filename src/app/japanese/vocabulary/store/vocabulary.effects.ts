@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { map, switchMap } from 'rxjs/operators';
+import CharacterUtil from 'src/app/common/utils/character.util';
 
 import * as KanjiActions from '../../kanji/store/kanji.actions';
+import Word from '../models/word.model';
 import VocabularyService from '../services/vocabulary.service';
 import VOCABULARY from '../vocabulary.data';
 import * as VocabularyActions from './vocabulary.actions';
@@ -14,10 +16,15 @@ export default class VocabularyEffects {
     private vocabularyService: VocabularyService
   ) {}
 
+  // TODO: TEST
   saveVocabulary$ = createEffect(() =>
     this.actions$.pipe(
       ofType(VocabularyActions.saveVocabulary),
-      switchMap(() => this.vocabularyService.save(VOCABULARY)),
+      switchMap(() =>
+        this.vocabularyService.save(
+          CharacterUtil.setUpIds(VOCABULARY) as Word[]
+        )
+      ),
       map((vocabulary) => VocabularyActions.setVocabulary({ vocabulary }))
     )
   );

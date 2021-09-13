@@ -14,8 +14,7 @@ export default class EnemyService {
   setupEnemies(enemies: Character[]): Character[] {
     let id = 1;
     return cloneDeep(enemies).map((enemy: Character) => {
-      enemy.id = id++;
-      return enemy;
+      return { ...enemy, id: id++ };
     });
   }
 
