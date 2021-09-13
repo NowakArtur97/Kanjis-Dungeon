@@ -79,20 +79,26 @@ export default class PlayerEffects {
     )
   );
 
+  // TODO: TEST
   startPlayerTurn$ = createEffect(() =>
     this.actions$.pipe(
       ofType(PlayerActions.startPlayerTurn),
       withLatestFrom(
         this.store.select((state) => state.level.level),
-        this.store.select((state) => state.enemy.enemies)
+        this.store.select((state) => state.enemy.enemies),
+        this.store.select((state) => state.player.player)
       ),
-      map(([, level, enemies]) =>
-        enemies.length === 0
-          ? GameActions.completeLevel({ result: GameResult.WIN })
-          : QuizActions.changeQuizOptions({
-              quizOptions: level.quizOptions,
-            })
-      )
+      map(([, level, enemies, player]) => {
+        if (enemies.length === 0) {
+          return GameActions.completeLevel({ result: GameResult.WIN });
+        } else if (player.stats.currentHealth <= 0) {
+          return GameActions.completeLevel({ result: GameResult.LOSE });
+        } else {
+          return QuizActions.changeQuizOptions({
+            quizOptions: level.quizOptions,
+          });
+        }
+      })
     )
   );
 
