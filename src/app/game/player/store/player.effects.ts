@@ -79,7 +79,6 @@ export default class PlayerEffects {
     )
   );
 
-  // TODO: TEST
   startPlayerTurn$ = createEffect(() =>
     this.actions$.pipe(
       ofType(PlayerActions.startPlayerTurn),

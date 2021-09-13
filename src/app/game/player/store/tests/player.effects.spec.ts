@@ -265,25 +265,26 @@ describe('PlayerEffects', () => {
   });
 
   describe('startPlayerTurn$', () => {
+    const quizOptions: QuizOptions = {
+      numberOfQuestions: 3,
+      minNumberOfProperties: DEFAULT_MIN_NUMBER_OF_PROPERTIES,
+      shouldShowAnswer: true,
+      shouldHideRandomProperties: false,
+      excludedProperties: new Map([
+        [CharacterType.RADICAL, DEFAULT_EXCLUDED_PROPERTIES],
+        [CharacterType.KANJI, DEFAULT_EXCLUDED_PROPERTIES],
+        [CharacterType.VOCABULARY, DEFAULT_EXCLUDED_PROPERTIES],
+      ]),
+      questionTypes: [CharacterType.RADICAL],
+    };
+    const level: Level = {
+      levelType: LevelType.RADICAL,
+      enemies: [pigWarrior],
+      quizOptions,
+    };
+
     describe('with dead enemies', () => {
-      const quizOptions: QuizOptions = {
-        numberOfQuestions: 3,
-        minNumberOfProperties: DEFAULT_MIN_NUMBER_OF_PROPERTIES,
-        shouldShowAnswer: true,
-        shouldHideRandomProperties: false,
-        excludedProperties: new Map([
-          [CharacterType.RADICAL, DEFAULT_EXCLUDED_PROPERTIES],
-          [CharacterType.KANJI, DEFAULT_EXCLUDED_PROPERTIES],
-          [CharacterType.VOCABULARY, DEFAULT_EXCLUDED_PROPERTIES],
-        ]),
-        questionTypes: [CharacterType.RADICAL],
-      };
-      const level: Level = {
-        levelType: LevelType.RADICAL,
-        enemies: [pigWarrior],
-        quizOptions,
-      };
-      const stateWithLevel: Partial<AppStoreState> = {
+      const stateWithLevelAndDeadEnemies: Partial<AppStoreState> = {
         player: {
           ...initialState,
         },
@@ -299,13 +300,12 @@ describe('PlayerEffects', () => {
           enemies: [],
         },
       };
-
       beforeEach(() =>
         TestBed.configureTestingModule({
           imports: [StoreModule.forRoot({})],
           providers: [
             PlayerEffects,
-            provideMockStore({ initialState: stateWithLevel }),
+            provideMockStore({ initialState: stateWithLevelAndDeadEnemies }),
             {
               provide: Store,
               useClass: MockStore,
@@ -331,6 +331,68 @@ describe('PlayerEffects', () => {
           playerEffects.startPlayerTurn$.subscribe((resultAction) => {
             expect(resultAction).toEqual(
               GameActions.completeLevel({ result: GameResult.WIN })
+            );
+          });
+        });
+      });
+    });
+
+    describe('with dead player', () => {
+      const stateWithLevelAndDeadPlayer: Partial<AppStoreState> = {
+        player: {
+          ...initialState,
+          player: {
+            ...defaultPlayer,
+            stats: {
+              ...defaultPlayer.stats,
+              currentHealth: 0,
+            },
+          },
+        },
+        game: {
+          ...gameInitialState,
+        },
+        level: {
+          ...levelInitialState,
+          level,
+        },
+        enemy: {
+          allEnemies: ALL_ENEMIES,
+          enemies: [pigWarrior],
+        },
+      };
+
+      beforeEach(() =>
+        TestBed.configureTestingModule({
+          imports: [StoreModule.forRoot({})],
+          providers: [
+            PlayerEffects,
+            provideMockStore({ initialState: stateWithLevelAndDeadPlayer }),
+            {
+              provide: Store,
+              useClass: MockStore,
+            },
+            provideMockActions(() => actions$),
+          ],
+        })
+      );
+
+      beforeEach(() => {
+        playerEffects = TestBed.inject(PlayerEffects);
+        playerService = TestBed.inject(PlayerService);
+        characterService = TestBed.inject(CharacterService);
+      });
+
+      describe('when starting level', () => {
+        beforeEach(() => {
+          actions$ = new ReplaySubject(1);
+          actions$.next(PlayerActions.startPlayerTurn());
+        });
+
+        it('should return a completeLevel action', () => {
+          playerEffects.startPlayerTurn$.subscribe((resultAction) => {
+            expect(resultAction).toEqual(
+              GameActions.completeLevel({ result: GameResult.LOSE })
             );
           });
         });

@@ -87,7 +87,6 @@ export class QuizSummaryComponent implements OnInit, OnDestroy {
               ? 'victory'
               : 'defeat'
             : 'default';
-        console.log(property);
         this.message = this.messages[property];
         this.messageColor = this.colors[property];
       });
