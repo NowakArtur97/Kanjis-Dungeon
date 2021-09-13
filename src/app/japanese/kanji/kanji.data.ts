@@ -3,7 +3,6 @@ import Kanji from './models/kanji.model';
 
 const KANJI: Kanji[] = [
   {
-    id: 1,
     characters: '上',
     meanings: ['above', 'up', 'over'],
     onyomi: ['じょう'],
@@ -11,7 +10,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 2,
     characters: '下',
     meanings: ['below', 'down', 'under', 'beneath'],
     onyomi: ['か', 'げ'],
@@ -19,7 +17,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 3,
     characters: '大',
     meanings: ['big', 'large'],
     onyomi: ['たい', 'だい'],
@@ -28,14 +25,12 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 4,
     characters: '工',
     meanings: ['construction', 'industry', 'artisan', 'work', 'craft'],
     onyomi: ['こう', 'く'],
     type: CharacterType.KANJI,
   },
   {
-    id: 5,
     characters: '八',
     meanings: ['eight'],
     onyomi: ['はち'],
@@ -43,7 +38,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 6,
     characters: '入',
     meanings: ['enter'],
     onyomi: ['にゅう'],
@@ -51,7 +45,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 7,
     characters: '山',
     meanings: ['mountain'],
     onyomi: ['さん'],
@@ -59,7 +52,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 8,
     characters: '口',
     meanings: ['mouth'],
     onyomi: ['こう', 'く'],
@@ -67,7 +59,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 9,
     characters: '九',
     meanings: ['nine'],
     onyomi: ['く', 'きゅう'],
@@ -75,7 +66,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 10,
     characters: '一',
     meanings: ['one'],
     onyomi: ['いち', 'いつ'],
@@ -84,7 +74,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 11,
     characters: '人',
     meanings: ['person'],
     onyomi: ['にん', 'じん'],
@@ -92,7 +81,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 12,
     characters: '力',
     meanings: ['power', 'strength'],
     onyomi: ['りょく', 'りき'],
@@ -100,7 +88,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 13,
     characters: '川',
     meanings: ['river'],
     onyomi: ['せん'],
@@ -108,7 +95,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 14,
     characters: '七',
     meanings: ['seven'],
     onyomi: ['しち'],
@@ -116,7 +102,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 15,
     characters: '十',
     meanings: ['ten'],
     onyomi: ['じゅう'],
@@ -124,7 +109,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 16,
     characters: '三',
     meanings: ['three'],
     onyomi: ['さん'],
@@ -132,7 +116,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 17,
     characters: '二',
     meanings: ['two'],
     onyomi: ['に'],
@@ -140,7 +123,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 18,
     characters: '女',
     meanings: ['woman'],
     onyomi: ['じょ'],
@@ -148,14 +130,12 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 19,
     characters: '又',
     meanings: ['again'],
     kunyomi: ['また'],
     type: CharacterType.KANJI,
   },
   {
-    id: 20,
     characters: '玉',
     meanings: ['ball'],
     onyomi: ['ぎょく'],
@@ -163,7 +143,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 21,
     characters: '本',
     meanings: ['book', 'origin', 'real', 'main'],
     onyomi: ['ほん'],
@@ -171,7 +150,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 22,
     characters: '子',
     meanings: ['child', 'kid'],
     onyomi: ['し', 'す'],
@@ -179,7 +157,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 23,
     characters: '丸',
     meanings: ['circle', 'circular', 'round'],
     onyomi: ['がん'],
@@ -187,7 +164,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 24,
     characters: '正',
     meanings: ['correct'],
     onyomi: ['せい', 'しょう'],
@@ -195,7 +171,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 25,
     characters: '土',
     meanings: ['dirt', 'soil', 'earth', 'ground'],
     onyomi: ['ど', 'と'],
@@ -203,7 +178,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 26,
     characters: '犬',
     meanings: ['dog'],
     onyomi: ['けん'],
@@ -211,7 +185,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 27,
     characters: '夕',
     meanings: ['evening'],
     onyomi: ['せき'],
@@ -219,7 +192,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 28,
     characters: '出',
     meanings: ['exit'],
     onyomi: ['しゅつ'],
@@ -227,7 +199,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 29,
     characters: '目',
     meanings: ['eye'],
     onyomi: ['もく'],
@@ -235,14 +206,12 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 30,
     characters: '了',
     meanings: ['finish', 'complete', 'end'],
     onyomi: ['りょう'],
     type: CharacterType.KANJI,
   },
   {
-    id: 31,
     characters: '火',
     meanings: ['fire'],
     onyomi: ['か'],
@@ -250,7 +219,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 32,
     characters: '五',
     meanings: ['five'],
     onyomi: ['ご'],
@@ -258,7 +226,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 33,
     characters: '四',
     meanings: ['four'],
     onyomi: ['し'],
@@ -266,14 +233,12 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 34,
     characters: '才',
     meanings: ['genius', 'wit', 'talent', 'ability'],
     onyomi: ['さい'],
     type: CharacterType.KANJI,
   },
   {
-    id: 35,
     characters: '手',
     meanings: ['hand'],
     onyomi: ['しゅ', 'ず'],
@@ -281,7 +246,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 36,
     characters: '天',
     meanings: ['heaven'],
     onyomi: ['てん'],
@@ -289,14 +253,12 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 37,
     characters: '王',
     meanings: ['king'],
     onyomi: ['おう'],
     type: CharacterType.KANJI,
   },
   {
-    id: 38,
     characters: '左',
     meanings: ['left'],
     onyomi: ['さ'],
@@ -304,7 +266,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 39,
     characters: '中',
     meanings: ['middle', 'in', 'inside', 'center'],
     onyomi: ['ちゅう'],
@@ -312,7 +273,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 40,
     characters: '月',
     meanings: ['moon', 'month'],
     onyomi: ['げつ', 'がつ'],
@@ -320,14 +280,12 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 41,
     characters: '々',
     meanings: ['repeater', 'repetition', 'reduplication', 'iteration mark'],
     kunyomi: ['のま'],
     type: CharacterType.KANJI,
   },
   {
-    id: 42,
     characters: '田',
     meanings: ['rice paddy', 'rice field', 'field'],
     onyomi: ['でん'],
@@ -335,7 +293,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 43,
     characters: '右',
     meanings: ['right'],
     onyomi: ['ゆう', 'う'],
@@ -343,7 +300,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 44,
     characters: '六',
     meanings: ['six'],
     onyomi: ['ろく'],
@@ -351,7 +307,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 45,
     characters: '小',
     meanings: ['small', 'little'],
     onyomi: ['しょう'],
@@ -359,7 +314,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 46,
     characters: '立',
     meanings: ['stand'],
     onyomi: ['りつ', 'りゅう'],
@@ -367,14 +321,12 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 47,
     characters: '丁',
     meanings: ['street'],
     onyomi: ['ちょう', 'てい'],
     type: CharacterType.KANJI,
   },
   {
-    id: 48,
     characters: '日',
     meanings: ['sun', 'day'],
     onyomi: ['にち', 'じつ'],
@@ -382,7 +334,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 49,
     characters: '刀',
     meanings: ['sword', 'katana'],
     onyomi: ['とう'],
@@ -390,7 +341,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 50,
     characters: '千',
     meanings: ['thousand'],
     onyomi: ['せん'],
@@ -398,7 +348,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 51,
     characters: '木',
     meanings: ['tree', 'wood'],
     onyomi: ['もく', 'ぼく'],
@@ -406,7 +355,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 52,
     characters: '水',
     meanings: ['water'],
     onyomi: ['すい'],
@@ -414,7 +362,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 53,
     characters: '白',
     meanings: ['white'],
     onyomi: ['はく'],
@@ -422,7 +369,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 54,
     characters: '文',
     meanings: ['writing', 'sentence'],
     onyomi: ['ぶん', 'もん'],
@@ -430,7 +376,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 55,
     characters: '円',
     meanings: ['yen', 'round', 'circle'],
     onyomi: ['えん'],
@@ -438,7 +383,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 56,
     characters: '矢',
     meanings: ['arrow'],
     onyomi: ['し'],
@@ -446,7 +390,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 57,
     characters: '市',
     meanings: ['city'],
     onyomi: ['し'],
@@ -454,7 +397,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 58,
     characters: '牛',
     meanings: ['cow'],
     onyomi: ['ぎゅう'],
@@ -462,7 +404,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 59,
     characters: '切',
     meanings: ['cut'],
     onyomi: ['せつ'],
@@ -470,7 +411,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 60,
     characters: '方',
     meanings: ['direction', 'way'],
     onyomi: ['ほう'],
@@ -478,7 +418,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 61,
     characters: '戸',
     meanings: ['door'],
     onyomi: ['こ'],
@@ -486,7 +425,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 62,
     characters: '太',
     meanings: ['fat'],
     onyomi: ['たい', 'た'],
@@ -495,7 +433,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 63,
     characters: '父',
     meanings: ['father', 'dad'],
     onyomi: ['ふ'],
@@ -503,7 +440,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 64,
     characters: '少',
     meanings: ['few', 'a little'],
     onyomi: ['しょう'],
@@ -511,7 +447,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 65,
     characters: '友',
     meanings: ['friend'],
     onyomi: ['ゆう'],
@@ -519,7 +454,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 66,
     characters: '毛',
     meanings: ['fur', 'hair'],
     onyomi: ['もう'],
@@ -527,7 +461,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 67,
     characters: '半',
     meanings: ['half'],
     onyomi: ['はん'],
@@ -535,7 +468,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 68,
     characters: '心',
     meanings: ['heart'],
     onyomi: ['しん'],
@@ -543,7 +475,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 69,
     characters: '内',
     meanings: ['inside', 'within'],
     onyomi: ['ない'],
@@ -551,7 +482,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 70,
     characters: '生',
     meanings: ['life'],
     onyomi: ['せい', 'しょう'],
@@ -559,14 +489,12 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 71,
     characters: '台',
     meanings: ['machine'],
     onyomi: ['だい', 'たい'],
     type: CharacterType.KANJI,
   },
   {
-    id: 72,
     characters: '母',
     meanings: ['mother', 'mom'],
     onyomi: ['ぼ'],
@@ -574,14 +502,12 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 73,
     characters: '午',
     meanings: ['noon'],
     onyomi: ['ご'],
     type: CharacterType.KANJI,
   },
   {
-    id: 74,
     characters: '北',
     meanings: ['north'],
     onyomi: ['ほく'],
@@ -589,7 +515,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 75,
     characters: '今',
     meanings: ['now', 'immediately'],
     onyomi: ['こん', 'きん'],
@@ -597,7 +522,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 76,
     characters: '古',
     meanings: ['old'],
     onyomi: ['こ'],
@@ -605,7 +529,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 77,
     characters: '元',
     meanings: ['origin'],
     onyomi: ['げん', 'がん'],
@@ -613,7 +536,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 78,
     characters: '外',
     meanings: ['outside'],
     onyomi: ['がい'],
@@ -621,7 +543,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 79,
     characters: '分',
     meanings: ['part'],
     onyomi: ['ぶん', 'ふん', 'ぶ'],
@@ -629,14 +550,12 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 80,
     characters: '公',
     meanings: ['public'],
     onyomi: ['こう'],
     type: CharacterType.KANJI,
   },
   {
-    id: 81,
     characters: '引',
     meanings: ['pull'],
     onyomi: ['いん'],
@@ -644,7 +563,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 82,
     characters: '止',
     meanings: ['stop'],
     onyomi: ['し'],
@@ -652,7 +570,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 83,
     characters: '用',
     meanings: ['task', 'use'],
     onyomi: ['よう'],
@@ -660,14 +577,12 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 84,
     characters: '万',
     meanings: ['ten thousand'],
     onyomi: ['まん', 'ばん'],
     type: CharacterType.KANJI,
   },
   {
-    id: 85,
     characters: '広',
     meanings: ['wide', 'broad', 'spread'],
     onyomi: ['こう'],
@@ -675,7 +590,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 86,
     characters: '冬',
     meanings: ['winter'],
     onyomi: ['とう'],
@@ -683,7 +597,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 87,
     characters: '百',
     meanings: ['hundred'],
     onyomi: ['ひゃく'],
@@ -691,7 +604,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 88,
     characters: '金',
     meanings: ['gold'],
     onyomi: ['きん'],
@@ -699,7 +611,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 89,
     characters: '休',
     meanings: ['rest'],
     onyomi: ['きゅう'],
@@ -707,7 +618,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 90,
     characters: '耳',
     meanings: ['ear', 'ears'],
     onyomi: ['じ'],
@@ -715,7 +625,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 91,
     characters: '足',
     meanings: ['foot', 'leg', 'sufficient'],
     onyomi: ['そく'],
@@ -723,7 +632,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 92,
     characters: '男',
     meanings: ['man', 'boy'],
     onyomi: ['だん', 'なん'],
@@ -731,7 +639,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 93,
     characters: '空',
     meanings: ['sky', 'empty'],
     onyomi: ['くう'],
@@ -739,7 +646,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 94,
     characters: '気',
     meanings: ['energy', 'spirit'],
     onyomi: ['き', 'け'],
@@ -747,7 +653,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 95,
     characters: '見',
     meanings: ['see'],
     onyomi: ['けん'],
@@ -755,7 +660,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 96,
     characters: '雨',
     meanings: ['rain'],
     onyomi: ['う'],
@@ -763,7 +667,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 97,
     characters: '林',
     meanings: ['forest', 'grove'],
     onyomi: ['りん'],
@@ -771,7 +674,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 98,
     characters: '森',
     meanings: ['forest', 'woods'],
     onyomi: ['しん'],
@@ -779,7 +681,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 99,
     characters: '石',
     meanings: ['stone'],
     onyomi: ['せき'],
@@ -787,7 +688,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 100,
     characters: '花',
     meanings: ['flower'],
     onyomi: ['か', 'け'],
@@ -795,7 +695,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 101,
     characters: '虫',
     meanings: ['insect', 'bug'],
     onyomi: ['ちゅう', 'き'],
@@ -803,7 +702,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 102,
     characters: '町',
     meanings: ['town'],
     onyomi: ['ちょう'],
@@ -811,7 +709,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 103,
     characters: '村',
     meanings: ['village'],
     onyomi: ['そん'],
@@ -819,7 +716,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 104,
     characters: '赤',
     meanings: ['red'],
     onyomi: ['せき'],
@@ -827,7 +723,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 105,
     characters: '青',
     meanings: ['blue'],
     onyomi: ['せい', 'しょう'],
@@ -835,7 +730,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 106,
     characters: '先',
     meanings: ['previous', 'ahead', 'past', 'former'],
     onyomi: ['せん'],
@@ -843,7 +737,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 107,
     characters: '早',
     meanings: ['early', 'fast', 'quick'],
     onyomi: ['そう'],
@@ -851,7 +744,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 107,
     characters: '名',
     meanings: ['name', 'famous'],
     onyomi: ['めい', 'みょう'],
@@ -859,14 +751,12 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 108,
     characters: '校',
     meanings: ['school'],
     onyomi: ['こう'],
     type: CharacterType.KANJI,
   },
   {
-    id: 109,
     characters: '字',
     meanings: ['letter', 'character', 'symbol'],
     onyomi: ['じ'],
@@ -874,7 +764,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 110,
     characters: '学',
     meanings: ['study', 'learn', 'learning'],
     onyomi: ['がく'],
@@ -882,7 +771,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 111,
     characters: '年',
     meanings: ['year'],
     onyomi: ['ねん'],
@@ -890,7 +778,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 112,
     characters: '音',
     meanings: ['sound'],
     onyomi: ['おん', 'いん'],
@@ -898,7 +785,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 113,
     characters: '糸',
     meanings: ['thread'],
     onyomi: ['し'],
@@ -906,7 +792,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 114,
     characters: '車',
     meanings: ['car'],
     onyomi: ['しゃ'],
@@ -914,14 +799,12 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 115,
     characters: '貝',
     meanings: ['shellfish', 'shell'],
     kunyomi: ['かい'],
     type: CharacterType.KANJI,
   },
   {
-    id: 116,
     characters: '草',
     meanings: ['grass', 'weed'],
     onyomi: ['そう'],
@@ -929,14 +812,12 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 117,
     characters: '竹',
     meanings: ['bamboo'],
     kunyomi: ['たけ'],
     type: CharacterType.KANJI,
   },
   {
-    id: 118,
     characters: '雲',
     meanings: ['cloud'],
     onyomi: ['うん'],
@@ -944,7 +825,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 119,
     characters: '何',
     meanings: ['what'],
     onyomi: ['か'],
@@ -952,14 +832,12 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 120,
     characters: '科',
     meanings: ['course', 'science', 'department'],
     onyomi: ['か'],
     type: CharacterType.KANJI,
   },
   {
-    id: 121,
     characters: '遠',
     meanings: ['far'],
     onyomi: ['えん'],
@@ -967,7 +845,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 122,
     characters: '夏',
     meanings: ['summer'],
     onyomi: ['げ', 'か', 'が'],
@@ -975,7 +852,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 123,
     characters: '家',
     meanings: ['house', 'home'],
     onyomi: ['か', 'け'],
@@ -983,7 +859,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 124,
     characters: '歌',
     meanings: ['song', 'sing'],
     onyomi: ['か'],
@@ -991,14 +866,12 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 125,
     characters: '画',
     meanings: ['drawing', 'picture', 'painting'],
     onyomi: ['が', 'かく'],
     type: CharacterType.KANJI,
   },
   {
-    id: 126,
     characters: '会',
     meanings: ['meet'],
     onyomi: ['かい'],
@@ -1006,7 +879,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 127,
     characters: '海',
     meanings: ['sea', 'ocean'],
     onyomi: ['かい'],
@@ -1014,7 +886,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 128,
     characters: '回',
     meanings: ['times', 'revolve', 'turn', 'go around'],
     onyomi: ['かい'],
@@ -1022,14 +893,12 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 129,
     characters: '絵',
     meanings: ['drawing', 'picture', 'painting'],
     onyomi: ['かい', 'え'],
     type: CharacterType.KANJI,
   },
   {
-    id: 130,
     characters: '園',
     meanings: ['garden', 'park'],
     onyomi: ['えん'],
@@ -1037,7 +906,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 131,
     characters: '間',
     meanings: ['interval', 'space'],
     onyomi: ['かん', 'けん'],
@@ -1045,7 +913,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 132,
     characters: '顔',
     meanings: ['face'],
     onyomi: ['がん'],
@@ -1053,14 +920,12 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 133,
     characters: '汽',
     meanings: ['steam'],
     onyomi: ['き'],
     type: CharacterType.KANJI,
   },
   {
-    id: 134,
     characters: '記',
     meanings: ['write down', 'record', 'chronicle'],
     onyomi: ['き'],
@@ -1068,7 +933,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 135,
     characters: '帰',
     meanings: ['return', 'return home'],
     onyomi: ['き'],
@@ -1076,7 +940,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 136,
     characters: '魚',
     meanings: ['fish'],
     onyomi: ['ぎょ'],
@@ -1084,7 +947,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 137,
     characters: '京',
     meanings: ['capital'],
     onyomi: ['きょう', 'けい'],
@@ -1092,7 +954,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 138,
     characters: '教',
     meanings: ['teach'],
     onyomi: ['きょう'],
@@ -1100,7 +961,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 139,
     characters: '強',
     meanings: ['strong', 'strength', 'strengthen'],
     onyomi: ['きょう', 'ごう'],
@@ -1108,7 +968,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 140,
     characters: '角',
     meanings: ['angle', 'corner', 'antler'],
     onyomi: ['かく'],
@@ -1116,7 +975,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 141,
     characters: '近',
     meanings: ['near', 'close'],
     onyomi: ['きん', 'こん'],
@@ -1124,7 +982,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 142,
     characters: '形',
     meanings: ['shape', 'form', 'appearance'],
     onyomi: ['けい', 'ぎょう'],
@@ -1132,7 +989,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 143,
     characters: '計',
     meanings: ['measure', 'measurement', 'plan'],
     onyomi: ['けい'],
@@ -1140,7 +996,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 144,
     characters: '語',
     meanings: ['language', 'speak', 'word'],
     onyomi: ['ご'],
@@ -1148,7 +1003,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 145,
     characters: '原',
     meanings: ['original', 'fundamental', 'field'],
     onyomi: ['げん'],
@@ -1156,7 +1010,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 146,
     characters: '後',
     meanings: ['after', 'behind', 'back', 'later'],
     onyomi: ['ご', 'こう'],
@@ -1164,7 +1017,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 147,
     characters: '交',
     meanings: ['mix', 'mingle', 'exchange', 'intercourse'],
     onyomi: ['こう'],
@@ -1172,7 +1024,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 148,
     characters: '光',
     meanings: ['sunlight', 'light', 'shine', 'brilliance'],
     onyomi: ['こう'],
@@ -1180,7 +1031,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 149,
     characters: '行',
     meanings: ['go', 'do', 'conduct', 'stroke'],
     onyomi: ['こう', 'ぎょう'],
@@ -1188,7 +1038,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 150,
     characters: '考',
     meanings: ['think', 'consider'],
     onyomi: ['こう'],
@@ -1196,7 +1045,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 151,
     characters: '高',
     meanings: ['tall', 'expensive', 'high'],
     onyomi: ['こう'],
@@ -1204,7 +1052,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 152,
     characters: '黄',
     meanings: ['yellow'],
     onyomi: ['こう', 'おう'],
@@ -1212,7 +1059,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 153,
     characters: '合',
     meanings: ['combine', 'join', 'union', 'fit', 'suit'],
     onyomi: ['ごう', 'がっ', 'かっ'],
@@ -1220,7 +1066,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 154,
     characters: '谷',
     meanings: ['valley'],
     onyomi: ['こく'],
@@ -1229,7 +1074,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 155,
     characters: '国',
     meanings: ['country', 'nation'],
     onyomi: ['こく'],
@@ -1237,7 +1081,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 156,
     characters: '黒',
     meanings: ['black'],
     onyomi: ['こく'],
@@ -1245,7 +1088,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 157,
     characters: '作',
     meanings: ['make', 'work'],
     onyomi: ['さく', 'さ'],
@@ -1253,7 +1095,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 158,
     characters: '算',
     meanings: ['calculate', 'count'],
     onyomi: ['さん'],
@@ -1261,7 +1102,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 159,
     characters: '自',
     meanings: ['oneself', 'self'],
     onyomi: ['じ', 'し'],
@@ -1269,7 +1109,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 160,
     characters: '寺',
     meanings: ['temple'],
     onyomi: ['じ'],
@@ -1277,7 +1116,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 161,
     characters: '時',
     meanings: ['time', `o'clock`, 'hour', 'occasion'],
     onyomi: ['じ'],
@@ -1285,7 +1123,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 162,
     characters: '思',
     meanings: ['think', 'thought'],
     onyomi: ['し'],
@@ -1293,7 +1130,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 163,
     characters: '紙',
     meanings: ['paper'],
     onyomi: ['し'],
@@ -1301,7 +1137,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 164,
     characters: '室',
     meanings: ['room'],
     onyomi: ['しつ'],
@@ -1309,7 +1144,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 165,
     characters: '社',
     meanings: ['shrine', 'company', 'society'],
     onyomi: ['しゃ'],
@@ -1317,7 +1151,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 166,
     characters: '弱',
     meanings: ['weak'],
     onyomi: ['じゃく'],
@@ -1325,7 +1158,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 165,
     characters: '首',
     meanings: ['neck'],
     onyomi: ['しゅ'],
@@ -1333,7 +1165,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 166,
     characters: '秋',
     meanings: ['autumn', 'fall'],
     onyomi: ['しゅう'],
@@ -1341,7 +1172,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 167,
     characters: '春',
     meanings: ['spring'],
     onyomi: ['しゅん'],
@@ -1349,11 +1179,52 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 168,
     characters: '書',
     meanings: ['write', 'writing', 'book'],
     onyomi: ['しょ'],
     kunyomi: ['か'],
+    type: CharacterType.KANJI,
+  },
+  {
+    characters: '場',
+    meanings: ['location', 'place'],
+    onyomi: ['じょう'],
+    kunyomi: ['ば'],
+    type: CharacterType.KANJI,
+  },
+  {
+    characters: '色',
+    meanings: ['color'],
+    onyomi: ['しき', 'しょく'],
+    kunyomi: ['いろ'],
+    type: CharacterType.KANJI,
+  },
+  {
+    characters: '食',
+    meanings: ['eat', 'meal'],
+    onyomi: ['しょく', 'じき'],
+    kunyomi: ['た', 'く'],
+    type: CharacterType.KANJI,
+  },
+  {
+    characters: '新',
+    meanings: ['new', 'fresh', 'novel'],
+    onyomi: ['しん'],
+    kunyomi: ['あたら', 'あら', 'にい'],
+    type: CharacterType.KANJI,
+  },
+  {
+    characters: '親',
+    meanings: ['parent', 'intimate'],
+    onyomi: ['しん'],
+    kunyomi: ['おや', 'した'],
+    type: CharacterType.KANJI,
+  },
+  {
+    characters: '図',
+    meanings: ['diagram', 'figure', 'drawing'],
+    onyomi: ['ず', 'と'],
+    kunyomi: ['え', 'はか'],
     type: CharacterType.KANJI,
   },
 ];

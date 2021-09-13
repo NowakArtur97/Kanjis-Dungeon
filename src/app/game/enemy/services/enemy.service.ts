@@ -11,7 +11,7 @@ import GameCard from '../../deck/models/game-card.model';
 
 @Injectable({ providedIn: 'root' })
 export default class EnemyService {
-  chooseEnemies(enemies: Character[]): Character[] {
+  setupEnemies(enemies: Character[]): Character[] {
     let id = 1;
     return cloneDeep(enemies).map((enemy: Character) => {
       enemy.id = id++;

@@ -29,7 +29,7 @@ export default class EnemyEffects {
       switchMap(({ level }) =>
         of(
           this.enemyService.chooseRandomEnemiesActions(
-            this.enemyService.chooseEnemies(level.enemies)
+            this.enemyService.setupEnemies(level.enemies)
           )
         )
       ),

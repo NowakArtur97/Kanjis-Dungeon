@@ -61,7 +61,6 @@ export class QuizSummaryComponent implements OnInit, OnDestroy {
       .select('quiz')
       .subscribe(({ mistakes, shouldShowSummary }) => {
         this.isVisible = shouldShowSummary;
-        console.log(shouldShowSummary);
         this.mistakes = mistakes;
         setTimeout(() => {
           this.messageState = this.isVisible

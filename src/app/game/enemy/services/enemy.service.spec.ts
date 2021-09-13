@@ -142,7 +142,7 @@ describe('enemyService', () => {
 
   describe('when choose enemies', () => {
     it('should return enemies with ids', () => {
-      const enemiesActual = enemyService.chooseEnemies(allEnemies);
+      const enemiesActual = enemyService.setupEnemies(allEnemies);
 
       expect(enemiesActual).toEqual(enemiesWithIds);
       expect(enemiesActual).toContain(enemyWithId1);

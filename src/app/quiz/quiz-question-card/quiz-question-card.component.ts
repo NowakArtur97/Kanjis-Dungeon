@@ -152,13 +152,6 @@ export class QuizQuestionCardComponent
     this.cardStatus = CardStatus.CHECK;
   }
 
-  isDisabled = (property: string): boolean =>
-    this.quizOptions?.excludedProperties
-      .get(this.currentCharacter?.type)
-      ?.includes(property)
-      ? true
-      : null;
-
   hasCharacter = (): boolean =>
     this.currentCharacter?.meanings === undefined ? true : null;
 }

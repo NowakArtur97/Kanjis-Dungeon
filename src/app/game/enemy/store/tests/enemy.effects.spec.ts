@@ -148,7 +148,7 @@ describe('EnemyEffects', () => {
           {
             provide: EnemyService,
             useValue: jasmine.createSpyObj('enemyService', [
-              'chooseEnemies',
+              'setupEnemies',
               'useCardOnEnemy',
               'chooseRandomEnemiesActions',
               'applyStatusesOnEnemies',
@@ -176,7 +176,7 @@ describe('EnemyEffects', () => {
         actions$ = new ReplaySubject(1);
         actions$.next(LevelActions.chooseLevel({ level }));
 
-        (enemyService.chooseEnemies as jasmine.Spy).and.returnValue(enemies);
+        (enemyService.setupEnemies as jasmine.Spy).and.returnValue(enemies);
         (enemyService.chooseRandomEnemiesActions as jasmine.Spy).and.returnValue(
           enemiesWithActions
         );
@@ -191,7 +191,7 @@ describe('EnemyEffects', () => {
             EnemyActions.setEnemies({ enemies: enemiesWithPositions })
           );
           expect(characterService.setRandomTopOffset).toHaveBeenCalledTimes(3);
-          expect(enemyService.chooseEnemies).toHaveBeenCalledTimes(1);
+          expect(enemyService.setupEnemies).toHaveBeenCalledTimes(1);
           expect(enemyService.chooseRandomEnemiesActions).toHaveBeenCalledTimes(
             1
           );
