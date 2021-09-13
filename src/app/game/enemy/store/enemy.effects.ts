@@ -58,17 +58,18 @@ export default class EnemyEffects {
     )
   );
 
-  applyStatusesOnEnemies$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(PlayerActions.startPlayerTurn),
-      withLatestFrom(this.store.select((state) => state.enemy.enemies)),
-      map(([, enemies]) =>
-        EnemyActions.setEnemies({
-          enemies: this.enemyService.applyStatusesOnEnemies(enemies),
-        })
-      )
-    )
-  );
+  // TODO: TEST / REMOVE
+  // applyStatusesOnEnemies$ = createEffect(() =>
+  //   this.actions$.pipe(
+  //     ofType(EnemyActions.endEnemyTurn),
+  //     withLatestFrom(this.store.select((state) => state.enemy.enemies)),
+  //     map(([, enemies]) =>
+  //       EnemyActions.setEnemies({
+  //         enemies: this.enemyService.applyStatusesOnEnemies(enemies),
+  //       })
+  //     )
+  //   )
+  // );
 
   startEnemyTurn$ = createEffect(() =>
     this.actions$.pipe(
@@ -145,11 +146,17 @@ export default class EnemyEffects {
     )
   );
 
+  // TODO: TEST
   endEnemyTurn$ = createEffect(() =>
     this.actions$.pipe(
       ofType(EnemyActions.endEnemyTurn),
       withLatestFrom(this.store.select((state) => state.enemy.enemies)),
-      switchMap(([, enemies]) =>
+      map(([, enemies]) =>
+        EnemyActions.setEnemies({
+          enemies: this.enemyService.applyStatusesOnEnemies(enemies),
+        })
+      ),
+      switchMap(({ enemies }) =>
         of(this.enemyService.chooseRandomEnemiesActions(enemies))
       ),
       mergeMap((enemies) => [
