@@ -33,3 +33,39 @@
   transform: scale(0) translate(-50%, -50%);
   transform-origin: 0 0;
 }
+
+@media (min-width: 667px) {
+  .quiz_summary__message {
+    font-size: 12em;
+  }
+}
+
+@media (min-width: 736px) {
+  .quiz_summary__message {
+    font-size: 13em;
+  }
+}
+
+@media (min-width: 823px) {
+  .quiz_summary__message {
+    font-size: 14em;
+  }
+}
+
+@media (min-width: 850px) {
+  .quiz_summary__message {
+    font-size: 15em;
+  }
+}
+
+@media (min-width: 1024px) {
+  .quiz_summary__message {
+    font-size: 17em;
+  }
+}
+
+@media (min-width: 1366px) {
+  .quiz_summary__message {
+    font-size: 25em;
+  }
+}
