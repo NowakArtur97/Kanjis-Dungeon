@@ -58,19 +58,6 @@ export default class EnemyEffects {
     )
   );
 
-  // TODO: TEST / REMOVE
-  // applyStatusesOnEnemies$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(EnemyActions.endEnemyTurn),
-  //     withLatestFrom(this.store.select((state) => state.enemy.enemies)),
-  //     map(([, enemies]) =>
-  //       EnemyActions.setEnemies({
-  //         enemies: this.enemyService.applyStatusesOnEnemies(enemies),
-  //       })
-  //     )
-  //   )
-  // );
-
   startEnemyTurn$ = createEffect(() =>
     this.actions$.pipe(
       ofType(EnemyActions.startEnemyTurn),
@@ -146,7 +133,6 @@ export default class EnemyEffects {
     )
   );
 
-  // TODO: TEST
   endEnemyTurn$ = createEffect(() =>
     this.actions$.pipe(
       ofType(EnemyActions.endEnemyTurn),

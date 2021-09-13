@@ -129,7 +129,6 @@ describe('EnemyEffects', () => {
     describe('finishCharacterAnimation$', () => {
       beforeEach(() => {
         actions$ = new ReplaySubject(1);
-        actions$.next(EnemyActions.endEnemyTurn);
         actions$.next(
           GameActions.finishCharacterAnimation({
             character: enemyWithAction1,

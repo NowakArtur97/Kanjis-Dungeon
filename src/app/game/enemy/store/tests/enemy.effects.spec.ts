@@ -3,7 +3,6 @@ import { provideMockActions } from '@ngrx/effects/testing';
 import { Store, StoreModule } from '@ngrx/store';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { ReplaySubject } from 'rxjs';
-import { skip, take } from 'rxjs/operators';
 import Character from 'src/app/game/character/models/character.model';
 import CharacterService from 'src/app/game/character/services/character.service';
 import { phoenixSummoningCard } from 'src/app/game/deck/deck.data';
@@ -18,7 +17,6 @@ import { DEFAULT_QUIZ_OPTIONS } from 'src/app/quiz/store/quiz.reducer';
 import AppStoreState from 'src/app/store/app.state';
 
 import * as LevelActions from '../../../level/store/level.actions';
-import * as PlayerActions from '../../../player/store/player.actions';
 import * as GameActions from '../../../store/game.actions';
 import { shieldAction, swordAction } from '../../enemy-action.data';
 import { imp, pigWarrior } from '../../enemy.data';
@@ -151,7 +149,6 @@ describe('EnemyEffects', () => {
               'setupEnemies',
               'useCardOnEnemy',
               'chooseRandomEnemiesActions',
-              'applyStatusesOnEnemies',
               'chooseFirstEnemyForAction',
             ]),
           },
@@ -218,22 +215,6 @@ describe('EnemyEffects', () => {
       });
     });
 
-    describe('applyStatusesOnEnemies$', () => {
-      beforeEach(() => {
-        actions$ = new ReplaySubject(1);
-        actions$.next(PlayerActions.startPlayerTurn);
-      });
-
-      it('with enemies without statuses should return a setEnemies action', () => {
-        enemyEffects.useCardOnEnemy$.subscribe((resultAction) => {
-          expect(resultAction).toEqual(
-            EnemyActions.setEnemies({ enemies: updatedEnemies })
-          );
-          expect(enemyService.applyStatusesOnEnemies).toHaveBeenCalledTimes(1);
-        });
-      });
-    });
-
     describe('startEnemyTurn$', () => {
       beforeEach(() => {
         actions$ = new ReplaySubject(1);
@@ -255,33 +236,6 @@ describe('EnemyEffects', () => {
           );
           expect(enemyService.chooseFirstEnemyForAction).toHaveBeenCalledTimes(
             1
-          );
-        });
-      });
-    });
-
-    describe('endEnemyTurn$', () => {
-      beforeEach(() => {
-        actions$ = new ReplaySubject(1);
-        actions$.next(EnemyActions.endEnemyTurn);
-        (enemyService.chooseRandomEnemiesActions as jasmine.Spy).and.returnValue(
-          enemiesWithActions
-        );
-      });
-
-      it('should return a setEnemies and changeTurn actions', () => {
-        enemyEffects.endEnemyTurn$.pipe(take(1)).subscribe((resultAction) => {
-          expect(resultAction).toEqual(
-            EnemyActions.setEnemies({ enemies: enemiesWithActions })
-          );
-          expect(enemyService.chooseRandomEnemiesActions).toHaveBeenCalledTimes(
-            1
-          );
-        });
-        enemyEffects.endEnemyTurn$.pipe(skip(1)).subscribe((resultAction) => {
-          expect(resultAction).toEqual(GameActions.changeTurn());
-          expect(enemyService.chooseRandomEnemiesActions).toHaveBeenCalledTimes(
-            2
           );
         });
       });

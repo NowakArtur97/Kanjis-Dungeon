@@ -3,6 +3,7 @@ import { provideMockActions } from '@ngrx/effects/testing';
 import { Store, StoreModule } from '@ngrx/store';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { ReplaySubject } from 'rxjs';
+import { skip, take } from 'rxjs/operators';
 import { burnedStatus, stunnedStatus } from 'src/app/game/character/character-statuses/character-status.data';
 import CharacterStatus from 'src/app/game/character/models/character-status.model';
 import Character from 'src/app/game/character/models/character.model';
@@ -13,7 +14,6 @@ import * as PlayerReducer from 'src/app/game/player/store/player.reducer';
 import { initialState as gameInitialState } from 'src/app/game/store/game.reducer';
 import AppStoreState from 'src/app/store/app.state';
 
-import * as PlayerActions from '../../../player/store/player.actions';
 import * as GameActions from '../../../store/game.actions';
 import { shieldAction, swordAction } from '../../enemy-action.data';
 import { imp, pigWarrior } from '../../enemy.data';
@@ -75,31 +75,52 @@ describe('EnemyEffects', () => {
     enemyWithStatus2,
     enemyWithStatus3,
   ];
+  const updatedEnemyWithStatus1 = {
+    ...enemyWithStatus1,
+    stats: {
+      ...enemyWithStatus1.stats,
+      currentShield:
+        enemyWithStatus1.stats.currentShield - burnedStatusWithValue.value,
+    },
+  };
+  const updatedEnemyWithStatus2: Character = {
+    ...enemyWithStatus2,
+    stats: {
+      ...enemyWithStatus2.stats,
+      currentShield:
+        enemyWithStatus2.stats.currentShield - burnedStatusWithValue.value,
+    },
+  };
+  const updatedEnemyWithStatus3: Character = {
+    ...enemyWithStatus3,
+    stats: {
+      ...enemyWithStatus3.stats,
+      currentShield:
+        enemyWithStatus3.stats.currentShield - burnedStatusWithValue.value,
+    },
+  };
+
   const updatedEnemiesWithStatuses: Character[] = [
-    {
-      ...enemyWithStatus1,
-      stats: {
-        ...enemyWithStatus1.stats,
-        currentShield:
-          enemyWithStatus1.stats.currentShield - burnedStatusWithValue.value,
-      },
-    },
-    {
-      ...enemyWithStatus2,
-      stats: {
-        ...enemyWithStatus2.stats,
-        currentShield:
-          enemyWithStatus2.stats.currentShield - burnedStatusWithValue.value,
-      },
-    },
-    {
-      ...enemyWithStatus3,
-      stats: {
-        ...enemyWithStatus3.stats,
-        currentShield:
-          enemyWithStatus3.stats.currentShield - burnedStatusWithValue.value,
-      },
-    },
+    updatedEnemyWithStatus1,
+    updatedEnemyWithStatus2,
+    updatedEnemyWithStatus3,
+  ];
+  const updatedEnemyWithActions1: Character = {
+    ...updatedEnemyWithStatus1,
+    currentAction: updatedEnemyWithStatus1.allActions[0],
+  };
+  const updatedEnemyWithActions2: Character = {
+    ...updatedEnemyWithStatus2,
+    currentAction: updatedEnemyWithStatus2.allActions[0],
+  };
+  const updatedEnemyWithActions3: Character = {
+    ...updatedEnemyWithStatus3,
+    currentAction: updatedEnemyWithStatus3.allActions[0],
+  };
+  const updatedEnemiesWithActions: Character[] = [
+    updatedEnemyWithActions1,
+    updatedEnemyWithActions2,
+    updatedEnemyWithActions3,
   ];
   const stateWithEnemiesWithStatuses: Partial<AppStoreState> = {
     player: {
@@ -143,6 +164,7 @@ describe('EnemyEffects', () => {
               'useCardOnEnemy',
               'applyStatusesOnEnemies',
               'chooseFirstEnemyForAction',
+              'chooseRandomEnemiesActions',
             ]),
           },
         ],
@@ -154,21 +176,34 @@ describe('EnemyEffects', () => {
       enemyService = TestBed.inject(EnemyService);
     });
 
-    describe('startPlayerTurn$', () => {
+    describe('endEnemyTurn$', () => {
       beforeEach(() => {
         actions$ = new ReplaySubject(1);
-        actions$.next(PlayerActions.startPlayerTurn());
+        actions$.next(EnemyActions.endEnemyTurn());
         (enemyService.applyStatusesOnEnemies as jasmine.Spy).and.returnValue(
           updatedEnemiesWithStatuses
         );
+        (enemyService.chooseRandomEnemiesActions as jasmine.Spy).and.returnValue(
+          updatedEnemiesWithActions
+        );
       });
 
-      it('with enemies with statuses should return a setEnemies action', () => {
-        enemyEffects.useCardOnEnemy$.subscribe((resultAction) => {
+      it('should apply statuses and return a setEnemies and changeTurn actions', () => {
+        enemyEffects.endEnemyTurn$.pipe(take(1)).subscribe((resultAction) => {
           expect(resultAction).toEqual(
-            EnemyActions.setEnemies({ enemies: updatedEnemiesWithStatuses })
+            EnemyActions.setEnemies({ enemies: updatedEnemiesWithActions })
           );
           expect(enemyService.applyStatusesOnEnemies).toHaveBeenCalledTimes(1);
+          expect(enemyService.chooseRandomEnemiesActions).toHaveBeenCalledTimes(
+            1
+          );
+        });
+        enemyEffects.endEnemyTurn$.pipe(skip(1)).subscribe((resultAction) => {
+          expect(resultAction).toEqual(GameActions.changeTurn());
+          expect(enemyService.applyStatusesOnEnemies).toHaveBeenCalledTimes(2);
+          expect(enemyService.chooseRandomEnemiesActions).toHaveBeenCalledTimes(
+            2
+          );
         });
       });
     });
