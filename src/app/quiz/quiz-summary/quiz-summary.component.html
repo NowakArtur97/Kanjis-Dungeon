@@ -9,7 +9,10 @@
       [currentCharacter]="mistake"
     ></app-quiz-summary-card>
   </div>
-  <span [@blink]="messageState" class="quiz_summary__message">{{
-    message
-  }}</span>
+  <span
+    [@blink]="messageState"
+    [ngStyle]="{ color: messageColor }"
+    class="quiz_summary__message"
+    >{{ message }}</span
+  >
 </div>

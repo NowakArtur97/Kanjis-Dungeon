@@ -47,11 +47,17 @@ export class QuizSummaryComponent implements OnInit, OnDestroy {
   messageState = this.HIDDEN_STATE;
   mistakesState = this.HIDDEN_STATE;
   message: string;
+  messageColor: string;
 
   private messages = {
     victory: 'Victory',
     defeat: 'Defeat',
     default: 'Congratulations!',
+  };
+  private colors = {
+    victory: '#24e043',
+    defeat: '#e02424',
+    default: '#e07224',
   };
 
   constructor(private store: Store<AppStoreState>) {}
@@ -74,15 +80,17 @@ export class QuizSummaryComponent implements OnInit, OnDestroy {
 
     this.resultSubscription$ = this.store
       .select('game')
-      .subscribe(
-        ({ result }) =>
-          (this.message =
-            result != null
-              ? result === GameResult.WIN
-                ? this.messages.victory
-                : this.messages.defeat
-              : this.messages.default)
-      );
+      .subscribe(({ result }) => {
+        const property =
+          result != null
+            ? result === GameResult.WIN
+              ? 'victory'
+              : 'defeat'
+            : 'default';
+        console.log(property);
+        this.message = this.messages[property];
+        this.messageColor = this.colors[property];
+      });
   }
 
   ngOnDestroy(): void {
