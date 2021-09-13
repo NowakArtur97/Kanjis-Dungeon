@@ -2,6 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Store, StoreModule } from '@ngrx/store';
 import { of, ReplaySubject } from 'rxjs';
+import CharacterUtil from 'src/app/common/utils/character.util';
 import CharacterType from 'src/app/japanese/common/enums/character-type.enum';
 import QuizService from 'src/app/quiz/services/quiz.service';
 
@@ -15,6 +16,29 @@ describe('RadicalEffects', () => {
   let radicalEffects: RadicalEffects;
   let actions$: ReplaySubject<any>;
   let radicalService: RadicalService;
+
+  const radicals: Radical[] = [
+    {
+      characters: '一',
+      meanings: ['ground'],
+      type: CharacterType.RADICAL,
+    },
+    {
+      characters: '二',
+      meanings: ['two'],
+      type: CharacterType.RADICAL,
+    },
+  ];
+  const mockRadicals: Radical[] = [
+    {
+      ...radicals[0],
+      id: 1,
+    },
+    {
+      ...radicals[1],
+      id: 2,
+    },
+  ];
 
   beforeEach(async () =>
     TestBed.configureTestingModule({
@@ -44,15 +68,18 @@ describe('RadicalEffects', () => {
     beforeEach(() => {
       actions$ = new ReplaySubject(1);
       actions$.next(RadicalActions.saveRadicals());
+
+      spyOn(CharacterUtil, 'setUpIds').and.returnValues(radicals);
       (radicalService.save as jasmine.Spy).and.returnValue(of(RADICALS));
     });
 
     it('should return setRadicals action', () => {
       radicalEffects.fetchRadicals$.subscribe((resultAction) => {
         expect(resultAction).toEqual(
-          RadicalActions.setRadicals({ radicals: RADICALS })
+          RadicalActions.setRadicals({ radicals: mockRadicals })
         );
-        expect(radicalService.save).toHaveBeenCalled();
+        expect(radicalService.save).toHaveBeenCalledTimes(1);
+        expect(CharacterUtil.setUpIds).toHaveBeenCalledTimes(1);
       });
     });
   });
@@ -69,30 +96,15 @@ describe('RadicalEffects', () => {
         expect(resultAction).toEqual(
           RadicalActions.setRadicals({ radicals: RADICALS })
         );
-        expect(radicalService.getAll).toHaveBeenCalled();
+        expect(radicalService.getAll).toHaveBeenCalledTimes(1);
       });
     });
 
     it('when number of radicals on firebase is smaller than locally should return saveRadicals action', () => {
-      const mockRadicals: Radical[] = [
-        {
-          id: 1,
-          characters: '一',
-          meanings: ['ground'],
-          type: CharacterType.RADICAL,
-        },
-        {
-          id: 2,
-          characters: '二',
-          meanings: ['two'],
-          type: CharacterType.RADICAL,
-        },
-      ];
-
       (radicalService.getAll as jasmine.Spy).and.returnValue(of(mockRadicals));
       radicalEffects.fetchRadicals$.subscribe((resultAction) => {
         expect(resultAction).toEqual(RadicalActions.saveRadicals());
-        expect(radicalService.getAll).toHaveBeenCalled();
+        expect(radicalService.getAll).toHaveBeenCalledTimes(1);
       });
     });
   });

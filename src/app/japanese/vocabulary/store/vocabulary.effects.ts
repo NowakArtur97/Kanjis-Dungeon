@@ -16,7 +16,6 @@ export default class VocabularyEffects {
     private vocabularyService: VocabularyService
   ) {}
 
-  // TODO: TEST
   saveVocabulary$ = createEffect(() =>
     this.actions$.pipe(
       ofType(VocabularyActions.saveVocabulary),

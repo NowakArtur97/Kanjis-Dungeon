@@ -14,7 +14,6 @@ export default class RadicalEffects {
     private radicalService: RadicalService
   ) {}
 
-  // TODO: TEST
   saveRadicals$ = createEffect(() =>
     this.actions$.pipe(
       ofType(RadicalActions.saveRadicals),

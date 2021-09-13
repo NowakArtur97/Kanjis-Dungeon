@@ -93,7 +93,7 @@ describe('quizService', () => {
     it('should return question', () => {
       spyOn(MathUtil, 'getRandomIndex').and.returnValue(0);
 
-      const questions = [radical, kanji, word];
+      const questions: Radical[] = [radical, kanji, word];
       const question = quizService.getNextQuestion(questions);
 
       expect(question).not.toBeNull();

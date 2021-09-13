@@ -12,7 +12,6 @@ import KANJI from '../kanji.data';
 export default class KanjiEffects {
   constructor(private actions$: Actions, private kanjiService: KanjiService) {}
 
-  // TODO: TEST
   saveKanji$ = createEffect(() =>
     this.actions$.pipe(
       ofType(KanjiActions.saveKanji),

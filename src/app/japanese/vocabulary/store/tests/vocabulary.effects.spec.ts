@@ -2,6 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Store, StoreModule } from '@ngrx/store';
 import { of, ReplaySubject } from 'rxjs';
+import CharacterUtil from 'src/app/common/utils/character.util';
 import CharacterType from 'src/app/japanese/common/enums/character-type.enum';
 import QuizService from 'src/app/quiz/services/quiz.service';
 
@@ -15,6 +16,32 @@ describe('VocabularyEffects', () => {
   let vocabularyEffects: VocabularyEffects;
   let actions$: ReplaySubject<any>;
   let vocabularyService: VocabularyService;
+
+  const vocabulary: Word[] = [
+    {
+      characters: '大人',
+      meanings: ['adult', 'mature'],
+      reading: 'おとな',
+      type: CharacterType.VOCABULARY,
+    },
+    {
+      characters: '一人',
+      meanings: ['alone', 'one person'],
+      reading: 'ひとり',
+      type: CharacterType.VOCABULARY,
+    },
+  ];
+  const mockVocabulary: Word[] = [
+    {
+      ...vocabulary[0],
+      id: 1,
+    },
+    {
+      ...vocabulary[1],
+
+      id: 2,
+    },
+  ];
 
   beforeEach(() =>
     TestBed.configureTestingModule({
@@ -47,7 +74,11 @@ describe('VocabularyEffects', () => {
     beforeEach(() => {
       actions$ = new ReplaySubject(1);
       actions$.next(VocabularyActions.saveVocabulary());
-      (vocabularyService.save as jasmine.Spy).and.returnValue(of(VOCABULARY));
+
+      spyOn(CharacterUtil, 'setUpIds').and.returnValues(vocabulary);
+      (vocabularyService.save as jasmine.Spy).and.returnValue(
+        of(mockVocabulary)
+      );
     });
 
     it('should return setVocabulary action', () => {
@@ -55,7 +86,8 @@ describe('VocabularyEffects', () => {
         expect(resultAction).toEqual(
           VocabularyActions.setVocabulary({ vocabulary: VOCABULARY })
         );
-        expect(vocabularyService.save).toHaveBeenCalled();
+        expect(vocabularyService.save).toHaveBeenCalledTimes(1);
+        expect(CharacterUtil.setUpIds).toHaveBeenCalledTimes(1);
       });
     });
   });
@@ -72,34 +104,17 @@ describe('VocabularyEffects', () => {
         expect(resultAction).toEqual(
           VocabularyActions.setVocabulary({ vocabulary: VOCABULARY })
         );
-        expect(vocabularyService.getAll).toHaveBeenCalled();
+        expect(vocabularyService.getAll).toHaveBeenCalledTimes(1);
       });
     });
 
     it('when number of vocabulary on firebase is smaller than locally should return saveVocabulary action', () => {
-      const mockVocabulary: Word[] = [
-        {
-          id: 1,
-          characters: '大人',
-          meanings: ['adult', 'mature'],
-          reading: 'おとな',
-          type: CharacterType.VOCABULARY,
-        },
-        {
-          id: 2,
-          characters: '一人',
-          meanings: ['alone', 'one person'],
-          reading: 'ひとり',
-          type: CharacterType.VOCABULARY,
-        },
-      ];
-
       (vocabularyService.getAll as jasmine.Spy).and.returnValue(
         of(mockVocabulary)
       );
       vocabularyEffects.fetchVocabulary$.subscribe((resultAction) => {
         expect(resultAction).toEqual(VocabularyActions.saveVocabulary());
-        expect(vocabularyService.getAll).toHaveBeenCalled();
+        expect(vocabularyService.getAll).toHaveBeenCalledTimes(1);
       });
     });
   });

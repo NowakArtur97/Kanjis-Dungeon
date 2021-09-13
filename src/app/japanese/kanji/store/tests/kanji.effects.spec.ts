@@ -2,6 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Store, StoreModule } from '@ngrx/store';
 import { of, ReplaySubject } from 'rxjs';
+import CharacterUtil from 'src/app/common/utils/character.util';
 import CharacterType from 'src/app/japanese/common/enums/character-type.enum';
 import QuizService from 'src/app/quiz/services/quiz.service';
 
@@ -15,6 +16,33 @@ describe('KanjiEffects', () => {
   let kanjiEffects: KanjiEffects;
   let actions$: ReplaySubject<any>;
   let kanjiService: KanjiService;
+
+  const kanji: Kanji[] = [
+    {
+      characters: '上',
+      meanings: ['above', 'up', 'over'],
+      onyomi: ['じょう'],
+      kunyomi: ['うえ', 'あ', 'のぼ', 'うわ', 'かみ'],
+      type: CharacterType.KANJI,
+    },
+    {
+      characters: '下',
+      meanings: ['below', 'down', 'under', 'beneath'],
+      onyomi: ['か', 'げ'],
+      kunyomi: ['した', 'さ', 'くだ', 'お'],
+      type: CharacterType.KANJI,
+    },
+  ];
+  const mockKanji: Kanji[] = [
+    {
+      ...kanji[0],
+      id: 1,
+    },
+    {
+      ...kanji[1],
+      id: 2,
+    },
+  ];
 
   beforeEach(() =>
     TestBed.configureTestingModule({
@@ -44,13 +72,16 @@ describe('KanjiEffects', () => {
     beforeEach(() => {
       actions$ = new ReplaySubject(1);
       actions$.next(KanjiActions.saveKanji());
-      (kanjiService.save as jasmine.Spy).and.returnValue(of(KANJI));
+
+      spyOn(CharacterUtil, 'setUpIds').and.returnValues(kanji);
+      (kanjiService.save as jasmine.Spy).and.returnValue(of(mockKanji));
     });
 
     it('should return setKanji action', () => {
       kanjiEffects.fetchKanji$.subscribe((resultAction) => {
         expect(resultAction).toEqual(KanjiActions.setKanji({ kanji: KANJI }));
         expect(kanjiService.save).toHaveBeenCalled();
+        expect(CharacterUtil.setUpIds).toHaveBeenCalledTimes(1);
       });
     });
   });
@@ -70,25 +101,6 @@ describe('KanjiEffects', () => {
     });
 
     it('when number of kanji on firebase is smaller than locally should return saveKanji action', () => {
-      const mockKanji: Kanji[] = [
-        {
-          id: 1,
-          characters: '上',
-          meanings: ['above', 'up', 'over'],
-          onyomi: ['じょう'],
-          kunyomi: ['うえ', 'あ', 'のぼ', 'うわ', 'かみ'],
-          type: CharacterType.KANJI,
-        },
-        {
-          id: 2,
-          characters: '下',
-          meanings: ['below', 'down', 'under', 'beneath'],
-          onyomi: ['か', 'げ'],
-          kunyomi: ['した', 'さ', 'くだ', 'お'],
-          type: CharacterType.KANJI,
-        },
-      ];
-
       (kanjiService.getAll as jasmine.Spy).and.returnValue(of(mockKanji));
       kanjiEffects.fetchKanji$.subscribe((resultAction) => {
         expect(resultAction).toEqual(KanjiActions.saveKanji());
