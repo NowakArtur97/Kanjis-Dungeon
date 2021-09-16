@@ -11,7 +11,16 @@
   justify-content: center;
   align-items: center;
 
+  width: 50%;
+  margin: 0 auto;
+
   font-size: 4.5em;
+
+  transition: transform 0.3s;
+}
+
+.level_menu__group_container:hover .level_menu__group_name {
+  transform: scale(1.4);
 }
 
 .level_menu__group {
@@ -35,7 +44,7 @@
 }
 
 .level_menu__level:hover {
-  opacity: 0.65;
+  opacity: 0.7;
   cursor: pointer;
   transform: scale(1.1);
 }
