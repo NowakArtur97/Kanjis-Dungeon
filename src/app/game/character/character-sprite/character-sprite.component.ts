@@ -111,7 +111,10 @@ export class CharacterSpriteComponent
   }
 
   ngAfterViewChecked(): void {
-    if (!this.wasSpriteSet && this.character) {
+    if (
+      (!this.wasSpriteSet || this.character?.position?.x === 0) &&
+      this.character
+    ) {
       this.wasSpriteSet = true;
 
       const defaultPosition = (this.spriteImage

@@ -9,6 +9,7 @@ import Radical from 'src/app/japanese/radical/models/radical.model';
 import AppStoreState from 'src/app/store/app.state';
 
 import * as LevelActions from '../../game/level/store/level.actions';
+import * as GameActions from '../../game/store/game.actions';
 import * as QuizActions from '../../quiz/store/quiz.actions';
 
 @Component({
@@ -117,14 +118,20 @@ export class QuizSummaryComponent implements OnInit, OnDestroy {
 
   // TODO: TEST
   tryAgain(): void {
+    this.store.dispatch(QuizActions.repeatQuiz());
     if (this.level) {
+      this.store.dispatch(GameActions.resetGame());
       this.store.dispatch(LevelActions.chooseLevel({ level: this.level }));
       this.router.navigate(['./game']);
-    } else {
-      this.store.dispatch(QuizActions.repeatQuiz());
     }
   }
 
   // TODO: TEST
-  close = (): void => this.store.dispatch(QuizActions.resetQuiz());
+  close(): void {
+    this.store.dispatch(QuizActions.resetQuiz());
+    if (this.level) {
+      this.store.dispatch(GameActions.resetGame());
+      this.router.navigate(['./levels']);
+    }
+  }
 }

@@ -50,7 +50,7 @@
 
   font-size: 3em;
   color: white;
-  text-transform: capitalize;
+  text-transform: uppercase;
   font-family: "Source Sans Pro", Arial, Helvetica, sans-serif;
 
   transition: 0.2s;
