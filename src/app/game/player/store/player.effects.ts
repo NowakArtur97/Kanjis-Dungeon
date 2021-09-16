@@ -13,6 +13,7 @@ import GameResult from '../../enums/game-result.enum';
 import GameTurn from '../../enums/game-turn.enum';
 import * as LevelActions from '../../level/store/level.actions';
 import * as GameActions from '../../store/game.actions';
+import defaultPlayer from '../player.data';
 import PlayerService from '../services/player.service';
 import * as PlayerActions from '../store/player.actions';
 
@@ -25,12 +26,12 @@ export default class PlayerEffects {
     private characterService: CharacterService
   ) {}
 
+  // TODO: TEST
   chooseLevel$ = createEffect(() =>
     this.actions$.pipe(
       ofType(LevelActions.chooseLevel),
-      withLatestFrom(this.store.select((state) => state.player.player)),
-      switchMap(([, player]) =>
-        of(this.characterService.setRandomTopOffset(player))
+      switchMap(() =>
+        of(this.characterService.setRandomTopOffset(defaultPlayer))
       ),
       map((player) => PlayerActions.setPlayer({ player }))
     )
