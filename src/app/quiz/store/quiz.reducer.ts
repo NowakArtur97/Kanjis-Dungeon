@@ -81,6 +81,15 @@ const _quizReducer = createReducer(
     questions: [],
   })),
 
+  // TODO: TEST
+  on(QuizActions.repeatQuiz, (state) => ({
+    ...state,
+    questions: [],
+    mistakes: [],
+    answers: [],
+    shouldShowSummary: false,
+  })),
+
   on(QuizActions.showSummary, (state) => ({
     ...state,
     shouldShowSummary: true,

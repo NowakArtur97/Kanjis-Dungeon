@@ -28,6 +28,8 @@ export const changeQuizOptions = createAction(
   props<{ quizOptions: QuizOptions }>()
 );
 
+export const repeatQuiz = createAction('[Quiz] Repeat Quiz');
+
 export const showSummary = createAction('[Quiz] Show Summary');
 
 export const resetQuiz = createAction('[Quiz] Reset Quiz');

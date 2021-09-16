@@ -40,9 +40,14 @@ export default class QuizEffects {
     )
   );
 
+  // TODO:TEST
   setQuestions$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(QuizActions.changeQuizOptions, VocabularyActions.setVocabulary),
+      ofType(
+        QuizActions.changeQuizOptions,
+        QuizActions.repeatQuiz,
+        VocabularyActions.setVocabulary
+      ),
       withLatestFrom(
         this.store.select((state) => state.quiz.quizOptions),
         this.store.select((state) => state.quiz.questions),

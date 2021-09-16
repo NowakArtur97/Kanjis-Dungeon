@@ -1,10 +1,15 @@
 import { animate, keyframes, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import GameResult from 'src/app/game/enums/game-result.enum';
+import Level from 'src/app/game/level/models/level.model';
 import Radical from 'src/app/japanese/radical/models/radical.model';
 import AppStoreState from 'src/app/store/app.state';
+
+import * as LevelActions from '../../game/level/store/level.actions';
+import * as QuizActions from '../../quiz/store/quiz.actions';
 
 @Component({
   selector: 'app-quiz-summary',
@@ -45,6 +50,7 @@ import AppStoreState from 'src/app/store/app.state';
 export class QuizSummaryComponent implements OnInit, OnDestroy {
   private mistakesSubscription$: Subscription;
   private resultSubscription$: Subscription;
+  private levelSubscription$: Subscription;
   mistakes: Radical[];
   isVisible: boolean;
   private readonly HIDDEN_STATE = 'hidden';
@@ -65,8 +71,9 @@ export class QuizSummaryComponent implements OnInit, OnDestroy {
     defeat: '#e02424',
     default: '#e07224',
   };
+  private level: Level;
 
-  constructor(private store: Store<AppStoreState>) {}
+  constructor(private store: Store<AppStoreState>, private router: Router) {}
 
   ngOnInit(): void {
     this.mistakesSubscription$ = this.store
@@ -96,16 +103,28 @@ export class QuizSummaryComponent implements OnInit, OnDestroy {
         this.message = this.messages[property];
         this.messageColor = this.colors[property];
       });
+
+    this.levelSubscription$ = this.store
+      .select('level')
+      .subscribe(({ level }) => (this.level = level));
   }
 
   ngOnDestroy(): void {
     this.mistakesSubscription$?.unsubscribe();
     this.resultSubscription$?.unsubscribe();
+    this.levelSubscription$?.unsubscribe();
   }
 
   // TODO: TEST
-  tryAgain(): void {}
+  tryAgain(): void {
+    if (this.level) {
+      this.store.dispatch(LevelActions.chooseLevel({ level: this.level }));
+      this.router.navigate(['./game']);
+    } else {
+      this.store.dispatch(QuizActions.repeatQuiz());
+    }
+  }
 
   // TODO: TEST
-  close(): void {}
+  close = (): void => this.store.dispatch(QuizActions.resetQuiz());
 }
