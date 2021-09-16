@@ -83,10 +83,10 @@ export class QuizSummaryComponent implements OnInit, OnDestroy {
         this.isVisible = shouldShowSummary;
         this.mistakes = mistakes;
         setTimeout(() => {
-          const state = this.isVisible
+          const animationState = this.isVisible
             ? this.REVEALED_STATE
             : this.HIDDEN_STATE;
-          this.messageState = this.mistakesState = this.buttonsState = state;
+          this.messageState = this.mistakesState = this.buttonsState = animationState;
         }, 1000);
       });
 
