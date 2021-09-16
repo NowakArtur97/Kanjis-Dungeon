@@ -86,9 +86,7 @@ export class QuizSummaryComponent implements OnInit, OnDestroy {
           const state = this.isVisible
             ? this.REVEALED_STATE
             : this.HIDDEN_STATE;
-          this.messageState = state;
-          this.mistakesState = state;
-          this.buttonsState = state;
+          this.messageState = this.mistakesState = this.buttonsState = state;
         }, 1000);
       });
 
@@ -116,7 +114,6 @@ export class QuizSummaryComponent implements OnInit, OnDestroy {
     this.levelSubscription$?.unsubscribe();
   }
 
-  // TODO: TEST
   tryAgain(): void {
     this.store.dispatch(QuizActions.repeatQuiz());
     if (this.level) {
@@ -126,7 +123,6 @@ export class QuizSummaryComponent implements OnInit, OnDestroy {
     }
   }
 
-  // TODO: TEST
   close(): void {
     this.store.dispatch(QuizActions.resetQuiz());
     if (this.level) {
