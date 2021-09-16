@@ -15,11 +15,17 @@
     class="quiz_summary__message"
     >{{ message }}</span
   >
-  <div class="quiz_summary__buttons">
-    <button class="quiz_summary__button quiz_summary__again_button">
+  <div [@appear]="messageState" class="quiz_summary__buttons">
+    <button
+      (click)="tryAgain()"
+      class="quiz_summary__button quiz_summary__again_button"
+    >
       Try again
     </button>
-    <button class="quiz_summary__button quiz_summary__close_button">
+    <button
+      (click)="close()"
+      class="quiz_summary__button quiz_summary__close_button"
+    >
       Close
     </button>
   </div>

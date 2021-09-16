@@ -35,6 +35,11 @@ import AppStoreState from 'src/app/store/app.state';
       state('revealed', style({ transform: 'translateY(0)' })),
       transition('hidden => revealed', animate('2000ms 1800ms')),
     ]),
+    trigger('appear', [
+      state('hidden', style({ opacity: 0 })),
+      state('revealed', style({ opacity: 1 })),
+      transition('hidden => revealed', animate('2000ms 1800ms')),
+    ]),
   ],
 })
 export class QuizSummaryComponent implements OnInit, OnDestroy {
@@ -46,6 +51,7 @@ export class QuizSummaryComponent implements OnInit, OnDestroy {
   private readonly REVEALED_STATE = 'revealed';
   messageState = this.HIDDEN_STATE;
   mistakesState = this.HIDDEN_STATE;
+  buttonsState = this.HIDDEN_STATE;
   message: string;
   messageColor: string;
 
@@ -69,12 +75,12 @@ export class QuizSummaryComponent implements OnInit, OnDestroy {
         this.isVisible = shouldShowSummary;
         this.mistakes = mistakes;
         setTimeout(() => {
-          this.messageState = this.isVisible
+          const state = this.isVisible
             ? this.REVEALED_STATE
             : this.HIDDEN_STATE;
-          this.mistakesState = this.isVisible
-            ? this.REVEALED_STATE
-            : this.HIDDEN_STATE;
+          this.messageState = state;
+          this.mistakesState = state;
+          this.buttonsState = state;
         }, 1000);
       });
 
@@ -96,4 +102,10 @@ export class QuizSummaryComponent implements OnInit, OnDestroy {
     this.mistakesSubscription$?.unsubscribe();
     this.resultSubscription$?.unsubscribe();
   }
+
+  // TODO: TEST
+  tryAgain(): void {}
+
+  // TODO: TEST
+  close(): void {}
 }
