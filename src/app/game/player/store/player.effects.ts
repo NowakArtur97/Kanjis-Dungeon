@@ -26,7 +26,6 @@ export default class PlayerEffects {
     private characterService: CharacterService
   ) {}
 
-  // TODO: TEST
   chooseLevel$ = createEffect(() =>
     this.actions$.pipe(
       ofType(LevelActions.chooseLevel),

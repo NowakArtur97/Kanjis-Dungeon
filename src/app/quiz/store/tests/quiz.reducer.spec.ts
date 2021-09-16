@@ -5,7 +5,7 @@ import Word from 'src/app/japanese/vocabulary/models/word.model';
 
 import QuizOptions from '../../models/quiz-options.model';
 import * as QuizActions from '../quiz.actions';
-import { initialState, quizReducer, QuizStoreState } from '../quiz.reducer';
+import { DEFAULT_QUIZ_OPTIONS, initialState, quizReducer, QuizStoreState } from '../quiz.reducer';
 
 const radical: Radical = {
   id: 1,
@@ -179,14 +179,14 @@ describe('quizReducer', () => {
         ]),
         questionTypes: [CharacterType.RADICAL],
       };
-      const quizWithNewQuizOptions: QuizStoreState = {
+      const stateWithNewQuizOptions: QuizStoreState = {
         ...initialState,
         questions: [],
         quizOptions,
       };
       const action = QuizActions.changeQuizOptions({ quizOptions });
       const actualState = quizReducer(stateWithQuestions, action);
-      const expectedState = { ...quizWithNewQuizOptions };
+      const expectedState = { ...stateWithNewQuizOptions };
 
       expect(actualState).toEqual(expectedState);
       expect(actualState.quizOptions).toEqual(quizOptions);
@@ -211,6 +211,24 @@ describe('quizReducer', () => {
       const actualState = quizReducer(stateWithMistakes, action);
 
       expect(actualState).toEqual(initialState);
+    });
+  });
+
+  describe('QuizActions.repeatQuiz', () => {
+    it('should reset part of state', () => {
+      const action = QuizActions.repeatQuiz();
+      const actualState = quizReducer(stateWithSummary, action);
+
+      const stateToRepeat: QuizStoreState = {
+        ...quizInitialState,
+        quizOptions: DEFAULT_QUIZ_OPTIONS,
+      };
+
+      expect(actualState).toEqual(stateToRepeat);
+      expect(actualState.questions).toEqual([]);
+      expect(actualState.mistakes).toEqual([]);
+      expect(actualState.answers).toEqual([]);
+      expect(actualState.shouldShowSummary).toEqual(false);
     });
   });
 });

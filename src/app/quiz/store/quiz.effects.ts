@@ -40,7 +40,6 @@ export default class QuizEffects {
     )
   );
 
-  // TODO:TEST
   setQuestions$ = createEffect(() =>
     this.actions$.pipe(
       ofType(

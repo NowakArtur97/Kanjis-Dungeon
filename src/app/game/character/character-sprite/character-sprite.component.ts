@@ -110,10 +110,11 @@ export class CharacterSpriteComponent
       });
   }
 
+  // TODO: CharacterSpriteComponent: After replaying level Player is attacking wrong position
   ngAfterViewChecked(): void {
     if (
-      (!this.wasSpriteSet || this.character?.position?.x === 0) &&
-      this.character
+      this.character &&
+      (!this.wasSpriteSet || this.character?.position?.x === 0)
     ) {
       this.wasSpriteSet = true;
 

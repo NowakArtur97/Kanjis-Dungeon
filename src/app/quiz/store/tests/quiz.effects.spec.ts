@@ -140,9 +140,33 @@ describe('QuizEffects', () => {
     });
 
     describe('setQuestions$', () => {
+      describe('QuizActions.changeQuizOptions', () => {
+        beforeEach(() => {
+          actions$ = new ReplaySubject(1);
+          actions$.next(QuizActions.changeQuizOptions);
+          (quizService.prepareQuestions as jasmine.Spy).and.returnValues(
+            radicals,
+            [...radicals, ...kanji],
+            [...radicals, ...kanji, ...vocabulary]
+          );
+        });
+
+        it('should return setQuestions action', () => {
+          quizEffects.setQuestions$.subscribe((resultAction) => {
+            expect(resultAction).toEqual(
+              QuizActions.setQuestions({
+                questions: [...radicals, ...kanji, ...vocabulary],
+              })
+            );
+            expect(quizService.prepareQuestions).toHaveBeenCalledTimes(3);
+          });
+        });
+      });
+    });
+    describe('QuizActions.repeatQuiz', () => {
       beforeEach(() => {
         actions$ = new ReplaySubject(1);
-        actions$.next(QuizActions.changeQuizOptions);
+        actions$.next(QuizActions.repeatQuiz);
         (quizService.prepareQuestions as jasmine.Spy).and.returnValues(
           radicals,
           [...radicals, ...kanji],
