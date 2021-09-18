@@ -16,7 +16,7 @@ import { DEFAULT_EXCLUDED_PROPERTIES, DEFAULT_MIN_NUMBER_OF_PROPERTIES } from '.
   styleUrls: ['./quiz-options.component.css'],
   animations: [
     trigger('show', [
-      state('hidden', style({ transform: 'translateY(-88%)' })),
+      state('hidden', style({ transform: 'translateY(-93%)' })),
       state('revealed', style({ transform: 'translateY(0)' })),
       transition('hidden <=> revealed', animate('200ms')),
     ]),
@@ -30,6 +30,9 @@ export class QuizOptionsComponent implements OnInit, OnDestroy {
   private readonly HIDDEN_STATE = 'hidden';
   private readonly REVEALED_STATE = 'revealed';
   toggleState = this.HIDDEN_STATE;
+  private readonly SHOW_MESSAGE = 'Show';
+  private readonly HIDE_MESSAGE = 'Hide';
+  message = this.SHOW_MESSAGE;
 
   constructor(private store: Store<AppStoreState>) {}
 
@@ -185,9 +188,8 @@ export class QuizOptionsComponent implements OnInit, OnDestroy {
   }
 
   toggleOptions(): void {
-    this.toggleState =
-      this.toggleState == this.HIDDEN_STATE
-        ? this.REVEALED_STATE
-        : this.HIDDEN_STATE;
+    const isHidden = this.toggleState == this.HIDDEN_STATE;
+    this.toggleState = isHidden ? this.REVEALED_STATE : this.HIDDEN_STATE;
+    this.message = isHidden ? this.HIDE_MESSAGE : this.SHOW_MESSAGE;
   }
 }
