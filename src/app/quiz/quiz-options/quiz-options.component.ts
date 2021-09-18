@@ -57,7 +57,6 @@ export class QuizOptionsComponent implements OnInit, AfterViewInit, OnDestroy {
       });
   }
 
-  // TODO: TEST
   ngAfterViewInit(): void {
     this.buttonHeight = this.toggleButtonRef.nativeElement.offsetHeight;
     this.changeDetectorRef.detectChanges();
@@ -206,7 +205,7 @@ export class QuizOptionsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   toggleOptions(): void {
-    const isHidden = this.toggleState == this.HIDDEN_STATE;
+    const isHidden = this.toggleState === this.HIDDEN_STATE;
     this.toggleState = isHidden ? this.REVEALED_STATE : this.HIDDEN_STATE;
     this.message = isHidden ? this.HIDE_MESSAGE : this.SHOW_MESSAGE;
   }

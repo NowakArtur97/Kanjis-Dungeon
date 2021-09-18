@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Store, StoreModule } from '@ngrx/store';
 import { of } from 'rxjs';
 import { AppCommonModule } from 'src/app/common/app-common.module';
@@ -38,7 +39,12 @@ describe('QuizOptionsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [QuizOptionsComponent],
-      imports: [StoreModule.forRoot({}), ReactiveFormsModule, AppCommonModule],
+      imports: [
+        StoreModule.forRoot({}),
+        ReactiveFormsModule,
+        AppCommonModule,
+        BrowserAnimationsModule,
+      ],
     }).compileComponents();
   });
 
