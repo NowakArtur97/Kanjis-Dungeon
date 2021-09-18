@@ -1,4 +1,8 @@
 .quiz_options__wrapper {
+  position: absolute;
+  top: 0;
+  left: 50%;
+
   height: 15vh;
   min-height: 250px;
   width: 320px;

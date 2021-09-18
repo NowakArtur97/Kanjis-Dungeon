@@ -18,12 +18,14 @@ import { DEFAULT_EXCLUDED_PROPERTIES, DEFAULT_MIN_NUMBER_OF_PROPERTIES } from '.
     trigger('show', [
       state(
         'hidden',
-        style({ transform: 'translateY(calc(-100% + {{buttonHeight}}px))' }),
+        style({
+          transform: 'translate(-50%, calc(-100% + {{buttonHeight}}px))',
+        }),
         {
           params: { buttonHeight: 0 },
         }
       ),
-      state('revealed', style({ transform: 'translateY(0)' })),
+      state('revealed', style({ transform: 'translate(-50%, 0)' })),
       transition('hidden <=> revealed', animate('200ms')),
     ]),
   ],
