@@ -1,5 +1,5 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
@@ -16,16 +16,25 @@ import { DEFAULT_EXCLUDED_PROPERTIES, DEFAULT_MIN_NUMBER_OF_PROPERTIES } from '.
   styleUrls: ['./quiz-options.component.css'],
   animations: [
     trigger('show', [
-      state('hidden', style({ transform: 'translateY(-93%)' })),
+      state(
+        'hidden',
+        style({ transform: 'translateY(calc(-100% + {{buttonHeight}}px))' }),
+        {
+          params: { buttonHeight: 0 },
+        }
+      ),
       state('revealed', style({ transform: 'translateY(0)' })),
       transition('hidden <=> revealed', animate('200ms')),
     ]),
   ],
 })
-export class QuizOptionsComponent implements OnInit, OnDestroy {
+export class QuizOptionsComponent implements OnInit, AfterViewInit, OnDestroy {
   private quizOptionsSubscription$: Subscription;
   private quizOptions: QuizOptions;
   quizOptionsFormGroup: FormGroup;
+
+  @ViewChild('toggleButton') toggleButtonRef: ElementRef;
+  buttonHeight: number;
 
   private readonly HIDDEN_STATE = 'hidden';
   private readonly REVEALED_STATE = 'revealed';
@@ -34,7 +43,10 @@ export class QuizOptionsComponent implements OnInit, OnDestroy {
   private readonly HIDE_MESSAGE = 'Hide';
   message = this.SHOW_MESSAGE;
 
-  constructor(private store: Store<AppStoreState>) {}
+  constructor(
+    private store: Store<AppStoreState>,
+    private changeDetectorRef: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.quizOptionsSubscription$ = this.store
@@ -43,6 +55,12 @@ export class QuizOptionsComponent implements OnInit, OnDestroy {
         this.quizOptions = quizOptions;
         this.initForm();
       });
+  }
+
+  // TODO: TEST
+  ngAfterViewInit(): void {
+    this.buttonHeight = this.toggleButtonRef.nativeElement.offsetHeight;
+    this.changeDetectorRef.detectChanges();
   }
 
   ngOnDestroy = (): void => this.quizOptionsSubscription$?.unsubscribe();
