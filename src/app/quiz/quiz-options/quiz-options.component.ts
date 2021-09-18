@@ -1,3 +1,4 @@
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
@@ -13,11 +14,22 @@ import { DEFAULT_EXCLUDED_PROPERTIES, DEFAULT_MIN_NUMBER_OF_PROPERTIES } from '.
   selector: 'app-quiz-options',
   templateUrl: './quiz-options.component.html',
   styleUrls: ['./quiz-options.component.css'],
+  animations: [
+    trigger('show', [
+      state('hidden', style({ transform: 'translateY(-88%)' })),
+      state('revealed', style({ transform: 'translateY(0)' })),
+      transition('hidden <=> revealed', animate('200ms')),
+    ]),
+  ],
 })
 export class QuizOptionsComponent implements OnInit, OnDestroy {
   private quizOptionsSubscription$: Subscription;
   private quizOptions: QuizOptions;
   quizOptionsFormGroup: FormGroup;
+
+  private readonly HIDDEN_STATE = 'hidden';
+  private readonly REVEALED_STATE = 'revealed';
+  toggleState = this.HIDDEN_STATE;
 
   constructor(private store: Store<AppStoreState>) {}
 
@@ -170,5 +182,12 @@ export class QuizOptionsComponent implements OnInit, OnDestroy {
       'general',
       'shouldHideRandomProperties',
     ]).value;
+  }
+
+  toggleOptions(): void {
+    this.toggleState =
+      this.toggleState == this.HIDDEN_STATE
+        ? this.REVEALED_STATE
+        : this.HIDDEN_STATE;
   }
 }
