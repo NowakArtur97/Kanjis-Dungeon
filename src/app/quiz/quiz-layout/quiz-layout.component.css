@@ -1,7 +1,7 @@
 .quiz_layout {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
 
   position: absolute;
   top: 0;

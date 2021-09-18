@@ -3,7 +3,7 @@
   min-height: 250px;
   width: 320px;
 
-  margin: 10px auto;
+  margin: 0 auto;
   border: 3px solid black;
   background-color: rgb(177, 177, 177);
 
@@ -11,7 +11,7 @@
 }
 
 .quiz_options {
-  height: 100%;
+  height: 87%;
 }
 
 .quiz_options__form {
@@ -124,12 +124,33 @@
   cursor: pointer;
   font-family: "Source Sans Pro", Arial, Helvetica, sans-serif;
 
-  transition: 0.2s;
+  transition: background-color 0.2s, color 0.2s;
 }
 
 .quiz_options__submit_button:hover {
   background-color: white;
   color: var(--correct-answer-color);
+}
+
+.quiz_options__toggle_button {
+  width: 100%;
+  height: 16%;
+
+  border: none;
+  padding: 0.2em;
+  background-color: var(--main-card-color);
+
+  font-size: 1.8em;
+  color: white;
+  cursor: pointer;
+  font-family: "Source Sans Pro", Arial, Helvetica, sans-serif;
+
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.quiz_options__toggle_button:hover {
+  background-color: white;
+  color: var(--main-card-color);
 }
 
 @media (min-height: 900px) {
@@ -144,7 +165,8 @@
   }
 
   .quiz_options__label--big,
-  .quiz_options__submit_button {
+  .quiz_options__submit_button,
+  .quiz_options__toggle_button {
     font-size: 2.2em;
   }
 }

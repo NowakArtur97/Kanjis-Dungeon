@@ -5,7 +5,7 @@ import Radical from 'src/app/japanese/radical/models/radical.model';
 
 @Component({
   selector: 'app-quiz-card',
-  templateUrl: './quiz-card.component.html',
+  template: '',
   styleUrls: ['./quiz-card.component.css'],
 })
 export abstract class QuizCardComponent {
