@@ -18,14 +18,26 @@
   grid-template-rows: repeat(33, 1fr);
 }
 
+.japanese_alphabet__group_names {
+  display: flex;
+}
+
 .japanese_alphabet__group_name {
-  flex-basis: 100%;
+  flex-basis: 50%;
 
   display: flex;
   justify-content: center;
   align-items: center;
 
-  font-size: 3.5em;
+  font-size: 3em;
+}
+
+.japanese_alphabet__group_name:hover {
+  cursor: pointer;
+}
+
+.japanese_alphabet__group_name--active {
+  border-bottom: 0.1em var(--correct-answer-color) solid;
 }
 
 .japanese_alphabet__letter_container {
@@ -42,19 +54,17 @@
 }
 
 .japanese_alphabet__sign {
-  flex-basis: 60%;
-
   font-size: 2em;
 }
 
 .japanese_alphabet__record {
-  flex-basis: 40%;
-
   font-size: 1.5em;
 }
 
 .japanese_alphabet__sign,
 .japanese_alphabet__record {
+  flex-basis: 50%;
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -62,7 +72,7 @@
 
 @media (min-width: 640px) {
   .japanese_alphabet__group_name {
-    font-size: 5em;
+    font-size: 4.5em;
   }
 
   .japanese_alphabet__sign {
@@ -76,7 +86,7 @@
 
 @media (min-width: 731px) {
   .japanese_alphabet__group_name {
-    font-size: 5.5em;
+    font-size: 5em;
   }
 
   .japanese_alphabet__sign {
@@ -90,7 +100,7 @@
 
 @media (min-width: 1366px) {
   .japanese_alphabet__group_name {
-    font-size: 6.5em;
+    font-size: 6em;
   }
 
   .japanese_alphabet__sign {

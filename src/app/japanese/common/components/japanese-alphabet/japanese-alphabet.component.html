@@ -1,6 +1,25 @@
 <div class="japanese_alphabet">
   <div class="japanese_alphabet__group_container">
-    <p class="japanese_alphabet__group_name">Hiragana</p>
+    <div class="japanese_alphabet__group_names">
+      <p
+        (click)="onChangeAlphabet()"
+        [ngClass]="{
+          'japanese_alphabet__group_name--active': isHiraganaActive
+        }"
+        class="japanese_alphabet__group_name"
+      >
+        Hiragana
+      </p>
+      <p
+        (click)="onChangeAlphabet()"
+        [ngClass]="{
+          'japanese_alphabet__group_name--active': !isHiraganaActive
+        }"
+        class="japanese_alphabet__group_name"
+      >
+        Katakana
+      </p>
+    </div>
     <div class="japanese_alphabet__group">
       <div
         *ngFor="let letter of alphabet"
