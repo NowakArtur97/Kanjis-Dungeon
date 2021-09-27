@@ -1,0 +1,14 @@
+<div class="japanese_alphabet">
+  <div class="japanese_alphabet__group_container">
+    <p class="japanese_alphabet__group_name">Hiragana</p>
+    <div class="japanese_alphabet__group">
+      <div
+        *ngFor="let letter of alphabet"
+        class="japanese_alphabet__letter_container"
+      >
+        <span class="japanese_alphabet__sign">{{ letter.sign }}</span>
+        <span class="japanese_alphabet__record">{{ letter.record }}</span>
+      </div>
+    </div>
+  </div>
+</div>
