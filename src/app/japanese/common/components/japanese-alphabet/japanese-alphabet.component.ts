@@ -10,17 +10,34 @@ import Letter from '../../models/letter.model';
   styleUrls: ['./japanese-alphabet.component.css'],
 })
 export class JapaneseAlphabetComponent implements OnInit {
-  alphabet: Letter[];
+  alphabet: Letter[] = [];
+  private currentAlphabet = HIRAGANA;
   isHiraganaActive = true;
+  timer: any;
 
   constructor() {}
 
   ngOnInit(): void {
-    this.alphabet = HIRAGANA;
+    this.loadAlphabet();
+  }
+
+  private loadAlphabet(): void {
+    this.alphabet = [];
+    let index = 0;
+    const elementsDelay = 20;
+    this.timer = setInterval(() => {
+      if (index < this.currentAlphabet.length) {
+        this.alphabet.push(this.currentAlphabet[index]);
+        index++;
+      } else {
+        clearInterval(this.timer);
+      }
+    }, elementsDelay);
   }
 
   onChangeAlphabet(): void {
     this.isHiraganaActive = !this.isHiraganaActive;
-    this.alphabet = this.isHiraganaActive ? HIRAGANA : KATAKANA;
+    this.currentAlphabet = this.isHiraganaActive ? HIRAGANA : KATAKANA;
+    this.loadAlphabet();
   }
 }
