@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { map, switchMap } from 'rxjs/operators';
-import CharacterUtil from 'src/app/common/utils/character.util';
+import CharacterUtil from 'src/app/japanese/common/utils/character.util';
 
 import RADICALS from '../radical.data';
 import RadicalService from '../services/radical.service';

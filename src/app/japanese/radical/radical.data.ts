@@ -564,5 +564,10 @@ const RADICALS: Radical[] = [
     meanings: ['samurai'],
     type: CharacterType.RADICAL,
   },
+  {
+    characters: '長',
+    meanings: ['long'],
+    type: CharacterType.RADICAL,
+  },
 ];
 export default RADICALS;

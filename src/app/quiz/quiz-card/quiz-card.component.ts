@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import COLORS from 'src/app/common/color.data';
-import CharacterUtil from 'src/app/common/utils/character.util';
+import CharacterUtil from 'src/app/japanese/common/utils/character.util';
 import Radical from 'src/app/japanese/radical/models/radical.model';
 
 @Component({

@@ -1262,6 +1262,49 @@ const KANJI: Kanji[] = [
     kunyomi: ['は'],
     type: CharacterType.KANJI,
   },
+  {
+    characters: '楽',
+    meanings: ['comfort', 'ease', 'pleasure', 'enjoyable'],
+    onyomi: ['らく', 'がく'],
+    kunyomi: ['たの'],
+    type: CharacterType.KANJI,
+  },
+  {
+    characters: '多',
+    meanings: ['many', 'much', 'lots of', 'multiple'],
+    onyomi: ['た'],
+    kunyomi: ['おお'],
+    type: CharacterType.KANJI,
+  },
+  {
+    characters: '明',
+    meanings: ['bright', 'light', 'clear'],
+    onyomi: ['めい', 'みょう', 'みん'],
+    kunyomi: ['あ', 'あか', 'あき'],
+    type: CharacterType.KANJI,
+  },
+  {
+    characters: '細',
+    meanings: ['thin', 'narrow', 'fine'],
+    onyomi: ['さい'],
+    kunyomi: ['ほそ', 'こま'],
+    type: CharacterType.KANJI,
+  },
+  {
+    characters: '長',
+    meanings: ['long', 'far', 'chief', 'leader'],
+    onyomi: ['ちょう'],
+    kunyomi: ['なが'],
+    nanori: ['は'],
+    type: CharacterType.KANJI,
+  },
+  {
+    characters: '体',
+    meanings: ['body', 'style'],
+    onyomi: ['たい'],
+    kunyomi: ['からだ'],
+    type: CharacterType.KANJI,
+  },
 ];
 
 export default KANJI;

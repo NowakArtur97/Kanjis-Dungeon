@@ -2,8 +2,8 @@ import { TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Store, StoreModule } from '@ngrx/store';
 import { of, ReplaySubject } from 'rxjs';
-import CharacterUtil from 'src/app/common/utils/character.util';
 import CharacterType from 'src/app/japanese/common/enums/character-type.enum';
+import CharacterUtil from 'src/app/japanese/common/utils/character.util';
 import QuizService from 'src/app/quiz/services/quiz.service';
 
 import KANJI from '../../kanji.data';

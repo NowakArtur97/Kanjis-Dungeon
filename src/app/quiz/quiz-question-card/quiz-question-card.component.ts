@@ -3,9 +3,9 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import COLORS from 'src/app/common/color.data';
-import CharacterUtil from 'src/app/common/utils/character.util';
 import CssUtil from 'src/app/common/utils/css.util';
 import CommonValidators from 'src/app/common/validators/common.validator';
+import CharacterUtil from 'src/app/japanese/common/utils/character.util';
 import QuizCard from 'src/app/quiz/models/quiz-card.model';
 import AppStoreState from 'src/app/store/app.state';
 
