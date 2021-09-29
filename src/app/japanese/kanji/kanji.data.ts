@@ -1305,6 +1305,27 @@ const KANJI: Kanji[] = [
     kunyomi: ['からだ'],
     type: CharacterType.KANJI,
   },
+  {
+    characters: '頭',
+    meanings: ['head'],
+    onyomi: ['ず', 'とう', 'と'],
+    kunyomi: ['あたま', ' かしら'],
+    type: CharacterType.KANJI,
+  },
+  {
+    characters: '兄',
+    meanings: ['older brother', 'elder brother', 'big brother'],
+    onyomi: ['きょう', 'けい'],
+    kunyomi: ['あに', 'にい'],
+    type: CharacterType.KANJI,
+  },
+  {
+    characters: '弟',
+    meanings: ['younger brother', 'little brother'],
+    onyomi: ['だい', 'で', 'てい'],
+    kunyomi: ['おとうと'],
+    type: CharacterType.KANJI,
+  },
 ];
 
 export default KANJI;

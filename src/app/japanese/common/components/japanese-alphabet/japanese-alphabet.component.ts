@@ -1,3 +1,4 @@
+import { animate, keyframes, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 
 import HIRAGANA from '../../hiragana.data';
@@ -8,12 +9,28 @@ import Letter from '../../models/letter.model';
   selector: 'app-japanese-alphabet',
   templateUrl: './japanese-alphabet.component.html',
   styleUrls: ['./japanese-alphabet.component.css'],
+  animations: [
+    trigger('show', [
+      state('in', style({ transform: 'scale(1)' })),
+      transition(
+        'void => *',
+        animate(
+          200,
+          keyframes([
+            style({ transform: 'scale(0)', offset: 0 }),
+            style({ transform: 'scale(1.2)', offset: 0.5 }),
+            style({ transform: 'scale(1)', offset: 1 }),
+          ])
+        )
+      ),
+    ]),
+  ],
 })
 export class JapaneseAlphabetComponent implements OnInit {
   alphabet: Letter[] = [];
   private currentAlphabet = HIRAGANA;
   isHiraganaActive = true;
-  timer: any;
+  private timer: any;
 
   constructor() {}
 
