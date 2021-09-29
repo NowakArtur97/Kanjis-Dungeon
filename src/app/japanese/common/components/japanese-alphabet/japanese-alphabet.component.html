@@ -1,12 +1,23 @@
-<div class="japanese_alphabet">
+<div
+  [@show]="{
+    value: toggleState,
+    params: {
+      buttonHeight: buttonHeight
+    }
+  }"
+  class="japanese_alphabet"
+>
   <button
     #toggleButton
     (click)="onToggleAlphabet()"
     class="japanese_alphabet__toggle_button"
   >
-    Show alphabet
+    {{ message }}
   </button>
-  <!-- <div class="japanese_alphabet__group_container">
+  <div
+    [ngStyle]="{ display: toggleState == REVEALED_STATE ? null : 'none' }"
+    class="japanese_alphabet__group_container"
+  >
     <div class="japanese_alphabet__group_names">
       <p
         (click)="onChangeAlphabet()"
@@ -29,7 +40,7 @@
     </div>
     <div class="japanese_alphabet__group">
       <div
-        [@show]="'in'"
+        [@appear]="'in'"
         *ngFor="let letter of alphabet"
         class="japanese_alphabet__letter_container"
       >
@@ -37,5 +48,5 @@
         <span class="japanese_alphabet__record">{{ letter.record }}</span>
       </div>
     </div>
-  </div> -->
+  </div>
 </div>

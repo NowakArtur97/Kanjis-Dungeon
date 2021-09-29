@@ -1,9 +1,17 @@
-.japanese_alphabet__toggle_button {
+.japanese_alphabet {
   position: absolute;
+  top: 0;
+  left: 0;
 
-  bottom: 0;
-  left: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 
+  width: 100%;
+}
+
+.japanese_alphabet__toggle_button {
   height: 2.4vh;
   min-height: 34px;
   width: 320px;
@@ -17,7 +25,6 @@
   cursor: pointer;
   font-family: "Source Sans Pro", Arial, Helvetica, sans-serif;
 
-  transform: translateX(-50%);
   transition: background-color 0.2s, color 0.2s;
 }
 
@@ -27,10 +34,6 @@
 }
 
 .japanese_alphabet__group_container {
-  position: absolute;
-  top: 0;
-  left: 0;
-
   min-height: 100vh;
   width: 100%;
 
