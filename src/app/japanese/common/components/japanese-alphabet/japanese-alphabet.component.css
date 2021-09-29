@@ -1,54 +1,12 @@
 .japanese_alphabet {
-  position: absolute;
-  top: 0;
-  left: 0;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-
   width: 100vw;
-  height: 100vh;
-
-  overflow: hidden;
-}
-
-.japanese_alphabet__toggle_button_container {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 100%;
-}
-
-.japanese_alphabet__toggle_button {
-  height: 2.4vh;
-  min-height: 34px;
-  width: 320px;
-
-  border: 2px solid black;
-  padding: 0.2em;
-  background-color: var(--main-card-color);
-
-  font-size: 1.8em;
-  color: white;
-  cursor: pointer;
-  font-family: "Source Sans Pro", Arial, Helvetica, sans-serif;
-
-  transition: background-color 0.2s, color 0.2s;
-}
-
-.japanese_alphabet__toggle_button:hover {
-  background-color: white;
-  color: var(--main-card-color);
 }
 
 .japanese_alphabet__group_container {
+  /* position: absolute;
+  bottom: 0;
+  left: 0; */
+
   min-height: 100vh;
   width: 100%;
 
@@ -56,8 +14,6 @@
 
   color: #fff;
   background-color: hsl(0, 0%, 11%);
-
-  overflow: scroll;
 }
 
 .japanese_alphabet__group {
@@ -116,6 +72,40 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.japanese_alphabet__toggle_button_container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+}
+
+.japanese_alphabet__toggle_button {
+  height: 2.4vh;
+  min-height: 34px;
+  width: 320px;
+
+  border: 2px solid black;
+  padding: 0.2em;
+  background-color: var(--main-card-color);
+
+  font-size: 1.8em;
+  color: white;
+  cursor: pointer;
+  font-family: "Source Sans Pro", Arial, Helvetica, sans-serif;
+
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.japanese_alphabet__toggle_button:hover {
+  background-color: white;
+  color: var(--main-card-color);
 }
 
 @media (min-width: 640px) {

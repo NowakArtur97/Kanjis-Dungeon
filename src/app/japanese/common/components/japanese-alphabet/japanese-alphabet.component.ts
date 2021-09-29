@@ -39,7 +39,8 @@ export class JapaneseAlphabetComponent implements OnInit {
   alphabet: Letter[] = [];
   private currentAlphabet = HIRAGANA;
   isHiraganaActive = true;
-  private timer: any;
+  private pushElementTimer: any;
+  private loadTimer: any;
 
   private readonly HIDDEN_STATE = 'hidden';
   readonly REVEALED_STATE = 'revealed';
@@ -47,6 +48,7 @@ export class JapaneseAlphabetComponent implements OnInit {
   private readonly SHOW_MESSAGE = 'Show alphabet';
   private readonly HIDE_MESSAGE = 'Hide alphabet';
   message = this.SHOW_MESSAGE;
+  isHidden = true;
 
   constructor() {}
 
@@ -54,13 +56,16 @@ export class JapaneseAlphabetComponent implements OnInit {
 
   private loadAlphabet(): void {
     let index = 0;
+    this.alphabet = [];
     const elementsDelay = 20;
-    this.timer = setInterval(() => {
+    clearInterval(this.pushElementTimer);
+
+    this.pushElementTimer = setInterval(() => {
       if (index < this.currentAlphabet.length) {
         this.alphabet.push(this.currentAlphabet[index]);
         index++;
       } else {
-        clearInterval(this.timer);
+        clearInterval(this.pushElementTimer);
       }
     }, elementsDelay);
   }
@@ -72,12 +77,16 @@ export class JapaneseAlphabetComponent implements OnInit {
   }
 
   onToggleAlphabet(): void {
-    const isHidden = this.toggleState === this.HIDDEN_STATE;
-    this.toggleState = isHidden ? this.REVEALED_STATE : this.HIDDEN_STATE;
-    this.message = isHidden ? this.HIDE_MESSAGE : this.SHOW_MESSAGE;
-    if (isHidden) {
-      this.alphabet = [];
+    this.isHidden = !this.isHidden;
+
+    if (this.isHidden) {
+      this.toggleState = this.HIDDEN_STATE;
+      this.message = this.SHOW_MESSAGE;
+    } else {
+      clearTimeout(this.loadTimer);
+      this.toggleState = this.REVEALED_STATE;
+      this.message = this.HIDE_MESSAGE;
+      this.loadTimer = setTimeout(() => this.loadAlphabet(), 200);
     }
-    setTimeout(() => this.loadAlphabet(), 200);
   }
 }
