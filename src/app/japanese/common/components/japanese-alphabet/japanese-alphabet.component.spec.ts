@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { JapaneseAlphabetComponent } from './japanese-alphabet.component';
 
@@ -9,6 +10,7 @@ describe('JapaneseAlphabetComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [JapaneseAlphabetComponent],
+      imports: [BrowserAnimationsModule],
     }).compileComponents();
   });
 
