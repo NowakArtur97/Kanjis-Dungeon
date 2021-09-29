@@ -1,4 +1,32 @@
-.japanese_alphabet {
+.japanese_alphabet__toggle_button {
+  position: absolute;
+
+  bottom: 0;
+  left: 50%;
+
+  height: 2.4vh;
+  min-height: 34px;
+  width: 320px;
+
+  border: 3px solid black;
+  padding: 0.2em;
+  background-color: var(--main-card-color);
+
+  font-size: 1.8em;
+  color: white;
+  cursor: pointer;
+  font-family: "Source Sans Pro", Arial, Helvetica, sans-serif;
+
+  transform: translateX(-50%);
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.japanese_alphabet__toggle_button:hover {
+  background-color: white;
+  color: var(--main-card-color);
+}
+
+.japanese_alphabet__group_container {
   position: absolute;
   top: 0;
   left: 0;
@@ -95,6 +123,12 @@
 
   .japanese_alphabet__record {
     font-size: 3.5em;
+  }
+}
+
+@media (min-width: 900px) {
+  .japanese_alphabet__toggle_button {
+    font-size: 2.2em;
   }
 }
 

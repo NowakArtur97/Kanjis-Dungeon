@@ -1,5 +1,12 @@
 <div class="japanese_alphabet">
-  <div class="japanese_alphabet__group_container">
+  <button
+    #toggleButton
+    (click)="onToggleAlphabet()"
+    class="japanese_alphabet__toggle_button"
+  >
+    Show alphabet
+  </button>
+  <!-- <div class="japanese_alphabet__group_container">
     <div class="japanese_alphabet__group_names">
       <p
         (click)="onChangeAlphabet()"
@@ -30,5 +37,5 @@
         <span class="japanese_alphabet__record">{{ letter.record }}</span>
       </div>
     </div>
-  </div>
+  </div> -->
 </div>

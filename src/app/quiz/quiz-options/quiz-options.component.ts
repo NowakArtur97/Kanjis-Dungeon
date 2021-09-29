@@ -41,8 +41,8 @@ export class QuizOptionsComponent implements OnInit, AfterViewInit, OnDestroy {
   private readonly HIDDEN_STATE = 'hidden';
   private readonly REVEALED_STATE = 'revealed';
   toggleState = this.HIDDEN_STATE;
-  private readonly SHOW_MESSAGE = 'Show';
-  private readonly HIDE_MESSAGE = 'Hide';
+  private readonly SHOW_MESSAGE = 'Show options';
+  private readonly HIDE_MESSAGE = 'Hide options';
   message = this.SHOW_MESSAGE;
 
   constructor(
@@ -206,7 +206,7 @@ export class QuizOptionsComponent implements OnInit, AfterViewInit, OnDestroy {
     ]).value;
   }
 
-  toggleOptions(): void {
+  onToggleOptions(): void {
     const isHidden = this.toggleState === this.HIDDEN_STATE;
     this.toggleState = isHidden ? this.REVEALED_STATE : this.HIDDEN_STATE;
     this.message = isHidden ? this.HIDE_MESSAGE : this.SHOW_MESSAGE;

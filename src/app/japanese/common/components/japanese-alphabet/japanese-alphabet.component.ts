@@ -18,7 +18,6 @@ import Letter from '../../models/letter.model';
           200,
           keyframes([
             style({ transform: 'scale(0)', offset: 0 }),
-            style({ transform: 'scale(1.2)', offset: 0.5 }),
             style({ transform: 'scale(1)', offset: 1 }),
           ])
         )
@@ -57,4 +56,6 @@ export class JapaneseAlphabetComponent implements OnInit {
     this.currentAlphabet = this.isHiraganaActive ? HIRAGANA : KATAKANA;
     this.loadAlphabet();
   }
+
+  onToggleAlphabet(): void {}
 }

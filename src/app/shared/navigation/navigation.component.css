@@ -14,8 +14,8 @@
 
 .navigation__btn {
   position: fixed;
-  top: 1%;
-  right: 1%;
+  top: 1em;
+  right: 1em;
 
   display: flex;
   align-items: center;
