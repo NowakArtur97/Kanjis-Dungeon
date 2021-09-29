@@ -1,5 +1,5 @@
 import { animate, keyframes, state, style, transition, trigger } from '@angular/animations';
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import HIRAGANA from '../../hiragana.data';
 import KATAKANA from '../../katakana.data';
@@ -35,14 +35,12 @@ import Letter from '../../models/letter.model';
     ]),
   ],
 })
-export class JapaneseAlphabetComponent implements OnInit, AfterViewInit {
+export class JapaneseAlphabetComponent implements OnInit {
   alphabet: Letter[] = [];
   private currentAlphabet = HIRAGANA;
   isHiraganaActive = true;
   private timer: any;
 
-  @ViewChild('toggleButton') toggleButtonRef: ElementRef;
-  buttonHeight: number;
   private readonly HIDDEN_STATE = 'hidden';
   readonly REVEALED_STATE = 'revealed';
   toggleState = this.HIDDEN_STATE;
@@ -50,15 +48,9 @@ export class JapaneseAlphabetComponent implements OnInit, AfterViewInit {
   private readonly HIDE_MESSAGE = 'Hide alphabet';
   message = this.SHOW_MESSAGE;
 
-  constructor(private changeDetectorRef: ChangeDetectorRef) {}
+  constructor() {}
 
   ngOnInit(): void {}
-
-  ngAfterViewInit(): void {
-    const { nativeElement } = this.toggleButtonRef;
-    this.buttonHeight = nativeElement.offsetHeight;
-    this.changeDetectorRef.detectChanges();
-  }
 
   private loadAlphabet(): void {
     let index = 0;
@@ -83,7 +75,6 @@ export class JapaneseAlphabetComponent implements OnInit, AfterViewInit {
     const isHidden = this.toggleState === this.HIDDEN_STATE;
     this.toggleState = isHidden ? this.REVEALED_STATE : this.HIDDEN_STATE;
     this.message = isHidden ? this.HIDE_MESSAGE : this.SHOW_MESSAGE;
-    this.changeDetectorRef.detectChanges();
     if (isHidden) {
       this.alphabet = [];
     }
