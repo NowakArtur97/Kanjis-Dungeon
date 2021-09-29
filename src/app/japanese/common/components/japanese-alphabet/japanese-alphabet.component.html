@@ -1,26 +1,5 @@
 <div class="japanese_alphabet">
-  <button
-    #toggleButton
-    [@show]="{
-      value: toggleState,
-      params: {
-        buttonHeight: buttonHeight
-      }
-    }"
-    (click)="onToggleAlphabet()"
-    class="japanese_alphabet__toggle_button"
-  >
-    {{ message }}
-  </button>
-  <!-- <div
-    [@show2]="{
-      value: toggleState,
-      params: {
-        buttonHeight: buttonHeight
-      }
-    }"
-    class="japanese_alphabet__group_container"
-  >
+  <div [@show]="toggleState" class="japanese_alphabet__group_container">
     <div class="japanese_alphabet__group_names">
       <p
         (click)="onChangeAlphabet()"
@@ -51,5 +30,12 @@
         <span class="japanese_alphabet__record">{{ letter.record }}</span>
       </div>
     </div>
-  </div> -->
+  </div>
+  <button
+    #toggleButton
+    (click)="onToggleAlphabet()"
+    class="japanese_alphabet__toggle_button"
+  >
+    {{ message }}
+  </button>
 </div>

@@ -8,10 +8,20 @@
   align-items: center;
   flex-direction: column;
 
-  width: 100%;
+  width: 100vw;
+  height: 100vh;
+
+  overflow: hidden;
 }
 
 .japanese_alphabet__toggle_button {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin-right: 0;
+  margin-left: 0;
+
   height: 2.4vh;
   min-height: 34px;
   width: 320px;
@@ -26,6 +36,8 @@
   font-family: "Source Sans Pro", Arial, Helvetica, sans-serif;
 
   transition: background-color 0.2s, color 0.2s;
+
+  z-index: 1;
 }
 
 .japanese_alphabet__toggle_button:hover {
@@ -41,6 +53,8 @@
 
   color: #fff;
   background-color: hsl(0, 0%, 11%);
+
+  overflow: scroll;
 }
 
 .japanese_alphabet__group {

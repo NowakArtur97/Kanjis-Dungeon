@@ -27,34 +27,10 @@ import Letter from '../../models/letter.model';
       state(
         'hidden',
         style({
-          transform: 'translateY(calc(100vh - {{ buttonHeight}}px))',
-        }),
-        {
-          params: { buttonHeight: 0 },
-        }
+          transform: 'translateY(100%)',
+        })
       ),
-      state('revealed', style({ transform: 'translateY(0)' }), {
-        params: { buttonHeight: 0 },
-      }),
-      transition('hidden <=> revealed', animate('200ms')),
-    ]),
-    trigger('show2', [
-      state(
-        'hidden',
-        style({
-          transform: 'translate(0, calc(100vh + {{buttonHeight}}px))',
-        }),
-        {
-          params: { buttonHeight: 0 },
-        }
-      ),
-      state(
-        'revealed',
-        style({ transform: 'translate(0, {{buttonHeight}}px)' }),
-        {
-          params: { buttonHeight: 0 },
-        }
-      ),
+      state('revealed', style({ transform: 'translateY(0)' })),
       transition('hidden <=> revealed', animate('200ms')),
     ]),
   ],
@@ -85,7 +61,6 @@ export class JapaneseAlphabetComponent implements OnInit, AfterViewInit {
   }
 
   private loadAlphabet(): void {
-    this.alphabet = [];
     let index = 0;
     const elementsDelay = 20;
     this.timer = setInterval(() => {
@@ -109,6 +84,9 @@ export class JapaneseAlphabetComponent implements OnInit, AfterViewInit {
     this.toggleState = isHidden ? this.REVEALED_STATE : this.HIDDEN_STATE;
     this.message = isHidden ? this.HIDE_MESSAGE : this.SHOW_MESSAGE;
     this.changeDetectorRef.detectChanges();
+    if (isHidden) {
+      this.alphabet = [];
+    }
     setTimeout(() => this.loadAlphabet(), 200);
   }
 }
