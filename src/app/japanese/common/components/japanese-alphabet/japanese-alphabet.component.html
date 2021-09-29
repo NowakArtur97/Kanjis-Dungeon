@@ -31,11 +31,13 @@
       </div>
     </div>
   </div>
-  <button
-    #toggleButton
-    (click)="onToggleAlphabet()"
-    class="japanese_alphabet__toggle_button"
-  >
-    {{ message }}
-  </button>
+  <div class="japanese_alphabet__toggle_button_container">
+    <button
+      #toggleButton
+      (click)="onToggleAlphabet()"
+      class="japanese_alphabet__toggle_button"
+    >
+      {{ message }}
+    </button>
+  </div>
 </div>

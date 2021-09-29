@@ -14,14 +14,19 @@
   overflow: hidden;
 }
 
-.japanese_alphabet__toggle_button {
+.japanese_alphabet__toggle_button_container {
   position: fixed;
   bottom: 0;
   left: 0;
-  right: 0;
-  margin-right: 0;
-  margin-left: 0;
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+}
+
+.japanese_alphabet__toggle_button {
   height: 2.4vh;
   min-height: 34px;
   width: 320px;
@@ -36,8 +41,6 @@
   font-family: "Source Sans Pro", Arial, Helvetica, sans-serif;
 
   transition: background-color 0.2s, color 0.2s;
-
-  z-index: 1;
 }
 
 .japanese_alphabet__toggle_button:hover {
