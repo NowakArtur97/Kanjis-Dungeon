@@ -27,15 +27,34 @@ import Letter from '../../models/letter.model';
       state(
         'hidden',
         style({
-          transform: 'translate(0, calc(100vh - {{buttonHeight}}px))',
+          transform: 'translateY(calc(100vh - {{ buttonHeight}}px))',
         }),
         {
           params: { buttonHeight: 0 },
         }
       ),
-      state('revealed', style({ transform: 'translate(0, 0)' }), {
+      state('revealed', style({ transform: 'translateY(0)' }), {
         params: { buttonHeight: 0 },
       }),
+      transition('hidden <=> revealed', animate('200ms')),
+    ]),
+    trigger('show2', [
+      state(
+        'hidden',
+        style({
+          transform: 'translate(0, calc(100vh + {{buttonHeight}}px))',
+        }),
+        {
+          params: { buttonHeight: 0 },
+        }
+      ),
+      state(
+        'revealed',
+        style({ transform: 'translate(0, {{buttonHeight}}px)' }),
+        {
+          params: { buttonHeight: 0 },
+        }
+      ),
       transition('hidden <=> revealed', animate('200ms')),
     ]),
   ],
@@ -57,12 +76,11 @@ export class JapaneseAlphabetComponent implements OnInit, AfterViewInit {
 
   constructor(private changeDetectorRef: ChangeDetectorRef) {}
 
-  ngOnInit(): void {
-    this.loadAlphabet();
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    this.buttonHeight = this.toggleButtonRef.nativeElement.offsetHeight;
+    const { nativeElement } = this.toggleButtonRef;
+    this.buttonHeight = nativeElement.offsetHeight;
     this.changeDetectorRef.detectChanges();
   }
 
@@ -90,5 +108,7 @@ export class JapaneseAlphabetComponent implements OnInit, AfterViewInit {
     const isHidden = this.toggleState === this.HIDDEN_STATE;
     this.toggleState = isHidden ? this.REVEALED_STATE : this.HIDDEN_STATE;
     this.message = isHidden ? this.HIDE_MESSAGE : this.SHOW_MESSAGE;
+    this.changeDetectorRef.detectChanges();
+    setTimeout(() => this.loadAlphabet(), 200);
   }
 }
