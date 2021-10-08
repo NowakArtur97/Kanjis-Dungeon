@@ -579,5 +579,40 @@ const RADICALS: Radical[] = [
     meanings: ['horns'],
     type: CharacterType.RADICAL,
   },
+  {
+    characters: '未',
+    meanings: ['jet'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: 'マ',
+    meanings: ['Mama'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '走',
+    meanings: ['run'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '罒',
+    meanings: ['netv'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: 'L',
+    meanings: ['lion'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '舌',
+    meanings: ['tongue'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '言',
+    meanings: ['say'],
+    type: CharacterType.RADICAL,
+  },
 ];
 export default RADICALS;
