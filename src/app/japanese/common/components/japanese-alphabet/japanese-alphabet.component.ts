@@ -49,6 +49,8 @@ export class JapaneseAlphabetComponent implements OnInit {
   private readonly HIDE_MESSAGE = 'Hide alphabet';
   message = this.SHOW_MESSAGE;
   isHidden = true;
+  display = 'none';
+  private displayMode = { hidden: 'none', show: 'block' };
 
   constructor() {}
 
@@ -83,10 +85,17 @@ export class JapaneseAlphabetComponent implements OnInit {
       this.toggleState = this.HIDDEN_STATE;
       this.message = this.SHOW_MESSAGE;
     } else {
+      this.display = this.displayMode.show;
       clearTimeout(this.loadTimer);
       this.toggleState = this.REVEALED_STATE;
       this.message = this.HIDE_MESSAGE;
       this.loadTimer = setTimeout(() => this.loadAlphabet(), 200);
     }
+  }
+
+  onAlphabetHidden(): void {
+    this.display = this.isHidden
+      ? this.displayMode.hidden
+      : this.displayMode.show;
   }
 }
