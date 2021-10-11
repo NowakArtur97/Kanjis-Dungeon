@@ -3,9 +3,8 @@
   flex-direction: column;
   justify-content: center;
 
-  position: absolute;
-  top: 0;
-  left: 0;
+  position: relative;
+
   min-width: 100vw;
   min-height: 100vh;
 

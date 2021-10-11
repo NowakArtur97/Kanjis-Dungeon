@@ -1,5 +1,9 @@
 <div class="japanese_alphabet">
-  <div [@show]="toggleState" class="japanese_alphabet__group_container">
+  <div
+    [@show]="toggleState"
+    [ngStyle]="{ display: isHidden ? 'none' : 'block' }"
+    class="japanese_alphabet__group_container"
+  >
     <div class="japanese_alphabet__group_names">
       <p
         (click)="onChangeAlphabet()"
