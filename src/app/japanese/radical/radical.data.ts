@@ -596,7 +596,7 @@ const RADICALS: Radical[] = [
   },
   {
     characters: '罒',
-    meanings: ['netv'],
+    meanings: ['net'],
     type: CharacterType.RADICAL,
   },
   {
@@ -612,6 +612,21 @@ const RADICALS: Radical[] = [
   {
     characters: '言',
     meanings: ['say'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '肉',
+    meanings: ['meat'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '鳥',
+    meanings: ['bird'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '馬',
+    meanings: ['horse'],
     type: CharacterType.RADICAL,
   },
 ];

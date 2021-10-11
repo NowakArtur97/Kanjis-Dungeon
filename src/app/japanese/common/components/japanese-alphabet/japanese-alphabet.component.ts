@@ -27,7 +27,7 @@ import Letter from '../../models/letter.model';
       state(
         'hidden',
         style({
-          transform: 'translateY(100%)',
+          transform: 'translateY(100vh)',
         })
       ),
       state('revealed', style({ transform: 'translateY(0)' })),

@@ -1438,6 +1438,54 @@ const KANJI: Kanji[] = [
     kunyomi: ['こた'],
     type: CharacterType.KANJI,
   },
+  {
+    characters: '知',
+    meanings: ['know', 'knowledge'],
+    onyomi: ['ち'],
+    kunyomi: ['し'],
+    type: CharacterType.KANJI,
+  },
+  {
+    characters: '肉',
+    meanings: ['meat'],
+    onyomi: ['にく'],
+    type: CharacterType.KANJI,
+  },
+  {
+    characters: '麦',
+    meanings: ['wheat', 'barley', 'oats'],
+    onyomi: ['ばく'],
+    kunyomi: ['むぎ'],
+    type: CharacterType.KANJI,
+  },
+  {
+    characters: '米',
+    meanings: ['rice', 'America'],
+    onyomi: ['べい', 'まい'],
+    kunyomi: ['こめ'],
+    type: CharacterType.KANJI,
+  },
+  {
+    characters: '鳥',
+    meanings: ['bird'],
+    onyomi: ['ちょう'],
+    kunyomi: ['とり'],
+    type: CharacterType.KANJI,
+  },
+  {
+    characters: '鳴',
+    meanings: ['chirp', 'sing', 'howl'],
+    onyomi: ['めい'],
+    kunyomi: ['な'],
+    type: CharacterType.KANJI,
+  },
+  {
+    characters: '馬',
+    meanings: ['horse'],
+    onyomi: ['ば', 'め'],
+    kunyomi: ['うま', 'ま'],
+    type: CharacterType.KANJI,
+  },
 ];
 
 export default KANJI;
