@@ -78,12 +78,6 @@
 .quiz_summary__close_button:hover {
   color: #f03;
 }
-/* 
-@media (min-width: 640px) {
-  .quiz_summary__buttons {
-    top: 82%;
-  }
-} */
 
 @media (min-width: 667px) {
   .quiz_summary__message {

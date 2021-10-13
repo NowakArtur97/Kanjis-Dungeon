@@ -1,7 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
+import KANJI from 'src/app/japanese/kanji/kanji.data';
 import Radical from 'src/app/japanese/radical/models/radical.model';
+import RADICALS from 'src/app/japanese/radical/radical.data';
+import VOCABULARY from 'src/app/japanese/vocabulary/vocabulary.data';
 import AppStoreState from 'src/app/store/app.state';
 
 @Component({
@@ -10,7 +13,8 @@ import AppStoreState from 'src/app/store/app.state';
   styleUrls: ['./quiz-questions-selection.component.css'],
 })
 export class QuizQuestionsSelectionComponent implements OnInit, OnDestroy {
-  questions: Radical[];
+  allQuestions: Radical[];
+  selectedQuestions: Radical[];
   private questionSubscription$: Subscription;
 
   constructor(private store: Store<AppStoreState>) {}
@@ -18,7 +22,8 @@ export class QuizQuestionsSelectionComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.questionSubscription$ = this.store
       .select('quiz')
-      .subscribe(({ questions }) => (this.questions = questions));
+      .subscribe(({ questions }) => (this.selectedQuestions = questions));
+    this.allQuestions = [...RADICALS, ...KANJI, ...VOCABULARY];
   }
 
   ngOnDestroy(): void {

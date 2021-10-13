@@ -17,7 +17,7 @@ export interface QuizStoreState {
 const DEFAULT_EXCLUDED_PROPERTIES = ['characters', 'type'];
 const DEFAULT_MIN_NUMBER_OF_PROPERTIES = 1;
 const DEFAULT_QUIZ_OPTIONS = {
-  numberOfQuestions: 200,
+  numberOfQuestions: 100,
   minNumberOfProperties: DEFAULT_MIN_NUMBER_OF_PROPERTIES,
   shouldShowAnswer: true,
   shouldHideRandomProperties: false,

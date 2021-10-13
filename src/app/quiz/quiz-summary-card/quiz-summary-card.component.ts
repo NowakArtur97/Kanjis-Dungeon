@@ -20,5 +20,6 @@ export class QuizSummaryCardComponent
 
   ngOnInit(): void {
     this.cardColor = this.getCardColor();
+    console.log(this.cardColor);
   }
 }

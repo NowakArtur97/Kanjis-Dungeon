@@ -1,0 +1,16 @@
+.quiz_question_selection__wrapper {
+  position: absolute;
+  inset: 0;
+}
+
+.quiz_question_selection__questions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+
+  min-height: 100vh;
+
+  background-color: hsl(0, 0%, 11%);
+  /* transform: scale(0); */
+}

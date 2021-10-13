@@ -23,12 +23,10 @@ export abstract class QuizCardComponent {
 
   getCardColor(): string {
     let cardColor = COLORS.radical;
-    if (this.currentCharacter?.id) {
-      if (this.isKanji()) {
-        cardColor = COLORS.kanji;
-      } else if (this.isVocabulary()) {
-        cardColor = COLORS.vocabulary;
-      }
+    if (this.isKanji()) {
+      cardColor = COLORS.kanji;
+    } else if (this.isVocabulary()) {
+      cardColor = COLORS.vocabulary;
     }
 
     return cardColor;
