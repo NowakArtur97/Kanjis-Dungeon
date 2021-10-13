@@ -157,7 +157,7 @@
   color: var(--main-card-color);
 }
 
-@media (min-height: 900px) {
+@media (min-width: 900px) {
   .quiz_options__wrapper {
     height: 15vh;
     width: 460px;

@@ -18,6 +18,7 @@ import { QuizSummaryCardComponent } from './quiz-summary-card/quiz-summary-card.
 import { QuizSummaryComponent } from './quiz-summary/quiz-summary.component';
 import QuizEffects from './store/quiz.effects';
 import { quizReducer } from './store/quiz.reducer';
+import { QuizQuestionSelectionComponent } from './quiz-question-selection/quiz-question-selection.component';
 
 const cardRoutes: Routes = [
   {
@@ -40,6 +41,7 @@ const cardRoutes: Routes = [
     QuizSummaryComponent,
     QuizSummaryCardComponent,
     QuizQuestionCardComponent,
+    QuizQuestionSelectionComponent,
   ],
   imports: [
     CommonModule,
