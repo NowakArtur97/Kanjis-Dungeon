@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
+import COLORS from 'src/app/common/color.data';
 import KANJI from 'src/app/japanese/kanji/kanji.data';
 import Radical from 'src/app/japanese/radical/models/radical.model';
 import RADICALS from 'src/app/japanese/radical/radical.data';
@@ -26,7 +27,10 @@ export class QuizQuestionsSelectionComponent implements OnInit, OnDestroy {
     this.allQuestions = [...RADICALS, ...KANJI, ...VOCABULARY];
   }
 
-  ngOnDestroy(): void {
-    this.questionSubscription$?.unsubscribe();
-  }
+  ngOnDestroy = (): void => this.questionSubscription$?.unsubscribe();
+
+  setColorBasedOnSelectedQuestions = (question: Radical): string =>
+    this.selectedQuestions.some((q) => q.characters === question.characters)
+      ? COLORS.correct
+      : COLORS.wrong;
 }
