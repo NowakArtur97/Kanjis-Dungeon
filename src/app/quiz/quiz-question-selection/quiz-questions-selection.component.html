@@ -1,0 +1,8 @@
+<div class="quiz_question_selection__wrapper">
+  <div class="quiz_question_selection__questions">
+    <app-quiz-summary-card
+      *ngFor="let question of questions"
+      [currentCharacter]="question"
+    ></app-quiz-summary-card>
+  </div>
+</div>
