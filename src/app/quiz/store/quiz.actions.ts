@@ -33,3 +33,13 @@ export const repeatQuiz = createAction('[Quiz] Repeat Quiz');
 export const showSummary = createAction('[Quiz] Show Summary');
 
 export const resetQuiz = createAction('[Quiz] Reset Quiz');
+
+export const addPreferedQuestion = createAction(
+  '[Quiz] Add Prefered Question',
+  props<{ preferedQuestion: Radical }>()
+);
+
+export const removePreferedQuestion = createAction(
+  '[Quiz] Remove from Prefered Question',
+  props<{ preferedQuestionToRemove: Radical }>()
+);

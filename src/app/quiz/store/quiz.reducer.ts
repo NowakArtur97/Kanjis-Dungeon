@@ -9,6 +9,7 @@ export interface QuizStoreState {
   quizOptions: QuizOptions;
   nextQuestion: Radical;
   questions: Radical[];
+  preferedQuestions: Radical[];
   answers: Radical[];
   mistakes: Radical[];
   shouldShowSummary: boolean;
@@ -32,6 +33,8 @@ const initialState: QuizStoreState = {
   quizOptions: DEFAULT_QUIZ_OPTIONS,
   nextQuestion: null,
   questions: [],
+  // TODO: QuizStoreState: Get from storage
+  preferedQuestions: [],
   answers: [],
   mistakes: [],
   shouldShowSummary: false,
@@ -96,7 +99,25 @@ const _quizReducer = createReducer(
 
   on(QuizActions.resetQuiz, () => ({
     ...initialState,
-  }))
+  })),
+
+  // TODO: TEST
+  on(QuizActions.addPreferedQuestion, (state, { preferedQuestion }) => ({
+    ...state,
+    preferedQuestions: [...state.preferedQuestions, preferedQuestion],
+  })),
+
+  // TODO: TEST
+  on(
+    QuizActions.removePreferedQuestion,
+    (state, { preferedQuestionToRemove }) => ({
+      ...state,
+      preferedQuestions: state.preferedQuestions.filter(
+        (question) =>
+          question.characters !== preferedQuestionToRemove.characters
+      ),
+    })
+  )
 );
 
 export function quizReducer(
