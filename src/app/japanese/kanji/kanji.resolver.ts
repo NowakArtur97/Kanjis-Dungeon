@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { Resolve } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
@@ -13,10 +13,7 @@ import * as KanjiActions from './store/kanji.actions';
 export default class KanjiResolver implements Resolve<{ kanji: Kanji[] }> {
   constructor(private actions$: Actions, private store: Store<AppStoreState>) {}
 
-  resolve = (
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ):
+  resolve = ():
     | { kanji: Kanji[] }
     | Observable<{ kanji: Kanji[] }>
     | Promise<{ kanji: Kanji[] }> =>

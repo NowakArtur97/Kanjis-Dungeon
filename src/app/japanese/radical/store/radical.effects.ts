@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { map, switchMap } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import CharacterUtil from 'src/app/japanese/common/utils/character.util';
 
 import RADICALS from '../radical.data';
@@ -28,15 +29,16 @@ export default class RadicalEffects {
     this.actions$.pipe(
       ofType(RadicalActions.fetchRadicals),
       switchMap(() =>
-        this.radicalService
-          .getAll()
-          .pipe(
-            map((radicals) =>
-              radicals?.length >= RADICALS.length
-                ? RadicalActions.setRadicals({ radicals })
-                : RadicalActions.saveRadicals()
-            )
+        this.radicalService.getAll().pipe(
+          map((radicals) =>
+            radicals?.length >= RADICALS.length
+              ? RadicalActions.setRadicals({ radicals })
+              : RadicalActions.saveRadicals()
+          ),
+          catchError(() =>
+            of(RadicalActions.setRadicals({ radicals: RADICALS }))
           )
+        )
       )
     )
   );

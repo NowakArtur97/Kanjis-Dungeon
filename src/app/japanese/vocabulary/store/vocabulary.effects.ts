@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { map, switchMap } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import CharacterUtil from 'src/app/japanese/common/utils/character.util';
 
 import * as KanjiActions from '../../kanji/store/kanji.actions';
@@ -32,15 +33,16 @@ export default class VocabularyEffects {
     this.actions$.pipe(
       ofType(KanjiActions.setKanji),
       switchMap(() =>
-        this.vocabularyService
-          .getAll()
-          .pipe(
-            map((vocabulary) =>
-              vocabulary?.length >= VOCABULARY.length
-                ? VocabularyActions.setVocabulary({ vocabulary })
-                : VocabularyActions.saveVocabulary()
-            )
+        this.vocabularyService.getAll().pipe(
+          map((vocabulary) =>
+            vocabulary?.length >= VOCABULARY.length
+              ? VocabularyActions.setVocabulary({ vocabulary })
+              : VocabularyActions.saveVocabulary()
+          ),
+          catchError(() =>
+            of(VocabularyActions.setVocabulary({ vocabulary: VOCABULARY }))
           )
+        )
       )
     )
   );

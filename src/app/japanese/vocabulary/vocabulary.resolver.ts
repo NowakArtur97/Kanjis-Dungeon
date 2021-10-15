@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { Resolve } from '@angular/router';
 import { Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
@@ -14,10 +14,7 @@ export default class VocabularyResolver
   implements Resolve<{ vocabulary: Word[] }> {
   constructor(private actions$: Actions, private store: Store<AppStoreState>) {}
 
-  resolve = (
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ):
+  resolve = ():
     | { vocabulary: Word[] }
     | Observable<{ vocabulary: Word[] }>
     | Promise<{ vocabulary: Word[] }> =>

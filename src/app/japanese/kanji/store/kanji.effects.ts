@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { map, switchMap } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import CharacterUtil from 'src/app/japanese/common/utils/character.util';
 
 import KanjiService from '../../kanji/services/kanji.service';
@@ -24,15 +25,14 @@ export default class KanjiEffects {
     this.actions$.pipe(
       ofType(RadicalActions.setRadicals),
       switchMap(() =>
-        this.kanjiService
-          .getAll()
-          .pipe(
-            map((kanji) =>
-              kanji?.length >= KANJI?.length
-                ? KanjiActions.setKanji({ kanji })
-                : KanjiActions.saveKanji()
-            )
-          )
+        this.kanjiService.getAll().pipe(
+          map((kanji) =>
+            kanji?.length >= KANJI?.length
+              ? KanjiActions.setKanji({ kanji })
+              : KanjiActions.saveKanji()
+          ),
+          catchError(() => of(KanjiActions.setKanji({ kanji: KANJI })))
+        )
       )
     )
   );
