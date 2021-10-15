@@ -14,7 +14,10 @@ import VocabularyResolver from '../japanese/vocabulary/vocabulary.resolver';
 import { QuizLayoutComponent } from './quiz-layout/quiz-layout.component';
 import { QuizOptionsComponent } from './quiz-options/quiz-options.component';
 import { QuizQuestionCardComponent } from './quiz-question-card/quiz-question-card.component';
-import { QuizQuestionsSelectionComponent } from './quiz-question-selection/quiz-questions-selection.component';
+import {
+  QuizQuestionsSelectionCardComponent,
+} from './quiz-questions-selection-card/quiz-questions-selection-card.component';
+import { QuizQuestionsSelectionComponent } from './quiz-questions-selection/quiz-questions-selection.component';
 import { QuizSummaryCardComponent } from './quiz-summary-card/quiz-summary-card.component';
 import { QuizSummaryComponent } from './quiz-summary/quiz-summary.component';
 import QuizEffects from './store/quiz.effects';
@@ -42,6 +45,7 @@ const cardRoutes: Routes = [
     QuizSummaryCardComponent,
     QuizQuestionCardComponent,
     QuizQuestionsSelectionComponent,
+    QuizQuestionsSelectionCardComponent,
   ],
   imports: [
     CommonModule,
