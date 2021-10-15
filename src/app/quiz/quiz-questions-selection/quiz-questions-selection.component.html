@@ -3,7 +3,7 @@
     <app-quiz-questions-selection-card
       *ngFor="let question of allQuestions"
       [currentCharacter]="question"
-      [cardColor]="setColorBasedOnSelectedQuestions(question)"
+      [wasSelected]="wasSelected(question)"
     ></app-quiz-questions-selection-card>
   </div>
 </div>

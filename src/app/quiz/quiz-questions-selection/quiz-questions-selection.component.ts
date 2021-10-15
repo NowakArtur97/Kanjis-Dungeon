@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import COLORS from 'src/app/common/color.data';
 import KANJI from 'src/app/japanese/kanji/kanji.data';
 import Radical from 'src/app/japanese/radical/models/radical.model';
 import RADICALS from 'src/app/japanese/radical/radical.data';
@@ -15,7 +14,7 @@ import AppStoreState from 'src/app/store/app.state';
 })
 export class QuizQuestionsSelectionComponent implements OnInit, OnDestroy {
   allQuestions: Radical[];
-  selectedQuestions: Radical[];
+  preferedQuestions: Radical[];
   private questionSubscription$: Subscription;
 
   constructor(private store: Store<AppStoreState>) {}
@@ -23,14 +22,14 @@ export class QuizQuestionsSelectionComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.questionSubscription$ = this.store
       .select('quiz')
-      .subscribe(({ questions }) => (this.selectedQuestions = questions));
+      .subscribe(
+        ({ preferedQuestions }) => (this.preferedQuestions = preferedQuestions)
+      );
     this.allQuestions = [...RADICALS, ...KANJI, ...VOCABULARY];
   }
 
   ngOnDestroy = (): void => this.questionSubscription$?.unsubscribe();
 
-  setColorBasedOnSelectedQuestions = (question: Radical): string =>
-    this.selectedQuestions.some((q) => q.characters === question.characters)
-      ? COLORS.correct
-      : COLORS.wrong;
+  wasSelected = (question: Radical): boolean =>
+    this.preferedQuestions.some((q) => q.characters === question.characters);
 }
