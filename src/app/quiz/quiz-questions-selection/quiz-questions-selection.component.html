@@ -1,9 +1,9 @@
 <div class="quiz_question_selection__wrapper">
   <div class="quiz_question_selection__questions">
-    <app-quiz-summary-card
+    <app-quiz-questions-selection-card
       *ngFor="let question of allQuestions"
       [currentCharacter]="question"
       [cardColor]="setColorBasedOnSelectedQuestions(question)"
-    ></app-quiz-summary-card>
+    ></app-quiz-questions-selection-card>
   </div>
 </div>

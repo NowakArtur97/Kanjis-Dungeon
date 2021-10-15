@@ -16,10 +16,9 @@ export class QuizSummaryCardComponent
   implements OnInit {
   @Input()
   currentCharacter: Radical;
-  @Input()
   cardColor: string;
 
   ngOnInit(): void {
-    this.cardColor = this.cardColor || this.getCardColor();
+    this.cardColor = this.getCardColor();
   }
 }
