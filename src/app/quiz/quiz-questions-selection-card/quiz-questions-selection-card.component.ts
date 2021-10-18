@@ -30,8 +30,7 @@ export class QuizQuestionsSelectionCardComponent
     this.setColorBasedOnBeingSelected();
   }
 
-  // TODO: TEST
-  onSelect() {
+  onSelect(): void {
     this.wasSelected = !this.wasSelected;
     this.store.dispatch(
       this.wasSelected

@@ -60,6 +60,10 @@ const stateWithSummary: QuizStoreState = {
   ...initialState,
   shouldShowSummary: true,
 };
+const stateWithPreferredQuestion: QuizStoreState = {
+  ...initialState,
+  preferedQuestions: [radical],
+};
 
 describe('quizReducer', () => {
   describe('QuizActions.setQuiz', () => {
@@ -229,6 +233,35 @@ describe('quizReducer', () => {
       expect(actualState.mistakes).toEqual([]);
       expect(actualState.answers).toEqual([]);
       expect(actualState.shouldShowSummary).toEqual(false);
+    });
+  });
+
+  describe('QuizActions.addPreferedQuestion', () => {
+    it('should add prefered question', () => {
+      const preferedQuestion = radical;
+
+      const action = QuizActions.addPreferedQuestion({ preferedQuestion });
+      const actualState = quizReducer(initialState, action);
+      const expectedState = { ...stateWithPreferredQuestion };
+
+      expect(actualState).toEqual(expectedState);
+      expect(actualState.preferedQuestions).toContain(preferedQuestion);
+    });
+  });
+
+  describe('QuizActions.removePreferedQuestion', () => {
+    it('should remove prefered question', () => {
+      const preferedQuestionToRemove = radical;
+      const action = QuizActions.removePreferedQuestion({
+        preferedQuestionToRemove,
+      });
+      const actualState = quizReducer(stateWithPreferredQuestion, action);
+      const expectedState = { ...initialState };
+
+      expect(actualState).toEqual(expectedState);
+      expect(actualState.preferedQuestions).not.toContain(
+        preferedQuestionToRemove
+      );
     });
   });
 });
