@@ -14,8 +14,10 @@ import AppStoreState from 'src/app/store/app.state';
 })
 export class QuizQuestionsSelectionComponent implements OnInit, OnDestroy {
   allQuestions: Radical[];
-  preferedQuestions: Radical[];
+  isToggled = false;
   private questionSubscription$: Subscription;
+  private preferedQuestions: Radical[];
+  questions: Radical[];
 
   constructor(private store: Store<AppStoreState>) {}
 
@@ -32,4 +34,9 @@ export class QuizQuestionsSelectionComponent implements OnInit, OnDestroy {
 
   wasSelected = (question: Radical): boolean =>
     this.preferedQuestions.some((q) => q.characters === question.characters);
+
+  onShowPrefferedQuestions(): void {
+    this.isToggled = !this.isToggled;
+    this.questions = this.isToggled ? this.allQuestions : [];
+  }
 }

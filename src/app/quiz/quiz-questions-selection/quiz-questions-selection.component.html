@@ -1,7 +1,15 @@
 <div class="quiz_question_selection__wrapper">
+  <div class="quiz_question_selection__toggle_button_container">
+    <button
+      (click)="onShowPrefferedQuestions()"
+      class="quiz_question_selection__toggle_button"
+    >
+      Preffered questions
+    </button>
+  </div>
   <div class="quiz_question_selection__questions">
     <app-quiz-questions-selection-card
-      *ngFor="let question of allQuestions"
+      *ngFor="let question of questions"
       [currentCharacter]="question"
       [wasSelected]="wasSelected(question)"
     ></app-quiz-questions-selection-card>
