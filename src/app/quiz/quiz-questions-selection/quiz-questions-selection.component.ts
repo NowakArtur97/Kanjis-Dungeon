@@ -19,6 +19,10 @@ export class QuizQuestionsSelectionComponent implements OnInit, OnDestroy {
   private preferedQuestions: Radical[];
   questions: Radical[];
 
+  private readonly SHOW_MESSAGE = 'Show preffered questions';
+  private readonly HIDE_MESSAGE = 'Hide preffered questions';
+  message = this.SHOW_MESSAGE;
+
   constructor(private store: Store<AppStoreState>) {}
 
   ngOnInit(): void {
@@ -38,5 +42,6 @@ export class QuizQuestionsSelectionComponent implements OnInit, OnDestroy {
   onShowPrefferedQuestions(): void {
     this.isToggled = !this.isToggled;
     this.questions = this.isToggled ? this.allQuestions : [];
+    this.message = this.isToggled ? this.HIDE_MESSAGE : this.SHOW_MESSAGE;
   }
 }
