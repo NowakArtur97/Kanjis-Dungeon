@@ -38,6 +38,7 @@
 .quiz_question_selection__toggle_button:hover {
   background-color: white;
   color: var(--main-card-color);
+  cursor: pointer;
 }
 
 .quiz_question_selection__toggle_button_text {

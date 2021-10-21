@@ -40,6 +40,7 @@ export default class QuizEffects {
     )
   );
 
+  // TODO: TEST
   setQuestions$ = createEffect(() =>
     this.actions$.pipe(
       ofType(
@@ -47,37 +48,55 @@ export default class QuizEffects {
         QuizActions.repeatQuiz,
         VocabularyActions.setVocabulary
       ),
+      withLatestFrom(this.store.select((state) => state.quiz)),
+      switchMap(([, { preferedQuestions, quizOptions }]) =>
+        of(
+          this.quizService.selectFromPrefferedQuestions(
+            preferedQuestions,
+            quizOptions
+          )
+        )
+      ),
       withLatestFrom(
-        this.store.select((state) => state.quiz.quizOptions),
-        this.store.select((state) => state.quiz.questions),
+        this.store.select((state) => state.quiz),
         this.store.select((state) => state.radical.radicals),
         this.store.select((state) => state.kanji.kanji),
         this.store.select((state) => state.vocabulary.vocabulary)
       ),
-      switchMap(([, quizOptions, questions, radicals, kanji, vocabulary]) =>
-        of(
-          this.quizService.prepareQuestions(radicals, quizOptions, questions)
-        ).pipe(
-          map((questionsFromRadicals) =>
-            of(
-              this.quizService.prepareQuestions(
-                kanji,
-                quizOptions,
-                questionsFromRadicals
-              )
-            ).pipe(
-              map((questionsFromRadicalsAndKanji) =>
-                of(
-                  this.quizService.prepareQuestions(
-                    vocabulary,
-                    quizOptions,
-                    questionsFromRadicalsAndKanji
+      switchMap(
+        ([
+          chosenQuestions,
+          { quizOptions, questions },
+          radicals,
+          kanji,
+          vocabulary,
+        ]) =>
+          of(
+            this.quizService.prepareQuestions(radicals, quizOptions, [
+              ...chosenQuestions,
+              ...questions,
+            ])
+          ).pipe(
+            map((questionsFromRadicals) =>
+              of(
+                this.quizService.prepareQuestions(
+                  kanji,
+                  quizOptions,
+                  questionsFromRadicals
+                )
+              ).pipe(
+                map((questionsFromRadicalsAndKanji) =>
+                  of(
+                    this.quizService.prepareQuestions(
+                      vocabulary,
+                      quizOptions,
+                      questionsFromRadicalsAndKanji
+                    )
                   )
                 )
               )
             )
           )
-        )
       ),
       mergeMap((questions) => questions),
       mergeMap((questions) => questions),

@@ -11,12 +11,38 @@ export default class QuizService {
   getNextQuestion = (questions: Radical[]): Radical =>
     questions[MathUtil.getRandomIndex(questions)];
 
+  // TODO: TEST
+  selectFromPrefferedQuestions(
+    prefferedQuestions: Radical[],
+    quizOptions: QuizOptions
+  ): Radical[] {
+    const chosenQuestions: Radical[] = [];
+    const preferredNotExcludedQuestions: Radical[] = prefferedQuestions.filter(
+      (question) => !this.isTypeExcluded(quizOptions, question)
+    );
+    const prefferedQuestionsLength = preferredNotExcludedQuestions.length;
+    const { numberOfQuestions } = quizOptions;
+    while (
+      chosenQuestions.length < prefferedQuestionsLength &&
+      chosenQuestions.length < numberOfQuestions
+    ) {
+      const question =
+        preferredNotExcludedQuestions[
+          MathUtil.getRandomIndex(preferredNotExcludedQuestions)
+        ];
+      if (!chosenQuestions.includes(question)) {
+        chosenQuestions.push(question);
+      }
+    }
+    return chosenQuestions;
+  }
+
   prepareQuestions = (
     allQuestions: Radical[],
     quizOptions: QuizOptions,
     alreadyChosenQuestions: Radical[]
   ): Radical[] => {
-    if (this.isTypeExcluded(quizOptions, allQuestions)) {
+    if (this.isTypeExcluded(quizOptions, allQuestions[0])) {
       return alreadyChosenQuestions;
     }
 
@@ -39,9 +65,10 @@ export default class QuizService {
 
   private isTypeExcluded = (
     quizOptions: QuizOptions,
-    allQuestions: Radical[]
-  ): boolean => !quizOptions.questionTypes.includes(allQuestions[0].type);
+    question: Radical
+  ): boolean => !quizOptions.questionTypes.includes(question.type);
 
+  // TODO: QuizService: Decrease number of preffered questions
   private setNumberOfQuestions(
     allQuestions: Radical[],
     quizOptions: QuizOptions,
