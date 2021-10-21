@@ -629,5 +629,25 @@ const RADICALS: Radical[] = [
     meanings: ['horse'],
     type: CharacterType.RADICAL,
   },
+  {
+    characters: '且',
+    meanings: ['top hat'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '釆',
+    meanings: ['sickle'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '占',
+    meanings: ['fortune'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '灬',
+    meanings: ['boil'],
+    type: CharacterType.RADICAL,
+  },
 ];
 export default RADICALS;

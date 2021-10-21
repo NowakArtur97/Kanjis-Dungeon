@@ -27,14 +27,10 @@
 
   border: 2px solid black;
   padding: 0.2em;
-  background-color: var(--main-card-color);
 
-  font-size: 1.8em;
+  background-color: var(--main-card-color);
   color: white;
-  cursor: pointer;
-  font-family: "Source Sans Pro", Arial, Helvetica, sans-serif;
-  text-orientation: upright;
-  writing-mode: vertical-rl;
+  font-size: 1.8em;
 
   transition: background-color 0.2s, color 0.2s;
 }
@@ -44,6 +40,12 @@
   color: var(--main-card-color);
 }
 
+.quiz_question_selection__toggle_button_text {
+  cursor: pointer;
+  font-family: "Source Sans Pro", Arial, Helvetica, sans-serif;
+  writing-mode: vertical-rl;
+}
+
 .quiz_question_selection__questions {
   display: flex;
   justify-content: center;
@@ -51,4 +53,10 @@
   flex-wrap: wrap;
 
   background-color: hsl(0, 0%, 11%);
+}
+
+@media (min-width: 900px) {
+  .quiz_question_selection__toggle_button {
+    font-size: 2.2em;
+  }
 }

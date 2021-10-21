@@ -490,7 +490,7 @@ const KANJI: Kanji[] = [
   },
   {
     characters: '台',
-    meanings: ['machine'],
+    meanings: ['machine', 'stand', 'basic', 'perform'],
     onyomi: ['だい', 'たい'],
     type: CharacterType.KANJI,
   },
@@ -867,7 +867,7 @@ const KANJI: Kanji[] = [
   },
   {
     characters: '画',
-    meanings: ['drawing', 'picture', 'painting'],
+    meanings: ['drawing', 'picture', 'painting', 'stroke'],
     onyomi: ['が', 'かく'],
     type: CharacterType.KANJI,
   },
@@ -1484,6 +1484,33 @@ const KANJI: Kanji[] = [
     meanings: ['horse'],
     onyomi: ['ば', 'め'],
     kunyomi: ['うま', 'ま'],
+    type: CharacterType.KANJI,
+  },
+  {
+    characters: '組',
+    meanings: ['group', 'association', 'team', 'construct', 'assemble'],
+    onyomi: ['そ'],
+    kunyomi: ['く', 'くみ'],
+    type: CharacterType.KANJI,
+  },
+  {
+    characters: '番',
+    meanings: [
+      'number in a series',
+      'turn',
+      'ordinal number',
+      'number',
+      'watch',
+      'guard',
+    ],
+    onyomi: ['ばん'],
+    type: CharacterType.KANJI,
+  },
+  {
+    characters: '点',
+    meanings: ['point', 'dot', 'mark'],
+    onyomi: ['てん'],
+    kunyomi: ['つ'],
     type: CharacterType.KANJI,
   },
 ];
