@@ -56,6 +56,7 @@ export class JapaneseAlphabetComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  // TODO: REFACTOR with QuizQuestionsSelectionComponent
   private loadAlphabet(): void {
     let index = 0;
     this.alphabet = [];

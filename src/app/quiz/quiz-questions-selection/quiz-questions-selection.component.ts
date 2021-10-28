@@ -13,15 +13,16 @@ import AppStoreState from 'src/app/store/app.state';
   styleUrls: ['./quiz-questions-selection.component.css'],
 })
 export class QuizQuestionsSelectionComponent implements OnInit, OnDestroy {
-  allQuestions: Radical[];
+  private allQuestions: Radical[];
+  loadedQuestions: Radical[];
   isToggled = false;
   private questionSubscription$: Subscription;
   private preferedQuestions: Radical[];
-  questions: Radical[];
 
   private readonly SHOW_MESSAGE = 'Show preffered questions';
   private readonly HIDE_MESSAGE = 'Hide preffered questions';
   message = this.SHOW_MESSAGE;
+  private prefferedQuestionsInterval: any;
 
   constructor(private store: Store<AppStoreState>) {}
 
@@ -41,7 +42,28 @@ export class QuizQuestionsSelectionComponent implements OnInit, OnDestroy {
 
   onShowPrefferedQuestions(): void {
     this.isToggled = !this.isToggled;
-    this.questions = this.isToggled ? this.allQuestions : [];
     this.message = this.isToggled ? this.HIDE_MESSAGE : this.SHOW_MESSAGE;
+    clearInterval(this.prefferedQuestionsInterval);
+    if (this.isToggled) {
+      this.loadPrefferedQuestions();
+    } else {
+      this.loadedQuestions = [];
+    }
+  }
+
+  // TODO: REFACTOR with JapaneseAlphabetComponent
+  private loadPrefferedQuestions(): void {
+    this.loadedQuestions = [];
+    let index = 0;
+    const elementsDelay = 20;
+
+    this.prefferedQuestionsInterval = setInterval(() => {
+      if (index < this.allQuestions.length) {
+        this.loadedQuestions.push(this.allQuestions[index]);
+        index++;
+      } else {
+        clearInterval(this.prefferedQuestionsInterval);
+      }
+    }, elementsDelay);
   }
 }
