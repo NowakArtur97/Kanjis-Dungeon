@@ -75,7 +75,6 @@
 
   text-align: center;
   font-size: 2.4em;
-  font-family: "Source Sans Pro", Arial, Helvetica, sans-serif;
   text-transform: uppercase;
   color: white;
   outline: none;
@@ -111,7 +110,6 @@
   color: white;
   text-transform: capitalize;
   cursor: pointer;
-  font-family: "Source Sans Pro", Arial, Helvetica, sans-serif;
 
   transition: 0.2s;
 }
