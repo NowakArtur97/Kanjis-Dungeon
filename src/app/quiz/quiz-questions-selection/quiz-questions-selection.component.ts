@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import appearTrigger from 'src/app/common/animations/appear.animation';
 import slideInTrigger from 'src/app/common/animations/slide-in.animation';
+import CharacterType from 'src/app/japanese/common/enums/character-type.enum';
 import KANJI from 'src/app/japanese/kanji/kanji.data';
 import Radical from 'src/app/japanese/radical/models/radical.model';
 import RADICALS from 'src/app/japanese/radical/radical.data';
@@ -28,7 +29,14 @@ export class QuizQuestionsSelectionComponent implements OnInit, OnDestroy {
   private readonly LOAD_OFFSET = 200;
   private readonly ELEMENTS_DELAY = 20;
 
-  private allQuestions: Radical[];
+  private questionsByType = {
+    Radical: RADICALS,
+    Kanji: KANJI,
+    Vocabulary: VOCABULARY,
+  };
+  private chosenQuestions = RADICALS;
+  chosenCategory = CharacterType.RADICAL;
+  characterType = CharacterType;
   loadedQuestions: Radical[];
   isToggled = false;
   private questionSubscription$: Subscription;
@@ -43,6 +51,9 @@ export class QuizQuestionsSelectionComponent implements OnInit, OnDestroy {
   private prefferedQuestionsInterval: any;
   private loadTimer: any;
 
+  display = 'none';
+  private displayMode = { hidden: 'none', show: 'block' };
+
   constructor(private store: Store<AppStoreState>) {}
 
   ngOnInit(): void {
@@ -51,7 +62,6 @@ export class QuizQuestionsSelectionComponent implements OnInit, OnDestroy {
       .subscribe(
         ({ preferedQuestions }) => (this.preferedQuestions = preferedQuestions)
       );
-    this.allQuestions = [...RADICALS, ...KANJI, ...VOCABULARY];
   }
 
   ngOnDestroy = (): void => this.questionSubscription$?.unsubscribe();
@@ -88,12 +98,25 @@ export class QuizQuestionsSelectionComponent implements OnInit, OnDestroy {
     clearInterval(this.prefferedQuestionsInterval);
 
     this.prefferedQuestionsInterval = setInterval(() => {
-      if (index < this.allQuestions.length) {
-        this.loadedQuestions.push(this.allQuestions[index]);
+      if (index < this.chosenQuestions.length) {
+        this.loadedQuestions.push(this.chosenQuestions[index]);
         index++;
       } else {
         clearInterval(this.prefferedQuestionsInterval);
       }
     }, this.ELEMENTS_DELAY);
+  }
+
+  onChangeCategory(chosenCategory: CharacterType): void {
+    this.chosenCategory = chosenCategory;
+    this.chosenQuestions = this.questionsByType[this.chosenCategory];
+    this.loadPrefferedQuestions();
+  }
+
+  // TODO: REFACTOR with JapaneseAlphabetComponent (move to directive)
+  onWindowHidden(): void {
+    this.display = this.isToggled
+      ? this.displayMode.show
+      : this.displayMode.hidden;
   }
 }

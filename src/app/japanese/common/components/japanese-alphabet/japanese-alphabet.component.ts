@@ -38,6 +38,7 @@ export class JapaneseAlphabetComponent implements OnInit {
   private readonly HIDE_MESSAGE = 'Hide alphabet';
   message = this.SHOW_MESSAGE;
   isHidden = true;
+  // TODO: REFACTOR with QuizQuestionsSelectionComponent (move to directive)
   display = 'none';
   private displayMode = { hidden: 'none', show: 'block' };
 

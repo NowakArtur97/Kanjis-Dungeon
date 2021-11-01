@@ -11,40 +11,37 @@
   bottom: 0;
   left: 0;
 
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
 
   width: 100vw;
 
   background-color: hsl(0, 0%, 11%);
+  overflow-y: auto;
 }
 
 .quiz_question_selection__category {
-  flex-basis: 33%;
-
   text-align: center;
 
-  font-size: 2.5em;
+  font-size: 2.3em;
   color: white;
   cursor: pointer;
   transition: background-color 200ms;
 }
 
+.quiz_question_selection__category--radicals-active,
 .quiz_question_selection__category--radicals:hover {
   background-color: var(--radicals-color);
 }
 
+.quiz_question_selection__category--kanji-active,
 .quiz_question_selection__category--kanji:hover {
   background-color: var(--kanji-color);
 }
 
+.quiz_question_selection__category--vocabulary-active,
 .quiz_question_selection__category--vocabulary:hover {
   background-color: var(--vocabulary-color);
-}
-
-.quiz_question_selection__category--active {
-  border-bottom: 0.1em var(--correct-answer-color) solid;
 }
 
 .quiz_question_selection__questions {
