@@ -9,6 +9,7 @@ import Letter from '../../models/letter.model';
   selector: 'app-japanese-alphabet',
   templateUrl: './japanese-alphabet.component.html',
   styleUrls: ['./japanese-alphabet.component.css'],
+  // TODO: JapaneseAlphabetComponent: move to separate file and refactor with QuizQuestionsSelectionComponent
   animations: [
     trigger('appear', [
       state('in', style({ transform: 'scale(1)' })),
@@ -36,6 +37,9 @@ import Letter from '../../models/letter.model';
   ],
 })
 export class JapaneseAlphabetComponent implements OnInit {
+  private readonly LOAD_OFFSET = 200;
+  private readonly ELEMENTS_DELAY = 20;
+
   alphabet: Letter[] = [];
   private currentAlphabet = HIRAGANA;
   isHiraganaActive = true;
@@ -43,7 +47,7 @@ export class JapaneseAlphabetComponent implements OnInit {
   private loadTimer: any;
 
   private readonly HIDDEN_STATE = 'hidden';
-  readonly REVEALED_STATE = 'revealed';
+  private readonly REVEALED_STATE = 'revealed';
   toggleState = this.HIDDEN_STATE;
   private readonly SHOW_MESSAGE = 'Show alphabet';
   private readonly HIDE_MESSAGE = 'Hide alphabet';
@@ -60,7 +64,6 @@ export class JapaneseAlphabetComponent implements OnInit {
   private loadAlphabet(): void {
     let index = 0;
     this.alphabet = [];
-    const elementsDelay = 20;
     clearInterval(this.pushElementTimer);
 
     this.pushElementTimer = setInterval(() => {
@@ -70,7 +73,7 @@ export class JapaneseAlphabetComponent implements OnInit {
       } else {
         clearInterval(this.pushElementTimer);
       }
-    }, elementsDelay);
+    }, this.ELEMENTS_DELAY);
   }
 
   onChangeAlphabet(): void {
@@ -90,7 +93,7 @@ export class JapaneseAlphabetComponent implements OnInit {
       clearTimeout(this.loadTimer);
       this.toggleState = this.REVEALED_STATE;
       this.message = this.HIDE_MESSAGE;
-      this.loadTimer = setTimeout(() => this.loadAlphabet(), 200);
+      this.loadTimer = setTimeout(() => this.loadAlphabet(), this.LOAD_OFFSET);
     }
   }
 

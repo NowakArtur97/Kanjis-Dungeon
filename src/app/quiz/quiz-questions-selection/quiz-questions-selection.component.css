@@ -1,7 +1,8 @@
 .quiz_question_selection__wrapper {
-  position: absolute;
+  /* position: absolute;
   top: 0;
   left: 0;
+  width: 100vw; */
 }
 
 .quiz_question_selection__toggle_button_container {
@@ -47,12 +48,19 @@
 }
 
 .quiz_question_selection__questions {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100vw;
+  min-height: 100vh;
+
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
 
-  background-color: hsl(0, 0%, 11%);
+  background-color: hsl(0, 88%, 38%);
 }
 
 @media (min-width: 900px) {

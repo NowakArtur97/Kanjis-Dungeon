@@ -1,4 +1,12 @@
 <div class="quiz_question_selection__wrapper">
+  <div [@show]="toggleState" class="quiz_question_selection__questions">
+    <app-quiz-questions-selection-card
+      [@appear]="'in'"
+      *ngFor="let question of loadedQuestions"
+      [currentCharacter]="question"
+      [wasSelected]="wasSelected(question)"
+    ></app-quiz-questions-selection-card>
+  </div>
   <div class="quiz_question_selection__toggle_button_container">
     <button
       (click)="onShowPrefferedQuestions()"
@@ -8,12 +16,5 @@
         {{ message }}
       </p>
     </button>
-  </div>
-  <div class="quiz_question_selection__questions">
-    <app-quiz-questions-selection-card
-      *ngFor="let question of loadedQuestions"
-      [currentCharacter]="question"
-      [wasSelected]="wasSelected(question)"
-    ></app-quiz-questions-selection-card>
   </div>
 </div>
