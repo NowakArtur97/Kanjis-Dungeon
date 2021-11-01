@@ -1,7 +1,8 @@
-import { animate, keyframes, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
+import appearTrigger from 'src/app/common/animations/appear.animation';
+import slideInTrigger from 'src/app/common/animations/slide-in.animation';
 import KANJI from 'src/app/japanese/kanji/kanji.data';
 import Radical from 'src/app/japanese/radical/models/radical.model';
 import RADICALS from 'src/app/japanese/radical/radical.data';
@@ -12,36 +13,15 @@ import AppStoreState from 'src/app/store/app.state';
   selector: 'app-quiz-questions-selection',
   templateUrl: './quiz-questions-selection.component.html',
   styleUrls: ['./quiz-questions-selection.component.css'],
-  // TODO: QuizQuestionsSelectionComponent: move to separate file and refactor with JapaneseAlphabetComponent
   animations: [
-    trigger('appear', [
-      state('in', style({ transform: 'scale(1)' })),
-      transition(
-        'void => *',
-        animate(
-          200,
-          keyframes([
-            style({ transform: 'scale(0)', offset: 0 }),
-            style({ transform: 'scale(1)', offset: 1 }),
-          ])
-        )
-      ),
-    ]),
-    trigger('show', [
-      state(
-        'hidden',
-        style({
-          transform: 'translateX(-100vw)',
-        })
-      ),
-      state(
-        'revealed',
-        style({
-          transform: 'translateX(0)',
-        })
-      ),
-      transition('hidden <=> revealed', animate('200ms')),
-    ]),
+    appearTrigger('in'),
+    slideInTrigger(
+      'show',
+      'hidden',
+      'translateX(-100vw)',
+      'revealed',
+      'translateX(0)'
+    ),
   ],
 })
 export class QuizQuestionsSelectionComponent implements OnInit, OnDestroy {

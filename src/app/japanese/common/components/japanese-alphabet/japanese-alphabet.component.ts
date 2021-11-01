@@ -1,5 +1,6 @@
-import { animate, keyframes, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
+import appearTrigger from 'src/app/common/animations/appear.animation';
+import slideInTrigger from 'src/app/common/animations/slide-in.animation';
 
 import HIRAGANA from '../../hiragana.data';
 import KATAKANA from '../../katakana.data';
@@ -9,31 +10,15 @@ import Letter from '../../models/letter.model';
   selector: 'app-japanese-alphabet',
   templateUrl: './japanese-alphabet.component.html',
   styleUrls: ['./japanese-alphabet.component.css'],
-  // TODO: JapaneseAlphabetComponent: move to separate file and refactor with QuizQuestionsSelectionComponent
   animations: [
-    trigger('appear', [
-      state('in', style({ transform: 'scale(1)' })),
-      transition(
-        'void => *',
-        animate(
-          200,
-          keyframes([
-            style({ transform: 'scale(0)', offset: 0 }),
-            style({ transform: 'scale(1)', offset: 1 }),
-          ])
-        )
-      ),
-    ]),
-    trigger('show', [
-      state(
-        'hidden',
-        style({
-          transform: 'translateY(100vh)',
-        })
-      ),
-      state('revealed', style({ transform: 'translateY(0)' })),
-      transition('hidden <=> revealed', animate('200ms')),
-    ]),
+    appearTrigger('in', 200),
+    slideInTrigger(
+      'show',
+      'hidden',
+      'translateY(100vh)',
+      'revealed',
+      'translateY(0)'
+    ),
   ],
 })
 export class JapaneseAlphabetComponent implements OnInit {
