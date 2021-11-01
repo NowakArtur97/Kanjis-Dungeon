@@ -1,11 +1,30 @@
 <div class="quiz_question_selection__wrapper">
-  <div [@show]="toggleState" class="quiz_question_selection__questions">
-    <app-quiz-questions-selection-card
-      [@appear]="'in'"
-      *ngFor="let question of loadedQuestions"
-      [currentCharacter]="question"
-      [wasSelected]="wasSelected(question)"
-    ></app-quiz-questions-selection-card>
+  <div [@show]="toggleState" class="quiz_question_selection__window">
+    <div class="quiz_question_selection__questions">
+      <app-quiz-questions-selection-card
+        [@appear]="'in'"
+        *ngFor="let question of loadedQuestions"
+        [currentCharacter]="question"
+        [wasSelected]="wasSelected(question)"
+      ></app-quiz-questions-selection-card>
+    </div>
+    <div class="quiz_question_selection__categories">
+      <div
+        class="quiz_question_selection__category quiz_question_selection__category--radicals"
+      >
+        Radicals
+      </div>
+      <div
+        class="quiz_question_selection__category quiz_question_selection__category--kanji"
+      >
+        Kanji
+      </div>
+      <div
+        class="quiz_question_selection__category quiz_question_selection__category--vocabulary"
+      >
+        Vocabulary
+      </div>
+    </div>
   </div>
   <div class="quiz_question_selection__toggle_button_container">
     <button

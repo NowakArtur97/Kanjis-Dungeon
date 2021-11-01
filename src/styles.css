@@ -2,6 +2,9 @@
   --correct-answer-color: #08c66c;
   --incorrect-answer-color: rgb(146, 3, 3);
   --main-card-color: #08c;
+  --radicals-color: #08c;
+  --kanji-color: #f0a;
+  --vocabulary-color: #a0f;
 
   --sprite-size-multiplier: 3;
   --medium-sprite-base-size: 16px;
