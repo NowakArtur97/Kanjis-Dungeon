@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 import COLORS from 'src/app/common/color.data';
 import AppStoreState from 'src/app/store/app.state';
@@ -21,6 +21,7 @@ export class QuizQuestionsSelectionCardComponent
   cardColor: string;
   @Input()
   wasSelected: boolean;
+  @Output() selectedEvent = new EventEmitter();
 
   constructor(private store: Store<AppStoreState>) {
     super();
@@ -30,7 +31,7 @@ export class QuizQuestionsSelectionCardComponent
     this.setColorBasedOnBeingSelected();
   }
 
-  onSelect(): void {
+  onSelect(event: MouseEvent): void {
     this.wasSelected = !this.wasSelected;
     this.store.dispatch(
       this.wasSelected
@@ -42,9 +43,18 @@ export class QuizQuestionsSelectionCardComponent
           })
     );
     this.setColorBasedOnBeingSelected();
+    this.emitSelectedEvent(event);
   }
-
   setColorBasedOnBeingSelected(): void {
     this.cardColor = this.wasSelected ? COLORS.correct : COLORS.wrong;
+  }
+
+  emitSelectedEvent(event: MouseEvent) {
+    const currentCharacter = this.currentCharacter;
+    const wasShiftPressed = event.shiftKey;
+    this.selectedEvent.emit({
+      chosenQuestion: currentCharacter,
+      wasShiftPressed,
+    });
   }
 }

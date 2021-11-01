@@ -54,6 +54,8 @@ export class QuizQuestionsSelectionComponent implements OnInit, OnDestroy {
   display = 'none';
   private displayMode = { hidden: 'none', show: 'block' };
 
+  private lastChosenQuestion: Radical;
+
   constructor(private store: Store<AppStoreState>) {}
 
   ngOnInit(): void {
@@ -118,5 +120,34 @@ export class QuizQuestionsSelectionComponent implements OnInit, OnDestroy {
     this.display = this.isToggled
       ? this.displayMode.show
       : this.displayMode.hidden;
+  }
+
+  onSelectedQuestion(event: {
+    chosenQuestion: Radical;
+    wasShiftPressed: boolean;
+  }): void {
+    const { chosenQuestion } = event;
+    if (
+      event.wasShiftPressed &&
+      this.lastChosenQuestion &&
+      chosenQuestion.type === this.lastChosenQuestion.type
+    ) {
+      const lastChosenQuestionIndex = this.chosenQuestions.indexOf(
+        this.lastChosenQuestion
+      );
+      const chosenQuestionIndex = this.chosenQuestions.indexOf(chosenQuestion);
+      if (lastChosenQuestionIndex > chosenQuestionIndex) {
+        const chosenQuestionsUsingShift = this.chosenQuestions.slice(
+          chosenQuestionIndex,
+          lastChosenQuestionIndex + 1
+        );
+      } else {
+        const chosenQuestionsUsingShift = this.chosenQuestions.slice(
+          lastChosenQuestionIndex,
+          chosenQuestionIndex + 1
+        );
+      }
+    }
+    this.lastChosenQuestion = chosenQuestion;
   }
 }
