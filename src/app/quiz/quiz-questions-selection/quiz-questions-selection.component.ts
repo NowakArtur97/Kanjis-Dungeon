@@ -132,10 +132,10 @@ export class QuizQuestionsSelectionComponent implements OnInit, OnDestroy {
       this.lastChosenQuestion &&
       chosenQuestion.type === this.lastChosenQuestion.type
     ) {
-      let lastChosenQuestionIndex = this.chosenQuestions.indexOf(
+      const lastChosenQuestionIndex = this.chosenQuestions.indexOf(
         this.lastChosenQuestion
       );
-      let chosenQuestionIndex = this.chosenQuestions.indexOf(chosenQuestion);
+      const chosenQuestionIndex = this.chosenQuestions.indexOf(chosenQuestion);
       (lastChosenQuestionIndex > chosenQuestionIndex
         ? this.chosenQuestions.slice(
             chosenQuestionIndex,
