@@ -34,12 +34,12 @@ export const showSummary = createAction('[Quiz] Show Summary');
 
 export const resetQuiz = createAction('[Quiz] Reset Quiz');
 
-export const addPreferedQuestion = createAction(
-  '[Quiz] Add Prefered Question',
-  props<{ preferedQuestion: Radical }>()
+export const addPreferredQuestion = createAction(
+  '[Quiz] Add Preferred Question',
+  props<{ preferredQuestion: Radical }>()
 );
 
-export const removePreferedQuestion = createAction(
-  '[Quiz] Remove from Prefered Question',
-  props<{ preferedQuestionToRemove: Radical }>()
+export const removePreferredQuestion = createAction(
+  '[Quiz] Remove from Preferred Question',
+  props<{ preferredQuestionToRemove: Radical }>()
 );

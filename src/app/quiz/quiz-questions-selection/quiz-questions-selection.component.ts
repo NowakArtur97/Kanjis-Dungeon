@@ -10,6 +10,8 @@ import RADICALS from 'src/app/japanese/radical/radical.data';
 import VOCABULARY from 'src/app/japanese/vocabulary/vocabulary.data';
 import AppStoreState from 'src/app/store/app.state';
 
+import * as QuizActions from '../../quiz/store/quiz.actions';
+
 @Component({
   selector: 'app-quiz-questions-selection',
   templateUrl: './quiz-questions-selection.component.html',
@@ -40,7 +42,7 @@ export class QuizQuestionsSelectionComponent implements OnInit, OnDestroy {
   loadedQuestions: Radical[];
   isToggled = false;
   private questionSubscription$: Subscription;
-  private preferedQuestions: Radical[];
+  private preferredQuestions: Radical[];
 
   private readonly HIDDEN_STATE = 'hidden';
   private readonly REVEALED_STATE = 'revealed';
@@ -62,14 +64,12 @@ export class QuizQuestionsSelectionComponent implements OnInit, OnDestroy {
     this.questionSubscription$ = this.store
       .select('quiz')
       .subscribe(
-        ({ preferedQuestions }) => (this.preferedQuestions = preferedQuestions)
+        ({ preferredQuestions }) =>
+          (this.preferredQuestions = preferredQuestions)
       );
   }
 
   ngOnDestroy = (): void => this.questionSubscription$?.unsubscribe();
-
-  wasSelected = (question: Radical): boolean =>
-    this.preferedQuestions.some((q) => q.characters === question.characters);
 
   onShowPrefferedQuestions(): void {
     this.isToggled = !this.isToggled;
@@ -132,21 +132,28 @@ export class QuizQuestionsSelectionComponent implements OnInit, OnDestroy {
       this.lastChosenQuestion &&
       chosenQuestion.type === this.lastChosenQuestion.type
     ) {
-      const lastChosenQuestionIndex = this.chosenQuestions.indexOf(
+      let lastChosenQuestionIndex = this.chosenQuestions.indexOf(
         this.lastChosenQuestion
       );
-      const chosenQuestionIndex = this.chosenQuestions.indexOf(chosenQuestion);
-      if (lastChosenQuestionIndex > chosenQuestionIndex) {
-        const chosenQuestionsUsingShift = this.chosenQuestions.slice(
-          chosenQuestionIndex,
-          lastChosenQuestionIndex + 1
+      let chosenQuestionIndex = this.chosenQuestions.indexOf(chosenQuestion);
+      (lastChosenQuestionIndex > chosenQuestionIndex
+        ? this.chosenQuestions.slice(
+            chosenQuestionIndex,
+            lastChosenQuestionIndex + 1
+          )
+        : this.chosenQuestions.slice(
+            lastChosenQuestionIndex,
+            chosenQuestionIndex
+          )
+      )
+        .filter((question) => !this.preferredQuestions.includes(question))
+        .forEach((question) =>
+          this.store.dispatch(
+            QuizActions.addPreferredQuestion({
+              preferredQuestion: question,
+            })
+          )
         );
-      } else {
-        const chosenQuestionsUsingShift = this.chosenQuestions.slice(
-          lastChosenQuestionIndex,
-          chosenQuestionIndex + 1
-        );
-      }
     }
     this.lastChosenQuestion = chosenQuestion;
   }

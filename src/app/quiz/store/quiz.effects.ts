@@ -49,10 +49,10 @@ export default class QuizEffects {
         VocabularyActions.setVocabulary
       ),
       withLatestFrom(this.store.select((state) => state.quiz)),
-      switchMap(([, { preferedQuestions, quizOptions }]) =>
+      switchMap(([, { preferredQuestions, quizOptions }]) =>
         of(
           this.quizService.selectFromPrefferedQuestions(
-            preferedQuestions,
+            preferredQuestions,
             quizOptions
           )
         )

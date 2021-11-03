@@ -11,7 +11,6 @@
         [@appear]="'in'"
         *ngFor="let question of loadedQuestions"
         [currentCharacter]="question"
-        [wasSelected]="wasSelected(question)"
       ></app-quiz-questions-selection-card>
     </div>
     <div class="quiz_question_selection__categories">

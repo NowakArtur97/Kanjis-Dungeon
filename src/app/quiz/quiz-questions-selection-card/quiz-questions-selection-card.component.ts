@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
 import COLORS from 'src/app/common/color.data';
 import AppStoreState from 'src/app/store/app.state';
 
@@ -17,41 +18,50 @@ import { QuizSummaryCardComponent } from '../quiz-summary-card/quiz-summary-card
 })
 export class QuizQuestionsSelectionCardComponent
   extends QuizSummaryCardComponent
-  implements OnInit {
+  implements OnInit, OnDestroy {
   cardColor: string;
-  @Input()
-  wasSelected: boolean;
   @Output() selectedEvent = new EventEmitter();
+  private wasSelected: boolean;
+  private preferredQuestionsSubScription$: Subscription;
 
   constructor(private store: Store<AppStoreState>) {
     super();
   }
 
   ngOnInit(): void {
-    this.setColorBasedOnBeingSelected();
+    this.preferredQuestionsSubScription$ = this.store
+      .select('quiz')
+      .subscribe(({ preferredQuestions }) => {
+        this.wasSelected = preferredQuestions.includes(this.currentCharacter);
+        this.setColorBasedOnBeingSelected();
+      });
   }
 
+  ngOnDestroy = (): void => this.preferredQuestionsSubScription$?.unsubscribe();
+
   onSelect(event: MouseEvent): void {
-    this.wasSelected = !this.wasSelected;
+    const wasShiftPressed = event.shiftKey;
+    this.emitSelectedEvent(wasShiftPressed);
+    if (wasShiftPressed && this.wasSelected) {
+      return;
+    }
     this.store.dispatch(
       this.wasSelected
-        ? QuizActions.addPreferedQuestion({
-            preferedQuestion: this.currentCharacter,
+        ? QuizActions.removePreferredQuestion({
+            preferredQuestionToRemove: this.currentCharacter,
           })
-        : QuizActions.removePreferedQuestion({
-            preferedQuestionToRemove: this.currentCharacter,
+        : QuizActions.addPreferredQuestion({
+            preferredQuestion: this.currentCharacter,
           })
     );
-    this.setColorBasedOnBeingSelected();
-    this.emitSelectedEvent(event);
   }
-  setColorBasedOnBeingSelected(): void {
+
+  private setColorBasedOnBeingSelected(): void {
     this.cardColor = this.wasSelected ? COLORS.correct : COLORS.wrong;
   }
 
-  emitSelectedEvent(event: MouseEvent) {
+  private emitSelectedEvent(wasShiftPressed: boolean): void {
     const currentCharacter = this.currentCharacter;
-    const wasShiftPressed = event.shiftKey;
     this.selectedEvent.emit({
       chosenQuestion: currentCharacter,
       wasShiftPressed,
