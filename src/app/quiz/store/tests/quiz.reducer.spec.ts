@@ -56,11 +56,15 @@ const stateWithMistakes: QuizStoreState = {
   ...stateWithQuestions,
   mistakes: questions,
 };
+const stateWithMistakesAndPreferredQuestion: QuizStoreState = {
+  ...stateWithMistakes,
+  preferredQuestions: [radical],
+};
 const stateWithSummary: QuizStoreState = {
   ...initialState,
   shouldShowSummary: true,
 };
-const stateWithPreferredQuestions: QuizStoreState = {
+const stateWithPreferredQuestion: QuizStoreState = {
   ...initialState,
   preferredQuestions: [radical],
 };
@@ -216,6 +220,19 @@ describe('quizReducer', () => {
 
       expect(actualState).toEqual(initialState);
     });
+
+    it('should reset state but leave preferred questions', () => {
+      const action = QuizActions.resetQuiz();
+      const actualState = quizReducer(
+        stateWithMistakesAndPreferredQuestion,
+        action
+      );
+
+      expect(actualState).toEqual(stateWithPreferredQuestion);
+      expect(actualState.preferredQuestions).toEqual(
+        stateWithPreferredQuestion.preferredQuestions
+      );
+    });
   });
 
   describe('QuizActions.repeatQuiz', () => {
@@ -236,13 +253,30 @@ describe('quizReducer', () => {
     });
   });
 
+  describe('QuizActions.setPreferredQuestions', () => {
+    it('should set preferred questions', () => {
+      const preferredQuestions = [radical, kanji, word];
+      const stateWithPreferredQuestions: QuizStoreState = {
+        ...initialState,
+        preferredQuestions,
+      };
+
+      const action = QuizActions.setPreferredQuestions({ preferredQuestions });
+      const actualState = quizReducer(initialState, action);
+      const expectedState = { ...stateWithPreferredQuestions };
+
+      expect(actualState).toEqual(expectedState);
+      expect(actualState.preferredQuestions).toEqual(preferredQuestions);
+    });
+  });
+
   describe('QuizActions.addPreferedQuestion', () => {
-    it('should add prefered question', () => {
+    it('should add preferred question', () => {
       const preferredQuestion = radical;
 
       const action = QuizActions.addPreferredQuestion({ preferredQuestion });
       const actualState = quizReducer(initialState, action);
-      const expectedState = { ...stateWithPreferredQuestions };
+      const expectedState = { ...stateWithPreferredQuestion };
 
       expect(actualState).toEqual(expectedState);
       expect(actualState.preferredQuestions).toContain(preferredQuestion);
@@ -250,12 +284,12 @@ describe('quizReducer', () => {
   });
 
   describe('QuizActions.removePreferedQuestion', () => {
-    it('should remove prefered question', () => {
+    it('should remove preferred question', () => {
       const preferredQuestionToRemove = radical;
       const action = QuizActions.removePreferredQuestion({
         preferredQuestionToRemove,
       });
-      const actualState = quizReducer(stateWithPreferredQuestions, action);
+      const actualState = quizReducer(stateWithPreferredQuestion, action);
       const expectedState = { ...initialState };
 
       expect(actualState).toEqual(expectedState);

@@ -21,7 +21,6 @@ export default class QuizEffects {
 
   private readonly QUIZ_ROUTE = 'quiz';
 
-  // TODO: TEST
   getPreferredQuestionFromStorage$ = createEffect(() =>
     this.actions$.pipe(
       ofType(QuizActions.getPreferredQuestionsFromStorage),
@@ -32,8 +31,7 @@ export default class QuizEffects {
     )
   );
 
-  // TODO: TEST
-  addPreferredQuestion$ = createEffect(
+  savePreferredQuestions$ = createEffect(
     () =>
       this.actions$.pipe(
         ofType(

@@ -25,15 +25,13 @@ const radical: Radical = {
   meanings: ['ground'],
   type: CharacterType.RADICAL,
 };
-const radicals: Radical[] = [
-  radical,
-  {
-    id: 2,
-    characters: '二',
-    meanings: ['two'],
-    type: CharacterType.RADICAL,
-  },
-];
+const radical2: Radical = {
+  id: 2,
+  characters: '二',
+  meanings: ['two'],
+  type: CharacterType.RADICAL,
+};
+const radicals: Radical[] = [radical, radical2];
 const kanji: Kanji[] = [
   {
     id: 1,
@@ -244,6 +242,109 @@ describe('QuizEffects', () => {
           expect(quizService.getNextQuestion).toHaveBeenCalledWith(
             stateWithoutQuestions.quiz.questions
           );
+        });
+      });
+    });
+  });
+
+  describe('state with preferred questions', () => {
+    const stateWitthPreferredQuestions: Partial<AppStoreState> = {
+      ...stateWithoutQuestions,
+      quiz: {
+        ...initialState,
+        preferredQuestions: [radical],
+      },
+    };
+    beforeEach(() =>
+      TestBed.configureTestingModule({
+        imports: [StoreModule.forRoot({})],
+        providers: [
+          QuizEffects,
+          provideMockStore({ initialState: stateWitthPreferredQuestions }),
+          {
+            provide: Store,
+            useClass: MockStore,
+          },
+          provideMockActions(() => actions$),
+          {
+            provide: QuizService,
+            useValue: jasmine.createSpyObj('quizService', [
+              'loadPreferredQuestionsFromStorage',
+              'savePreferredQuestionsToStorage',
+            ]),
+          },
+          {
+            provide: Router,
+            useValue: {
+              url: '/quiz',
+            },
+          },
+        ],
+      })
+    );
+
+    beforeEach(() => {
+      quizEffects = TestBed.inject(QuizEffects);
+      quizService = TestBed.inject(QuizService);
+    });
+
+    describe('getPreferredQuestionFromStorage$', () => {
+      beforeEach(() => {
+        actions$ = new ReplaySubject(1);
+        actions$.next(QuizActions.setQuestions);
+        (quizService.loadPreferredQuestionsFromStorage as jasmine.Spy).and.returnValue(
+          radicals
+        );
+      });
+
+      it('should return a setPreferredQuestions action', () => {
+        quizEffects.getPreferredQuestionFromStorage$.subscribe(
+          (resultAction) => {
+            expect(resultAction).toEqual(
+              QuizActions.setPreferredQuestions({
+                preferredQuestions: radicals,
+              })
+            );
+            expect(
+              quizService.loadPreferredQuestionsFromStorage
+            ).toHaveBeenCalledTimes(1);
+          }
+        );
+      });
+    });
+
+    describe('savePreferredQuestions$', () => {
+      beforeEach(() => {
+        actions$ = new ReplaySubject(1);
+        actions$.next(
+          QuizActions.addPreferredQuestion({ preferredQuestion: radical })
+        );
+      });
+
+      it('should call savePreferredQuestionsToStorage method', () => {
+        quizEffects.savePreferredQuestions$.subscribe(() => {
+          expect(
+            quizService.savePreferredQuestionsToStorage
+          ).toHaveBeenCalledWith([radical]);
+        });
+      });
+    });
+
+    describe('savePreferredQuestions$', () => {
+      beforeEach(() => {
+        actions$ = new ReplaySubject(1);
+        actions$.next(
+          QuizActions.removePreferredQuestion({
+            preferredQuestionToRemove: radical2,
+          })
+        );
+      });
+
+      it('should call savePreferredQuestionsToStorage method', () => {
+        quizEffects.savePreferredQuestions$.subscribe(() => {
+          expect(
+            quizService.savePreferredQuestionsToStorage
+          ).toHaveBeenCalledWith([radical]);
         });
       });
     });
