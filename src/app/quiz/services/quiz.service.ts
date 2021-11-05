@@ -8,6 +8,8 @@ import QuizOptions from '../models/quiz-options.model';
 
 @Injectable({ providedIn: 'root' })
 export default class QuizService {
+  private readonly PREFFERED_QUESTIONS_KEY = 'PREFFERED_QUESTIONS';
+
   getNextQuestion = (questions: Radical[]): Radical =>
     questions[MathUtil.getRandomIndex(questions)];
 
@@ -179,4 +181,13 @@ export default class QuizService {
       quizOptions.minNumberOfProperties
     );
   }
+
+  savePreferredQuestionsToStorage = (prefferedQuestions: Radical[]): void =>
+    localStorage.setItem(
+      this.PREFFERED_QUESTIONS_KEY,
+      JSON.stringify(prefferedQuestions)
+    );
+
+  loadPreferredQuestionsFromStorage = (): Radical[] =>
+    JSON.parse(localStorage.getItem(this.PREFFERED_QUESTIONS_KEY)) || [];
 }

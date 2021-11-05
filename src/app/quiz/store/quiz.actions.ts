@@ -34,6 +34,15 @@ export const showSummary = createAction('[Quiz] Show Summary');
 
 export const resetQuiz = createAction('[Quiz] Reset Quiz');
 
+export const getPreferredQuestionsFromStorage = createAction(
+  '[Quiz] Get Preferred Questions from Storage'
+);
+
+export const setPreferredQuestions = createAction(
+  '[Quiz] Set Preferred Questions',
+  props<{ preferredQuestions: Radical[] }>()
+);
+
 export const addPreferredQuestion = createAction(
   '[Quiz] Add Preferred Question',
   props<{ preferredQuestion: Radical }>()

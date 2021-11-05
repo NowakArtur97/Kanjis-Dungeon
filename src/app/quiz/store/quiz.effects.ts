@@ -21,6 +21,37 @@ export default class QuizEffects {
 
   private readonly QUIZ_ROUTE = 'quiz';
 
+  // TODO: TEST
+  getPreferredQuestionFromStorage$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(QuizActions.getPreferredQuestionsFromStorage),
+      switchMap(() => of(this.quizService.loadPreferredQuestionsFromStorage())),
+      map((preferredQuestions) =>
+        QuizActions.setPreferredQuestions({ preferredQuestions })
+      )
+    )
+  );
+
+  // TODO: TEST
+  addPreferredQuestion$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(
+          QuizActions.addPreferredQuestion,
+          QuizActions.removePreferredQuestion
+        ),
+        withLatestFrom(
+          this.store.select((state) => state.quiz.preferredQuestions)
+        ),
+        switchMap(([, preferredQuestions]) =>
+          of(
+            this.quizService.savePreferredQuestionsToStorage(preferredQuestions)
+          )
+        )
+      ),
+    { dispatch: false }
+  );
+
   setNextQuestion$ = createEffect(() =>
     this.actions$.pipe(
       ofType(
