@@ -16,7 +16,6 @@ import AppStoreState from './store/app.state';
 export class AppComponent implements OnInit {
   constructor(private store: Store<AppStoreState>) {}
 
-  // TODO: TEST
   ngOnInit(): void {
     this.store.dispatch(QuizActions.getPreferredQuestionsFromStorage());
     if (environment.production || environment.shouldUpdateFirebase) {

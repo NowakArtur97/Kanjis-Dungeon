@@ -109,6 +109,7 @@ describe('QuizEffects', () => {
             useValue: jasmine.createSpyObj('quizService', [
               'getNextQuestion',
               'prepareQuestions',
+              'selectFromPrefferedQuestions',
             ]),
           },
         ],
@@ -144,6 +145,9 @@ describe('QuizEffects', () => {
         beforeEach(() => {
           actions$ = new ReplaySubject(1);
           actions$.next(QuizActions.changeQuizOptions);
+          (quizService.selectFromPrefferedQuestions as jasmine.Spy).and.returnValues(
+            []
+          );
           (quizService.prepareQuestions as jasmine.Spy).and.returnValues(
             radicals,
             [...radicals, ...kanji],
@@ -158,6 +162,9 @@ describe('QuizEffects', () => {
                 questions: [...radicals, ...kanji, ...vocabulary],
               })
             );
+            expect(
+              quizService.selectFromPrefferedQuestions
+            ).toHaveBeenCalledTimes(1);
             expect(quizService.prepareQuestions).toHaveBeenCalledTimes(3);
           });
         });
@@ -167,6 +174,9 @@ describe('QuizEffects', () => {
       beforeEach(() => {
         actions$ = new ReplaySubject(1);
         actions$.next(QuizActions.repeatQuiz);
+        (quizService.selectFromPrefferedQuestions as jasmine.Spy).and.returnValues(
+          []
+        );
         (quizService.prepareQuestions as jasmine.Spy).and.returnValues(
           radicals,
           [...radicals, ...kanji],
@@ -181,6 +191,9 @@ describe('QuizEffects', () => {
               questions: [...radicals, ...kanji, ...vocabulary],
             })
           );
+          expect(
+            quizService.selectFromPrefferedQuestions
+          ).toHaveBeenCalledTimes(1);
           expect(quizService.prepareQuestions).toHaveBeenCalledTimes(3);
         });
       });

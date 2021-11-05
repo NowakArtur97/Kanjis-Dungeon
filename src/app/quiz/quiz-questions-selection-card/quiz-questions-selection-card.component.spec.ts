@@ -1,9 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Store, StoreModule } from '@ngrx/store';
+import { of } from 'rxjs';
 import RADICALS from 'src/app/japanese/radical/radical.data';
 import AppStoreState from 'src/app/store/app.state';
 
 import * as QuizActions from '../../quiz/store/quiz.actions';
+import { initialState, QuizStoreState } from '../store/quiz.reducer';
 import { QuizQuestionsSelectionCardComponent } from './quiz-questions-selection-card.component';
 
 describe('QuizQuestionsSelectionCardComponent', () => {
@@ -24,32 +26,43 @@ describe('QuizQuestionsSelectionCardComponent', () => {
 
     store = TestBed.inject(Store);
 
-    spyOn(store, 'dispatch');
-
     component.currentCharacter = RADICALS[0];
 
-    fixture.detectChanges();
-    component.ngOnInit();
+    spyOn(store, 'dispatch');
   });
 
   it('when select not preffered question should dispatch addPreferedQuestion action', () => {
-    component.wasSelected = false;
-    component.onSelect();
+    spyOn(store, 'select').and.returnValue(of(initialState));
 
+    fixture.detectChanges();
+    component.ngOnInit();
+
+    component.onSelect(new MouseEvent('click'));
+
+    expect(store.select).toHaveBeenCalled();
     expect(store.dispatch).toHaveBeenCalledWith(
-      QuizActions.addPreferedQuestion({
-        preferedQuestion: component.currentCharacter,
+      QuizActions.addPreferredQuestion({
+        preferredQuestion: component.currentCharacter,
       })
     );
   });
 
   it('when select preffered question should dispatch removePreferedQuestion action', () => {
-    component.wasSelected = true;
-    component.onSelect();
+    const quizStatePreferredQuestions: QuizStoreState = {
+      ...initialState,
+      preferredQuestions: [component.currentCharacter],
+    };
+    spyOn(store, 'select').and.returnValue(of(quizStatePreferredQuestions));
 
+    fixture.detectChanges();
+    component.ngOnInit();
+
+    component.onSelect(new MouseEvent('click'));
+
+    expect(store.select).toHaveBeenCalled();
     expect(store.dispatch).toHaveBeenCalledWith(
-      QuizActions.removePreferedQuestion({
-        preferedQuestionToRemove: component.currentCharacter,
+      QuizActions.removePreferredQuestion({
+        preferredQuestionToRemove: component.currentCharacter,
       })
     );
   });

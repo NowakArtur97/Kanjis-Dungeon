@@ -12,6 +12,7 @@ import * as KanjiActions from './japanese/kanji/store/kanji.actions';
 import * as RadicalActions from './japanese/radical/store/radical.actions';
 import * as VocabularyActions from './japanese/vocabulary/store/vocabulary.actions';
 import { QuizModule } from './quiz/quiz.module';
+import * as QuizActions from './quiz/store/quiz.actions';
 import AppStoreState from './store/app.state';
 
 describe('AppComponent', () => {
@@ -50,7 +51,10 @@ describe('AppComponent', () => {
   });
 
   describe('when initialize component', () => {
-    it('should not dispatch saveRadicals, saveKanji and saveVocabulary actions', () => {
+    it('should dispatch getPreferredQuestionsFromStorage action and not dispatch saveRadicals, saveKanji and saveVocabulary actions', () => {
+      expect(store.dispatch).toHaveBeenCalledWith(
+        QuizActions.getPreferredQuestionsFromStorage()
+      );
       expect(store.dispatch).not.toHaveBeenCalledWith(
         RadicalActions.saveRadicals()
       );

@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Store, StoreModule } from '@ngrx/store';
 import { of } from 'rxjs';
 import RADICALS from 'src/app/japanese/radical/radical.data';
@@ -13,13 +14,13 @@ describe('QuizQuestionsSelectionComponent', () => {
   let store: Store<AppStoreState>;
 
   const quizStateWithPreferredQuestions: Partial<QuizStoreState> = {
-    preferedQuestions: [...RADICALS],
+    preferredQuestions: [...RADICALS],
   };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [QuizQuestionsSelectionComponent],
-      imports: [StoreModule.forRoot({})],
+      imports: [StoreModule.forRoot({}), BrowserAnimationsModule],
     }).compileComponents();
   });
 
