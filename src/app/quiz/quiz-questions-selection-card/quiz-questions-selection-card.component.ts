@@ -32,7 +32,11 @@ export class QuizQuestionsSelectionCardComponent
     this.preferredQuestionsSubScription$ = this.store
       .select('quiz')
       .subscribe(({ preferredQuestions }) => {
-        this.wasSelected = preferredQuestions.includes(this.currentCharacter);
+        this.wasSelected = preferredQuestions.some(
+          (q) =>
+            q.characters === this.currentCharacter.characters &&
+            q.type === this.currentCharacter.type
+        );
         this.setColorBasedOnBeingSelected();
       });
   }
