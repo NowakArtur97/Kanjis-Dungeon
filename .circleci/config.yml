@@ -14,6 +14,9 @@ jobs:
       - run:
           name: Show current directory
           command: pwd
+      - run:
+          name: Find chromium browser
+          command: which chromium-browser
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "package-lock.json" }}
