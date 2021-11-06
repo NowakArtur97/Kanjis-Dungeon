@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "test": "ng test",
+    "start": "SET NODE_OPTIONS=--openssl-legacy-provider && ng serve",
+    "build": "SET NODE_OPTIONS=--openssl-legacy-provider && ng build",
+    "test": "SET NODE_OPTIONS=--openssl-legacy-provider && ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "firebase-deploy": "firebase deploy"

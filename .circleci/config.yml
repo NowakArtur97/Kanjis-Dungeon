@@ -1,19 +1,10 @@
 version: 2
-orbs:
-  browser-tools: circleci/browser-tools@1.2.3
 jobs:
   tests:
     working_directory: ~/kanjis-dungeon
     docker:
-      - image: circleci/node:14.18.1
+      - image: circleci/node:latest-browsers-legacy
     steps:
-      - browser-tools/install-chrome
-      - browser-tools/install-chromedriver
-      - run:
-          name: Check install
-          command: |
-            google-chrome --version
-            chromedriver --version
       - checkout:
           path: ~/kanjis-dungeon
       - setup_remote_docker
