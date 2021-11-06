@@ -27,7 +27,7 @@ jobs:
             - node_modules
       - run:
           name: Testing
-          command: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
+          command: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessNoSandbox
       - run:
           name: Linting
           command: npm run lint
