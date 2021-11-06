@@ -31,17 +31,6 @@ describe('VocabularyEffects', () => {
       type: CharacterType.VOCABULARY,
     },
   ];
-  const mockVocabulary: Word[] = [
-    {
-      ...vocabulary[0],
-      id: 1,
-    },
-    {
-      ...vocabulary[1],
-
-      id: 2,
-    },
-  ];
 
   beforeEach(() =>
     TestBed.configureTestingModule({
@@ -76,9 +65,7 @@ describe('VocabularyEffects', () => {
       actions$.next(VocabularyActions.saveVocabulary());
 
       spyOn(CharacterUtil, 'setUpIds').and.returnValues(vocabulary);
-      (vocabularyService.save as jasmine.Spy).and.returnValue(
-        of(mockVocabulary)
-      );
+      (vocabularyService.save as jasmine.Spy).and.returnValue(of(vocabulary));
     });
 
     it('should return setVocabulary action', () => {
@@ -109,9 +96,7 @@ describe('VocabularyEffects', () => {
     });
 
     it('when number of vocabulary on firebase is smaller than locally should return saveVocabulary action', () => {
-      (vocabularyService.getAll as jasmine.Spy).and.returnValue(
-        of(mockVocabulary)
-      );
+      (vocabularyService.getAll as jasmine.Spy).and.returnValue(of(vocabulary));
       vocabularyEffects.fetchVocabulary$.subscribe((resultAction) => {
         expect(resultAction).toEqual(VocabularyActions.saveVocabulary());
         expect(vocabularyService.getAll).toHaveBeenCalledTimes(1);

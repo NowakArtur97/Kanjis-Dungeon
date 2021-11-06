@@ -5,7 +5,6 @@ import * as VocabularyActions from '../vocabulary.actions';
 import { vocabularyReducer, VocabularyStoreState } from '../vocabulary.reducer';
 
 const word1: Word = {
-  id: 1,
   characters: '大人',
   meanings: ['adult', 'mature'],
   reading: 'おとな',
@@ -13,7 +12,6 @@ const word1: Word = {
 };
 
 const word2: Word = {
-  id: 2,
   characters: '一人',
   meanings: ['alone', 'one person'],
   reading: 'ひとり',

@@ -8,13 +8,11 @@ import * as QuizActions from '../quiz.actions';
 import { DEFAULT_QUIZ_OPTIONS, initialState, quizReducer, QuizStoreState } from '../quiz.reducer';
 
 const radical: Radical = {
-  id: 1,
   characters: '一',
   meanings: ['ground'],
   type: CharacterType.RADICAL,
 };
 const kanji: Kanji = {
-  id: 1,
   characters: '上',
   meanings: ['above', 'up', 'over'],
   onyomi: ['じょう'],
@@ -22,7 +20,6 @@ const kanji: Kanji = {
   type: CharacterType.KANJI,
 };
 const word: Word = {
-  id: 1,
   characters: '大人',
   meanings: ['adult', 'mature'],
   reading: 'おとな',

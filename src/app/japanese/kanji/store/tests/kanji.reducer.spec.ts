@@ -5,7 +5,6 @@ import * as KanjiActions from '../kanji.actions';
 import { kanjiReducer, KanjiStoreState } from '../kanji.reducer';
 
 const kanji1: Kanji = {
-  id: 1,
   characters: '上',
   meanings: ['above', 'up', 'over'],
   onyomi: ['じょう'],
@@ -13,7 +12,6 @@ const kanji1: Kanji = {
   type: CharacterType.KANJI,
 };
 const kanji2: Kanji = {
-  id: 2,
   characters: '下',
   meanings: ['below', 'down', 'under', 'beneath'],
   onyomi: ['か', 'げ'],

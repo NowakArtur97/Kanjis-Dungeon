@@ -73,7 +73,7 @@ const _quizReducer = createReducer(
     ...state,
     mistakes: state.mistakes.find(
       (previousMistake) =>
-        previousMistake.id === mistake.id &&
+        previousMistake.characters === mistake.characters &&
         previousMistake.type === mistake.type
     )
       ? [...state.mistakes]

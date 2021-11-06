@@ -20,13 +20,11 @@ import QuizEffects from '../quiz.effects';
 import { initialState } from '../quiz.reducer';
 
 const radical: Radical = {
-  id: 1,
   characters: '一',
   meanings: ['ground'],
   type: CharacterType.RADICAL,
 };
 const radical2: Radical = {
-  id: 2,
   characters: '二',
   meanings: ['two'],
   type: CharacterType.RADICAL,
@@ -34,7 +32,6 @@ const radical2: Radical = {
 const radicals: Radical[] = [radical, radical2];
 const kanji: Kanji[] = [
   {
-    id: 1,
     characters: '上',
     meanings: ['above', 'up', 'over'],
     onyomi: ['じょう'],
@@ -42,7 +39,6 @@ const kanji: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    id: 2,
     characters: '下',
     meanings: ['below', 'down', 'under', 'beneath'],
     onyomi: ['か', 'げ'],
@@ -52,14 +48,12 @@ const kanji: Kanji[] = [
 ];
 const vocabulary: Word[] = [
   {
-    id: 1,
     characters: '大人',
     meanings: ['adult', 'mature'],
     reading: 'おとな',
     type: CharacterType.VOCABULARY,
   },
   {
-    id: 2,
     characters: '一人',
     meanings: ['alone', 'one person'],
     reading: 'ひとり',

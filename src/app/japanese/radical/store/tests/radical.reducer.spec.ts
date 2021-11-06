@@ -5,13 +5,11 @@ import * as RadicalActions from '../radical.actions';
 import { radicalReducer, RadicalStoreState } from '../radical.reducer';
 
 const radical1: Radical = {
-  id: 1,
   characters: '一',
   meanings: ['ground'],
   type: CharacterType.RADICAL,
 };
 const radical2: Radical = {
-  id: 2,
   characters: '二',
   meanings: ['two'],
   type: CharacterType.RADICAL,

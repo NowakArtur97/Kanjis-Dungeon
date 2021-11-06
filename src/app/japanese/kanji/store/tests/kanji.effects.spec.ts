@@ -33,16 +33,6 @@ describe('KanjiEffects', () => {
       type: CharacterType.KANJI,
     },
   ];
-  const mockKanji: Kanji[] = [
-    {
-      ...kanji[0],
-      id: 1,
-    },
-    {
-      ...kanji[1],
-      id: 2,
-    },
-  ];
 
   beforeEach(() =>
     TestBed.configureTestingModule({
@@ -74,7 +64,7 @@ describe('KanjiEffects', () => {
       actions$.next(KanjiActions.saveKanji());
 
       spyOn(CharacterUtil, 'setUpIds').and.returnValues(kanji);
-      (kanjiService.save as jasmine.Spy).and.returnValue(of(mockKanji));
+      (kanjiService.save as jasmine.Spy).and.returnValue(of(kanji));
     });
 
     it('should return setKanji action', () => {
@@ -101,7 +91,7 @@ describe('KanjiEffects', () => {
     });
 
     it('when number of kanji on firebase is smaller than locally should return saveKanji action', () => {
-      (kanjiService.getAll as jasmine.Spy).and.returnValue(of(mockKanji));
+      (kanjiService.getAll as jasmine.Spy).and.returnValue(of(kanji));
       kanjiEffects.fetchKanji$.subscribe((resultAction) => {
         expect(resultAction).toEqual(KanjiActions.saveKanji());
         expect(kanjiService.getAll).toHaveBeenCalled();

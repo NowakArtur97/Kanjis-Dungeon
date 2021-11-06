@@ -29,16 +29,6 @@ describe('RadicalEffects', () => {
       type: CharacterType.RADICAL,
     },
   ];
-  const mockRadicals: Radical[] = [
-    {
-      ...radicals[0],
-      id: 1,
-    },
-    {
-      ...radicals[1],
-      id: 2,
-    },
-  ];
 
   beforeEach(async () =>
     TestBed.configureTestingModule({
@@ -76,7 +66,7 @@ describe('RadicalEffects', () => {
     it('should return setRadicals action', () => {
       radicalEffects.fetchRadicals$.subscribe((resultAction) => {
         expect(resultAction).toEqual(
-          RadicalActions.setRadicals({ radicals: mockRadicals })
+          RadicalActions.setRadicals({ radicals: RADICALS })
         );
         expect(radicalService.save).toHaveBeenCalledTimes(1);
         expect(CharacterUtil.setUpIds).toHaveBeenCalledTimes(1);
@@ -101,7 +91,7 @@ describe('RadicalEffects', () => {
     });
 
     it('when number of radicals on firebase is smaller than locally should return saveRadicals action', () => {
-      (radicalService.getAll as jasmine.Spy).and.returnValue(of(mockRadicals));
+      (radicalService.getAll as jasmine.Spy).and.returnValue(of(radicals));
       radicalEffects.fetchRadicals$.subscribe((resultAction) => {
         expect(resultAction).toEqual(RadicalActions.saveRadicals());
         expect(radicalService.getAll).toHaveBeenCalledTimes(1);
