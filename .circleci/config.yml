@@ -26,10 +26,11 @@ jobs:
           paths:
             - node_modules
       - run:
+          name: Export NODE_OPTIONS
+          command: export NODE_OPTIONS=--openssl-legacy-provider
+      - run:
           name: Testing
-          command: |
-            export NODE_OPTIONS=--openssl-legacy-provider
-            npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
+          command: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
       - run:
           name: Linting
           command: npm run lint
@@ -60,14 +61,14 @@ jobs:
       - run:
           name: Deploy app to Firebase
           command: npm run firebase-deploy -- --token=$FIREBASE_TOKEN
-workflows:
-  version: 2
-  test_build_deploy:
-    jobs:
-      - tests
-      - deploy:
-          requires:
-            - tests
-          filters:
-            branches:
-              only: main
+# workflows:
+#   version: 2
+#   test_build_deploy:
+#     jobs:
+#       - tests
+#       - deploy:
+#           requires:
+#             - tests
+#           filters:
+#             branches:
+#               only: main
