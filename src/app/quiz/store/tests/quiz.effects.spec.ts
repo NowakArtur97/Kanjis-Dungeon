@@ -308,14 +308,25 @@ describe('QuizEffects', () => {
     });
 
     describe('savePreferredQuestions$', () => {
-      beforeEach(() => {
+      it('should call savePreferredQuestionsToStorage method', () => {
         actions$ = new ReplaySubject(1);
         actions$.next(
           QuizActions.addPreferredQuestion({ preferredQuestion: radical })
         );
+        quizEffects.savePreferredQuestions$.subscribe(() => {
+          expect(
+            quizService.savePreferredQuestionsToStorage
+          ).toHaveBeenCalledWith([radical]);
+        });
       });
 
       it('should call savePreferredQuestionsToStorage method', () => {
+        actions$ = new ReplaySubject(1);
+        actions$.next(
+          QuizActions.removePreferredQuestion({
+            preferredQuestionToRemove: radical2,
+          })
+        );
         quizEffects.savePreferredQuestions$.subscribe(() => {
           expect(
             quizService.savePreferredQuestionsToStorage
@@ -324,22 +335,17 @@ describe('QuizEffects', () => {
       });
     });
 
-    describe('savePreferredQuestions$', () => {
-      beforeEach(() => {
-        actions$ = new ReplaySubject(1);
-        actions$.next(
-          QuizActions.removePreferredQuestion({
-            preferredQuestionToRemove: radical2,
-          })
-        );
-      });
-
-      it('should call savePreferredQuestionsToStorage method', () => {
-        quizEffects.savePreferredQuestions$.subscribe(() => {
-          expect(
-            quizService.savePreferredQuestionsToStorage
-          ).toHaveBeenCalledWith([radical]);
-        });
+    it('should call savePreferredQuestionsToStorage method', () => {
+      actions$ = new ReplaySubject(1);
+      actions$.next(
+        QuizActions.addPreferredQuestions({
+          preferredQuestions: [radical, radical2],
+        })
+      );
+      quizEffects.savePreferredQuestions$.subscribe(() => {
+        expect(
+          quizService.savePreferredQuestionsToStorage
+        ).toHaveBeenCalledWith([radical]);
       });
     });
   });

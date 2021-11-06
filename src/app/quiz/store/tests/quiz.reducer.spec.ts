@@ -65,6 +65,10 @@ const stateWithPreferredQuestion: QuizStoreState = {
   ...initialState,
   preferredQuestions: [radical],
 };
+const stateWithPreferredQuestions: QuizStoreState = {
+  ...initialState,
+  preferredQuestions: [radical, kanji, word],
+};
 
 describe('quizReducer', () => {
   describe('QuizActions.setQuiz', () => {
@@ -253,10 +257,6 @@ describe('quizReducer', () => {
   describe('QuizActions.setPreferredQuestions', () => {
     it('should set preferred questions', () => {
       const preferredQuestions = [radical, kanji, word];
-      const stateWithPreferredQuestions: QuizStoreState = {
-        ...initialState,
-        preferredQuestions,
-      };
 
       const action = QuizActions.setPreferredQuestions({ preferredQuestions });
       const actualState = quizReducer(initialState, action);
@@ -277,6 +277,19 @@ describe('quizReducer', () => {
 
       expect(actualState).toEqual(expectedState);
       expect(actualState.preferredQuestions).toContain(preferredQuestion);
+    });
+  });
+
+  describe('QuizActions.addPreferredQuestions', () => {
+    it('should add preferred questions', () => {
+      const preferredQuestions = [radical, kanji, word];
+
+      const action = QuizActions.addPreferredQuestions({ preferredQuestions });
+      const actualState = quizReducer(initialState, action);
+      const expectedState = { ...stateWithPreferredQuestions };
+
+      expect(actualState).toEqual(expectedState);
+      expect(actualState.preferredQuestions).toEqual(preferredQuestions);
     });
   });
 

@@ -30,7 +30,7 @@ jobs:
           command: npm install karma-firefox-launcher --save-dev
       - run:
           name: Testing
-          command: npm run test -- --no-watch --no-progress --browsers=Firefox --no-sandbox
+          command: npm run test -- --no-watch --no-progress --browsers=Firefox
       - run:
           name: Linting
           command: npm run lint
