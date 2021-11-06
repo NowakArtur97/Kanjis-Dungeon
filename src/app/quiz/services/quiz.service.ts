@@ -100,7 +100,7 @@ export default class QuizService {
   ): QuizCard {
     const quizCard: QuizCard = this.getDefaultQuizCard(question);
 
-    if (question?.id === undefined) {
+    if (question === undefined) {
       return quizCard;
     }
 
