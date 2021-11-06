@@ -26,8 +26,11 @@ jobs:
           paths:
             - node_modules
       - run:
+          name: Install Karma Firefox Launcher
+          command: npm install karma-firefox-launcher --save-dev
+      - run:
           name: Testing
-          command: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessNoSandbox
+          command: npm run test -- --no-watch --no-progress --browsers=Firefox --no-sandbox
       - run:
           name: Linting
           command: npm run lint
