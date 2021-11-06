@@ -3,7 +3,7 @@ jobs:
   tests:
     working_directory: ~/kanjis-dungeon
     docker:
-      - image: circleci/node:latest-browsers-legacy
+      - image: circleci/node:14.18.1
     steps:
       - checkout:
           path: ~/kanjis-dungeon
@@ -27,7 +27,9 @@ jobs:
             - node_modules
       - run:
           name: Testing
-          command: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
+          command: |
+            export NODE_OPTIONS=--openssl-legacy-provider
+            npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
       - run:
           name: Linting
           command: npm run lint
