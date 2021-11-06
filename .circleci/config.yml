@@ -26,10 +26,11 @@ jobs:
           paths:
             - node_modules
       - run:
+          name: Check npm version
+          command: npm version
+      - run:
           name: Testing
           command: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
-          environment: 
-            NODE_OPTIONS: --openssl-legacy-provider yarn dev
       - run:
           name: Linting
           command: npm run lint
