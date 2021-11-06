@@ -4,6 +4,7 @@ jobs:
     working_directory: ~/kanjis-dungeon
     docker:
       - image: cimg/node:16.13.0-browsers
+    environment: CHROME_BIN = '/usr/bin/chromium-browser'
     steps:
       - checkout:
           path: ~/kanjis-dungeon
