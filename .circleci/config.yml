@@ -3,7 +3,7 @@ jobs:
   tests:
     working_directory: ~/kanjis-dungeon
     docker:
-      - image: cimg/node:16.13.0-browsers
+      - image: circleci/node:latest-browsers-legacy
     steps:
       - checkout:
           path: ~/kanjis-dungeon
@@ -26,11 +26,8 @@ jobs:
           paths:
             - node_modules
       - run:
-          name: Install Karma Firefox Launcher
-          command: npm install karma-firefox-launcher --save-dev
-      - run:
           name: Testing
-          command: npm run test -- --no-watch --no-progress --browsers=Firefox
+          command: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI --openssl-legacy-provider
       - run:
           name: Linting
           command: npm run lint
