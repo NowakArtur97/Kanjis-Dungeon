@@ -48,6 +48,11 @@ export const addPreferredQuestion = createAction(
   props<{ preferredQuestion: Radical }>()
 );
 
+export const addPreferredQuestions = createAction(
+  '[Quiz] Add Preferred Questions',
+  props<{ preferredQuestions: Radical[] }>()
+);
+
 export const removePreferredQuestion = createAction(
   '[Quiz] Remove from Preferred Question',
   props<{ preferredQuestionToRemove: Radical }>()

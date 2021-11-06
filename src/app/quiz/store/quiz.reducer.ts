@@ -109,6 +109,12 @@ const _quizReducer = createReducer(
     preferredQuestions: [...preferredQuestions],
   })),
 
+  // TODO: TEST
+  on(QuizActions.addPreferredQuestions, (state, { preferredQuestions }) => ({
+    ...state,
+    preferredQuestions: [...state.preferredQuestions, ...preferredQuestions],
+  })),
+
   on(QuizActions.addPreferredQuestion, (state, { preferredQuestion }) => ({
     ...state,
     preferredQuestions: [...state.preferredQuestions, preferredQuestion],

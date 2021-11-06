@@ -136,7 +136,7 @@ export class QuizQuestionsSelectionComponent implements OnInit, OnDestroy {
         this.lastChosenQuestion
       );
       const chosenQuestionIndex = this.chosenQuestions.indexOf(chosenQuestion);
-      (lastChosenQuestionIndex > chosenQuestionIndex
+      const preferredQuestions = (lastChosenQuestionIndex > chosenQuestionIndex
         ? this.chosenQuestions.slice(
             chosenQuestionIndex,
             lastChosenQuestionIndex + 1
@@ -145,15 +145,12 @@ export class QuizQuestionsSelectionComponent implements OnInit, OnDestroy {
             lastChosenQuestionIndex,
             chosenQuestionIndex
           )
-      )
-        .filter((question) => !this.preferredQuestions.includes(question))
-        .forEach((question) =>
-          this.store.dispatch(
-            QuizActions.addPreferredQuestion({
-              preferredQuestion: question,
-            })
-          )
-        );
+      ).filter((question) => !this.preferredQuestions.includes(question));
+      this.store.dispatch(
+        QuizActions.addPreferredQuestions({
+          preferredQuestions,
+        })
+      );
     }
     this.lastChosenQuestion = chosenQuestion;
   }
