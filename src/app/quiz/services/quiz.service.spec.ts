@@ -2,8 +2,10 @@ import { getTestBed, TestBed } from '@angular/core/testing';
 import MathUtil from 'src/app/common/utils/math.util';
 import CharacterType from 'src/app/japanese/common/enums/character-type.enum';
 import KANJI from 'src/app/japanese/kanji/kanji.data';
+import Kanji from 'src/app/japanese/kanji/models/kanji.model';
 import Radical from 'src/app/japanese/radical/models/radical.model';
 import RADICALS from 'src/app/japanese/radical/radical.data';
+import Word from 'src/app/japanese/vocabulary/models/word.model';
 import VOCABULARY from 'src/app/japanese/vocabulary/vocabulary.data';
 
 import QuizCard from '../models/quiz-card.model';
@@ -14,14 +16,12 @@ describe('quizService', () => {
   let injector: TestBed;
   let quizService: QuizService;
 
-  const radical = {
-    id: 1,
+  const radical: Radical = {
     characters: '一',
     meanings: ['ground'],
     type: CharacterType.RADICAL,
   };
-  const kanji = {
-    id: 3,
+  const kanji: Kanji = {
     characters: '大',
     meanings: ['big', 'large'],
     onyomi: ['たい', 'だい'],
@@ -29,8 +29,7 @@ describe('quizService', () => {
     nanori: ['ひろ'],
     type: CharacterType.KANJI,
   };
-  const word = {
-    id: 1,
+  const word: Word = {
     characters: '大人',
     meanings: ['adult', 'mature'],
     reading: 'おとな',
@@ -421,6 +420,124 @@ describe('quizService', () => {
 
       expect(MathUtil.getRandomIntValue).not.toHaveBeenCalled();
       expect(MathUtil.getRandomIndex).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('when select from preffered questions', () => {
+    it('should return all preferred questions when the number of preferred questions is less than number of questions', () => {
+      spyOn(MathUtil, 'getRandomIndex').and.returnValues(0);
+
+      const options = {
+        ...quizOptionsWithHiddenRandomProperties,
+        numberOfQuestions: 9,
+      };
+      const preferredQuestions: Radical[] = [radical];
+
+      const questions = quizService.selectFromPrefferedQuestions(
+        preferredQuestions,
+        options
+      );
+
+      expect(questions.length).toEqual(preferredQuestions.length);
+      expect(questions[0]).toEqual(radical);
+
+      expect(MathUtil.getRandomIndex).toHaveBeenCalledTimes(1);
+    });
+
+    it('should return random questions when the number of preferred questions is higher than number of questions', () => {
+      spyOn(MathUtil, 'getRandomIndex').and.returnValues(0, 2);
+
+      const options = {
+        ...quizOptionsWithHiddenRandomProperties,
+        numberOfQuestions: 2,
+      };
+      const preferredQuestions: Radical[] = [radical, kanji, word];
+
+      const questions = quizService.selectFromPrefferedQuestions(
+        preferredQuestions,
+        options
+      );
+
+      expect(questions.length).toEqual(options.numberOfQuestions);
+      expect(questions[0]).toEqual(radical);
+      expect(questions[1]).toEqual(word);
+
+      expect(MathUtil.getRandomIndex).toHaveBeenCalledTimes(2);
+    });
+
+    it('should return questions with type from options when the number of preferred questions is higher than number of questions', () => {
+      spyOn(MathUtil, 'getRandomIndex').and.returnValues(0);
+
+      const options = {
+        ...quizOptionsWithHiddenRandomProperties,
+        numberOfQuestions: 3,
+        questionTypes: [CharacterType.RADICAL],
+      };
+      const preferredQuestions: Radical[] = [radical, kanji, word];
+
+      const questions = quizService.selectFromPrefferedQuestions(
+        preferredQuestions,
+        options
+      );
+
+      expect(questions.length).toEqual(1);
+      expect(questions[0]).toEqual(radical);
+
+      expect(MathUtil.getRandomIndex).toHaveBeenCalledTimes(1);
+    });
+
+    it('should not return any questions when there were no preferred questions', () => {
+      spyOn(MathUtil, 'getRandomIndex');
+
+      const options = {
+        ...quizOptionsWithHiddenRandomProperties,
+        numberOfQuestions: 3,
+      };
+
+      const questions = quizService.selectFromPrefferedQuestions([], options);
+
+      expect(questions.length).toEqual(0);
+
+      expect(MathUtil.getRandomIndex).toHaveBeenCalledTimes(0);
+    });
+
+    it('should not return any questions when there were no preferred questions with specified type', () => {
+      spyOn(MathUtil, 'getRandomIndex');
+
+      const options = {
+        ...quizOptionsWithHiddenRandomProperties,
+        numberOfQuestions: 3,
+        questionTypes: [CharacterType.RADICAL],
+      };
+      const preferredQuestions: Radical[] = [kanji, word];
+
+      const questions = quizService.selectFromPrefferedQuestions(
+        preferredQuestions,
+        options
+      );
+
+      expect(questions.length).toEqual(0);
+
+      expect(MathUtil.getRandomIndex).toHaveBeenCalledTimes(0);
+    });
+
+    it('should not return any questions when number of questions is zero', () => {
+      spyOn(MathUtil, 'getRandomIndex');
+
+      const options = {
+        ...quizOptionsWithHiddenRandomProperties,
+        numberOfQuestions: 0,
+      };
+      const preferredQuestions: Radical[] = [kanji, word];
+
+      const questions = quizService.selectFromPrefferedQuestions(
+        preferredQuestions,
+        options
+      );
+
+      expect(questions.length).toEqual(0);
+
+      expect(MathUtil.getRandomIndex).toHaveBeenCalledTimes(0);
     });
   });
 });

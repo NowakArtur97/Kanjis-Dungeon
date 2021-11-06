@@ -162,6 +162,7 @@ describe('QuizEffects', () => {
         });
       });
     });
+
     describe('QuizActions.repeatQuiz', () => {
       beforeEach(() => {
         actions$ = new ReplaySubject(1);

@@ -13,7 +13,6 @@ export default class QuizService {
   getNextQuestion = (questions: Radical[]): Radical =>
     questions[MathUtil.getRandomIndex(questions)];
 
-  // TODO: TEST
   selectFromPrefferedQuestions(
     prefferedQuestions: Radical[],
     quizOptions: QuizOptions
