@@ -62,7 +62,9 @@ const _quizReducer = createReducer(
   on(QuizActions.addAnswer, (state, { answer }) => ({
     ...state,
     questions: state.questions.filter((question) =>
-      question.id !== answer.id ? true : question.type !== answer.type
+      question.characters !== answer.characters
+        ? true
+        : question.type !== answer.type
     ),
     answers: [...state.answers, answer],
   })),
