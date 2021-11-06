@@ -61,12 +61,12 @@ jobs:
       - run:
           name: Deploy app to Firebase
           command: npm run firebase-deploy -- --token=$FIREBASE_TOKEN
-# workflows:
-#   version: 2
-#   test_build_deploy:
-#     jobs:
-#       - tests
-#       - deploy:
+workflows:
+  version: 2
+  test_build_deploy:
+    jobs:
+      - tests
+      - deploy
 #           requires:
 #             - tests
 #           filters:
