@@ -17,16 +17,20 @@
   >
   <div [@appear]="messageState" class="quiz_summary__buttons">
     <button
-      (click)="tryAgain()"
+      (click)="onTryAgainQuiz()"
       class="quiz_summary__button quiz_summary__again_button"
     >
       Try again
     </button>
-    <button class="quiz_summary__button quiz_summary__add_to_preferred_button">
+    <button
+      *ngIf="shouldProposeNewPreferredQuestions"
+      (click)="onAddMistakesToPreferred()"
+      class="quiz_summary__button quiz_summary__add_to_preferred_button"
+    >
       Add to preferred
     </button>
     <button
-      (click)="close()"
+      (click)="onCloseSummary()"
       class="quiz_summary__button quiz_summary__close_button"
     >
       Close

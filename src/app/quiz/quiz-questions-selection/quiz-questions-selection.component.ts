@@ -47,10 +47,10 @@ export class QuizQuestionsSelectionComponent implements OnInit, OnDestroy {
   private readonly HIDDEN_STATE = 'hidden';
   private readonly REVEALED_STATE = 'revealed';
   toggleState = this.HIDDEN_STATE;
-  private readonly SHOW_MESSAGE = 'Show preffered questions';
-  private readonly HIDE_MESSAGE = 'Hide preffered questions';
+  private readonly SHOW_MESSAGE = 'Show preferred questions';
+  private readonly HIDE_MESSAGE = 'Hide preferred questions';
   message = this.SHOW_MESSAGE;
-  private prefferedQuestionsInterval: any;
+  private preferredQuestionsInterval: any;
   private loadTimer: any;
 
   display = 'none';
@@ -71,16 +71,16 @@ export class QuizQuestionsSelectionComponent implements OnInit, OnDestroy {
 
   ngOnDestroy = (): void => this.questionSubscription$?.unsubscribe();
 
-  onShowPrefferedQuestions(): void {
+  onShowPreferredQuestions(): void {
     this.isToggled = !this.isToggled;
     clearTimeout(this.loadTimer);
-    clearTimeout(this.prefferedQuestionsInterval);
+    clearTimeout(this.preferredQuestionsInterval);
 
     if (this.isToggled) {
       this.message = this.HIDE_MESSAGE;
       this.toggleState = this.REVEALED_STATE;
       this.loadTimer = setTimeout(
-        () => this.loadPrefferedQuestions(),
+        () => this.loadPreferredQuestions(),
         this.LOAD_OFFSET
       );
     } else {
@@ -94,17 +94,17 @@ export class QuizQuestionsSelectionComponent implements OnInit, OnDestroy {
   }
 
   // TODO: REFACTOR with JapaneseAlphabetComponent
-  private loadPrefferedQuestions(): void {
+  private loadPreferredQuestions(): void {
     let index = 0;
     this.loadedQuestions = [];
-    clearInterval(this.prefferedQuestionsInterval);
+    clearInterval(this.preferredQuestionsInterval);
 
-    this.prefferedQuestionsInterval = setInterval(() => {
+    this.preferredQuestionsInterval = setInterval(() => {
       if (index < this.chosenQuestions.length) {
         this.loadedQuestions.push(this.chosenQuestions[index]);
         index++;
       } else {
-        clearInterval(this.prefferedQuestionsInterval);
+        clearInterval(this.preferredQuestionsInterval);
       }
     }, this.ELEMENTS_DELAY);
   }
@@ -112,7 +112,7 @@ export class QuizQuestionsSelectionComponent implements OnInit, OnDestroy {
   onChangeCategory(chosenCategory: CharacterType): void {
     this.chosenCategory = chosenCategory;
     this.chosenQuestions = this.questionsByType[this.chosenCategory];
-    this.loadPrefferedQuestions();
+    this.loadPreferredQuestions();
   }
 
   // TODO: REFACTOR with JapaneseAlphabetComponent (move to directive)

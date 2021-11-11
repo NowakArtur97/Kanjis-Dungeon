@@ -52,8 +52,10 @@ export class QuizSummaryComponent implements OnInit, OnDestroy {
   private mistakesSubscription$: Subscription;
   private resultSubscription$: Subscription;
   private levelSubscription$: Subscription;
-  mistakes: Radical[];
+  private mistakes: Radical[];
+  private newPreferredQuestions: Radical[];
   isVisible: boolean;
+  shouldProposeNewPreferredQuestions: boolean;
   private readonly HIDDEN_STATE = 'hidden';
   private readonly REVEALED_STATE = 'revealed';
   messageState = this.HIDDEN_STATE;
@@ -79,9 +81,19 @@ export class QuizSummaryComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.mistakesSubscription$ = this.store
       .select('quiz')
-      .subscribe(({ mistakes, shouldShowSummary }) => {
+      .subscribe(({ mistakes, shouldShowSummary, preferredQuestions }) => {
         this.isVisible = shouldShowSummary;
         this.mistakes = mistakes;
+        this.newPreferredQuestions = this.mistakes.filter(
+          (mistake) =>
+            !preferredQuestions.some(
+              (preferredQuestion) =>
+                preferredQuestion.characters === mistake.characters &&
+                preferredQuestion.type === mistake.type
+            )
+        );
+        this.shouldProposeNewPreferredQuestions =
+          this.newPreferredQuestions.length > 0;
         setTimeout(() => {
           const animationState = this.isVisible
             ? this.REVEALED_STATE
@@ -114,7 +126,7 @@ export class QuizSummaryComponent implements OnInit, OnDestroy {
     this.levelSubscription$?.unsubscribe();
   }
 
-  tryAgain(): void {
+  onTryAgainQuiz(): void {
     this.store.dispatch(QuizActions.repeatQuiz());
     if (this.level) {
       this.store.dispatch(GameActions.resetGame());
@@ -123,11 +135,19 @@ export class QuizSummaryComponent implements OnInit, OnDestroy {
     }
   }
 
-  close(): void {
+  onCloseSummary(): void {
     this.store.dispatch(QuizActions.resetQuiz());
     if (this.level) {
       this.store.dispatch(GameActions.resetGame());
       this.router.navigate(['./levels']);
     }
   }
+
+  // TODO: TEST
+  onAddMistakesToPreferred = (): void =>
+    this.store.dispatch(
+      QuizActions.addPreferredQuestions({
+        preferredQuestions: this.newPreferredQuestions,
+      })
+    );
 }
