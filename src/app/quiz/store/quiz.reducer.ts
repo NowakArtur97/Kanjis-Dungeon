@@ -129,7 +129,6 @@ const _quizReducer = createReducer(
     })
   ),
 
-  // TODO: TEST
   on(
     QuizActions.removePreferredQuestions,
     (state, { preferredQuestionsToRemove }) => ({

@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import appearTrigger from 'src/app/common/animations/appear.animation';
 import slideInTrigger from 'src/app/common/animations/slide-in.animation';
 import CharacterType from 'src/app/japanese/common/enums/character-type.enum';
+import MouseButtonClick from 'src/app/japanese/common/enums/mouse-button-click.enum';
 import KANJI from 'src/app/japanese/kanji/kanji.data';
 import Radical from 'src/app/japanese/radical/models/radical.model';
 import RADICALS from 'src/app/japanese/radical/radical.data';
@@ -56,9 +57,7 @@ export class QuizQuestionsSelectionComponent implements OnInit, OnDestroy {
   display = 'none';
   private displayMode = { hidden: 'none', show: 'block' };
 
-  private lastChosenQuestion: Radical;
-  private readonly LEFT_MOUSE_BUTTON_CLICK = 1;
-  private readonly RIGHT_MOUSE_BUTTON_CLICK = 3;
+  lastChosenQuestion: Radical;
 
   constructor(private store: Store<AppStoreState>) {}
 
@@ -124,19 +123,22 @@ export class QuizQuestionsSelectionComponent implements OnInit, OnDestroy {
       : this.displayMode.hidden;
   }
 
-  onSelectedQuestion(event: {
+  onSelectedQuestion({
+    chosenQuestion,
+    wasShiftPressed,
+    mouseButton,
+  }: {
     chosenQuestion: Radical;
     wasShiftPressed: boolean;
     mouseButton: number;
   }): void {
-    const { chosenQuestion, wasShiftPressed, mouseButton } = event;
     if (
       wasShiftPressed &&
       this.lastChosenQuestion &&
       chosenQuestion.type === this.lastChosenQuestion.type
     ) {
       const chosenQuestions = this.findChosenQuestions(chosenQuestion);
-      if (mouseButton === this.LEFT_MOUSE_BUTTON_CLICK) {
+      if (mouseButton === MouseButtonClick.LEFT) {
         const preferredQuestions = chosenQuestions.filter(
           (question) => !this.preferredQuestions.includes(question)
         );
@@ -147,7 +149,7 @@ export class QuizQuestionsSelectionComponent implements OnInit, OnDestroy {
             })
           );
         }
-      } else if (mouseButton === this.RIGHT_MOUSE_BUTTON_CLICK) {
+      } else if (mouseButton === MouseButtonClick.RIGHT) {
         const preferredQuestionsToRemove = chosenQuestions.filter((question) =>
           this.preferredQuestions.includes(question)
         );

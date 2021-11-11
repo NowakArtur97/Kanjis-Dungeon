@@ -307,5 +307,35 @@ describe('quizReducer', () => {
         preferredQuestionToRemove
       );
     });
+
+    describe('QuizActions.removePreferedQuestions', () => {
+      it('should remove preferred questions', () => {
+        const preferredQuestionsToRemove = [radical, kanji, word];
+        const action = QuizActions.removePreferredQuestions({
+          preferredQuestionsToRemove,
+        });
+        const actualState = quizReducer(stateWithPreferredQuestions, action);
+        const expectedState = { ...initialState };
+
+        expect(actualState).toEqual(expectedState);
+        expect(actualState.preferredQuestions).not.toContain(radical);
+        expect(actualState.preferredQuestions).not.toContain(kanji);
+        expect(actualState.preferredQuestions).not.toContain(word);
+      });
+
+      it('should remove preferred questions', () => {
+        const preferredQuestionsToRemove = [kanji, word];
+        const action = QuizActions.removePreferredQuestions({
+          preferredQuestionsToRemove,
+        });
+        const actualState = quizReducer(stateWithPreferredQuestions, action);
+        const expectedState = { ...stateWithPreferredQuestion };
+
+        expect(actualState).toEqual(expectedState);
+        expect(actualState.preferredQuestions).toContain(radical);
+        expect(actualState.preferredQuestions).not.toContain(kanji);
+        expect(actualState.preferredQuestions).not.toContain(word);
+      });
+    });
   });
 });
