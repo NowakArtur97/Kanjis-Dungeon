@@ -18,7 +18,7 @@ export interface QuizStoreState {
 const DEFAULT_EXCLUDED_PROPERTIES = ['characters', 'type'];
 const DEFAULT_MIN_NUMBER_OF_PROPERTIES = 1;
 const DEFAULT_QUIZ_OPTIONS = {
-  numberOfQuestions: 100,
+  numberOfQuestions: 1,
   minNumberOfProperties: DEFAULT_MIN_NUMBER_OF_PROPERTIES,
   shouldShowAnswer: true,
   shouldHideRandomProperties: false,
@@ -33,7 +33,7 @@ const initialState: QuizStoreState = {
   quizOptions: DEFAULT_QUIZ_OPTIONS,
   nextQuestion: null,
   questions: [],
-  // TODO: QuizStoreState: Get from storage
+  // TODO: QuizStoreState: Get preferred questions from storage
   preferredQuestions: [],
   answers: [],
   mistakes: [],

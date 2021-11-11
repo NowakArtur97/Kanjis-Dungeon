@@ -37,7 +37,7 @@
   justify-content: space-around;
 
   position: fixed;
-  bottom: 2em;
+  bottom: 4em;
   left: 0;
   right: 0;
 }
@@ -48,9 +48,8 @@
   border: 0.1em black solid;
   padding: 0.2em 0.5em;
 
-  font-size: 3em;
+  font-size: 1.8em;
   color: white;
-  text-transform: uppercase;
 
   transition: 0.2s;
 }
@@ -78,6 +77,14 @@
   color: #f03;
 }
 
+.quiz_summary__add_to_preferred_button {
+  background-color: var(--main-card-color);
+}
+
+.quiz_summary__add_to_preferred_button:hover {
+  color: var(--main-card-color);
+}
+
 @media (min-width: 667px) {
   .quiz_summary__message {
     font-size: 12em;
@@ -99,6 +106,12 @@
 @media (min-width: 850px) {
   .quiz_summary__message {
     font-size: 15em;
+  }
+}
+
+@media (min-width: 900px) {
+  .quiz_summary__button {
+    font-size: 2.2em;
   }
 }
 
