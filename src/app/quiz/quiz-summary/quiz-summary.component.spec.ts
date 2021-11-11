@@ -9,7 +9,7 @@ import ALL_LEVELS from 'src/app/game/level/level.data';
 import Level from 'src/app/game/level/models/level.model';
 import { LevelStoreState } from 'src/app/game/level/store/level.reducer';
 import CharacterType from 'src/app/japanese/common/enums/character-type.enum';
-import KANJI from 'src/app/japanese/kanji/kanji.data';
+import Kanji from 'src/app/japanese/kanji/models/kanji.model';
 import AppStoreState from 'src/app/store/app.state';
 
 import * as LevelActions from '../../game/level/store/level.actions';
@@ -24,11 +24,44 @@ describe('QuizSummaryComponent', () => {
   let store: Store<AppStoreState>;
   let router: Router;
 
+  const kanji: Kanji = {
+    characters: '上',
+    meanings: ['above', 'up', 'over'],
+    onyomi: ['じょう'],
+    kunyomi: ['うえ', 'あ', 'のぼ', 'うわ', 'かみ'],
+    type: CharacterType.KANJI,
+  };
+  const kanji2: Kanji = {
+    characters: '下',
+    meanings: ['below', 'down', 'under', 'beneath'],
+    onyomi: ['か', 'げ'],
+    kunyomi: ['した', 'さ', 'くだ', 'お'],
+    type: CharacterType.KANJI,
+  };
+  const kanji3: Kanji = {
+    characters: '大',
+    meanings: ['big', 'large'],
+    onyomi: ['たい', 'だい'],
+    kunyomi: ['おお'],
+    nanori: ['ひろ'],
+    type: CharacterType.KANJI,
+  };
+  const kanji4: Kanji = {
+    characters: '工',
+    meanings: ['construction', 'industry', 'artisan', 'work', 'craft'],
+    onyomi: ['こう', 'く'],
+    type: CharacterType.KANJI,
+  };
   const quizStateWithMistakes: QuizStoreState = {
     ...initialState,
-    mistakes: [...KANJI],
+    mistakes: [kanji, kanji2, kanji3, kanji4],
+    preferredQuestions: [kanji],
   };
-
+  const quizStateWithPreferredQuestionsInMistakes: QuizStoreState = {
+    ...initialState,
+    mistakes: [kanji, kanji2, kanji3, kanji4],
+    preferredQuestions: [kanji, kanji2, kanji3, kanji4],
+  };
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [QuizSummaryComponent],
@@ -81,6 +114,19 @@ describe('QuizSummaryComponent', () => {
         expect(store.dispatch).toHaveBeenCalledWith(QuizActions.resetQuiz());
       });
     });
+
+    describe('when click add to preferred button', () => {
+      it('should dispatch addPreferredQuestions action with mistakes not included in preferred questions', () => {
+        component.onAddMistakesToPreferred();
+
+        expect(store.dispatch).toHaveBeenCalledWith(
+          QuizActions.addPreferredQuestions({
+            preferredQuestions: [kanji2, kanji3, kanji4],
+          })
+        );
+        expect(component.shouldProposeNewPreferredQuestions).toBeTrue();
+      });
+    });
   });
 
   describe('Game view', () => {
@@ -107,7 +153,7 @@ describe('QuizSummaryComponent', () => {
 
       spyOn(store, 'select').and.callFake((selector) => {
         if (selector === 'quiz') {
-          return of(quizStateWithMistakes);
+          return of(quizStateWithPreferredQuestionsInMistakes);
         } else if (selector === 'level') {
           return of(storeWithLevel);
         } else if (selector === 'game') {
@@ -147,6 +193,12 @@ describe('QuizSummaryComponent', () => {
         expect(store.dispatch).toHaveBeenCalledWith(QuizActions.resetQuiz());
         expect(store.dispatch).toHaveBeenCalledWith(GameActions.resetGame());
         expect(router.navigate).toHaveBeenCalledWith(['./levels']);
+      });
+    });
+
+    describe('when click add to preferred button', () => {
+      it('should not dispatch addPreferredQuestions action', () => {
+        expect(component.shouldProposeNewPreferredQuestions).toBeFalse();
       });
     });
   });

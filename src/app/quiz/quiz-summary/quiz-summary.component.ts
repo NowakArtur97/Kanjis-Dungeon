@@ -143,7 +143,6 @@ export class QuizSummaryComponent implements OnInit, OnDestroy {
     }
   }
 
-  // TODO: TEST
   onAddMistakesToPreferred = (): void =>
     this.store.dispatch(
       QuizActions.addPreferredQuestions({
