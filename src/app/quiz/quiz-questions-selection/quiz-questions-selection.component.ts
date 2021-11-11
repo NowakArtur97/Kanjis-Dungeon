@@ -57,6 +57,8 @@ export class QuizQuestionsSelectionComponent implements OnInit, OnDestroy {
   private displayMode = { hidden: 'none', show: 'block' };
 
   private lastChosenQuestion: Radical;
+  private readonly LEFT_MOUSE_BUTTON_CLICK = 1;
+  private readonly RIGHT_MOUSE_BUTTON_CLICK = 3;
 
   constructor(private store: Store<AppStoreState>) {}
 
@@ -125,33 +127,57 @@ export class QuizQuestionsSelectionComponent implements OnInit, OnDestroy {
   onSelectedQuestion(event: {
     chosenQuestion: Radical;
     wasShiftPressed: boolean;
+    mouseButton: number;
   }): void {
-    const { chosenQuestion } = event;
+    const { chosenQuestion, wasShiftPressed, mouseButton } = event;
     if (
-      event.wasShiftPressed &&
+      wasShiftPressed &&
       this.lastChosenQuestion &&
       chosenQuestion.type === this.lastChosenQuestion.type
     ) {
-      const lastChosenQuestionIndex = this.chosenQuestions.indexOf(
-        this.lastChosenQuestion
-      );
-      const chosenQuestionIndex = this.chosenQuestions.indexOf(chosenQuestion);
-      const preferredQuestions = (lastChosenQuestionIndex > chosenQuestionIndex
+      const chosenQuestions = this.findChosenQuestions(chosenQuestion);
+      if (mouseButton === this.LEFT_MOUSE_BUTTON_CLICK) {
+        const preferredQuestions = chosenQuestions.filter(
+          (question) => !this.preferredQuestions.includes(question)
+        );
+        if (preferredQuestions.length > 0) {
+          this.store.dispatch(
+            QuizActions.addPreferredQuestions({
+              preferredQuestions,
+            })
+          );
+        }
+      } else if (mouseButton === this.RIGHT_MOUSE_BUTTON_CLICK) {
+        const preferredQuestionsToRemove = chosenQuestions.filter((question) =>
+          this.preferredQuestions.includes(question)
+        );
+        if (preferredQuestionsToRemove.length > 0) {
+          this.store.dispatch(
+            QuizActions.removePreferredQuestions({
+              preferredQuestionsToRemove,
+            })
+          );
+        }
+      }
+    }
+    this.lastChosenQuestion = chosenQuestion;
+  }
+
+  private findChosenQuestions(chosenQuestion: Radical): Radical[] {
+    const lastChosenQuestionIndex = this.chosenQuestions.indexOf(
+      this.lastChosenQuestion
+    );
+    const chosenQuestionIndex = this.chosenQuestions.indexOf(chosenQuestion);
+    const chosenQuestions =
+      lastChosenQuestionIndex > chosenQuestionIndex
         ? this.chosenQuestions.slice(
             chosenQuestionIndex,
             lastChosenQuestionIndex + 1
           )
         : this.chosenQuestions.slice(
             lastChosenQuestionIndex,
-            chosenQuestionIndex
-          )
-      ).filter((question) => !this.preferredQuestions.includes(question));
-      this.store.dispatch(
-        QuizActions.addPreferredQuestions({
-          preferredQuestions,
-        })
-      );
-    }
-    this.lastChosenQuestion = chosenQuestion;
+            chosenQuestionIndex + 1
+          );
+    return chosenQuestions;
   }
 }

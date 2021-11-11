@@ -18,7 +18,7 @@ export interface QuizStoreState {
 const DEFAULT_EXCLUDED_PROPERTIES = ['characters', 'type'];
 const DEFAULT_MIN_NUMBER_OF_PROPERTIES = 1;
 const DEFAULT_QUIZ_OPTIONS = {
-  numberOfQuestions: 1,
+  numberOfQuestions: 100,
   minNumberOfProperties: DEFAULT_MIN_NUMBER_OF_PROPERTIES,
   shouldShowAnswer: true,
   shouldHideRandomProperties: false,
@@ -124,8 +124,19 @@ const _quizReducer = createReducer(
     (state, { preferredQuestionToRemove }) => ({
       ...state,
       preferredQuestions: state.preferredQuestions.filter(
-        (question) =>
-          question.characters !== preferredQuestionToRemove.characters
+        (question) => question !== preferredQuestionToRemove
+      ),
+    })
+  ),
+
+  // TODO: TEST
+  on(
+    QuizActions.removePreferredQuestions,
+    (state, { preferredQuestionsToRemove }) => ({
+      ...state,
+      preferredQuestions: state.preferredQuestions.filter(
+        (preferredQuestion) =>
+          !preferredQuestionsToRemove.includes(preferredQuestion)
       ),
     })
   )

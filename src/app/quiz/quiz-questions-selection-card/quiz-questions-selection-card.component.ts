@@ -43,12 +43,8 @@ export class QuizQuestionsSelectionCardComponent
 
   ngOnDestroy = (): void => this.preferredQuestionsSubScription$?.unsubscribe();
 
-  onSelect(event: MouseEvent): void {
-    const wasShiftPressed = event.shiftKey;
-    this.emitSelectedEvent(wasShiftPressed);
-    if (wasShiftPressed && this.wasSelected) {
-      return;
-    }
+  onSelect(event: MouseEvent): boolean {
+    const { shiftKey: wasShiftPressed, which: mouseButton } = event;
     this.store.dispatch(
       this.wasSelected
         ? QuizActions.removePreferredQuestion({
@@ -58,17 +54,23 @@ export class QuizQuestionsSelectionCardComponent
             preferredQuestion: this.currentCharacter,
           })
     );
+    this.emitSelectedEvent(wasShiftPressed, mouseButton);
+    return false;
   }
 
   private setColorBasedOnBeingSelected(): void {
     this.cardColor = this.wasSelected ? COLORS.correct : COLORS.wrong;
   }
 
-  private emitSelectedEvent(wasShiftPressed: boolean): void {
+  private emitSelectedEvent(
+    wasShiftPressed: boolean,
+    mouseButton: number
+  ): void {
     const currentCharacter = this.currentCharacter;
     this.selectedEvent.emit({
       chosenQuestion: currentCharacter,
       wasShiftPressed,
+      mouseButton,
     });
   }
 }

@@ -57,3 +57,8 @@ export const removePreferredQuestion = createAction(
   '[Quiz] Remove from Preferred Question',
   props<{ preferredQuestionToRemove: Radical }>()
 );
+
+export const removePreferredQuestions = createAction(
+  '[Quiz] Remove Preferred Questions',
+  props<{ preferredQuestionsToRemove: Radical[] }>()
+);
