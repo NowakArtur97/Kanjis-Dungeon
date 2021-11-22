@@ -1460,7 +1460,7 @@ const KANJI: Kanji[] = [
   },
   {
     characters: '米',
-    meanings: ['rice', 'America'],
+    meanings: ['rice', 'america'],
     onyomi: ['べい', 'まい'],
     kunyomi: ['こめ'],
     type: CharacterType.KANJI,
@@ -1511,6 +1511,32 @@ const KANJI: Kanji[] = [
     meanings: ['point', 'dot', 'mark'],
     onyomi: ['てん'],
     kunyomi: ['つ'],
+    type: CharacterType.KANJI,
+  },
+  {
+    characters: '羽',
+    meanings: ['feather', 'feathers', 'wing', 'wing'],
+    onyomi: ['う'],
+    kunyomi: ['はね', 'は', 'わ'],
+    type: CharacterType.KANJI,
+  },
+  {
+    characters: '週',
+    meanings: ['week'],
+    onyomi: ['しゅう'],
+    type: CharacterType.KANJI,
+  },
+  {
+    characters: '曜',
+    meanings: ['day of the week', 'weekday'],
+    onyomi: ['よう'],
+    type: CharacterType.KANJI,
+  },
+  {
+    characters: '毎',
+    meanings: ['every', 'each'],
+    onyomi: ['まい'],
+    kunyomi: ['ごと'],
     type: CharacterType.KANJI,
   },
 ];
