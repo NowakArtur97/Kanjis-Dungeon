@@ -31,7 +31,6 @@ export default class QuizEffects {
     )
   );
 
-  // TODO: TEST
   savePreferredQuestions$ = createEffect(
     () =>
       this.actions$.pipe(

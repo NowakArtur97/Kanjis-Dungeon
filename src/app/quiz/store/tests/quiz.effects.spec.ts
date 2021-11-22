@@ -349,5 +349,19 @@ describe('QuizEffects', () => {
         ).toHaveBeenCalledWith([radical]);
       });
     });
+
+    it('should call savePreferredQuestionsToStorage method', () => {
+      actions$ = new ReplaySubject(1);
+      actions$.next(
+        QuizActions.removePreferredQuestions({
+          preferredQuestionsToRemove: [radical, radical2],
+        })
+      );
+      quizEffects.savePreferredQuestions$.subscribe(() => {
+        expect(
+          quizService.savePreferredQuestionsToStorage
+        ).toHaveBeenCalledWith([radical]);
+      });
+    });
   });
 });
