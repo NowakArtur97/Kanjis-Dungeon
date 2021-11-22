@@ -96,30 +96,83 @@
 }
 
 .quiz_question_selection__tips {
+  position: fixed;
+  bottom: 10%;
+  left: 0;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+
+  width: 100vw;
 }
 
 .quiz_question_selection__tip {
+  flex-basis: 50%;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 1.8em;
+  color: white;
 }
 
 .quiz_question_selection__tip_message {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
 
-.quiz_question_selection__mouse_default_button {
+.quiz_question_selection__mouse_default_key_image,
+.quiz_question_selection__mouse_left_click_key_image,
+.quiz_question_selection__mouse_right_click_key_image,
+.quiz_question_selection__mouse_and_shift_default_key_image,
+.quiz_question_selection__mouse_and_shift_left_click_key_image,
+.quiz_question_selection__mouse_and_shift_right_click_key_image {
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
-.quiz_question_selection__mouse_left_click_button {
+.quiz_question_selection__mouse_default_key_image,
+.quiz_question_selection__mouse_left_click_key_image,
+.quiz_question_selection__mouse_right_click_key_image {
+  height: 12px;
+  width: 15px;
 }
 
-.quiz_question_selection__mouse_right_click_button {
+.quiz_question_selection__mouse_and_shift_default_key_image,
+.quiz_question_selection__mouse_and_shift_left_click_key_image,
+.quiz_question_selection__mouse_and_shift_right_click_key_image {
+  height: 12px;
+  width: 41px;
 }
 
-.quiz_question_selection__mouse_and_shift_default_button {
+.quiz_question_selection__mouse_default_key_image {
+  background-image: url("src/assets/keys/mouse_default.png");
 }
 
-.quiz_question_selection__mouse_and_shift_left_click_button {
+.quiz_question_selection__mouse_left_click_key_image {
+  background-image: url("src/assets/keys/mouse_left_click.png");
 }
 
-.quiz_question_selection__mouse_and_shift_right_click_button {
+.quiz_question_selection__mouse_right_click_key_image {
+  background-image: url("src/assets/keys/mouse_right_click.png");
+}
+
+.quiz_question_selection__mouse_and_shift_default_key_image {
+  background-image: url("src/assets/keys/mouse_and_shift_default.png");
+}
+
+.quiz_question_selection__mouse_and_shift_left_click_key_image {
+  background-image: url("src/assets/keys/mouse_and_shift_left_click.png");
+}
+
+.quiz_question_selection__mouse_and_shift_right_click_key_image {
+  background-image: url("src/assets/keys/mouse_and_shift_right_click.png");
 }
 
 @media (min-width: 640px) {
