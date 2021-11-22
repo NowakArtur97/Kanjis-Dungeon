@@ -95,6 +95,33 @@
   writing-mode: vertical-rl;
 }
 
+.quiz_question_selection__tips {
+}
+
+.quiz_question_selection__tip {
+}
+
+.quiz_question_selection__tip_message {
+}
+
+.quiz_question_selection__mouse_default_button {
+}
+
+.quiz_question_selection__mouse_left_click_button {
+}
+
+.quiz_question_selection__mouse_right_click_button {
+}
+
+.quiz_question_selection__mouse_and_shift_default_button {
+}
+
+.quiz_question_selection__mouse_and_shift_left_click_button {
+}
+
+.quiz_question_selection__mouse_and_shift_right_click_button {
+}
+
 @media (min-width: 640px) {
   .quiz_question_selection__category {
     font-size: 4em;
