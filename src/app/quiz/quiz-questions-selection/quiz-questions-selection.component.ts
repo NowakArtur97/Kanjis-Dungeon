@@ -151,7 +151,10 @@ export class QuizQuestionsSelectionComponent implements OnInit, OnDestroy {
         }
       } else if (mouseButton === MouseButtonClick.RIGHT) {
         const preferredQuestionsToRemove = chosenQuestions.filter((question) =>
-          this.preferredQuestions.includes(question)
+          this.preferredQuestions.some(
+            (preferredQuestion) =>
+              JSON.stringify(preferredQuestion) === JSON.stringify(question)
+          )
         );
         if (preferredQuestionsToRemove.length > 0) {
           this.store.dispatch(

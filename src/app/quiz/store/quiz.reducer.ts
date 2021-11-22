@@ -124,7 +124,9 @@ const _quizReducer = createReducer(
     (state, { preferredQuestionToRemove }) => ({
       ...state,
       preferredQuestions: state.preferredQuestions.filter(
-        (question) => question !== preferredQuestionToRemove
+        (preferredQuestion) =>
+          preferredQuestion.meanings !== preferredQuestionToRemove.meanings &&
+          preferredQuestion.characters !== preferredQuestionToRemove.characters
       ),
     })
   ),
@@ -133,9 +135,13 @@ const _quizReducer = createReducer(
     QuizActions.removePreferredQuestions,
     (state, { preferredQuestionsToRemove }) => ({
       ...state,
-      preferredQuestions: state.preferredQuestions.filter(
-        (preferredQuestion) =>
-          !preferredQuestionsToRemove.includes(preferredQuestion)
+      preferredQuestions: state.preferredQuestions.filter((preferredQuestion) =>
+        preferredQuestionsToRemove.every(
+          (preferredQuestionToRemove) =>
+            preferredQuestion.meanings !== preferredQuestionToRemove.meanings &&
+            preferredQuestion.characters !==
+              preferredQuestionToRemove.characters
+        )
       ),
     })
   )

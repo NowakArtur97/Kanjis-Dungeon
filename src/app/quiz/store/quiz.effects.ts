@@ -31,13 +31,15 @@ export default class QuizEffects {
     )
   );
 
+  // TODO: TEST
   savePreferredQuestions$ = createEffect(
     () =>
       this.actions$.pipe(
         ofType(
           QuizActions.addPreferredQuestion,
           QuizActions.addPreferredQuestions,
-          QuizActions.removePreferredQuestion
+          QuizActions.removePreferredQuestion,
+          QuizActions.removePreferredQuestions
         ),
         withLatestFrom(
           this.store.select((state) => state.quiz.preferredQuestions)
