@@ -1,7 +1,7 @@
 <div class="quiz_question_selection__wrapper">
   <div
-    [@show]="toggleState"
-    (@show.done)="onWindowHidden()"
+    [@slide]="toggleState"
+    (@slide.done)="onWindowHidden()"
     [ngStyle]="{ display: display }"
     class="quiz_question_selection__window"
   >

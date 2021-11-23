@@ -20,13 +20,7 @@ import * as QuizActions from '../../quiz/store/quiz.actions';
   styleUrls: ['./quiz-questions-selection.component.css'],
   animations: [
     appearTrigger('in'),
-    slideInTrigger(
-      'show',
-      'hidden',
-      'translateX(-100vw)',
-      'revealed',
-      'translateX(0)'
-    ),
+    slideInTrigger('hidden', 'translateX(-100vw)', 'revealed', 'translateX(0)'),
   ],
 })
 export class QuizQuestionsSelectionComponent implements OnInit, OnDestroy {

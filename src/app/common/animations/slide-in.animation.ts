@@ -1,14 +1,13 @@
 import { animate, AnimationTriggerMetadata, state, style, transition, trigger } from '@angular/animations';
 
 export default function slideInTrigger(
-  name: string,
   defaultState: string,
   defaultTransform: string,
   animatedState: string,
   animatedTransform: string,
   duration = 200
 ): AnimationTriggerMetadata {
-  return trigger(name, [
+  return trigger('slide', [
     state(
       defaultState,
       style({

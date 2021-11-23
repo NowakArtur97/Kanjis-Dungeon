@@ -12,6 +12,13 @@
   --small-sprite-base-size: 16px;
   --small-sprite-size-multiplier: 1;
   --min-number-of-statuses: 3;
+
+  --default_mouse_image: url("src/assets/keys/default_mouse_1x.png");
+  --default_mouse_and_shift_image: url("src/assets/keys/default_mouse_and_shift_1x.png");
+  --left_mouse_click_image: url("src/assets/keys/left_mouse_click_1x.png");
+  --left_mouse_and_shift_click_image: url("src/assets/keys/left_mouse_and_shift_click_1x.png");
+  --right_mouse_click_image: url("src/assets/keys/right_mouse_click_1x.png");
+  --right_mouse_and_shift_click_image: url("src/assets/keys/right_mouse_and_shift_click_1x.png");
 }
 
 * {
@@ -47,6 +54,13 @@ body {
     --medium-sprite-size-multiplier: 3;
     --small-sprite-size-multiplier: 2;
     --min-number-of-statuses: 5;
+
+    --default_mouse_image: url("src/assets/keys/default_mouse_2x.png");
+    --default_mouse_and_shift_image: url("src/assets/keys/default_mouse_and_shift_2x.png");
+    --left_mouse_click_image: url("src/assets/keys/left_mouse_click_2x.png");
+    --left_mouse_and_shift_click_image: url("src/assets/keys/left_mouse_and_shift_click_2x.png");
+    --right_mouse_click_image: url("src/assets/keys/right_mouse_click_2x.png");
+    --right_mouse_and_shift_click_image: url("src/assets/keys/right_mouse_and_shift_click_2x.png");
   }
 }
 

@@ -1,11 +1,11 @@
 import { animate, AnimationTriggerMetadata, keyframes, state, style, transition, trigger } from '@angular/animations';
 
 export default function appearTrigger(
-  name: string,
+  stateName: string,
   duration = 200
 ): AnimationTriggerMetadata {
   return trigger('appear', [
-    state(name, style({ transform: 'scale(1)' })),
+    state(stateName, style({ transform: 'scale(1)' })),
     transition(
       'void => *',
       animate(

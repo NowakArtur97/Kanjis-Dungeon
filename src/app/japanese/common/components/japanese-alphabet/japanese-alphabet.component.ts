@@ -12,13 +12,7 @@ import Letter from '../../models/letter.model';
   styleUrls: ['./japanese-alphabet.component.css'],
   animations: [
     appearTrigger('in', 200),
-    slideInTrigger(
-      'show',
-      'hidden',
-      'translateY(100vh)',
-      'revealed',
-      'translateY(0)'
-    ),
+    slideInTrigger('hidden', 'translateY(100vh)', 'revealed', 'translateY(0)'),
   ],
 })
 export class JapaneseAlphabetComponent implements OnInit {
