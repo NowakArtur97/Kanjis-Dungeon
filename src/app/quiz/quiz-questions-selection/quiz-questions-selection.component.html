@@ -13,39 +13,67 @@
         [currentCharacter]="question"
       ></app-quiz-questions-selection-card>
     </div>
-    <div class="quiz_question_selection__categories">
-      <div
-        (click)="onChangeCategory(characterType.RADICAL)"
-        [ngClass]="{
-          'quiz_question_selection__category--radicals-active':
-            chosenCategory === characterType.RADICAL
-        }"
-        class="quiz_question_selection__category quiz_question_selection__category--radicals"
-      >
-        Radicals
+
+    <div class="quiz_question_selection__options">
+      <div class="quiz_question_selection__tips">
+        <div class="quiz_question_selection__tip">
+          <div class="quiz_question_selection__tip_message">Add one:</div>
+          <span
+            class="quiz_question_selection__left_mouse_click_key_image"
+          ></span>
+          <div class="quiz_question_selection__tip_message">or many:</div>
+          <span
+            class="quiz_question_selection__left_mouse_and_shift_click_key_image"
+          ></span>
+        </div>
+
+        <div class="quiz_question_selection__tip">
+          <div class="quiz_question_selection__tip_message">Remove one:</div>
+          <span
+            class="quiz_question_selection__right_mouse_click_key_image"
+          ></span>
+          <div class="quiz_question_selection__tip_message">or many:</div>
+          <span
+            class="quiz_question_selection__right_mouse_and_shift_click_key_image"
+          ></span>
+        </div>
       </div>
-      <div
-        (click)="onChangeCategory(characterType.KANJI)"
-        [ngClass]="{
-          'quiz_question_selection__category--kanji-active':
-            chosenCategory === characterType.KANJI
-        }"
-        class="quiz_question_selection__category quiz_question_selection__category--kanji"
-      >
-        Kanji
-      </div>
-      <div
-        (click)="onChangeCategory(characterType.VOCABULARY)"
-        [ngClass]="{
-          'quiz_question_selection__category--vocabulary-active':
-            chosenCategory === characterType.VOCABULARY
-        }"
-        class="quiz_question_selection__category quiz_question_selection__category--vocabulary"
-      >
-        Vocabulary
+
+      <div class="quiz_question_selection__categories">
+        <div
+          (click)="onChangeCategory(characterType.RADICAL)"
+          [ngClass]="{
+            'quiz_question_selection__category--radicals-active':
+              chosenCategory === characterType.RADICAL
+          }"
+          class="quiz_question_selection__category quiz_question_selection__category--radicals"
+        >
+          Radicals
+        </div>
+        <div
+          (click)="onChangeCategory(characterType.KANJI)"
+          [ngClass]="{
+            'quiz_question_selection__category--kanji-active':
+              chosenCategory === characterType.KANJI
+          }"
+          class="quiz_question_selection__category quiz_question_selection__category--kanji"
+        >
+          Kanji
+        </div>
+        <div
+          (click)="onChangeCategory(characterType.VOCABULARY)"
+          [ngClass]="{
+            'quiz_question_selection__category--vocabulary-active':
+              chosenCategory === characterType.VOCABULARY
+          }"
+          class="quiz_question_selection__category quiz_question_selection__category--vocabulary"
+        >
+          Vocabulary
+        </div>
       </div>
     </div>
   </div>
+
   <div class="quiz_question_selection__toggle_button_container">
     <button
       (click)="onShowPreferredQuestions()"
@@ -55,25 +83,5 @@
         {{ message }}
       </p>
     </button>
-  </div>
-
-  <div class="quiz_question_selection__tips">
-    <div class="quiz_question_selection__tip">
-      <div class="quiz_question_selection__tip_message">Add one:</div>
-      <span class="quiz_question_selection__left_mouse_click_key_image"></span>
-      <div class="quiz_question_selection__tip_message">or many:</div>
-      <span
-        class="quiz_question_selection__left_mouse_and_shift_click_key_image"
-      ></span>
-    </div>
-
-    <div class="quiz_question_selection__tip">
-      <div class="quiz_question_selection__tip_message">Remove one:</div>
-      <span class="quiz_question_selection__right_mouse_click_key_image"></span>
-      <div class="quiz_question_selection__tip_message">or many:</div>
-      <span
-        class="quiz_question_selection__right_mouse_and_shift_click_key_image"
-      ></span>
-    </div>
   </div>
 </div>

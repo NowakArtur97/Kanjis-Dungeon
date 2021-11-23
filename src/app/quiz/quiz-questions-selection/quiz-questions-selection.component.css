@@ -6,11 +6,15 @@
   background-color: hsl(0, 0%, 11%);
 }
 
-.quiz_question_selection__categories {
+.quiz_question_selection__options {
   position: sticky;
   bottom: 0;
   left: 0;
 
+  width: 100%;
+}
+
+.quiz_question_selection__categories {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
 
@@ -96,28 +100,21 @@
 }
 
 .quiz_question_selection__tips {
-  position: fixed;
-  bottom: 5%;
-  left: 50%;
-
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
 
-  width: 100%;
-
   background-color: var(--main-card-color);
   transition: background-color 0.2s;
-
-  transform: translateX(-50%);
 }
 
 .quiz_question_selection__tip {
   flex-basis: 100%;
 
-  display: flex;
-  justify-content: space-evenly;
+  display: grid;
+  grid-template-columns: 4fr 1fr 3fr 2fr;
+  justify-items: center;
   align-items: center;
 }
 
