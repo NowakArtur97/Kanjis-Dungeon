@@ -35,7 +35,6 @@ export class NavigationComponent implements OnInit {
     this.isActive = !this.isActive;
   }
 
-  // TODO: TEST
   onChangeView(): void {
     this.store.dispatch(QuizActions.resetQuiz());
     this.store.dispatch(GameActions.resetGame());

@@ -187,11 +187,12 @@ describe('QuizSummaryComponent', () => {
     });
 
     describe('when click close button', () => {
-      it('and is on Game view should dispatch resetQuiz and resetGame actions and naviagte to Levels view', () => {
+      it('and is on Game view should dispatch resetQuiz, resetGame and resetLevel actions and naviagte to Levels view', () => {
         component.onCloseSummary();
 
         expect(store.dispatch).toHaveBeenCalledWith(QuizActions.resetQuiz());
         expect(store.dispatch).toHaveBeenCalledWith(GameActions.resetGame());
+        expect(store.dispatch).toHaveBeenCalledWith(LevelActions.resetLevel());
         expect(router.navigate).toHaveBeenCalledWith(['./levels']);
       });
     });

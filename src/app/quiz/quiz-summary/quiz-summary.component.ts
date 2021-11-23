@@ -135,7 +135,6 @@ export class QuizSummaryComponent implements OnInit, OnDestroy {
     }
   }
 
-  //TODO: TEST
   onCloseSummary(): void {
     this.store.dispatch(QuizActions.resetQuiz());
     if (this.level) {

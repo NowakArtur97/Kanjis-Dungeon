@@ -1,5 +1,8 @@
 import { getTestBed, TestBed } from '@angular/core/testing';
 import MathUtil from 'src/app/common/utils/math.util';
+import { pigWarrior } from 'src/app/game/enemy/enemy.data';
+import LevelType from 'src/app/game/level/enums/level-type.enum';
+import Level from 'src/app/game/level/models/level.model';
 import CharacterType from 'src/app/japanese/common/enums/character-type.enum';
 import KANJI from 'src/app/japanese/kanji/kanji.data';
 import Kanji from 'src/app/japanese/kanji/models/kanji.model';
@@ -10,6 +13,7 @@ import VOCABULARY from 'src/app/japanese/vocabulary/vocabulary.data';
 
 import QuizCard from '../models/quiz-card.model';
 import QuizOptions from '../models/quiz-options.model';
+import { DEFAULT_QUIZ_OPTIONS } from '../store/quiz.reducer';
 import QuizService from './quiz.service';
 
 describe('quizService', () => {
@@ -424,6 +428,35 @@ describe('quizService', () => {
   });
 
   describe('when select from preffered questions', () => {
+    it('should return empty array when level argument is not null', () => {
+      spyOn(MathUtil, 'getRandomIndex').and.returnValues(0);
+
+      const level: Level = {
+        levelType: LevelType.RADICAL,
+        enemies: [pigWarrior],
+        quizOptions: {
+          ...DEFAULT_QUIZ_OPTIONS,
+          numberOfQuestions: 6,
+          questionTypes: [CharacterType.RADICAL],
+        },
+      };
+      const options = {
+        ...quizOptionsWithHiddenRandomProperties,
+        numberOfQuestions: 9,
+      };
+      const preferredQuestions: Radical[] = [radical];
+
+      const questions = quizService.selectFromPrefferedQuestions(
+        preferredQuestions,
+        options,
+        level
+      );
+
+      expect(questions.length).toEqual(0);
+      expect(questions).toEqual([]);
+      expect(MathUtil.getRandomIndex).not.toHaveBeenCalled();
+    });
+
     it('should return all preferred questions when the number of preferred questions is less than number of questions', () => {
       spyOn(MathUtil, 'getRandomIndex').and.returnValues(0);
 

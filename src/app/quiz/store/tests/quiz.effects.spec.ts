@@ -5,6 +5,7 @@ import { provideMockActions } from '@ngrx/effects/testing';
 import { Store, StoreModule } from '@ngrx/store';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { ReplaySubject } from 'rxjs';
+import ALL_LEVELS from 'src/app/game/level/level.data';
 import CharacterType from 'src/app/japanese/common/enums/character-type.enum';
 import KANJI from 'src/app/japanese/kanji/kanji.data';
 import Kanji from 'src/app/japanese/kanji/models/kanji.model';
@@ -74,6 +75,7 @@ describe('QuizEffects', () => {
     radical: { radicals: RADICALS },
     kanji: { kanji: KANJI },
     vocabulary: { vocabulary: VOCABULARY },
+    level: { level: null, allLevels: ALL_LEVELS },
   };
   const stateWithoutQuestions: Partial<AppStoreState> = {
     ...stateWithQuestions,
