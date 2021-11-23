@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/cor
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import COLORS from 'src/app/common/color.data';
+import CharacterType from 'src/app/japanese/common/enums/character-type.enum';
 import AppStoreState from 'src/app/store/app.state';
 
 import * as QuizActions from '../../quiz/store/quiz.actions';
@@ -59,7 +60,21 @@ export class QuizQuestionsSelectionCardComponent
   }
 
   private setColorBasedOnBeingSelected(): void {
-    this.cardColor = this.wasSelected ? COLORS.correct : COLORS.wrong;
+    if (this.wasSelected) {
+      switch (this.currentCharacter.type) {
+        case CharacterType.RADICAL:
+          this.cardColor = COLORS.radical;
+          break;
+        case CharacterType.KANJI:
+          this.cardColor = COLORS.kanji;
+          break;
+        case CharacterType.VOCABULARY:
+          this.cardColor = COLORS.vocabulary;
+          break;
+      }
+    } else {
+      this.cardColor = COLORS.wrong;
+    }
   }
 
   private emitSelectedEvent(

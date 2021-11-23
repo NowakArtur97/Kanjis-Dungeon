@@ -15,7 +15,10 @@
     </div>
 
     <div class="quiz_question_selection__options">
-      <div class="quiz_question_selection__tips">
+      <div
+        [ngStyle]="{ 'background-color': categoryColor }"
+        class="quiz_question_selection__tips"
+      >
         <div class="quiz_question_selection__tip">
           <div class="quiz_question_selection__tip_message">Add one:</div>
           <span

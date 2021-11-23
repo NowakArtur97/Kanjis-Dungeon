@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import appearTrigger from 'src/app/common/animations/appear.animation';
 import slideInTrigger from 'src/app/common/animations/slide-in.animation';
+import COLORS from 'src/app/common/color.data';
 import CharacterType from 'src/app/japanese/common/enums/character-type.enum';
 import MouseButtonClick from 'src/app/japanese/common/enums/mouse-button-click.enum';
 import KANJI from 'src/app/japanese/kanji/kanji.data';
@@ -39,6 +40,7 @@ export class QuizQuestionsSelectionComponent implements OnInit, OnDestroy {
   };
   private chosenQuestions = RADICALS;
   chosenCategory = CharacterType.RADICAL;
+  categoryColor = COLORS.radical;
   characterType = CharacterType;
   loadedQuestions: Radical[];
   isToggled = false;
@@ -113,6 +115,17 @@ export class QuizQuestionsSelectionComponent implements OnInit, OnDestroy {
   onChangeCategory(chosenCategory: CharacterType): void {
     this.chosenCategory = chosenCategory;
     this.chosenQuestions = this.questionsByType[this.chosenCategory];
+    switch (this.chosenCategory) {
+      case CharacterType.RADICAL:
+        this.categoryColor = COLORS.radical;
+        break;
+      case CharacterType.KANJI:
+        this.categoryColor = COLORS.kanji;
+        break;
+      case CharacterType.VOCABULARY:
+        this.categoryColor = COLORS.vocabulary;
+        break;
+    }
     this.loadPreferredQuestions();
   }
 
