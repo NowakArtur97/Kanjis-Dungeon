@@ -3,6 +3,7 @@ import { NavigationStart, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import AppStoreState from 'src/app/store/app.state';
 
+import * as LevelActions from '../../game/level/store/level.actions';
 import * as GameActions from '../../game/store/game.actions';
 import * as QuizActions from '../../quiz/store/quiz.actions';
 
@@ -34,8 +35,10 @@ export class NavigationComponent implements OnInit {
     this.isActive = !this.isActive;
   }
 
+  // TODO: TEST
   onChangeView(): void {
     this.store.dispatch(QuizActions.resetQuiz());
     this.store.dispatch(GameActions.resetGame());
+    this.store.dispatch(LevelActions.resetLevel());
   }
 }

@@ -71,6 +71,7 @@ export default class QuizEffects {
     )
   );
 
+  // TODO: TEST
   setQuestions$ = createEffect(() =>
     this.actions$.pipe(
       ofType(
@@ -78,12 +79,16 @@ export default class QuizEffects {
         QuizActions.repeatQuiz,
         VocabularyActions.setVocabulary
       ),
-      withLatestFrom(this.store.select((state) => state.quiz)),
-      switchMap(([, { preferredQuestions, quizOptions }]) =>
+      withLatestFrom(
+        this.store.select((state) => state.quiz),
+        this.store.select((state) => state.level.level)
+      ),
+      switchMap(([, { preferredQuestions, quizOptions }, level]) =>
         of(
           this.quizService.selectFromPrefferedQuestions(
             preferredQuestions,
-            quizOptions
+            quizOptions,
+            level
           )
         )
       ),

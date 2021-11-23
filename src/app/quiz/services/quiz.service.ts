@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import MathUtil from 'src/app/common/utils/math.util';
+import Level from 'src/app/game/level/models/level.model';
 import CharacterUtil from 'src/app/japanese/common/utils/character.util';
 import Radical from 'src/app/japanese/radical/models/radical.model';
 
@@ -13,10 +14,16 @@ export default class QuizService {
   getNextQuestion = (questions: Radical[]): Radical =>
     questions[MathUtil.getRandomIndex(questions)];
 
+  // TODO: TEST
   selectFromPrefferedQuestions(
     prefferedQuestions: Radical[],
-    quizOptions: QuizOptions
+    quizOptions: QuizOptions,
+    level: Level = null
   ): Radical[] {
+    if (level) {
+      return [];
+    }
+
     const chosenQuestions: Radical[] = [];
     const preferredNotExcludedQuestions: Radical[] = prefferedQuestions.filter(
       (question) => !this.isTypeExcluded(quizOptions, question)

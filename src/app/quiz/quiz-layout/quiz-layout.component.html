@@ -1,7 +1,9 @@
 <div class="quiz_layout">
-  <app-quiz-options *ngIf="shouldDisplayOptions"></app-quiz-options>
+  <app-quiz-options *ngIf="isInQuizMode"></app-quiz-options>
   <app-quiz-question-card></app-quiz-question-card>
   <app-quiz-summary></app-quiz-summary>
   <app-japanese-alphabet></app-japanese-alphabet>
-  <app-quiz-questions-selection></app-quiz-questions-selection>
+  <app-quiz-questions-selection
+    *ngIf="isInQuizMode"
+  ></app-quiz-questions-selection>
 </div>

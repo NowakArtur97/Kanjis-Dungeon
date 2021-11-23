@@ -7,6 +7,8 @@ export const chooseLevel = createAction(
   props<{ level: Level }>()
 );
 
+export const resetLevel = createAction('[Level] Reset Level');
+
 export const setupLevels = createAction('[Level] Setup Levels');
 
 export const setLevels = createAction(

@@ -21,6 +21,9 @@ const _levelReducer = createReducer(
 
   on(LevelActions.chooseLevel, (state, { level }) => ({ ...state, level })),
 
+  // TODO: TEST
+  on(LevelActions.resetLevel, (state) => ({ ...state, level: null })),
+
   on(LevelActions.setLevels, (state, { allLevels }) => ({
     ...state,
     allLevels,

@@ -135,10 +135,12 @@ export class QuizSummaryComponent implements OnInit, OnDestroy {
     }
   }
 
+  //TODO: TEST
   onCloseSummary(): void {
     this.store.dispatch(QuizActions.resetQuiz());
     if (this.level) {
       this.store.dispatch(GameActions.resetGame());
+      this.store.dispatch(LevelActions.resetLevel());
       this.router.navigate(['./levels']);
     }
   }
