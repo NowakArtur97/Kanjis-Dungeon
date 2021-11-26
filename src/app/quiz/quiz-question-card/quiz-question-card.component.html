@@ -1,5 +1,6 @@
 <section class="quiz_card__wrapper">
   <div class="quiz_card">
+    <div class="quiz_card__question_counter">{{ questionsCounter }}</div>
     <form
       [formGroup]="quizFormGroup"
       (ngSubmit)="onValidateCard()"
