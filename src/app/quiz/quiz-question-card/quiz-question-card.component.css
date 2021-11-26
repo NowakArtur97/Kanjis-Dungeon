@@ -7,3 +7,20 @@
 .quiz_card__submit_button[disabled]:hover {
   cursor: default;
 }
+
+.quiz_card__question_counter {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.quiz_card__question_counter_value {
+  color: white;
+  font-size: 2.4em;
+}

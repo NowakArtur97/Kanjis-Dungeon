@@ -84,6 +84,8 @@
   justify-content: center;
 
   width: 100%;
+
+  z-index: 2;
 }
 
 .japanese_alphabet__toggle_button {

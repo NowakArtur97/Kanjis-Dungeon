@@ -67,6 +67,8 @@
   justify-content: center;
 
   transform: translateY(-50%);
+
+  z-index: 2;
 }
 
 .quiz_question_selection__toggle_button {

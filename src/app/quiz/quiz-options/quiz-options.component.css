@@ -12,6 +12,8 @@
   background-color: rgb(177, 177, 177);
 
   color: white;
+
+  z-index: 2;
 }
 
 .quiz_options {

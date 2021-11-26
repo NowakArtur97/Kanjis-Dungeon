@@ -1,6 +1,10 @@
 <section class="quiz_card__wrapper">
   <div class="quiz_card">
-    <div class="quiz_card__question_counter">{{ questionsCounter }}</div>
+    <div *ngIf="currentCharacter" class="quiz_card__question_counter">
+      <div class="quiz_card__question_counter_value">
+        {{ questionsCounter }}
+      </div>
+    </div>
     <form
       [formGroup]="quizFormGroup"
       (ngSubmit)="onValidateCard()"
