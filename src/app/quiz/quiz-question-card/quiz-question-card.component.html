@@ -1,6 +1,12 @@
 <section class="quiz_card__wrapper">
   <div class="quiz_card">
     <div *ngIf="currentCharacter" class="quiz_card__question_counter">
+      <div class="quiz_card__progress_bar">
+        <div
+          [ngStyle]="{ width: quizProgress }"
+          class="quiz_card__progress_bar_indicator"
+        ></div>
+      </div>
       <div class="quiz_card__question_counter_value">
         {{ questionsCounter }}
       </div>

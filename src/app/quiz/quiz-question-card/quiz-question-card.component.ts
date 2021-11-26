@@ -39,7 +39,9 @@ export class QuizQuestionCardComponent
   charactersValue: QuizCard;
   quizFormGroup: FormGroup;
   CardStatus = CardStatus;
+
   questionsCounter: string;
+  quizProgress: string;
 
   constructor(
     private store: Store<AppStoreState>,
@@ -55,14 +57,18 @@ export class QuizQuestionCardComponent
     );
     this.nextQuestionSubscription$ = this.store
       .select('quiz')
-      .subscribe(({ nextQuestion, quizOptions, answers, questions }) => {
+      .subscribe(({ nextQuestion, quizOptions, answers }) => {
         this.currentCharacter = nextQuestion;
         this.quizOptions = quizOptions;
         this.charactersValue = this.quizService.choosePropertiesForQuestion(
           this.currentCharacter,
           this.quizOptions
         );
-        this.questionsCounter = `${answers.length}/${questions.length}`;
+        const numberOfAnswers = answers.length;
+        const numberOfQuestions = quizOptions.numberOfQuestions;
+        this.questionsCounter = `${numberOfAnswers}/${numberOfQuestions}`;
+        this.quizProgress = `${(numberOfAnswers / numberOfQuestions) * 100}%`;
+        console.log(this.quizProgress);
         this.initForm();
       });
   }
