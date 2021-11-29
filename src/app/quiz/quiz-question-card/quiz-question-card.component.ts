@@ -57,7 +57,7 @@ export class QuizQuestionCardComponent
     );
     this.nextQuestionSubscription$ = this.store
       .select('quiz')
-      .subscribe(({ nextQuestion, quizOptions, answers }) => {
+      .subscribe(({ nextQuestion, quizOptions, questions, answers }) => {
         this.currentCharacter = nextQuestion;
         this.quizOptions = quizOptions;
         this.charactersValue = this.quizService.choosePropertiesForQuestion(
@@ -65,10 +65,9 @@ export class QuizQuestionCardComponent
           this.quizOptions
         );
         const numberOfAnswers = answers.length;
-        const numberOfQuestions = quizOptions.numberOfQuestions;
+        const numberOfQuestions = questions.length + numberOfAnswers;
         this.questionsCounter = `${numberOfAnswers}/${numberOfQuestions}`;
         this.quizProgress = `${(numberOfAnswers / numberOfQuestions) * 100}%`;
-        console.log(this.quizProgress);
         this.initForm();
       });
   }

@@ -1539,6 +1539,20 @@ const KANJI: Kanji[] = [
     kunyomi: ['ごと'],
     type: CharacterType.KANJI,
   },
+  {
+    characters: '東',
+    meanings: ['east'],
+    onyomi: ['とう'],
+    kunyomi: ['ひがし'],
+    type: CharacterType.KANJI,
+  },
+  {
+    characters: '南',
+    meanings: ['south'],
+    onyomi: ['なん'],
+    kunyomi: ['みなみ'],
+    type: CharacterType.KANJI,
+  },
 ];
 
 export default KANJI;

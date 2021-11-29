@@ -6,6 +6,7 @@ export default class CommonValidators {
   }: FormControl): ValidationErrors =>
     expected.toLowerCase() !== value.toLowerCase() ? { equals: true } : null;
 
+  // TODO: CommonValidators: check word with upper letter didnt work e.q. America
   static includes = (array: any[]) => ({
     value,
   }: FormControl): ValidationErrors => {

@@ -8,7 +8,7 @@
   cursor: default;
 }
 
-.quiz_card__question_counter {
+.quiz_card__progress {
   position: absolute;
   top: 1%;
   right: 0;
@@ -17,7 +17,6 @@
   width: 95%;
   border-radius: 1.5em;
 
-  border: 2px solid rgb(177, 177, 177);
   background-color: hsl(0, 0%, 11%);
 
   transform: translateX(-2.5%);
@@ -31,10 +30,26 @@
 }
 
 .quiz_card__progress_bar_indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+
   height: 100%;
 
   background-color: var(--main-card-color);
-  border-radius: 1.5em;
+  transition: 0.2s all, 1s width ease;
+}
+
+.quiz_card__progress_bar_border {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  height: 100%;
+  width: 100%;
+
+  border: 3px solid rgb(177, 177, 177);
+  border-radius: 1em;
 }
 
 .quiz_card__question_counter_value {
