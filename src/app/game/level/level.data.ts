@@ -111,7 +111,7 @@ const ALL_LEVELS: Level[] = [
     enemies: [imp],
     quizOptions: {
       ...DEFAULT_QUIZ_OPTIONS,
-      numberOfQuestions: 6,
+      numberOfQuestions: 2,
       questionTypes: [CharacterType.KANJI],
     },
   },
@@ -240,10 +240,10 @@ const ALL_LEVELS: Level[] = [
   },
   {
     levelType: LevelType.MIX,
-    enemies: [imp],
+    enemies: [pigWarrior, imp],
     quizOptions: {
       ...DEFAULT_QUIZ_OPTIONS,
-      numberOfQuestions: 24,
+      numberOfQuestions: 1,
       questionTypes: [
         CharacterType.RADICAL,
         CharacterType.KANJI,

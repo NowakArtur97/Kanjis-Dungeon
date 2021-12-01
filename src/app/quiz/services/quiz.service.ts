@@ -10,6 +10,7 @@ import QuizOptions from '../models/quiz-options.model';
 @Injectable({ providedIn: 'root' })
 export default class QuizService {
   private readonly PREFFERED_QUESTIONS_KEY = 'PREFFERED_QUESTIONS';
+  private readonly MIN_NUMBER_OF_QUESTION = 1;
 
   getNextQuestion = (questions: Radical[]): Radical =>
     questions[MathUtil.getRandomIndex(questions)];
@@ -75,15 +76,20 @@ export default class QuizService {
     question: Radical
   ): boolean => !quizOptions.questionTypes.includes(question.type);
 
-  // TODO: QuizService: Decrease number of preffered questions
+  // TODO: TEST
   private setNumberOfQuestions(
     allQuestions: Radical[],
     quizOptions: QuizOptions,
     alreadyChosenQuestions: Radical[]
   ): number {
-    let thisTypeNumberOfQuestions = Math.floor(
-      quizOptions.numberOfQuestions / quizOptions.questionTypes.length
-    );
+    const numberOfAlreadyChosenQuestionsOfThisType = alreadyChosenQuestions.filter(
+      (question) => question.type === allQuestions[0].type
+    ).length;
+    let thisTypeNumberOfQuestions =
+      Math.floor(
+        quizOptions.numberOfQuestions / quizOptions.questionTypes.length
+      ) - numberOfAlreadyChosenQuestionsOfThisType ||
+      this.MIN_NUMBER_OF_QUESTION;
 
     const questionsLeft =
       quizOptions.numberOfQuestions -

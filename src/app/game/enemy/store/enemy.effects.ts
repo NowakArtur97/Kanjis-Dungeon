@@ -88,7 +88,7 @@ export default class EnemyEffects {
     )
   );
 
-  //TODO: EnemyEffects: Check if Player die before all Enemies attacked
+  // TODO: EnemyEffects: Check if Player die before all Enemies attacked
   finishCharacterAnimation$ = createEffect(() =>
     this.actions$.pipe(
       ofType(GameActions.finishCharacterAnimation),
