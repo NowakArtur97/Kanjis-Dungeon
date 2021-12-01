@@ -6,7 +6,7 @@ const pigWarrior: Character = {
   name: 'pig_warrior',
   stats: {
     maxHealth: 30,
-    currentHealth: 20,
+    currentHealth: 30,
     maxDamage: 12,
     damage: 8,
     currentShield: 15,

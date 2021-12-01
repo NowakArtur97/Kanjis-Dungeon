@@ -10,7 +10,6 @@ import CharacterType from '../../character/enums/character-type.enum';
 import CharacterService from '../../character/services/character.service';
 import * as EnemyActions from '../../enemy/store/enemy.actions';
 import GameResult from '../../enums/game-result.enum';
-import GameTurn from '../../enums/game-turn.enum';
 import * as LevelActions from '../../level/store/level.actions';
 import * as GameActions from '../../store/game.actions';
 import defaultPlayer from '../player.data';
@@ -101,24 +100,26 @@ export default class PlayerEffects {
     )
   );
 
+  // TODO: TEST
   endPlayerTurn$ = createEffect(() =>
     this.actions$.pipe(
       ofType(GameActions.finishCharacterAnimation),
       filter((action) => action.character.stats.type === CharacterType.PLAYER),
       withLatestFrom(
         this.store.select((state) => state.deck),
-        this.store.select((state) => state.game.turn)
+        this.store.select((state) => state.enemy.enemies)
       ),
-      map(([, { remainingEnergy, hand }, turn]) => {
+      map(([, { remainingEnergy, hand }, enemies]) => {
         // TODO: End turn clicking on button/Potions for regenerating energy
-        const hasEnergyToUseAnyCard = hand?.every(
+        const doesntHaveEnergyToUseAnyCard = hand?.every(
           (card) => card.cost > remainingEnergy
         );
         const hasNoRemainingEnergy = remainingEnergy === 0;
-        const isStillPlayerTurn = turn === GameTurn.PLAYER_TURN;
+        const areAllEnemiesDead = enemies.length === 0;
         if (
-          (hasNoRemainingEnergy || hasEnergyToUseAnyCard) &&
-          isStillPlayerTurn
+          hasNoRemainingEnergy ||
+          doesntHaveEnergyToUseAnyCard ||
+          areAllEnemiesDead
         ) {
           return GameActions.changeTurn();
         }
