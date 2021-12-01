@@ -5,11 +5,11 @@ const defaultPlayer: Character = {
   id: 0,
   name: 'player',
   stats: {
-    currentHealth: 3,
+    currentHealth: 100,
     maxHealth: 100,
     damage: 20,
     maxDamage: 22,
-    currentShield: 0,
+    currentShield: 10,
     type: CharacterType.PLAYER,
   },
   animations: [

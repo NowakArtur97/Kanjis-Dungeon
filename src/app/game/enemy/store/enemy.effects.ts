@@ -88,7 +88,6 @@ export default class EnemyEffects {
     )
   );
 
-  // TODO: EnemyEffects: Check if Player die before all Enemies attacked
   finishCharacterAnimation$ = createEffect(() =>
     this.actions$.pipe(
       ofType(GameActions.finishCharacterAnimation),
@@ -106,6 +105,9 @@ export default class EnemyEffects {
           enemies,
           character
         );
+        if (player.stats.currentHealth <= 0) {
+          return [EnemyActions.endEnemyTurn()];
+        }
         if (enemyForAction) {
           const playedAnimation = {
             character: enemyForAction,

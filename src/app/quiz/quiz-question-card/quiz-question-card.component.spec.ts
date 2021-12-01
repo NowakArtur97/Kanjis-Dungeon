@@ -5,16 +5,18 @@ import { EffectsModule } from '@ngrx/effects';
 import { Store, StoreModule } from '@ngrx/store';
 import { of } from 'rxjs';
 import { AppCommonModule } from 'src/app/common/app-common.module';
-import { initialState } from 'src/app/game/store/game.reducer';
 import CharacterType from 'src/app/japanese/common/enums/character-type.enum';
 import { JapanesePipe } from 'src/app/japanese/common/pipes/japanese.pipe';
 import { JapaneseModule } from 'src/app/japanese/japanese.module';
+import Kanji from 'src/app/japanese/kanji/models/kanji.model';
+import Radical from 'src/app/japanese/radical/models/radical.model';
+import Word from 'src/app/japanese/vocabulary/models/word.model';
 import AppStoreState from 'src/app/store/app.state';
 
 import * as QuizActions from '../../quiz/store/quiz.actions';
 import QuizOptions from '../models/quiz-options.model';
 import QuizService from '../services/quiz.service';
-import { QuizStoreState } from '../store/quiz.reducer';
+import { initialState, QuizStoreState } from '../store/quiz.reducer';
 import { QuizQuestionCardComponent } from './quiz-question-card.component';
 
 describe('QuizQuestionCardComponent', () => {
@@ -23,14 +25,12 @@ describe('QuizQuestionCardComponent', () => {
   let store: Store<AppStoreState>;
   let quizService: QuizService;
 
-  const radical = {
-    id: 1,
+  const radical: Radical = {
     characters: '一',
     meanings: ['ground'],
     type: CharacterType.RADICAL,
   };
-  const kanji = {
-    id: 3,
+  const kanji: Kanji = {
     characters: '大',
     meanings: ['big', 'large'],
     onyomi: ['たい', 'だい'],
@@ -38,12 +38,18 @@ describe('QuizQuestionCardComponent', () => {
     nanori: ['ひろ'],
     type: CharacterType.KANJI,
   };
-  const word = {
-    id: 1,
+  const word: Word = {
     characters: '大人',
     meanings: ['adult', 'mature'],
     reading: 'おとな',
     type: CharacterType.VOCABULARY,
+  };
+  const answer: Kanji = {
+    characters: '南',
+    meanings: ['south'],
+    onyomi: ['なん'],
+    kunyomi: ['みなみ'],
+    type: CharacterType.KANJI,
   };
   const quizOptions: QuizOptions = {
     numberOfQuestions: 12,
@@ -62,6 +68,7 @@ describe('QuizQuestionCardComponent', () => {
     quizOptions,
     nextQuestion: word,
     questions: [word],
+    answers: [answer],
   };
   const quizStateWithRadicalAsQuestion: Partial<QuizStoreState> = {
     quizOptions: {
@@ -74,6 +81,7 @@ describe('QuizQuestionCardComponent', () => {
     },
     nextQuestion: radical,
     questions: [radical, kanji, word],
+    answers: [answer],
   };
   const quizStateWithKanjiAsQuestion: Partial<QuizStoreState> = {
     quizOptions: {
@@ -91,6 +99,7 @@ describe('QuizQuestionCardComponent', () => {
     },
     nextQuestion: kanji,
     questions: [radical, kanji, word],
+    answers: [answer],
   };
   const quizStateWithWordAsQuestion: Partial<QuizStoreState> = {
     quizOptions: {
@@ -108,6 +117,7 @@ describe('QuizQuestionCardComponent', () => {
     },
     nextQuestion: word,
     questions: [radical, kanji, word],
+    answers: [answer],
   };
   beforeEach(async () => {
     await TestBed.configureTestingModule({

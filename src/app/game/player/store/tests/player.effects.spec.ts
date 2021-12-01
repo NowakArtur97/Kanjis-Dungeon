@@ -407,8 +407,9 @@ describe('PlayerEffects', () => {
           ...deckInitialState,
           remainingEnergy: 0,
         },
-        game: {
-          ...gameInitialState,
+        enemy: {
+          allEnemies: [pigWarrior],
+          enemies: [pigWarrior],
         },
       };
       beforeEach(() =>
@@ -453,8 +454,63 @@ describe('PlayerEffects', () => {
           allCards: [phoenixSummoningCard],
           remainingEnergy: 1,
         },
-        game: {
-          ...gameInitialState,
+        enemy: {
+          allEnemies: [pigWarrior],
+          enemies: [pigWarrior],
+        },
+      };
+      beforeEach(() =>
+        TestBed.configureTestingModule({
+          imports: [StoreModule.forRoot({})],
+          providers: [
+            PlayerEffects,
+            provideMockStore({ initialState: stateWithToExpensiveCards }),
+            {
+              provide: Store,
+              useClass: MockStore,
+            },
+            provideMockActions(() => actions$),
+          ],
+        })
+      );
+
+      beforeEach(() => {
+        playerEffects = TestBed.inject(PlayerEffects);
+        playerService = TestBed.inject(PlayerService);
+        characterService = TestBed.inject(CharacterService);
+      });
+
+      beforeEach(() => {
+        actions$ = new ReplaySubject(1);
+        actions$.next(
+          GameActions.finishCharacterAnimation({ character: defaultPlayer })
+        );
+      });
+
+      it('should return a changeTurn action', () => {
+        playerEffects.endPlayerTurn$.subscribe((resultAction) => {
+          expect(resultAction).toEqual(GameActions.changeTurn());
+        });
+      });
+    });
+
+    describe('when all Enemies are dead', () => {
+      const deadEnemy: Character = {
+        ...pigWarrior,
+        stats: {
+          ...pigWarrior.stats,
+          currentHealth: 0,
+        },
+      };
+      const stateWithToExpensiveCards: Partial<AppStoreState> = {
+        deck: {
+          ...deckInitialState,
+          allCards: [phoenixSummoningCard],
+          remainingEnergy: 1,
+        },
+        enemy: {
+          allEnemies: [pigWarrior],
+          enemies: [deadEnemy],
         },
       };
       beforeEach(() =>

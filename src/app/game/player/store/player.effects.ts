@@ -100,7 +100,6 @@ export default class PlayerEffects {
     )
   );
 
-  // TODO: TEST
   endPlayerTurn$ = createEffect(() =>
     this.actions$.pipe(
       ofType(GameActions.finishCharacterAnimation),

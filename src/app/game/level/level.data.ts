@@ -5,6 +5,7 @@ import { imp, pigWarrior } from '../enemy/enemy.data';
 import LevelType from './enums/level-type.enum';
 import Level from './models/level.model';
 
+// TODO: ALL_LEVELS: Generate level by code
 const ALL_LEVELS: Level[] = [
   {
     levelType: LevelType.RADICAL,
@@ -230,7 +231,7 @@ const ALL_LEVELS: Level[] = [
     enemies: [pigWarrior],
     quizOptions: {
       ...DEFAULT_QUIZ_OPTIONS,
-      numberOfQuestions: 24,
+      numberOfQuestions: 20,
       questionTypes: [
         CharacterType.RADICAL,
         CharacterType.KANJI,
@@ -243,7 +244,7 @@ const ALL_LEVELS: Level[] = [
     enemies: [pigWarrior, imp],
     quizOptions: {
       ...DEFAULT_QUIZ_OPTIONS,
-      numberOfQuestions: 1,
+      numberOfQuestions: 20,
       questionTypes: [
         CharacterType.RADICAL,
         CharacterType.KANJI,

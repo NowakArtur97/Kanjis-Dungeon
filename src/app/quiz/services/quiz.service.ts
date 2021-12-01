@@ -76,7 +76,6 @@ export default class QuizService {
     question: Radical
   ): boolean => !quizOptions.questionTypes.includes(question.type);
 
-  // TODO: TEST
   private setNumberOfQuestions(
     allQuestions: Radical[],
     quizOptions: QuizOptions,
