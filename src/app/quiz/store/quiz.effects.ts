@@ -52,15 +52,19 @@ export default class QuizEffects {
     { dispatch: false }
   );
 
-  // getQuizProgresFromStorage$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(QuizActions.getDataFromStorage),
-  //     switchMap(() => of(this.quizService.loadPreferredQuestionsFromStorage())),
-  //     map((preferredQuestions) =>
-  //       QuizActions.setPreferredQuestions({ preferredQuestions })
-  //     )
-  //   )
-  // );
+  // TODO: TEST
+  getQuizProgresFromStorage$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(QuizActions.getDataFromStorage),
+      switchMap(() => of(this.quizService.loadQuizProgress())),
+      mergeMap(({ questions, answers, mistakes, quizOptions }) => [
+        QuizActions.setQuestions({ questions }),
+        QuizActions.setAnswers({ answers }),
+        QuizActions.setMistakes({ mistakes }),
+        QuizActions.changeQuizOptions({ quizOptions }),
+      ])
+    )
+  );
 
   // TODO: TEST
   saveQuizProgres$ = createEffect(

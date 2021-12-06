@@ -18,9 +18,19 @@ export const addAnswer = createAction(
   props<{ answer: Radical }>()
 );
 
+export const setAnswers = createAction(
+  '[Quiz] Set Answers',
+  props<{ answers: Radical[] }>()
+);
+
 export const addMistake = createAction(
   '[Quiz] Add Mistake',
   props<{ mistake: Radical }>()
+);
+
+export const setMistakes = createAction(
+  '[Quiz] Set Mistakes',
+  props<{ mistakes: Radical[] }>()
 );
 
 export const changeQuizOptions = createAction(

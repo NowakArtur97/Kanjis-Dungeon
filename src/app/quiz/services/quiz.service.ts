@@ -6,6 +6,8 @@ import Radical from 'src/app/japanese/radical/models/radical.model';
 
 import QuizCard from '../models/quiz-card.model';
 import QuizOptions from '../models/quiz-options.model';
+import QuizProgress from '../models/quiz-progress.model';
+import { DEFAULT_QUIZ_OPTIONS } from '../store/quiz.reducer';
 
 @Injectable({ providedIn: 'root' })
 export default class QuizService {
@@ -215,5 +217,23 @@ export default class QuizService {
     localStorage.setItem(this.ANSWERS_KEY, JSON.stringify(answers));
     localStorage.setItem(this.MISTAKES_KEY, JSON.stringify(mistakes));
     localStorage.setItem(this.QUIZ_OPTIONS_KEY, JSON.stringify(quizOptions));
+  }
+
+  loadQuizProgress(): QuizProgress {
+    const questions: Radical[] =
+      JSON.parse(localStorage.getItem(this.QUESTIONS_KEY)) || [];
+    const answers: Radical[] =
+      JSON.parse(localStorage.getItem(this.ANSWERS_KEY)) || [];
+    const mistakes: Radical[] =
+      JSON.parse(localStorage.getItem(this.MISTAKES_KEY)) || [];
+    const quizOptions: QuizOptions =
+      JSON.parse(localStorage.getItem(this.QUIZ_OPTIONS_KEY)) ||
+      DEFAULT_QUIZ_OPTIONS;
+    return {
+      questions,
+      answers,
+      mistakes,
+      quizOptions,
+    };
   }
 }
