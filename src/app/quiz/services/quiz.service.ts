@@ -10,6 +10,10 @@ import QuizOptions from '../models/quiz-options.model';
 @Injectable({ providedIn: 'root' })
 export default class QuizService {
   private readonly PREFFERED_QUESTIONS_KEY = 'PREFFERED_QUESTIONS';
+  private readonly QUESTIONS_KEY = 'QUESTIONS';
+  private readonly ANSWERS_KEY = 'ANSWERS';
+  private readonly MISTAKES_KEY = 'MISTAKES';
+  private readonly QUIZ_OPTIONS_KEY = 'QUIZ_OPTIONS';
   private readonly MIN_NUMBER_OF_QUESTION = 1;
 
   getNextQuestion = (questions: Radical[]): Radical =>
@@ -200,4 +204,16 @@ export default class QuizService {
 
   loadPreferredQuestionsFromStorage = (): Radical[] =>
     JSON.parse(localStorage.getItem(this.PREFFERED_QUESTIONS_KEY)) || [];
+
+  saveQuizProgress(
+    questions: Radical[],
+    answers: Radical[],
+    mistakes: Radical[],
+    quizOptions: QuizOptions
+  ): void {
+    localStorage.setItem(this.QUESTIONS_KEY, JSON.stringify(questions));
+    localStorage.setItem(this.ANSWERS_KEY, JSON.stringify(answers));
+    localStorage.setItem(this.MISTAKES_KEY, JSON.stringify(mistakes));
+    localStorage.setItem(this.QUIZ_OPTIONS_KEY, JSON.stringify(quizOptions));
+  }
 }

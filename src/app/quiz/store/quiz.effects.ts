@@ -52,6 +52,36 @@ export default class QuizEffects {
     { dispatch: false }
   );
 
+  // getQuizProgresFromStorage$ = createEffect(() =>
+  //   this.actions$.pipe(
+  //     ofType(QuizActions.getDataFromStorage),
+  //     switchMap(() => of(this.quizService.loadPreferredQuestionsFromStorage())),
+  //     map((preferredQuestions) =>
+  //       QuizActions.setPreferredQuestions({ preferredQuestions })
+  //     )
+  //   )
+  // );
+
+  // TODO: TEST
+  saveQuizProgres$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(QuizActions.setNextQuestion, QuizActions.setQuestions),
+        withLatestFrom(this.store.select((state) => state.quiz)),
+        switchMap(([, { questions, answers, mistakes, quizOptions }]) =>
+          of(
+            this.quizService.saveQuizProgress(
+              questions,
+              answers,
+              mistakes,
+              quizOptions
+            )
+          )
+        )
+      ),
+    { dispatch: false }
+  );
+
   setNextQuestion$ = createEffect(() =>
     this.actions$.pipe(
       ofType(
