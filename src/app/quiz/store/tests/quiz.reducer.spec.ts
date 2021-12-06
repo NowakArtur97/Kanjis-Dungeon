@@ -5,11 +5,21 @@ import Word from 'src/app/japanese/vocabulary/models/word.model';
 
 import QuizOptions from '../../models/quiz-options.model';
 import * as QuizActions from '../quiz.actions';
-import { DEFAULT_QUIZ_OPTIONS, initialState, quizReducer, QuizStoreState } from '../quiz.reducer';
+import {
+  DEFAULT_QUIZ_OPTIONS,
+  initialState,
+  quizReducer,
+  QuizStoreState,
+} from '../quiz.reducer';
 
 const radical: Radical = {
   characters: '一',
   meanings: ['ground'],
+  type: CharacterType.RADICAL,
+};
+const radical2: Radical = {
+  characters: '几',
+  meanings: ['table'],
   type: CharacterType.RADICAL,
 };
 const kanji: Kanji = {
@@ -48,6 +58,11 @@ const quizInitialState: QuizStoreState = {
 const stateWithQuestions: QuizStoreState = {
   ...quizInitialState,
   questions,
+};
+const stateWithQuestionsAndAnswers: QuizStoreState = {
+  ...stateWithQuestions,
+  questions,
+  answers: [radical2],
 };
 const stateWithMistakes: QuizStoreState = {
   ...stateWithQuestions,
@@ -177,7 +192,7 @@ describe('quizReducer', () => {
   });
 
   describe('QuizActions.changeQuizOptions', () => {
-    it('should change quiz options and reset question', () => {
+    it('should change quiz options and reset questions ad answers', () => {
       const quizOptions: QuizOptions = {
         numberOfQuestions: 1,
         minNumberOfProperties: 1,
@@ -190,11 +205,12 @@ describe('quizReducer', () => {
       };
       const stateWithNewQuizOptions: QuizStoreState = {
         ...initialState,
-        questions: [],
         quizOptions,
+        questions: [],
+        answers: [],
       };
       const action = QuizActions.changeQuizOptions({ quizOptions });
-      const actualState = quizReducer(stateWithQuestions, action);
+      const actualState = quizReducer(stateWithQuestionsAndAnswers, action);
       const expectedState = { ...stateWithNewQuizOptions };
 
       expect(actualState).toEqual(expectedState);

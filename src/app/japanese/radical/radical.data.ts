@@ -664,5 +664,10 @@ const RADICALS: Radical[] = [
     meanings: ['turkey'],
     type: CharacterType.RADICAL,
   },
+  {
+    characters: '几',
+    meanings: ['table'],
+    type: CharacterType.RADICAL,
+  },
 ];
 export default RADICALS;

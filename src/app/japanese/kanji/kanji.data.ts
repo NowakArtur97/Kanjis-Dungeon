@@ -1553,6 +1553,27 @@ const KANJI: Kanji[] = [
     kunyomi: ['みなみ'],
     type: CharacterType.KANJI,
   },
+  {
+    characters: '風',
+    meanings: ['wind', 'style'],
+    onyomi: ['ふう', 'ふ'],
+    kunyomi: ['かぜ', 'かざ'],
+    type: CharacterType.KANJI,
+  },
+  {
+    characters: '雪',
+    meanings: ['snow'],
+    onyomi: ['せつ'],
+    kunyomi: ['ゆき'],
+    type: CharacterType.KANJI,
+  },
+  {
+    characters: '岩',
+    meanings: ['boulder', 'rock'],
+    onyomi: ['がん'],
+    kunyomi: ['いわ'],
+    type: CharacterType.KANJI,
+  },
 ];
 
 export default KANJI;
