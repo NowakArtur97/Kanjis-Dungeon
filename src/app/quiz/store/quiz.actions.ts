@@ -34,9 +34,7 @@ export const showSummary = createAction('[Quiz] Show Summary');
 
 export const resetQuiz = createAction('[Quiz] Reset Quiz');
 
-export const getPreferredQuestionsFromStorage = createAction(
-  '[Quiz] Get Preferred Questions from Storage'
-);
+export const getDataFromStorage = createAction('[Quiz] Get data from Storage');
 
 export const setPreferredQuestions = createAction(
   '[Quiz] Set Preferred Questions',

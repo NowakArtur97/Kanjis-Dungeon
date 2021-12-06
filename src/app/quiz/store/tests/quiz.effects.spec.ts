@@ -209,7 +209,10 @@ describe('QuizEffects', () => {
           provideMockActions(() => actions$),
           {
             provide: QuizService,
-            useValue: jasmine.createSpyObj('quizService', ['getNextQuestion']),
+            useValue: jasmine.createSpyObj('quizService', [
+              'getNextQuestion',
+              'loadPreferredQuestionsFromStorage',
+            ]),
           },
           {
             provide: Router,
@@ -224,6 +227,41 @@ describe('QuizEffects', () => {
     beforeEach(() => {
       quizEffects = TestBed.inject(QuizEffects);
       quizService = TestBed.inject(QuizService);
+    });
+
+    describe('getPreferredQuestionFromStorage$', () => {
+      const preferredQuestions: Radical[] = [
+        {
+          characters: '隹',
+          meanings: ['turkey'],
+          type: CharacterType.RADICAL,
+        },
+        {
+          characters: '几',
+          meanings: ['table'],
+          type: CharacterType.RADICAL,
+        },
+      ];
+      beforeEach(() => {
+        actions$ = new ReplaySubject(1);
+        actions$.next(QuizActions.getDataFromStorage);
+        (quizService.loadPreferredQuestionsFromStorage as jasmine.Spy).and.returnValue(
+          preferredQuestions
+        );
+      });
+
+      it('should return a setPreferredQuestions action', () => {
+        quizEffects.getPreferredQuestionFromStorage$.subscribe(
+          (resultAction) => {
+            expect(resultAction).toEqual(
+              QuizActions.setPreferredQuestions({ preferredQuestions })
+            );
+            expect(
+              quizService.loadPreferredQuestionsFromStorage
+            ).toHaveBeenCalledTimes(1);
+          }
+        );
+      });
     });
 
     describe('setNextQuestion$', () => {

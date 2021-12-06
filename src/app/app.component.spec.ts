@@ -53,7 +53,7 @@ describe('AppComponent', () => {
   describe('when initialize component', () => {
     it('should dispatch getPreferredQuestionsFromStorage and not dispatch saveRadicals, saveKanji and saveVocabulary actions', () => {
       expect(store.dispatch).toHaveBeenCalledWith(
-        QuizActions.getPreferredQuestionsFromStorage()
+        QuizActions.getDataFromStorage()
       );
       expect(store.dispatch).not.toHaveBeenCalledWith(
         RadicalActions.saveRadicals()

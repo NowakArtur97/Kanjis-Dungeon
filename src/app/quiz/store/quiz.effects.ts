@@ -23,7 +23,7 @@ export default class QuizEffects {
 
   getPreferredQuestionFromStorage$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(QuizActions.getPreferredQuestionsFromStorage),
+      ofType(QuizActions.getDataFromStorage),
       switchMap(() => of(this.quizService.loadPreferredQuestionsFromStorage())),
       map((preferredQuestions) =>
         QuizActions.setPreferredQuestions({ preferredQuestions })

@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
   constructor(private store: Store<AppStoreState>) {}
 
   ngOnInit(): void {
-    this.store.dispatch(QuizActions.getPreferredQuestionsFromStorage());
+    this.store.dispatch(QuizActions.getDataFromStorage());
     if (environment.production || environment.shouldUpdateFirebase) {
       this.store.dispatch(RadicalActions.saveRadicals());
       this.store.dispatch(KanjiActions.saveKanji());
