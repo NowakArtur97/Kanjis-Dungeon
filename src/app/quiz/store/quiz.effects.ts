@@ -57,11 +57,13 @@ export default class QuizEffects {
     this.actions$.pipe(
       ofType(QuizActions.getDataFromStorage),
       switchMap(() => of(this.quizService.loadQuizProgress())),
-      mergeMap(({ questions, answers, mistakes, quizOptions }) => [
-        QuizActions.setQuestions({ questions }),
-        QuizActions.setAnswers({ answers }),
-        QuizActions.setMistakes({ mistakes }),
-        QuizActions.changeQuizOptions({ quizOptions }),
+      switchMap(({ questions, answers, mistakes, quizOptions }) => [
+        QuizActions.setQuizProgress({
+          questions,
+          answers,
+          mistakes,
+          quizOptions,
+        }),
       ])
     )
   );

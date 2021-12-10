@@ -69,12 +69,6 @@ const _quizReducer = createReducer(
     answers: [...state.answers, answer],
   })),
 
-  // TODO: TEST
-  on(QuizActions.setAnswers, (state, { answers }) => ({
-    ...state,
-    answers: [...answers],
-  })),
-
   on(QuizActions.addMistake, (state, { mistake }) => ({
     ...state,
     mistakes: state.mistakes.find(
@@ -84,12 +78,6 @@ const _quizReducer = createReducer(
     )
       ? [...state.mistakes]
       : [...state.mistakes, mistake],
-  })),
-
-  // TODO: TEST
-  on(QuizActions.setMistakes, (state, { mistakes }) => ({
-    ...state,
-    mistakes: [...mistakes],
   })),
 
   on(QuizActions.changeQuizOptions, (state, { quizOptions }) => ({
@@ -156,6 +144,18 @@ const _quizReducer = createReducer(
               preferredQuestionToRemove.characters
         )
       ),
+    })
+  ),
+
+  // TODO: TEST
+  on(
+    QuizActions.setQuizProgress,
+    (state, { questions, answers, mistakes, quizOptions }) => ({
+      ...state,
+      questions,
+      answers,
+      mistakes,
+      quizOptions,
     })
   )
 );

@@ -1574,6 +1574,20 @@ const KANJI: Kanji[] = [
     kunyomi: ['いわ'],
     type: CharacterType.KANJI,
   },
+  {
+    characters: '門',
+    meanings: ['gate', 'gates'],
+    onyomi: ['もん'],
+    kunyomi: ['と', 'かど'],
+    type: CharacterType.KANJI,
+  },
+  {
+    characters: '店',
+    meanings: ['shop', 'store'],
+    onyomi: ['てん'],
+    kunyomi: ['みせ'],
+    type: CharacterType.KANJI,
+  },
 ];
 
 export default KANJI;

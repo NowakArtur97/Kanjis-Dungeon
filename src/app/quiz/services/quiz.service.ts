@@ -216,7 +216,15 @@ export default class QuizService {
     localStorage.setItem(this.QUESTIONS_KEY, JSON.stringify(questions));
     localStorage.setItem(this.ANSWERS_KEY, JSON.stringify(answers));
     localStorage.setItem(this.MISTAKES_KEY, JSON.stringify(mistakes));
-    localStorage.setItem(this.QUIZ_OPTIONS_KEY, JSON.stringify(quizOptions));
+    const quizOptionsToSave: any = { ...quizOptions };
+    // to properly stringify map of excludedProperties
+    quizOptionsToSave.excludedProperties = Array.from(
+      quizOptionsToSave.excludedProperties.entries()
+    );
+    localStorage.setItem(
+      this.QUIZ_OPTIONS_KEY,
+      JSON.stringify(quizOptionsToSave)
+    );
   }
 
   loadQuizProgress(): QuizProgress {
@@ -229,11 +237,16 @@ export default class QuizService {
     const quizOptions: QuizOptions =
       JSON.parse(localStorage.getItem(this.QUIZ_OPTIONS_KEY)) ||
       DEFAULT_QUIZ_OPTIONS;
+    const quizOptionsToLoad: any = { ...quizOptions };
+    // to properly parse map of excludedProperties
+    quizOptionsToLoad.excludedProperties = new Map(
+      quizOptions.excludedProperties
+    );
     return {
       questions,
       answers,
       mistakes,
-      quizOptions,
+      quizOptions: quizOptionsToLoad,
     };
   }
 }
