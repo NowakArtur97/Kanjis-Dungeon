@@ -249,4 +249,11 @@ export default class QuizService {
       quizOptions: quizOptionsToLoad,
     };
   }
+
+  cleanQuizProgress(): void {
+    localStorage.removeItem(this.QUESTIONS_KEY);
+    localStorage.removeItem(this.ANSWERS_KEY);
+    localStorage.removeItem(this.MISTAKES_KEY);
+    localStorage.removeItem(this.QUIZ_OPTIONS_KEY);
+  }
 }

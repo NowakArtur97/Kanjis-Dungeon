@@ -88,6 +88,16 @@ export default class QuizEffects {
     { dispatch: false }
   );
 
+  // TODO: TEST
+  cleanQuizProgres$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(QuizActions.showSummary),
+        switchMap(() => of(this.quizService.cleanQuizProgress()))
+      ),
+    { dispatch: false }
+  );
+
   setNextQuestion$ = createEffect(() =>
     this.actions$.pipe(
       ofType(
@@ -171,7 +181,7 @@ export default class QuizEffects {
     )
   );
 
-  // TODO: TEST | FIX BUG wit hrepeating quiz
+  // TODO: TEST | FIX BUG with repeating quiz
   setQuestions$ = createEffect(() =>
     this.actions$.pipe(
       ofType(QuizActions.changeQuizOptions, QuizActions.repeatQuiz),
