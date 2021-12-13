@@ -5,12 +5,7 @@ import Word from 'src/app/japanese/vocabulary/models/word.model';
 
 import QuizOptions from '../../models/quiz-options.model';
 import * as QuizActions from '../quiz.actions';
-import {
-  DEFAULT_QUIZ_OPTIONS,
-  initialState,
-  quizReducer,
-  QuizStoreState,
-} from '../quiz.reducer';
+import { DEFAULT_QUIZ_OPTIONS, initialState, quizReducer, QuizStoreState } from '../quiz.reducer';
 
 const radical: Radical = {
   characters: '一',
@@ -59,14 +54,16 @@ const stateWithQuestions: QuizStoreState = {
   ...quizInitialState,
   questions,
 };
+const answers: Radical[] = [radical2];
+const mistakes: Radical[] = [radical, kanji, word];
 const stateWithQuestionsAndAnswers: QuizStoreState = {
   ...stateWithQuestions,
   questions,
-  answers: [radical2],
+  answers,
 };
 const stateWithMistakes: QuizStoreState = {
   ...stateWithQuestions,
-  mistakes: questions,
+  mistakes,
 };
 const stateWithMistakesAndPreferredQuestion: QuizStoreState = {
   ...stateWithMistakes,
@@ -192,7 +189,7 @@ describe('quizReducer', () => {
   });
 
   describe('QuizActions.changeQuizOptions', () => {
-    it('should change quiz options and reset questions ad answers', () => {
+    it('should change quiz options and reset questions and answers', () => {
       const quizOptions: QuizOptions = {
         numberOfQuestions: 1,
         minNumberOfProperties: 1,
@@ -351,6 +348,42 @@ describe('quizReducer', () => {
         expect(actualState.preferredQuestions).toContain(radical);
         expect(actualState.preferredQuestions).not.toContain(kanji);
         expect(actualState.preferredQuestions).not.toContain(word);
+      });
+    });
+
+    describe('QuizActions.setQuizProgress', () => {
+      it('should set questions, answers, mistakes and quizOptions', () => {
+        const quizOptions: QuizOptions = {
+          numberOfQuestions: 1,
+          minNumberOfProperties: 1,
+          shouldShowAnswer: true,
+          shouldHideRandomProperties: true,
+          excludedProperties: new Map([
+            [CharacterType.RADICAL, ['characters', 'type']],
+          ]),
+          questionTypes: [CharacterType.RADICAL],
+        };
+        const action = QuizActions.setQuizProgress({
+          questions,
+          answers,
+          mistakes,
+          quizOptions,
+        });
+        const stateWithQuizProgress = {
+          ...initialState,
+          questions,
+          answers,
+          mistakes,
+          quizOptions,
+        };
+        const actualState = quizReducer(initialState, action);
+        const expectedState = { ...stateWithQuizProgress };
+
+        expect(actualState).toEqual(expectedState);
+        expect(actualState.questions).toEqual(questions);
+        expect(actualState.answers).toEqual(answers);
+        expect(actualState.mistakes).toEqual(mistakes);
+        expect(actualState.quizOptions).toEqual(quizOptions);
       });
     });
   });

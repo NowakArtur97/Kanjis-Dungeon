@@ -147,7 +147,6 @@ const _quizReducer = createReducer(
     })
   ),
 
-  // TODO: TEST
   on(
     QuizActions.setQuizProgress,
     (state, { questions, answers, mistakes, quizOptions }) => ({
