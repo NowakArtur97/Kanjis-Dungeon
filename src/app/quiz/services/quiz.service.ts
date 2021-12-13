@@ -207,7 +207,7 @@ export default class QuizService {
   loadPreferredQuestionsFromStorage = (): Radical[] =>
     JSON.parse(localStorage.getItem(this.PREFFERED_QUESTIONS_KEY)) || [];
 
-  saveQuizProgress(
+  saveQuizProgressToStorage(
     questions: Radical[],
     answers: Radical[],
     mistakes: Radical[],
@@ -227,7 +227,7 @@ export default class QuizService {
     );
   }
 
-  loadQuizProgress(): QuizProgress {
+  loadQuizProgressFromStorage(): QuizProgress {
     const questions: Radical[] =
       JSON.parse(localStorage.getItem(this.QUESTIONS_KEY)) || [];
     const answers: Radical[] =
@@ -250,7 +250,7 @@ export default class QuizService {
     };
   }
 
-  cleanQuizProgress(): void {
+  cleanQuizProgressInStorage(): void {
     localStorage.removeItem(this.QUESTIONS_KEY);
     localStorage.removeItem(this.ANSWERS_KEY);
     localStorage.removeItem(this.MISTAKES_KEY);

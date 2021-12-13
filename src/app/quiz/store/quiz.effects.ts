@@ -52,11 +52,10 @@ export default class QuizEffects {
     { dispatch: false }
   );
 
-  // TODO: TEST
   getQuizProgresFromStorage$ = createEffect(() =>
     this.actions$.pipe(
       ofType(QuizActions.getDataFromStorage),
-      switchMap(() => of(this.quizService.loadQuizProgress())),
+      switchMap(() => of(this.quizService.loadQuizProgressFromStorage())),
       switchMap(({ questions, answers, mistakes, quizOptions }) => [
         QuizActions.setQuizProgress({
           questions,
@@ -68,15 +67,14 @@ export default class QuizEffects {
     )
   );
 
-  // TODO: TEST
-  saveQuizProgres$ = createEffect(
+  saveQuizProgress$ = createEffect(
     () =>
       this.actions$.pipe(
         ofType(QuizActions.setNextQuestion, QuizActions.setQuestions),
         withLatestFrom(this.store.select((state) => state.quiz)),
         switchMap(([, { questions, answers, mistakes, quizOptions }]) =>
           of(
-            this.quizService.saveQuizProgress(
+            this.quizService.saveQuizProgressToStorage(
               questions,
               answers,
               mistakes,
@@ -88,12 +86,11 @@ export default class QuizEffects {
     { dispatch: false }
   );
 
-  // TODO: TEST
   cleanQuizProgres$ = createEffect(
     () =>
       this.actions$.pipe(
         ofType(QuizActions.showSummary),
-        switchMap(() => of(this.quizService.cleanQuizProgress()))
+        switchMap(() => of(this.quizService.cleanQuizProgressInStorage()))
       ),
     { dispatch: false }
   );
@@ -117,7 +114,6 @@ export default class QuizEffects {
     )
   );
 
-  // TODO: TEST
   setQuestionsOnApplicationStartup$ = createEffect(() =>
     this.actions$.pipe(
       ofType(VocabularyActions.setVocabulary),
@@ -171,8 +167,8 @@ export default class QuizEffects {
                   )
                 )
               ),
-              mergeMap((questions) => questions),
-              mergeMap((questions) => questions)
+              mergeMap((mergeQuestions1) => mergeQuestions1),
+              mergeMap((mergeQuestions2) => mergeQuestions2)
             );
           }
         }
@@ -181,7 +177,7 @@ export default class QuizEffects {
     )
   );
 
-  // TODO: TEST | FIX BUG with repeating quiz
+  // TODO: When repeat Quiz should return same questions as last Quiz
   setQuestions$ = createEffect(() =>
     this.actions$.pipe(
       ofType(QuizActions.changeQuizOptions, QuizActions.repeatQuiz),
@@ -237,8 +233,8 @@ export default class QuizEffects {
                 )
               )
             ),
-            mergeMap((questions) => questions),
-            mergeMap((questions) => questions)
+            mergeMap((mergeQuestions1) => mergeQuestions1),
+            mergeMap((mergeQuestions2) => mergeQuestions2)
           )
       ),
       map((questions) => QuizActions.setQuestions({ questions }))
