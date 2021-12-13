@@ -107,13 +107,74 @@ export default class QuizEffects {
     )
   );
 
+  // TODO: TEST
+  setQuestionsOnApplicationStartup$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(VocabularyActions.setVocabulary),
+      withLatestFrom(
+        this.store.select((state) => state.quiz),
+        this.store.select((state) => state.radical.radicals),
+        this.store.select((state) => state.kanji.kanji),
+        this.store.select((state) => state.vocabulary.vocabulary),
+        this.store.select((state) => state.level.level)
+      ),
+      switchMap(
+        ([
+          ,
+          { quizOptions, questions, answers, mistakes, preferredQuestions },
+          radicals,
+          kanji,
+          vocabulary,
+          level,
+        ]) => {
+          const hasNotFinishedQuiz = answers.length > 0 || mistakes.length > 0;
+          if (hasNotFinishedQuiz) {
+            return of(questions);
+          } else {
+            const chosenQuestions = this.quizService.selectFromPrefferedQuestions(
+              preferredQuestions,
+              quizOptions,
+              level
+            );
+            return of(
+              this.quizService.prepareQuestions(radicals, quizOptions, [
+                ...chosenQuestions,
+                ...questions,
+              ])
+            ).pipe(
+              map((questionsFromRadicals) =>
+                of(
+                  this.quizService.prepareQuestions(
+                    kanji,
+                    quizOptions,
+                    questionsFromRadicals
+                  )
+                ).pipe(
+                  map((questionsFromRadicalsAndKanji) =>
+                    of(
+                      this.quizService.prepareQuestions(
+                        vocabulary,
+                        quizOptions,
+                        questionsFromRadicalsAndKanji
+                      )
+                    )
+                  )
+                )
+              ),
+              mergeMap((questions) => questions),
+              mergeMap((questions) => questions)
+            );
+          }
+        }
+      ),
+      map((questions) => QuizActions.setQuestions({ questions }))
+    )
+  );
+
+  // TODO: TEST | FIX BUG wit hrepeating quiz
   setQuestions$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(
-        QuizActions.changeQuizOptions,
-        QuizActions.repeatQuiz,
-        VocabularyActions.setVocabulary
-      ),
+      ofType(QuizActions.changeQuizOptions, QuizActions.repeatQuiz),
       withLatestFrom(
         this.store.select((state) => state.quiz),
         this.store.select((state) => state.level.level)
@@ -165,11 +226,11 @@ export default class QuizEffects {
                   )
                 )
               )
-            )
+            ),
+            mergeMap((questions) => questions),
+            mergeMap((questions) => questions)
           )
       ),
-      mergeMap((questions) => questions),
-      mergeMap((questions) => questions),
       map((questions) => QuizActions.setQuestions({ questions }))
     )
   );
