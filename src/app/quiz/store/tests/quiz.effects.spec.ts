@@ -230,28 +230,30 @@ describe('QuizEffects', () => {
     });
 
     describe('saveQuizProgress$', () => {
-      [QuizActions.setNextQuestion, QuizActions.setQuestions].forEach(
-        (action) => {
-          beforeEach(() => {
-            actions$ = new ReplaySubject(1);
-            actions$.next(action);
-            (quizService.saveQuizProgressToStorage as jasmine.Spy).and.callThrough();
-          });
+      [
+        QuizActions.setNextQuestion,
+        QuizActions.setQuestions,
+        QuizActions.repeatQuiz,
+      ].forEach((action) => {
+        beforeEach(() => {
+          actions$ = new ReplaySubject(1);
+          actions$.next(action);
+          (quizService.saveQuizProgressToStorage as jasmine.Spy).and.callThrough();
+        });
 
-          it('should return a setQuizProgress action', () => {
-            quizEffects.saveQuizProgress$.subscribe(() => {
-              expect(
-                quizService.saveQuizProgressToStorage
-              ).toHaveBeenCalledOnceWith(
-                stateWithQuestions.quiz.questions,
-                stateWithQuestions.quiz.answers,
-                stateWithQuestions.quiz.mistakes,
-                stateWithQuestions.quiz.quizOptions
-              );
-            });
+        it('should return a setQuizProgress action', () => {
+          quizEffects.saveQuizProgress$.subscribe(() => {
+            expect(
+              quizService.saveQuizProgressToStorage
+            ).toHaveBeenCalledOnceWith(
+              stateWithQuestions.quiz.questions,
+              stateWithQuestions.quiz.answers,
+              stateWithQuestions.quiz.mistakes,
+              stateWithQuestions.quiz.quizOptions
+            );
           });
-        }
-      );
+        });
+      });
     });
 
     describe('cleanQuizProgres$', () => {

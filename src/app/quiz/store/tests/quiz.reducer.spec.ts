@@ -250,20 +250,28 @@ describe('quizReducer', () => {
   });
 
   describe('QuizActions.repeatQuiz', () => {
-    it('should reset part of state', () => {
+    it('should reset part of state and set questions based on previous answers', () => {
+      const stateAfterQuiz: QuizStoreState = {
+        ...initialState,
+        questions,
+        answers,
+        mistakes,
+        shouldShowSummary: true,
+      };
       const action = QuizActions.repeatQuiz();
-      const actualState = quizReducer(stateWithSummary, action);
+      const actualState = quizReducer(stateAfterQuiz, action);
 
       const stateToRepeat: QuizStoreState = {
         ...quizInitialState,
+        questions: [...answers],
         quizOptions: DEFAULT_QUIZ_OPTIONS,
       };
 
       expect(actualState).toEqual(stateToRepeat);
-      expect(actualState.questions).toEqual([]);
+      expect(actualState.questions).toEqual(answers);
       expect(actualState.mistakes).toEqual([]);
       expect(actualState.answers).toEqual([]);
-      expect(actualState.shouldShowSummary).toEqual(false);
+      expect(actualState.shouldShowSummary).toBeFalse();
     });
   });
 
