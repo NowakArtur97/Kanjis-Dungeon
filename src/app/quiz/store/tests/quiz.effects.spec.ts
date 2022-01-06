@@ -444,6 +444,8 @@ describe('QuizEffects', () => {
       quiz: {
         ...initialState,
         preferredQuestions: [radical],
+        answers: [],
+        questions: [],
       },
     };
     beforeEach(() =>
@@ -530,33 +532,46 @@ describe('QuizEffects', () => {
           ).toHaveBeenCalledWith([radical]);
         });
       });
-    });
 
-    it('should call savePreferredQuestionsToStorage method', () => {
-      actions$ = new ReplaySubject(1);
-      actions$.next(
-        QuizActions.addPreferredQuestions({
-          preferredQuestions: [radical, radical2],
-        })
-      );
-      quizEffects.savePreferredQuestions$.subscribe(() => {
-        expect(
-          quizService.savePreferredQuestionsToStorage
-        ).toHaveBeenCalledWith([radical]);
+      it('should call savePreferredQuestionsToStorage method', () => {
+        actions$ = new ReplaySubject(1);
+        actions$.next(
+          QuizActions.addPreferredQuestions({
+            preferredQuestions: [radical, radical2],
+          })
+        );
+        quizEffects.savePreferredQuestions$.subscribe(() => {
+          expect(
+            quizService.savePreferredQuestionsToStorage
+          ).toHaveBeenCalledWith([radical]);
+        });
+      });
+
+      it('should call savePreferredQuestionsToStorage method', () => {
+        actions$ = new ReplaySubject(1);
+        actions$.next(
+          QuizActions.removePreferredQuestions({
+            preferredQuestionsToRemove: [radical, radical2],
+          })
+        );
+        quizEffects.savePreferredQuestions$.subscribe(() => {
+          expect(
+            quizService.savePreferredQuestionsToStorage
+          ).toHaveBeenCalledWith([radical]);
+        });
       });
     });
 
-    it('should call savePreferredQuestionsToStorage method', () => {
-      actions$ = new ReplaySubject(1);
-      actions$.next(
-        QuizActions.removePreferredQuestions({
-          preferredQuestionsToRemove: [radical, radical2],
-        })
-      );
-      quizEffects.savePreferredQuestions$.subscribe(() => {
-        expect(
-          quizService.savePreferredQuestionsToStorage
-        ).toHaveBeenCalledWith([radical]);
+    describe('setNextQuestion$', () => {
+      beforeEach(() => {
+        actions$ = new ReplaySubject(1);
+        actions$.next(QuizActions.setQuestions);
+      });
+
+      it('should not return any action', () => {
+        quizEffects.setNextQuestion$.subscribe(() => {
+          expect(quizService.getNextQuestion).not.toHaveBeenCalled();
+        });
       });
     });
   });
