@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
-import { map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
+import { filter, map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
 
 import * as VocabularyActions from '../../japanese/vocabulary/store/vocabulary.actions';
 import AppStoreState from '../../store/app.state';
@@ -103,8 +103,12 @@ export default class QuizEffects {
         QuizActions.addAnswer,
         QuizActions.addMistake
       ),
-      withLatestFrom(this.store.select((state) => state.quiz.questions)),
-      switchMap(([, questions]) =>
+      withLatestFrom(this.store.select((state) => state.quiz)),
+      filter(
+        ([, { answers, questions }]) =>
+          questions.length > 0 || answers.length > 0
+      ),
+      switchMap(([, { questions }]) =>
         of(this.quizService.getNextQuestion(questions))
       ),
       map((nextQuestion) =>
