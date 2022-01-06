@@ -57,7 +57,7 @@ jobs:
             - database.rules.json
   deploy:
     docker:
-      - image: circleci/node:10-browsers
+      - image: cimg/node:16.13.1
     working_directory: ~/kanjis-dungeon
     steps:
       - restore_cache:
@@ -76,6 +76,6 @@ workflows:
       - deploy:
           requires:
             - tests
-          filters:
-            branches:
-              only: main
+          # filters:
+          #   branches:
+          #     only: main
