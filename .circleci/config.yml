@@ -3,7 +3,7 @@ jobs:
   tests:
     working_directory: ~/kanjis-dungeon
     docker:
-      - image: circleci/node:14.18.2-bullseye-browsers-legacy
+      - image: circleci/node:16.13.1-browsers
     steps:
       - checkout:
           path: ~/kanjis-dungeon
@@ -34,6 +34,13 @@ jobs:
       - run:
           name: Linting
           command: npm run lint
+      - run:
+        name: Install Chrome
+        command: |
+          wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+          sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+          sudo apt-get update
+          sudo apt-get -y install google-chrome-stable
       - run:
           name: End to End Testing
           command: npm run e2e -- --protractor-config=e2e/protractor-ci.conf.js
