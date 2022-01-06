@@ -64,7 +64,7 @@ jobs:
           key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
       - run:
           name: Install Firebase
-          command: npm install --save-dev firebase-tools
+          command: npm install --legacy-peer-deps --save-dev firebase-tools
       - run:
           name: Deploy app to Firebase
           command: npm run firebase-deploy -- --token=$FIREBASE_TOKEN
