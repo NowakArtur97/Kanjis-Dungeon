@@ -71,7 +71,11 @@ export default class QuizEffects {
   saveQuizProgress$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(QuizActions.setNextQuestion, QuizActions.setQuestions),
+        ofType(
+          QuizActions.setNextQuestion,
+          QuizActions.setQuestions,
+          QuizActions.repeatQuiz
+        ),
         withLatestFrom(this.store.select((state) => state.quiz)),
         switchMap(([, { questions, answers, mistakes, quizOptions }]) =>
           of(
@@ -185,10 +189,9 @@ export default class QuizEffects {
     )
   );
 
-  // TODO: When repeat Quiz should return same questions as last Quiz
   setQuestions$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(QuizActions.changeQuizOptions, QuizActions.repeatQuiz),
+      ofType(QuizActions.changeQuizOptions),
       withLatestFrom(
         this.store.select((state) => state.quiz),
         this.store.select((state) => state.level.level)
