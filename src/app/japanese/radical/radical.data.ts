@@ -669,5 +669,20 @@ const RADICALS: Radical[] = [
     meanings: ['table'],
     type: CharacterType.RADICAL,
   },
+  {
+    characters: '里',
+    meanings: ['village'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '予',
+    meanings: ['beforehand'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '也',
+    meanings: ['aligator'],
+    type: CharacterType.RADICAL,
+  },
 ];
 export default RADICALS;

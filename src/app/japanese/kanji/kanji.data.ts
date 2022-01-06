@@ -477,7 +477,7 @@ const KANJI: Kanji[] = [
   {
     characters: '内',
     meanings: ['inside', 'within'],
-    onyomi: ['ない'],
+    onyomi: ['ない', 'がい'],
     kunyomi: ['うち'],
     type: CharacterType.KANJI,
   },
@@ -538,8 +538,8 @@ const KANJI: Kanji[] = [
   {
     characters: '外',
     meanings: ['outside'],
-    onyomi: ['がい'],
-    kunyomi: ['そと', 'はず'],
+    onyomi: ['がい', 'げ'],
+    kunyomi: ['そと', 'はず', 'ほか'],
     type: CharacterType.KANJI,
   },
   {
@@ -553,6 +553,7 @@ const KANJI: Kanji[] = [
     characters: '公',
     meanings: ['public'],
     onyomi: ['こう'],
+    kunyomi: ['おおやけ'],
     type: CharacterType.KANJI,
   },
   {
@@ -1586,6 +1587,40 @@ const KANJI: Kanji[] = [
     meanings: ['shop', 'store'],
     onyomi: ['てん'],
     kunyomi: ['みせ'],
+    type: CharacterType.KANJI,
+  },
+  {
+    characters: '里',
+    meanings: ['village', 'hometown'],
+    onyomi: ['り'],
+    kunyomi: ['さと'],
+    type: CharacterType.KANJI,
+  },
+  {
+    characters: '野',
+    meanings: ['field', 'plains'],
+    onyomi: ['や'],
+    kunyomi: ['の'],
+    type: CharacterType.KANJI,
+  },
+  {
+    characters: '道',
+    meanings: ['road', 'street', 'path', 'way'],
+    onyomi: ['どう', 'とう'],
+    kunyomi: ['みち'],
+    type: CharacterType.KANJI,
+  },
+  {
+    characters: '地',
+    meanings: ['earth', 'ground', 'land', 'soil'],
+    onyomi: ['ち', 'じ'],
+    type: CharacterType.KANJI,
+  },
+  {
+    characters: '池',
+    meanings: ['pond'],
+    onyomi: ['ち'],
+    kunyomi: ['いけ'],
     type: CharacterType.KANJI,
   },
 ];

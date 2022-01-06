@@ -9,6 +9,7 @@ import * as VocabularyActions from '../../japanese/vocabulary/store/vocabulary.a
 import AppStoreState from '../../store/app.state';
 import QuizService from '../services/quiz.service';
 import * as QuizActions from './quiz.actions';
+import { DEFAULT_QUIZ_OPTIONS } from './quiz.reducer';
 
 @Injectable()
 export default class QuizEffects {
@@ -19,7 +20,7 @@ export default class QuizEffects {
     private router: Router
   ) {}
 
-  private readonly QUIZ_ROUTE = 'quiz';
+  private readonly QUIZ_ROUTE = '/quiz';
 
   getPreferredQuestionFromStorage$ = createEffect(() =>
     this.actions$.pipe(
@@ -107,7 +108,7 @@ export default class QuizEffects {
         of(this.quizService.getNextQuestion(questions))
       ),
       map((nextQuestion) =>
-        nextQuestion === undefined && this.router.url === `/${this.QUIZ_ROUTE}`
+        nextQuestion === undefined && this.router.url === this.QUIZ_ROUTE
           ? QuizActions.showSummary()
           : QuizActions.setNextQuestion({ nextQuestion })
       )
@@ -133,7 +134,10 @@ export default class QuizEffects {
           vocabulary,
           level,
         ]) => {
-          const hasNotFinishedQuiz = answers.length > 0 || mistakes.length > 0;
+          const hasNotFinishedQuiz =
+            answers.length > 0 ||
+            mistakes.length > 0 ||
+            quizOptions !== DEFAULT_QUIZ_OPTIONS;
           if (hasNotFinishedQuiz) {
             return of(questions);
           } else {
