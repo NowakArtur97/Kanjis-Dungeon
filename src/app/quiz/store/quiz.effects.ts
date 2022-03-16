@@ -9,7 +9,6 @@ import * as VocabularyActions from '../../japanese/vocabulary/store/vocabulary.a
 import AppStoreState from '../../store/app.state';
 import QuizService from '../services/quiz.service';
 import * as QuizActions from './quiz.actions';
-import { DEFAULT_QUIZ_OPTIONS } from './quiz.reducer';
 
 @Injectable()
 export default class QuizEffects {
@@ -142,10 +141,9 @@ export default class QuizEffects {
           vocabulary,
           level,
         ]) => {
-          const hasNotFinishedQuiz =
-            answers.length > 0 ||
-            mistakes.length > 0 ||
-            quizOptions !== DEFAULT_QUIZ_OPTIONS;
+          console.log(preferredQuestions.length);
+          const hasNotFinishedQuiz = answers.length > 0 || mistakes.length > 0;
+          console.log(hasNotFinishedQuiz);
           if (hasNotFinishedQuiz) {
             return of(questions);
           } else {
