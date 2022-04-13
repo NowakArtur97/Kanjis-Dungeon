@@ -137,6 +137,12 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
+    characters: '万',
+    meanings: ['ten thousand'],
+    onyomi: ['まん', 'ばん'],
+    type: CharacterType.KANJI,
+  },
+  {
     characters: '人',
     meanings: ['person'],
     onyomi: ['にん', 'じん'],
@@ -592,12 +598,6 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
-    characters: '万',
-    meanings: ['ten thousand'],
-    onyomi: ['まん', 'ばん'],
-    type: CharacterType.KANJI,
-  },
-  {
     characters: '広',
     meanings: ['wide', 'broad', 'spread'],
     onyomi: ['こう'],
@@ -786,6 +786,66 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
+    characters: '号',
+    meanings: ['number'],
+    onyomi: ['ごう'],
+    type: CharacterType.KANJI,
+  },
+  {
+    characters: '他',
+    meanings: ['other'],
+    onyomi: ['た'],
+    kunyomi: ['ほか'],
+    type: CharacterType.KANJI,
+  },
+  {
+    characters: '去',
+    meanings: ['past'],
+    onyomi: ['きょ', 'こ'],
+    kunyomi: ['さ'],
+    type: CharacterType.KANJI,
+  },
+  {
+    characters: '皿',
+    meanings: ['plate'],
+    kunyomi: ['さら'],
+    type: CharacterType.KANJI,
+  },
+  {
+    characters: '申',
+    meanings: ['say', 'say humbly', 'humbly say'],
+    onyomi: ['しん'],
+    kunyomi: ['もう'],
+    type: CharacterType.KANJI,
+  },
+  {
+    characters: '代',
+    meanings: ['substitute', 'replace', 'period', 'age'],
+    onyomi: ['だい', 'たい'],
+    kunyomi: ['か', 'かわ', 'よ', 'しろ'],
+    type: CharacterType.KANJI,
+  },
+  {
+    characters: '礼',
+    meanings: ['thanks'],
+    onyomi: ['れい'],
+    type: CharacterType.KANJI,
+  },
+  {
+    characters: '宝',
+    meanings: ['treasure'],
+    onyomi: ['ほう'],
+    kunyomi: ['たから'],
+    type: CharacterType.KANJI,
+  },
+  {
+    characters: '世',
+    meanings: ['world', 'generation'],
+    onyomi: ['せい', 'せ'],
+    kunyomi: ['よ'],
+    type: CharacterType.KANJI,
+  },
+  {
     characters: '校',
     meanings: ['school'],
     onyomi: ['こう'],
@@ -862,7 +922,7 @@ const KANJI: Kanji[] = [
   },
   {
     characters: '貝',
-    meanings: ['shellfish', 'shell'],
+    meanings: ['shell', 'shellfish'],
     kunyomi: ['かい'],
     type: CharacterType.KANJI,
   },
@@ -1037,6 +1097,12 @@ const KANJI: Kanji[] = [
     type: CharacterType.KANJI,
   },
   {
+    characters: '斤',
+    meanings: ['axe', 'bread loaf counter'],
+    onyomi: ['きん'],
+    type: CharacterType.KANJI,
+  },
+  {
     characters: '近',
     meanings: ['near', 'close'],
     onyomi: ['きん', 'こん'],
@@ -1048,6 +1114,13 @@ const KANJI: Kanji[] = [
     meanings: ['shape', 'form', 'type', 'figure', 'appearance'],
     onyomi: ['けい', 'ぎょう'],
     kunyomi: ['かた', 'かたち'],
+    type: CharacterType.KANJI,
+  },
+  {
+    characters: '皮',
+    meanings: ['skin'],
+    onyomi: ['ひ'],
+    kunyomi: ['かわ'],
     type: CharacterType.KANJI,
   },
   {
