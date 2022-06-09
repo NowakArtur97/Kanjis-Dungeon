@@ -724,5 +724,35 @@ const RADICALS: Radical[] = [
     meanings: ['branch'],
     type: CharacterType.RADICAL,
   },
+  {
+    characters: '血',
+    meanings: ['blood'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '亡',
+    meanings: ['death', 'deceased'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '歹',
+    meanings: ['yakuza'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '羊',
+    meanings: ['sheep'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '氏',
+    meanings: ['clan'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '夫',
+    meanings: ['husband'],
+    type: CharacterType.RADICAL,
+  },
 ];
 export default RADICALS;
