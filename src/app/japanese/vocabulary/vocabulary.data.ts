@@ -51,6 +51,12 @@ const VOCABULARY: Word[] = [
     type: CharacterType.VOCABULARY,
   },
   {
+    characters: '大きく',
+    meanings: ['big', 'in a big way', 'on a grand scale'],
+    reading: 'おおきく',
+    type: CharacterType.VOCABULARY,
+  },
+  {
     characters: '小さい',
     meanings: ['small', 'little'],
     reading: 'ちいさい',
@@ -1200,6 +1206,12 @@ const VOCABULARY: Word[] = [
     type: CharacterType.VOCABULARY,
   },
   {
+    characters: '〜分',
+    meanings: ['minute', 'minutes'],
+    reading: 'ふん',
+    type: CharacterType.VOCABULARY,
+  },
+  {
     characters: '半分',
     meanings: ['half'],
     reading: 'はんぶん',
@@ -1494,6 +1506,12 @@ const VOCABULARY: Word[] = [
     type: CharacterType.VOCABULARY,
   },
   {
+    characters: '大空',
+    meanings: ['heavens', 'firmament', 'sky', 'skies'],
+    reading: 'おおぞら',
+    type: CharacterType.VOCABULARY,
+  },
+  {
     characters: '気',
     meanings: ['spirit', 'energy'],
     reading: 'き',
@@ -1608,6 +1626,12 @@ const VOCABULARY: Word[] = [
     type: CharacterType.VOCABULARY,
   },
   {
+    characters: '青空',
+    meanings: ['blue sky'],
+    reading: 'あおぞら',
+    type: CharacterType.VOCABULARY,
+  },
+  {
     characters: '先',
     meanings: ['first', 'ahead', 'future', 'tip'],
     reading: 'さき',
@@ -1623,6 +1647,12 @@ const VOCABULARY: Word[] = [
     characters: '先日',
     meanings: ['other day', 'a few days ago', 'the other day'],
     reading: 'せんじつ',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '先週',
+    meanings: ['last week'],
+    reading: 'せんしゅう',
     type: CharacterType.VOCABULARY,
   },
   {
@@ -1687,6 +1717,12 @@ const VOCABULARY: Word[] = [
     type: CharacterType.VOCABULARY,
   },
   {
+    characters: '不人気',
+    meanings: ['unpopular', 'not popular'],
+    reading: 'ふにんき',
+    type: CharacterType.VOCABULARY,
+  },
+  {
     characters: '号',
     meanings: ['number', 'edition', 'model'],
     reading: 'ごう',
@@ -1708,6 +1744,12 @@ const VOCABULARY: Word[] = [
     characters: 'その他',
     meanings: ['other', 'the others', 'other than that'],
     reading: 'そのほか',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '学校',
+    meanings: ['school'],
+    reading: 'がっこう',
     type: CharacterType.VOCABULARY,
   },
   {
@@ -1753,6 +1795,12 @@ const VOCABULARY: Word[] = [
     type: CharacterType.VOCABULARY,
   },
   {
+    characters: '近く',
+    meanings: ['near', 'neighborhood', 'nearly', 'shortly', 'vicinity'],
+    reading: 'ちかく',
+    type: CharacterType.VOCABULARY,
+  },
+  {
     characters: '近日',
     meanings: ['soon', 'in a few days', 'coming days'],
     reading: 'きんじつ',
@@ -1762,6 +1810,12 @@ const VOCABULARY: Word[] = [
     characters: '近年',
     meanings: ['recent years'],
     reading: 'きんねん',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '近々',
+    meanings: ['soon', 'before long', 'in the near future'],
+    reading: 'ちかぢか',
     type: CharacterType.VOCABULARY,
   },
   {
@@ -2091,6 +2145,12 @@ const VOCABULARY: Word[] = [
     type: CharacterType.VOCABULARY,
   },
   {
+    characters: '作り方',
+    meanings: ['how to make', 'way to make', 'way of making'],
+    reading: 'つくりかた',
+    type: CharacterType.VOCABULARY,
+  },
+  {
     characters: '平気',
     meanings: ['calm', 'okay', 'all right', 'cool'],
     reading: 'へいき',
@@ -2175,6 +2235,12 @@ const VOCABULARY: Word[] = [
     type: CharacterType.VOCABULARY,
   },
   {
+    characters: '何時',
+    meanings: ['what time'],
+    reading: 'なんじ',
+    type: CharacterType.VOCABULARY,
+  },
+  {
     characters: '何千',
     meanings: ['thousands'],
     reading: 'なんぜん',
@@ -2184,6 +2250,24 @@ const VOCABULARY: Word[] = [
     characters: '科学',
     meanings: ['science'],
     reading: 'かがく',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '夏',
+    meanings: ['summer'],
+    reading: 'なつ',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '夏休み',
+    meanings: ['summer break', 'summer holiday', 'summer vacation'],
+    reading: 'なつやすみ',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '家',
+    meanings: ['home', 'house'],
+    reading: 'いえ',
     type: CharacterType.VOCABULARY,
   },
   {
@@ -2223,6 +2307,48 @@ const VOCABULARY: Word[] = [
     type: CharacterType.VOCABULARY,
   },
   {
+    characters: '日記',
+    meanings: ['diary', 'journal'],
+    reading: 'にっき',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '魚',
+    meanings: ['fish'],
+    reading: 'さかな',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '金魚',
+    meanings: ['goldfish'],
+    reading: 'きんぎょ',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '海魚',
+    meanings: ['ocean fish', 'saltwater fish'],
+    reading: 'かいぎょ',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '教える',
+    meanings: ['to teach', 'to tell'],
+    reading: 'おしえる',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '強い',
+    meanings: ['strong'],
+    reading: 'つよい',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '強力',
+    meanings: ['strong', 'strength', 'powerful'],
+    reading: 'きょうりょく',
+    type: CharacterType.VOCABULARY,
+  },
+  {
     characters: '角',
     meanings: ['angle'],
     reading: 'かく',
@@ -2253,15 +2379,45 @@ const VOCABULARY: Word[] = [
     type: CharacterType.VOCABULARY,
   },
   {
+    characters: '一斤',
+    meanings: ['one loaf of bread', 'one loaf'],
+    reading: 'いっきん',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '二斤',
+    meanings: ['two loaves of bread', 'one loaves'],
+    reading: 'にきん',
+    type: CharacterType.VOCABULARY,
+  },
+  {
     characters: '近い',
     meanings: ['close', 'near', 'nearby'],
     reading: 'ちかい',
     type: CharacterType.VOCABULARY,
   },
   {
+    characters: '形',
+    meanings: ['shape', 'form', 'appearance'],
+    reading: 'かたち',
+    type: CharacterType.VOCABULARY,
+  },
+  {
     characters: '〜形',
     meanings: ['form', 'tense'],
     reading: 'けい',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '人形',
+    meanings: ['doll', 'puppet'],
+    reading: 'にんぎょう',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '三角形',
+    meanings: ['triangle'],
+    reading: 'さんかっけい',
     type: CharacterType.VOCABULARY,
   },
   {
@@ -2298,6 +2454,12 @@ const VOCABULARY: Word[] = [
     characters: '光',
     meanings: ['light', 'sunlight'],
     reading: 'ひかり',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '光る',
+    meanings: ['to shine', 'to glitter'],
+    reading: 'ひかる',
     type: CharacterType.VOCABULARY,
   },
   {
@@ -2340,6 +2502,30 @@ const VOCABULARY: Word[] = [
     characters: '考える',
     meanings: ['to consider', 'to think', 'to give thought'],
     reading: 'かんがえる',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '考え',
+    meanings: ['thought'],
+    reading: 'かんがえ',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '考え方',
+    meanings: ['way of thinking', 'thought process'],
+    reading: 'かんがえかた',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '高い',
+    meanings: ['tall', 'expensive', 'high'],
+    reading: 'たかい',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '高校',
+    meanings: ['high school', 'senior high school'],
+    reading: 'こうこう',
     type: CharacterType.VOCABULARY,
   },
   {
@@ -2391,6 +2577,12 @@ const VOCABULARY: Word[] = [
     type: CharacterType.VOCABULARY,
   },
   {
+    characters: '手作り',
+    meanings: ['handmade', 'homemade'],
+    reading: 'てづくり',
+    type: CharacterType.VOCABULARY,
+  },
+  {
     characters: '作文',
     meanings: ['writing', 'essay', 'composition'],
     reading: 'さくぶん',
@@ -2400,6 +2592,18 @@ const VOCABULARY: Word[] = [
     characters: '作家',
     meanings: ['author', 'writer', 'novelist'],
     reading: 'さっか',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '黒い',
+    meanings: ['black'],
+    reading: 'くろい',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '黒人',
+    meanings: ['black person', 'black people'],
+    reading: 'こくじん',
     type: CharacterType.VOCABULARY,
   },
   {
@@ -2415,9 +2619,51 @@ const VOCABULARY: Word[] = [
     type: CharacterType.VOCABULARY,
   },
   {
+    characters: '時',
+    meanings: ['time', 'hour'],
+    reading: 'とき',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '〜時',
+    meanings: [`o'clock`],
+    reading: 'じ',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '一時',
+    meanings: [`one o'clock`],
+    reading: 'いちじ',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '時代',
+    meanings: ['period', 'epoch', 'era', 'time period'],
+    reading: 'じだい',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '二時半',
+    meanings: ['two thirty', 'half past two'],
+    reading: 'にじはん',
+    type: CharacterType.VOCABULARY,
+  },
+  {
     characters: '思う',
     meanings: ['to think'],
     reading: 'おもう',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '紙',
+    meanings: ['paper'],
+    reading: 'かみ',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '手紙',
+    meanings: ['letter'],
+    reading: 'てがみ',
     type: CharacterType.VOCABULARY,
   },
   {
@@ -2452,6 +2698,12 @@ const VOCABULARY: Word[] = [
     characters: '歩く',
     meanings: ['to walk'],
     reading: 'あるく',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '来週',
+    meanings: ['next week'],
+    reading: 'らいしゅう',
     type: CharacterType.VOCABULARY,
   },
   {
@@ -2502,6 +2754,31 @@ const VOCABULARY: Word[] = [
     type: CharacterType.VOCABULARY,
   },
   {
+    characters: '小学生',
+    meanings: [
+      'elementary school student',
+      'primary school student',
+      'elementary schooler',
+      'primary schooler',
+      'grade schooler',
+      'grade school student',
+    ],
+    reading: 'しょうがくせい',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '中学生',
+    meanings: [
+      'middle school student',
+      'junior high school student',
+      'middle schooler',
+      'junior high schooler',
+      'junior high student',
+    ],
+    reading: 'ちゅうがくせい',
+    type: CharacterType.VOCABULARY,
+  },
+  {
     characters: '一年生',
     meanings: ['first year student'],
     reading: 'いちねんせい',
@@ -2511,6 +2788,12 @@ const VOCABULARY: Word[] = [
     characters: '大学',
     meanings: ['university', 'college', 'uni'],
     reading: 'だいがく',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '大学生',
+    meanings: ['university student', 'college student', 'uni student'],
+    reading: 'だいがくせい',
     type: CharacterType.VOCABULARY,
   },
   {
@@ -2593,9 +2876,27 @@ const VOCABULARY: Word[] = [
     type: CharacterType.VOCABULARY,
   },
   {
+    characters: '〜号室',
+    meanings: ['room number'],
+    reading: 'ごうしつ',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '教室',
+    meanings: ['classroom'],
+    reading: 'きょうしつ',
+    type: CharacterType.VOCABULARY,
+  },
+  {
     characters: '会社',
     meanings: ['company', 'corporation', 'the office'],
     reading: 'かいしゃ',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '社会',
+    meanings: ['society'],
+    reading: 'しゃかい',
     type: CharacterType.VOCABULARY,
   },
   {
@@ -2644,6 +2945,12 @@ const VOCABULARY: Word[] = [
     type: CharacterType.VOCABULARY,
   },
   {
+    characters: '弱い',
+    meanings: ['weak'],
+    reading: 'よわい',
+    type: CharacterType.VOCABULARY,
+  },
+  {
     characters: '首',
     meanings: ['neck'],
     reading: 'くび',
@@ -2677,6 +2984,12 @@ const VOCABULARY: Word[] = [
     characters: '色々',
     meanings: ['various'],
     reading: 'いろいろ',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '黄色',
+    meanings: ['yellow', 'yellow color', 'color yellow'],
+    reading: 'きいろ',
     type: CharacterType.VOCABULARY,
   },
   {
@@ -2720,6 +3033,12 @@ const VOCABULARY: Word[] = [
     characters: '大声',
     meanings: ['large voice', 'loud voice', 'big voice'],
     reading: 'おおごえ',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '小声',
+    meanings: ['low voice', 'whisper'],
+    reading: 'こごえ',
     type: CharacterType.VOCABULARY,
   },
   {
@@ -2777,9 +3096,21 @@ const VOCABULARY: Word[] = [
     type: CharacterType.VOCABULARY,
   },
   {
+    characters: '一体',
+    meanings: ['the heck', 'in the world', 'on earth'],
+    reading: 'いったい',
+    type: CharacterType.VOCABULARY,
+  },
+  {
     characters: '兄',
     meanings: ['older brother', 'big brother', 'elder brother'],
     reading: 'あに',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: 'お兄さん',
+    meanings: ['older brother', 'big brother', 'elder brother', 'guy'],
+    reading: 'おにいさん',
     type: CharacterType.VOCABULARY,
   },
   {
@@ -2819,6 +3150,18 @@ const VOCABULARY: Word[] = [
     type: CharacterType.VOCABULARY,
   },
   {
+    characters: '通る',
+    meanings: ['to pass', 'to pass through', 'to travel along', 'to stop by'],
+    reading: 'とおる',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '交通',
+    meanings: ['traffic', 'transport', 'transit'],
+    reading: 'こうつう',
+    type: CharacterType.VOCABULARY,
+  },
+  {
     characters: '走る',
     meanings: ['to run'],
     reading: 'はしる',
@@ -2855,9 +3198,27 @@ const VOCABULARY: Word[] = [
     type: CharacterType.VOCABULARY,
   },
   {
+    characters: '本当に',
+    meanings: ['really', 'truly'],
+    reading: 'ほんとうに',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '見当たる',
+    meanings: ['to be found', 'to come upon', 'to come across'],
+    reading: 'みあたる',
+    type: CharacterType.VOCABULARY,
+  },
+  {
     characters: '直す',
     meanings: ['to fix', 'to repair'],
     reading: 'なおす',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '直る',
+    meanings: ['to be fixed', 'to fix'],
+    reading: 'なおる',
     type: CharacterType.VOCABULARY,
   },
   {
@@ -2897,6 +3258,12 @@ const VOCABULARY: Word[] = [
     type: CharacterType.VOCABULARY,
   },
   {
+    characters: '言い方',
+    meanings: ['way of saying', 'way of talking', 'speaking style'],
+    reading: 'いいかた',
+    type: CharacterType.VOCABULARY,
+  },
+  {
     characters: '知る',
     meanings: ['to know', 'to learn', 'to find out'],
     reading: 'しる',
@@ -2933,6 +3300,24 @@ const VOCABULARY: Word[] = [
     type: CharacterType.VOCABULARY,
   },
   {
+    characters: '鳥',
+    meanings: ['bird'],
+    reading: 'とり',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '白鳥',
+    meanings: ['swan'],
+    reading: 'はくちょう',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '組',
+    meanings: ['group', 'team', 'class'],
+    reading: 'くみ',
+    type: CharacterType.VOCABULARY,
+  },
+  {
     characters: '点',
     meanings: ['point', 'dot', 'mark', 'score', 'decimal point', 'viewpoint'],
     reading: 'てん',
@@ -2945,9 +3330,21 @@ const VOCABULARY: Word[] = [
     type: CharacterType.VOCABULARY,
   },
   {
+    characters: '弱点',
+    meanings: ['weak point', 'weakness'],
+    reading: 'じゃくてん',
+    type: CharacterType.VOCABULARY,
+  },
+  {
     characters: '羽',
     meanings: ['feather', 'feathers', 'wing', 'wings'],
     reading: 'はね',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '今週',
+    meanings: ['this week'],
+    reading: 'こんしゅう',
     type: CharacterType.VOCABULARY,
   },
   {
@@ -2993,6 +3390,12 @@ const VOCABULARY: Word[] = [
     type: CharacterType.VOCABULARY,
   },
   {
+    characters: '雪',
+    meanings: ['snow'],
+    reading: 'ゆき',
+    type: CharacterType.VOCABULARY,
+  },
+  {
     characters: '今回',
     meanings: ['this time'],
     reading: 'こんかい',
@@ -3014,6 +3417,12 @@ const VOCABULARY: Word[] = [
     characters: '里',
     meanings: ['hometown', 'village', `one's parents' home`],
     reading: 'さと',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '人里',
+    meanings: ['human habitation', 'village'],
+    reading: 'ひとざと',
     type: CharacterType.VOCABULARY,
   },
   {
@@ -3077,6 +3486,24 @@ const VOCABULARY: Word[] = [
     type: CharacterType.VOCABULARY,
   },
   {
+    characters: '心理',
+    meanings: ['mental state', 'psychology'],
+    reading: 'しんり',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '心理学',
+    meanings: ['psychology'],
+    reading: 'しんりがく',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '地理',
+    meanings: ['geography'],
+    reading: 'ちり',
+    type: CharacterType.VOCABULARY,
+  },
+  {
     characters: '皮肉',
     meanings: ['irony', 'sarcasm', 'ironic', 'sarcastic'],
     reading: 'ひにく',
@@ -3125,15 +3552,45 @@ const VOCABULARY: Word[] = [
     type: CharacterType.VOCABULARY,
   },
   {
+    characters: '船',
+    meanings: ['boat', 'ship'],
+    reading: 'ふね',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '船体',
+    meanings: ['hull', 'ship hull'],
+    reading: 'せんたい',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '風',
+    meanings: ['wind'],
+    reading: 'かぜ',
+    type: CharacterType.VOCABULARY,
+  },
+  {
     characters: '風船',
     meanings: ['balloon'],
     reading: 'ふうせん',
     type: CharacterType.VOCABULARY,
   },
   {
+    characters: '台風',
+    meanings: ['typhoon', 'hurricane'],
+    reading: 'たいふう',
+    type: CharacterType.VOCABULARY,
+  },
+  {
     characters: '同じ',
     meanings: ['same'],
     reading: 'おなじ',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '同時',
+    meanings: ['same time'],
+    reading: 'どうじ',
     type: CharacterType.VOCABULARY,
   },
   {
@@ -3430,9 +3887,27 @@ const VOCABULARY: Word[] = [
     type: CharacterType.VOCABULARY,
   },
   {
+    characters: '木星',
+    meanings: ['jupiter'],
+    reading: 'もくせい',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '火星',
+    meanings: ['mars'],
+    reading: 'かせい',
+    type: CharacterType.VOCABULARY,
+  },
+  {
     characters: '土星',
     meanings: ['saturn'],
     reading: 'どせい',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '海王星',
+    meanings: ['neptune'],
+    reading: 'かいおうせい',
     type: CharacterType.VOCABULARY,
   },
   {
@@ -3470,15 +3945,196 @@ const VOCABULARY: Word[] = [
     type: CharacterType.VOCABULARY,
   },
   {
+    characters: '付ける',
+    meanings: ['to attach'],
+    reading: 'つける',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '札',
+    meanings: ['tag', 'amulet', 'label', 'playing card'],
+    reading: 'ふだ',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '〜札',
+    meanings: ['bill', 'note'],
+    reading: 'さつ',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '必ず',
+    meanings: [
+      'surely',
+      'certainly',
+      'without exception',
+      'always',
+      'definitely',
+    ],
+    reading: 'かならず',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '必死',
+    meanings: ['desperate', 'certain death', 'sure death', 'frantic'],
+    reading: 'ひっし',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '末',
+    meanings: ['end', 'the end'],
+    reading: 'すえ',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '週末',
+    meanings: ['weekend'],
+    reading: 'しゅうまつ',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '月末',
+    meanings: ['month end', 'end of the month'],
+    reading: 'げつまつ',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '年末',
+    meanings: ['year end', 'end of year', 'end of the year'],
+    reading: 'ねんまつ',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '〜氏',
+    meanings: ['mister', 'madam', 'miss', 'mixter'],
+    reading: 'し',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '氏名',
+    meanings: ['full name', 'first and last name'],
+    reading: 'しめい',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '失う',
+    meanings: ['to lose', 'to part with'],
+    reading: 'うしなう',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '失礼',
+    meanings: ['rude', 'excuse me', 'impoliteness', 'rudeness'],
+    reading: 'しつれい',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '以前',
+    meanings: ['before', 'previously'],
+    reading: 'いぜん',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '以外',
+    meanings: ['other than', 'except for', 'excepting'],
+    reading: 'いがい',
+    type: CharacterType.VOCABULARY,
+  },
+  {
     characters: '以後',
     meanings: ['after this', 'from now on', 'after', 'since'],
     reading: 'いご',
     type: CharacterType.VOCABULARY,
   },
   {
+    characters: '以上',
+    meanings: ['more than', 'or more', `that's all`],
+    reading: 'いじょう',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '以下',
+    meanings: ['less than', 'or less', 'below', 'not exceeding'],
+    reading: 'いか',
+    type: CharacterType.VOCABULARY,
+  },
+  {
     characters: '先回り',
     meanings: ['arriving ahead', 'going ahead', 'anticipation'],
     reading: 'さきまわり',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '活用形',
+    meanings: ['conjugated form'],
+    reading: 'かつようけい',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '〜丁目',
+    meanings: ['district of a town', 'city block', 'town district', 'district'],
+    reading: 'ちょうめ',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '欠点',
+    meanings: [
+      'defect',
+      'fault',
+      'flaw',
+      'weakness',
+      'weak point',
+      'shortcoming',
+    ],
+    reading: 'けってん',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '未だ',
+    meanings: ['not yet', 'still'],
+    reading: 'まだ',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '未来',
+    meanings: ['future', 'distant future'],
+    reading: 'みらい',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '町民',
+    meanings: ['townspeople', 'townsperson'],
+    reading: 'ちょうみん',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '国民',
+    meanings: ['citizens', 'the people', 'national'],
+    reading: 'こくみん',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '自由',
+    meanings: ['freedom', 'liberty'],
+    reading: 'じゆう',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '理由',
+    meanings: ['reason', 'motive', 'excuse'],
+    reading: 'りゆう',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: '内ポケット',
+    meanings: ['inside pocket'],
+    reading: 'うちぽけっと',
+    type: CharacterType.VOCABULARY,
+  },
+  {
+    characters: 'ナポレオン三世',
+    meanings: ['napoleon the third', ' napoleon III'],
+    reading: 'なぽれおんさんせい',
     type: CharacterType.VOCABULARY,
   },
 ];

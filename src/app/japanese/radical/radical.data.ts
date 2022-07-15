@@ -216,6 +216,11 @@ const RADICALS: Radical[] = [
     meanings: ['fingers'],
     type: CharacterType.RADICAL,
   },
+  {
+    characters: '主',
+    meanings: ['master'],
+    type: CharacterType.RADICAL,
+  },
   { characters: '毛', meanings: ['fur'], type: CharacterType.RADICAL },
   {
     characters: '心',
@@ -752,6 +757,36 @@ const RADICALS: Radical[] = [
   {
     characters: '夫',
     meanings: ['husband'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: 'ユ',
+    meanings: ['hook'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '匚',
+    meanings: ['cage'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '穴',
+    meanings: ['hole'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '殳',
+    meanings: ['weapon'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '耂',
+    meanings: ['coffin'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '支',
+    meanings: ['branch'],
     type: CharacterType.RADICAL,
   },
 ];
