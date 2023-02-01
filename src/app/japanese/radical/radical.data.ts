@@ -87,6 +87,7 @@ const RADICALS: Radical[] = [
     type: CharacterType.RADICAL,
   },
   { characters: '牛', meanings: ['cow'], type: CharacterType.RADICAL },
+  { characters: '音', meanings: ['sound'], type: CharacterType.RADICAL },
   { characters: '土', meanings: ['dirt'], type: CharacterType.RADICAL },
   {
     characters: '丷',
@@ -205,6 +206,7 @@ const RADICALS: Radical[] = [
     type: CharacterType.RADICAL,
   },
   { characters: '戸', meanings: ['door'], type: CharacterType.RADICAL },
+  { characters: '少', meanings: ['few'], type: CharacterType.RADICAL },
   { characters: '干', meanings: ['dry'], type: CharacterType.RADICAL },
   {
     characters: '父',
@@ -294,6 +296,11 @@ const RADICALS: Radical[] = [
   },
   { characters: '赤', meanings: ['red'], type: CharacterType.RADICAL },
   { characters: '青', meanings: ['blue'], type: CharacterType.RADICAL },
+  {
+    characters: '兄',
+    meanings: ['older brother'],
+    type: CharacterType.RADICAL,
+  },
   {
     characters: '見',
     meanings: ['see'],
@@ -535,6 +542,11 @@ const RADICALS: Radical[] = [
     type: CharacterType.RADICAL,
   },
   {
+    characters: '皮',
+    meanings: ['skin'],
+    type: CharacterType.RADICAL,
+  },
+  {
     characters: '首',
     meanings: ['neck'],
     type: CharacterType.RADICAL,
@@ -590,8 +602,13 @@ const RADICALS: Radical[] = [
     type: CharacterType.RADICAL,
   },
   {
+    characters: '艮',
+    meanings: ['root'],
+    type: CharacterType.RADICAL,
+  },
+  {
     characters: 'マ',
-    meanings: ['Mama'],
+    meanings: ['mama'],
     type: CharacterType.RADICAL,
   },
   {
@@ -755,6 +772,11 @@ const RADICALS: Radical[] = [
     type: CharacterType.RADICAL,
   },
   {
+    characters: '失',
+    meanings: ['fault'],
+    type: CharacterType.RADICAL,
+  },
+  {
     characters: '夫',
     meanings: ['husband'],
     type: CharacterType.RADICAL,
@@ -787,6 +809,156 @@ const RADICALS: Radical[] = [
   {
     characters: '支',
     meanings: ['branch'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '爫',
+    meanings: ['cleat'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '卩',
+    meanings: ['stamp'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '癶',
+    meanings: ['tent'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '𧘇',
+    meanings: ['kick'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '重',
+    meanings: ['heavy'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '覀',
+    meanings: ['helicopter'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '咅',
+    meanings: ['clown'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '阝',
+    meanings: ['building'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '反',
+    meanings: ['anti'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '各',
+    meanings: ['kiss'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '永',
+    meanings: ['eternity'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '㑒',
+    meanings: ['squid'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '勿',
+    meanings: ['wing'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '史',
+    meanings: ['history'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '介',
+    meanings: ['jammed in'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '酉',
+    meanings: ['alcohol'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '业',
+    meanings: ['spikes'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '𦰩',
+    meanings: ['chinese'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '辰',
+    meanings: ['landslide'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '束',
+    meanings: ['bundle'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '圣',
+    meanings: ['tombstone'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '疒',
+    meanings: ['sick'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '丙',
+    meanings: ['dynamite'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '戈',
+    meanings: ['drunkard'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '令',
+    meanings: ['orders'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '㠯',
+    meanings: ['bear'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '申',
+    meanings: ['humble'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '及',
+    meanings: ['escalator'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '龷',
+    meanings: ['blackjack'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '単',
+    meanings: ['simple'],
     type: CharacterType.RADICAL,
   },
 ];

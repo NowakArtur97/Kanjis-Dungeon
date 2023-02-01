@@ -27,7 +27,7 @@ const KATAKANA: Letter[] = [
   { record: 'CHU', sign: 'チュ' },
   { record: 'CHO', sign: 'チョ' },
   { record: 'DA', sign: 'ダ' },
-  { record: 'JI', sign: 'ヂ' },
+  { record: 'DJI', sign: 'ヂ' },
   { record: 'DZU', sign: 'ヅ' },
   { record: 'DE', sign: 'デ' },
   { record: 'DO', sign: 'ド' },
