@@ -141,6 +141,7 @@ export default class QuizEffects {
           vocabulary,
           level,
         ]) => {
+          console.log(JSON.stringify(preferredQuestions));
           console.log(preferredQuestions.length);
           const hasNotFinishedQuiz = answers.length > 0 || mistakes.length > 0;
           console.log(hasNotFinishedQuiz);

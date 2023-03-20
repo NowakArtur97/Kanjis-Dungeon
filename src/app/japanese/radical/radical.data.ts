@@ -278,6 +278,11 @@ const RADICALS: Radical[] = [
     meanings: ['energy'],
     type: CharacterType.RADICAL,
   },
+  {
+    characters: '見',
+    meanings: ['see'],
+    type: CharacterType.RADICAL,
+  },
   { characters: '雨', meanings: ['rain'], type: CharacterType.RADICAL },
   {
     characters: '艹',
@@ -302,13 +307,23 @@ const RADICALS: Radical[] = [
     type: CharacterType.RADICAL,
   },
   {
-    characters: '見',
-    meanings: ['see'],
+    characters: '弟',
+    meanings: ['younger brother'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '直',
+    meanings: ['fix'],
     type: CharacterType.RADICAL,
   },
   {
     characters: '龸',
     meanings: ['viking'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '早',
+    meanings: ['early'],
     type: CharacterType.RADICAL,
   },
   {
@@ -812,6 +827,11 @@ const RADICALS: Radical[] = [
     type: CharacterType.RADICAL,
   },
   {
+    characters: '者',
+    meanings: ['someone'],
+    type: CharacterType.RADICAL,
+  },
+  {
     characters: '爫',
     meanings: ['cleat'],
     type: CharacterType.RADICAL,
@@ -857,6 +877,11 @@ const RADICALS: Radical[] = [
     type: CharacterType.RADICAL,
   },
   {
+    characters: '求',
+    meanings: ['request'],
+    type: CharacterType.RADICAL,
+  },
+  {
     characters: '各',
     meanings: ['kiss'],
     type: CharacterType.RADICAL,
@@ -889,6 +914,11 @@ const RADICALS: Radical[] = [
   {
     characters: '酉',
     meanings: ['alcohol'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '業',
+    meanings: ['business'],
     type: CharacterType.RADICAL,
   },
   {
@@ -959,6 +989,41 @@ const RADICALS: Radical[] = [
   {
     characters: '単',
     meanings: ['simple'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '共',
+    meanings: ['together'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '亜',
+    meanings: ['asia'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '免',
+    meanings: ['excuse'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '示',
+    meanings: ['jackhammer'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '比',
+    meanings: ['compare'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '廴',
+    meanings: ['yoga'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '其',
+    meanings: ['crab'],
     type: CharacterType.RADICAL,
   },
 ];
