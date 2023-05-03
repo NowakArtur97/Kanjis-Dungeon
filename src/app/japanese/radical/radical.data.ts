@@ -17,6 +17,7 @@ const RADICALS: Radical[] = [
     type: CharacterType.RADICAL,
   },
   { characters: '十', meanings: ['cross'], type: CharacterType.RADICAL },
+  { characters: '百', meanings: ['hundred'], type: CharacterType.RADICAL },
   {
     characters: '工',
     meanings: ['construction'],
@@ -86,8 +87,14 @@ const RADICALS: Radical[] = [
     meanings: ['child'],
     type: CharacterType.RADICAL,
   },
+  {
+    characters: '丸',
+    meanings: ['circle'],
+    type: CharacterType.RADICAL,
+  },
   { characters: '牛', meanings: ['cow'], type: CharacterType.RADICAL },
   { characters: '音', meanings: ['sound'], type: CharacterType.RADICAL },
+  { characters: '正', meanings: ['correct'], type: CharacterType.RADICAL },
   { characters: '土', meanings: ['dirt'], type: CharacterType.RADICAL },
   {
     characters: '丷',
@@ -407,6 +414,11 @@ const RADICALS: Radical[] = [
     type: CharacterType.RADICAL,
   },
   {
+    characters: '東',
+    meanings: ['east'],
+    type: CharacterType.RADICAL,
+  },
+  {
     characters: '門',
     meanings: ['gate'],
     type: CharacterType.RADICAL,
@@ -464,6 +476,11 @@ const RADICALS: Radical[] = [
   {
     characters: '开',
     meanings: ['lantern'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '𠮛',
+    meanings: ['creeper'],
     type: CharacterType.RADICAL,
   },
   {
@@ -579,6 +596,11 @@ const RADICALS: Radical[] = [
   {
     characters: '色',
     meanings: ['color'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '良',
+    meanings: ['good'],
     type: CharacterType.RADICAL,
   },
   {
@@ -877,6 +899,11 @@ const RADICALS: Radical[] = [
     type: CharacterType.RADICAL,
   },
   {
+    characters: '身',
+    meanings: ['body'],
+    type: CharacterType.RADICAL,
+  },
+  {
     characters: '求',
     meanings: ['request'],
     type: CharacterType.RADICAL,
@@ -977,6 +1004,11 @@ const RADICALS: Radical[] = [
     type: CharacterType.RADICAL,
   },
   {
+    characters: '意',
+    meanings: ['idea'],
+    type: CharacterType.RADICAL,
+  },
+  {
     characters: '及',
     meanings: ['escalator'],
     type: CharacterType.RADICAL,
@@ -1024,6 +1056,51 @@ const RADICALS: Radical[] = [
   {
     characters: '其',
     meanings: ['crab'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '品',
+    meanings: ['products'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '疋',
+    meanings: ['coat rack'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '忄',
+    meanings: ['soul'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '坴',
+    meanings: ['womb'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '畐',
+    meanings: ['scarecrow'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '央',
+    meanings: ['center'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '果',
+    meanings: ['fruit'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '象',
+    meanings: ['elephant'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '冊',
+    meanings: ['bookshelf'],
     type: CharacterType.RADICAL,
   },
 ];
