@@ -109,6 +109,7 @@ const RADICALS: Radical[] = [
   },
   { characters: '目', meanings: ['eye'], type: CharacterType.RADICAL },
   { characters: '火', meanings: ['fire'], type: CharacterType.RADICAL },
+  { characters: '才', meanings: ['genius'], type: CharacterType.RADICAL },
   { characters: '尸', meanings: ['flag'], type: CharacterType.RADICAL },
   { characters: '彡', meanings: ['hair'], type: CharacterType.RADICAL },
   { characters: '手', meanings: ['hand'], type: CharacterType.RADICAL },
@@ -134,6 +135,16 @@ const RADICALS: Radical[] = [
   {
     characters: 'ム',
     meanings: ['private'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '分',
+    meanings: ['part'],
+    type: CharacterType.RADICAL,
+  },
+  {
+    characters: '公',
+    meanings: ['public'],
     type: CharacterType.RADICAL,
   },
   {
@@ -220,6 +231,7 @@ const RADICALS: Radical[] = [
     meanings: ['father'],
     type: CharacterType.RADICAL,
   },
+  { characters: '午', meanings: ['noon'], type: CharacterType.RADICAL },
   {
     characters: '扌',
     meanings: ['fingers'],
@@ -237,6 +249,7 @@ const RADICALS: Radical[] = [
     type: CharacterType.RADICAL,
   },
   { characters: '生', meanings: ['life'], type: CharacterType.RADICAL },
+  { characters: '台', meanings: ['machine'], type: CharacterType.RADICAL },
   { characters: '𠆢', meanings: ['hat'], type: CharacterType.RADICAL },
   { characters: '今', meanings: ['now'], type: CharacterType.RADICAL },
   { characters: '古', meanings: ['old'], type: CharacterType.RADICAL },
@@ -279,6 +292,7 @@ const RADICALS: Radical[] = [
     meanings: ['leg', 'foot'],
     type: CharacterType.RADICAL,
   },
+  { characters: '男', meanings: ['man'], type: CharacterType.RADICAL },
   { characters: '宀', meanings: ['roof'], type: CharacterType.RADICAL },
   {
     characters: '气',
@@ -308,6 +322,7 @@ const RADICALS: Radical[] = [
   },
   { characters: '赤', meanings: ['red'], type: CharacterType.RADICAL },
   { characters: '青', meanings: ['blue'], type: CharacterType.RADICAL },
+  { characters: '先', meanings: ['previous'], type: CharacterType.RADICAL },
   {
     characters: '兄',
     meanings: ['older brother'],
@@ -550,7 +565,7 @@ const RADICALS: Radical[] = [
   },
   {
     characters: '自',
-    meanings: ['oneself'],
+    meanings: ['oneself', 'self'],
     type: CharacterType.RADICAL,
   },
   {
@@ -628,6 +643,7 @@ const RADICALS: Radical[] = [
     meanings: ['long'],
     type: CharacterType.RADICAL,
   },
+  { characters: '楽', meanings: ['comfort'], type: CharacterType.RADICAL },
   {
     characters: '豆',
     meanings: ['beans'],
@@ -653,6 +669,7 @@ const RADICALS: Radical[] = [
     meanings: ['run'],
     type: CharacterType.RADICAL,
   },
+  { characters: '歩', meanings: ['walk'], type: CharacterType.RADICAL },
   {
     characters: '罒',
     meanings: ['net'],
@@ -743,6 +760,7 @@ const RADICALS: Radical[] = [
     meanings: ['aligator'],
     type: CharacterType.RADICAL,
   },
+  { characters: '去', meanings: ['past'], type: CharacterType.RADICAL },
   {
     characters: 'ホ',
     meanings: ['angel'],
@@ -798,11 +816,13 @@ const RADICALS: Radical[] = [
     meanings: ['yakuza'],
     type: CharacterType.RADICAL,
   },
+  { characters: '曲', meanings: ['music'], type: CharacterType.RADICAL },
   {
     characters: '羊',
     meanings: ['sheep'],
     type: CharacterType.RADICAL,
   },
+  { characters: '付', meanings: ['attach'], type: CharacterType.RADICAL },
   {
     characters: '氏',
     meanings: ['clan'],
@@ -868,6 +888,7 @@ const RADICALS: Radical[] = [
     meanings: ['tent'],
     type: CharacterType.RADICAL,
   },
+  { characters: '祭', meanings: ['festival'], type: CharacterType.RADICAL },
   {
     characters: '𧘇',
     meanings: ['kick'],
@@ -988,6 +1009,7 @@ const RADICALS: Radical[] = [
     meanings: ['drunkard'],
     type: CharacterType.RADICAL,
   },
+  { characters: '昔', meanings: ['long ago'], type: CharacterType.RADICAL },
   {
     characters: '令',
     meanings: ['orders'],
@@ -998,6 +1020,7 @@ const RADICALS: Radical[] = [
     meanings: ['bear'],
     type: CharacterType.RADICAL,
   },
+  { characters: '争', meanings: ['conflict'], type: CharacterType.RADICAL },
   {
     characters: '申',
     meanings: ['humble'],
@@ -1103,5 +1126,36 @@ const RADICALS: Radical[] = [
     meanings: ['bookshelf'],
     type: CharacterType.RADICAL,
   },
+  {
+    characters: '勺',
+    meanings: ['pool'],
+    type: CharacterType.RADICAL,
+  },
+  { characters: '㦮', meanings: ['bar'], type: CharacterType.RADICAL },
+  { characters: '井', meanings: ['well'], type: CharacterType.RADICAL },
+  { characters: '犭', meanings: ['animal'], type: CharacterType.RADICAL },
+  { characters: '巩', meanings: ['saw'], type: CharacterType.RADICAL },
+  { characters: '丈', meanings: ['height'], type: CharacterType.RADICAL },
+  { characters: '夫', meanings: ['husband'], type: CharacterType.RADICAL },
+  { characters: '幸', meanings: ['happiness'], type: CharacterType.RADICAL },
+  { characters: '巳', meanings: ['snake'], type: CharacterType.RADICAL },
+  { characters: '辛', meanings: ['spicy'], type: CharacterType.RADICAL },
+  { characters: '吉', meanings: ['good luck'], type: CharacterType.RADICAL },
+  { characters: '虍', meanings: ['tiger'], type: CharacterType.RADICAL },
+  { characters: '果', meanings: ['fruit'], type: CharacterType.RADICAL },
+  { characters: '非', meanings: ['criminal'], type: CharacterType.RADICAL },
+  { characters: '無', meanings: ['nothing'], type: CharacterType.RADICAL },
+  { characters: '壴', meanings: ['drum'], type: CharacterType.RADICAL },
+  { characters: '兑', meanings: ['guard'], type: CharacterType.RADICAL },
+  { characters: '苟', meanings: ['poem'], type: CharacterType.RADICAL },
+  { characters: '尭', meanings: ['gambler'], type: CharacterType.RADICAL },
+  { characters: '⺍', meanings: ['grass'], type: CharacterType.RADICAL },
+  {
+    characters: '凶',
+    meanings: ['treasure chest'],
+    type: CharacterType.RADICAL,
+  },
+  { characters: '句', meanings: ['paragraph'], type: CharacterType.RADICAL },
+  { characters: '曽', meanings: ['mask'], type: CharacterType.RADICAL },
 ];
 export default RADICALS;
