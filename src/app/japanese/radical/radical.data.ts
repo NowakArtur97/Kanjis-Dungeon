@@ -152,6 +152,7 @@ const RADICALS: Radical[] = [
     meanings: ['rice paddy'],
     type: CharacterType.RADICAL,
   },
+  { characters: '右', meanings: ['right'], type: CharacterType.RADICAL },
   {
     characters: '小',
     meanings: ['small'],
@@ -670,6 +671,7 @@ const RADICALS: Radical[] = [
     type: CharacterType.RADICAL,
   },
   { characters: '歩', meanings: ['walk'], type: CharacterType.RADICAL },
+  { characters: '売', meanings: ['sell'], type: CharacterType.RADICAL },
   {
     characters: '罒',
     meanings: ['net'],
@@ -735,6 +737,7 @@ const RADICALS: Radical[] = [
     meanings: ['circumference'],
     type: CharacterType.RADICAL,
   },
+  { characters: '司', meanings: ['director'], type: CharacterType.RADICAL },
   {
     characters: '隹',
     meanings: ['turkey'],
@@ -914,6 +917,7 @@ const RADICALS: Radical[] = [
     meanings: ['building'],
     type: CharacterType.RADICAL,
   },
+  { characters: '由', meanings: ['reason'], type: CharacterType.RADICAL },
   {
     characters: '反',
     meanings: ['anti'],
@@ -1157,5 +1161,15 @@ const RADICALS: Radical[] = [
   },
   { characters: '句', meanings: ['paragraph'], type: CharacterType.RADICAL },
   { characters: '曽', meanings: ['mask'], type: CharacterType.RADICAL },
+  { characters: '复', meanings: ['black hole'], type: CharacterType.RADICAL },
+  {
+    characters: '義',
+    meanings: ['righteousness'],
+    type: CharacterType.RADICAL,
+  },
+  { characters: '巛', meanings: ['flood'], type: CharacterType.RADICAL },
+  { characters: '兼', meanings: ['mona lisa'], type: CharacterType.RADICAL },
+  { characters: '飛', meanings: ['fly'], type: CharacterType.RADICAL },
+  { characters: '至', meanings: ['mole'], type: CharacterType.RADICAL },
 ];
 export default RADICALS;
