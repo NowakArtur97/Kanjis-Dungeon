@@ -244,6 +244,7 @@ const RADICALS: Radical[] = [
     type: CharacterType.RADICAL,
   },
   { characters: '毛', meanings: ['fur'], type: CharacterType.RADICAL },
+  { characters: '半', meanings: ['half'], type: CharacterType.RADICAL },
   {
     characters: '心',
     meanings: ['heart'],
@@ -484,6 +485,7 @@ const RADICALS: Radical[] = [
     meanings: ['teacher'],
     type: CharacterType.RADICAL,
   },
+  { characters: '角', meanings: ['angle'], type: CharacterType.RADICAL },
   {
     characters: '斤',
     meanings: ['axe'],
@@ -820,6 +822,7 @@ const RADICALS: Radical[] = [
     type: CharacterType.RADICAL,
   },
   { characters: '曲', meanings: ['music'], type: CharacterType.RADICAL },
+  { characters: '次', meanings: ['next'], type: CharacterType.RADICAL },
   {
     characters: '羊',
     meanings: ['sheep'],
@@ -1171,5 +1174,9 @@ const RADICALS: Radical[] = [
   { characters: '兼', meanings: ['mona lisa'], type: CharacterType.RADICAL },
   { characters: '飛', meanings: ['fly'], type: CharacterType.RADICAL },
   { characters: '至', meanings: ['mole'], type: CharacterType.RADICAL },
+  { characters: '斉', meanings: ['simultaneous'], type: CharacterType.RADICAL },
+  { characters: '啇', meanings: ['mohawk'], type: CharacterType.RADICAL },
+  { characters: '刃', meanings: ['blade'], type: CharacterType.RADICAL },
+  { characters: '矛', meanings: ['spear'], type: CharacterType.RADICAL },
 ];
 export default RADICALS;
