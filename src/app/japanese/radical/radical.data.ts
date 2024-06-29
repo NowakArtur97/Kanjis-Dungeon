@@ -360,6 +360,7 @@ const RADICALS: Radical[] = [
     meanings: ['car'],
     type: CharacterType.RADICAL,
   },
+  { characters: '平', meanings: ['peace'], type: CharacterType.RADICAL },
   {
     characters: '貝',
     meanings: ['shellfish'],
@@ -776,6 +777,7 @@ const RADICALS: Radical[] = [
     meanings: ['shrimp'],
     type: CharacterType.RADICAL,
   },
+  { characters: '能', meanings: ['ability'], type: CharacterType.RADICAL },
   {
     characters: '乚',
     meanings: ['umbrella'],
@@ -823,6 +825,7 @@ const RADICALS: Radical[] = [
   },
   { characters: '曲', meanings: ['music'], type: CharacterType.RADICAL },
   { characters: '次', meanings: ['next'], type: CharacterType.RADICAL },
+  { characters: '安', meanings: ['cheap'], type: CharacterType.RADICAL },
   {
     characters: '羊',
     meanings: ['sheep'],
@@ -1178,5 +1181,11 @@ const RADICALS: Radical[] = [
   { characters: '啇', meanings: ['mohawk'], type: CharacterType.RADICAL },
   { characters: '刃', meanings: ['blade'], type: CharacterType.RADICAL },
   { characters: '矛', meanings: ['spear'], type: CharacterType.RADICAL },
+  { characters: '爰', meanings: ['football'], type: CharacterType.RADICAL },
+  { characters: '衣', meanings: ['clothes'], type: CharacterType.RADICAL },
+  { characters: '丬', meanings: ['icicle'], type: CharacterType.RADICAL },
+  { characters: '弗', meanings: ['dollar'], type: CharacterType.RADICAL },
+  { characters: '呂', meanings: ['bathtub'], type: CharacterType.RADICAL },
+  { characters: '充', meanings: ['allocate'], type: CharacterType.RADICAL },
 ];
 export default RADICALS;
