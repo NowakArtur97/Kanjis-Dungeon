@@ -756,6 +756,7 @@ const RADICALS: Radical[] = [
     meanings: ['village'],
     type: CharacterType.RADICAL,
   },
+  { characters: '道', meanings: ['road'], type: CharacterType.RADICAL },
   {
     characters: '予',
     meanings: ['beforehand'],
@@ -777,6 +778,7 @@ const RADICALS: Radical[] = [
     meanings: ['shrimp'],
     type: CharacterType.RADICAL,
   },
+  { characters: '𠦝', meanings: ['morning'], type: CharacterType.RADICAL },
   { characters: '能', meanings: ['ability'], type: CharacterType.RADICAL },
   {
     characters: '乚',
@@ -939,6 +941,7 @@ const RADICALS: Radical[] = [
     meanings: ['request'],
     type: CharacterType.RADICAL,
   },
+  { characters: '成', meanings: ['become'], type: CharacterType.RADICAL },
   {
     characters: '各',
     meanings: ['kiss'],
@@ -1187,5 +1190,10 @@ const RADICALS: Radical[] = [
   { characters: '弗', meanings: ['dollar'], type: CharacterType.RADICAL },
   { characters: '呂', meanings: ['bathtub'], type: CharacterType.RADICAL },
   { characters: '充', meanings: ['allocate'], type: CharacterType.RADICAL },
+  { characters: '鬼', meanings: ['demon'], type: CharacterType.RADICAL },
+  { characters: '乃', meanings: ['stairs'], type: CharacterType.RADICAL },
+  { characters: '亭', meanings: ['restaurant'], type: CharacterType.RADICAL },
+  { characters: '革', meanings: ['leather'], type: CharacterType.RADICAL },
+  { characters: '丩', meanings: ['vines'], type: CharacterType.RADICAL },
 ];
 export default RADICALS;
