@@ -416,6 +416,7 @@ const RADICALS: Radical[] = [
     meanings: ['box'],
     type: CharacterType.RADICAL,
   },
+  { characters: '然', meanings: ['nature'], type: CharacterType.RADICAL },
   {
     characters: '会',
     meanings: ['meet'],
@@ -720,6 +721,7 @@ const RADICALS: Radical[] = [
     meanings: ['sickle'],
     type: CharacterType.RADICAL,
   },
+  { characters: '番', meanings: ['number'], type: CharacterType.RADICAL },
   {
     characters: '占',
     meanings: ['fortune'],
@@ -905,6 +907,7 @@ const RADICALS: Radical[] = [
     meanings: ['kick'],
     type: CharacterType.RADICAL,
   },
+  { characters: '客', meanings: ['guest'], type: CharacterType.RADICAL },
   {
     characters: '重',
     meanings: ['heavy'],
@@ -1169,6 +1172,7 @@ const RADICALS: Radical[] = [
     type: CharacterType.RADICAL,
   },
   { characters: '句', meanings: ['paragraph'], type: CharacterType.RADICAL },
+  { characters: '制', meanings: ['control'], type: CharacterType.RADICAL },
   { characters: '曽', meanings: ['mask'], type: CharacterType.RADICAL },
   { characters: '复', meanings: ['black hole'], type: CharacterType.RADICAL },
   {
@@ -1195,5 +1199,8 @@ const RADICALS: Radical[] = [
   { characters: '亭', meanings: ['restaurant'], type: CharacterType.RADICAL },
   { characters: '革', meanings: ['leather'], type: CharacterType.RADICAL },
   { characters: '丩', meanings: ['vines'], type: CharacterType.RADICAL },
+  { characters: '旦', meanings: ['dawn'], type: CharacterType.RADICAL },
+  { characters: '韋', meanings: ['korea'], type: CharacterType.RADICAL },
+  { characters: '俞', meanings: ['death star'], type: CharacterType.RADICAL },
 ];
 export default RADICALS;
