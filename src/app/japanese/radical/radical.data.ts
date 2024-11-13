@@ -226,6 +226,7 @@ const RADICALS: Radical[] = [
   },
   { characters: '戸', meanings: ['door'], type: CharacterType.RADICAL },
   { characters: '少', meanings: ['few'], type: CharacterType.RADICAL },
+  { characters: '友', meanings: ['friend'], type: CharacterType.RADICAL },
   { characters: '干', meanings: ['dry'], type: CharacterType.RADICAL },
   {
     characters: '父',
@@ -482,6 +483,7 @@ const RADICALS: Radical[] = [
     meanings: ['fish'],
     type: CharacterType.RADICAL,
   },
+  { characters: '京', meanings: ['capital'], type: CharacterType.RADICAL },
   {
     characters: '孝',
     meanings: ['teacher'],
@@ -598,6 +600,7 @@ const RADICALS: Radical[] = [
     meanings: ['skin'],
     type: CharacterType.RADICAL,
   },
+  { characters: '交', meanings: ['mix'], type: CharacterType.RADICAL },
   {
     characters: '首',
     meanings: ['neck'],
@@ -817,6 +820,7 @@ const RADICALS: Radical[] = [
     meanings: ['blood'],
     type: CharacterType.RADICAL,
   },
+  { characters: '両', meanings: ['both'], type: CharacterType.RADICAL },
   {
     characters: '亡',
     meanings: ['death', 'deceased'],
@@ -970,6 +974,7 @@ const RADICALS: Radical[] = [
     meanings: ['history'],
     type: CharacterType.RADICAL,
   },
+  { characters: '龹', meanings: ['gladiator'], type: CharacterType.RADICAL },
   {
     characters: '介',
     meanings: ['jammed in'],
@@ -1202,5 +1207,10 @@ const RADICALS: Radical[] = [
   { characters: '旦', meanings: ['dawn'], type: CharacterType.RADICAL },
   { characters: '韋', meanings: ['korea'], type: CharacterType.RADICAL },
   { characters: '俞', meanings: ['death star'], type: CharacterType.RADICAL },
+  { characters: '禹', meanings: ['mantis'], type: CharacterType.RADICAL },
+  { characters: '甫', meanings: ['wedding'], type: CharacterType.RADICAL },
+  { characters: '莫', meanings: ['greenhouse'], type: CharacterType.RADICAL },
+  { characters: '巴', meanings: ['bed'], type: CharacterType.RADICAL },
+  { characters: '冓', meanings: ['lifeguard'], type: CharacterType.RADICAL },
 ];
 export default RADICALS;
