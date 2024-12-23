@@ -19,6 +19,13 @@ const RADICALS: Radical[] = [
   { characters: '十', meanings: ['cross'], type: CharacterType.RADICAL },
   { characters: '百', meanings: ['hundred'], type: CharacterType.RADICAL },
   {
+    characters: '千',
+    meanings: ['thousand'],
+    type: CharacterType.RADICAL,
+  },
+  { characters: '万', meanings: ['ten thousand'], type: CharacterType.RADICAL },
+  { characters: '大', meanings: ['big'], type: CharacterType.RADICAL },
+  {
     characters: '工',
     meanings: ['construction'],
     type: CharacterType.RADICAL,
@@ -26,7 +33,6 @@ const RADICALS: Radical[] = [
   { characters: '丶', meanings: ['drop'], type: CharacterType.RADICAL },
   { characters: '入', meanings: ['enter'], type: CharacterType.RADICAL },
   { characters: '亅', meanings: ['barb'], type: CharacterType.RADICAL },
-  { characters: '大', meanings: ['big'], type: CharacterType.RADICAL },
   {
     characters: '山',
     meanings: ['mountain'],
@@ -182,11 +188,6 @@ const RADICALS: Radical[] = [
   {
     characters: '刀',
     meanings: ['sword'],
-    type: CharacterType.RADICAL,
-  },
-  {
-    characters: '千',
-    meanings: ['thousand'],
     type: CharacterType.RADICAL,
   },
   {
@@ -938,6 +939,7 @@ const RADICALS: Radical[] = [
     meanings: ['anti'],
     type: CharacterType.RADICAL,
   },
+  { characters: '受', meanings: ['accept'], type: CharacterType.RADICAL },
   {
     characters: '身',
     meanings: ['body'],
@@ -1077,6 +1079,7 @@ const RADICALS: Radical[] = [
     meanings: ['asia'],
     type: CharacterType.RADICAL,
   },
+  { characters: '章', meanings: ['chapter'], type: CharacterType.RADICAL },
   {
     characters: '免',
     meanings: ['excuse'],
@@ -1169,6 +1172,7 @@ const RADICALS: Radical[] = [
   { characters: '壴', meanings: ['drum'], type: CharacterType.RADICAL },
   { characters: '兑', meanings: ['guard'], type: CharacterType.RADICAL },
   { characters: '苟', meanings: ['poem'], type: CharacterType.RADICAL },
+  { characters: '告', meanings: ['announce'], type: CharacterType.RADICAL },
   { characters: '尭', meanings: ['gambler'], type: CharacterType.RADICAL },
   { characters: '⺍', meanings: ['grass'], type: CharacterType.RADICAL },
   {
@@ -1212,5 +1216,7 @@ const RADICALS: Radical[] = [
   { characters: '莫', meanings: ['greenhouse'], type: CharacterType.RADICAL },
   { characters: '巴', meanings: ['bed'], type: CharacterType.RADICAL },
   { characters: '冓', meanings: ['lifeguard'], type: CharacterType.RADICAL },
+  { characters: '倉', meanings: ['warehouse'], type: CharacterType.RADICAL },
+  { characters: '我', meanings: ['ego'], type: CharacterType.RADICAL },
 ];
 export default RADICALS;
