@@ -113,6 +113,7 @@ const RADICALS: Radical[] = [
     meanings: ['evening'],
     type: CharacterType.RADICAL,
   },
+  { characters: '出', meanings: ['exit'], type: CharacterType.RADICAL },
   { characters: '目', meanings: ['eye'], type: CharacterType.RADICAL },
   { characters: '火', meanings: ['fire'], type: CharacterType.RADICAL },
   { characters: '才', meanings: ['genius'], type: CharacterType.RADICAL },
@@ -663,6 +664,7 @@ const RADICALS: Radical[] = [
     meanings: ['jet'],
     type: CharacterType.RADICAL,
   },
+  { characters: '民', meanings: ['peoples'], type: CharacterType.RADICAL },
   {
     characters: '艮',
     meanings: ['root'],
@@ -822,6 +824,7 @@ const RADICALS: Radical[] = [
     type: CharacterType.RADICAL,
   },
   { characters: '両', meanings: ['both'], type: CharacterType.RADICAL },
+  { characters: '化', meanings: ['change'], type: CharacterType.RADICAL },
   {
     characters: '亡',
     meanings: ['death', 'deceased'],
@@ -876,6 +879,7 @@ const RADICALS: Radical[] = [
     meanings: ['weapon'],
     type: CharacterType.RADICAL,
   },
+  { characters: '余', meanings: ['surplus'], type: CharacterType.RADICAL },
   {
     characters: '耂',
     meanings: ['coffin'],
@@ -992,6 +996,7 @@ const RADICALS: Radical[] = [
     meanings: ['business'],
     type: CharacterType.RADICAL,
   },
+  { characters: '農', meanings: ['farming'], type: CharacterType.RADICAL },
   {
     characters: '业',
     meanings: ['spikes'],
@@ -1218,5 +1223,8 @@ const RADICALS: Radical[] = [
   { characters: '冓', meanings: ['lifeguard'], type: CharacterType.RADICAL },
   { characters: '倉', meanings: ['warehouse'], type: CharacterType.RADICAL },
   { characters: '我', meanings: ['ego'], type: CharacterType.RADICAL },
+  { characters: '召', meanings: ['call'], type: CharacterType.RADICAL },
+  { characters: '而', meanings: ['rake'], type: CharacterType.RADICAL },
+  { characters: '代', meanings: ['substitute'], type: CharacterType.RADICAL },
 ];
 export default RADICALS;
