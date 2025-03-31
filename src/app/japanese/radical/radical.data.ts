@@ -765,6 +765,7 @@ const RADICALS: Radical[] = [
     type: CharacterType.RADICAL,
   },
   { characters: '道', meanings: ['road'], type: CharacterType.RADICAL },
+  { characters: '前', meanings: ['before'], type: CharacterType.RADICAL },
   {
     characters: '予',
     meanings: ['beforehand'],
@@ -1226,5 +1227,10 @@ const RADICALS: Radical[] = [
   { characters: '召', meanings: ['call'], type: CharacterType.RADICAL },
   { characters: '而', meanings: ['rake'], type: CharacterType.RADICAL },
   { characters: '代', meanings: ['substitute'], type: CharacterType.RADICAL },
+  { characters: '奇', meanings: ['odd'], type: CharacterType.RADICAL },
+  { characters: '専', meanings: ['specialty'], type: CharacterType.RADICAL },
+  { characters: '巨', meanings: ['giant'], type: CharacterType.RADICAL },
+  { characters: '麗', meanings: ['lovely'], type: CharacterType.RADICAL },
+  { characters: '屯', meanings: ['barracks'], type: CharacterType.RADICAL },
 ];
 export default RADICALS;
