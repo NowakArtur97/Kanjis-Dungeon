@@ -2,6 +2,8 @@ import CharacterType from '../common/enums/character-type.enum';
 import Radical from './models/radical.model';
 
 const RADICALS: Radical[] = [
+  { characters: '上', meanings: ['above'], type: CharacterType.RADICAL },
+  { characters: '下', meanings: ['below'], type: CharacterType.RADICAL },
   {
     characters: '一',
     meanings: ['ground'],
@@ -353,6 +355,8 @@ const RADICALS: Radical[] = [
     meanings: ['early'],
     type: CharacterType.RADICAL,
   },
+  { characters: '不', meanings: ['not'], type: CharacterType.RADICAL },
+  { characters: '𠂉', meanings: ['gun'], type: CharacterType.RADICAL },
   {
     characters: '糸',
     meanings: ['thread'],
@@ -749,6 +753,7 @@ const RADICALS: Radical[] = [
     type: CharacterType.RADICAL,
   },
   { characters: '司', meanings: ['director'], type: CharacterType.RADICAL },
+  { characters: '区', meanings: ['district'], type: CharacterType.RADICAL },
   {
     characters: '隹',
     meanings: ['turkey'],
@@ -1187,6 +1192,7 @@ const RADICALS: Radical[] = [
     type: CharacterType.RADICAL,
   },
   { characters: '句', meanings: ['paragraph'], type: CharacterType.RADICAL },
+  { characters: '責', meanings: ['blame'], type: CharacterType.RADICAL },
   { characters: '制', meanings: ['control'], type: CharacterType.RADICAL },
   { characters: '曽', meanings: ['mask'], type: CharacterType.RADICAL },
   { characters: '复', meanings: ['black hole'], type: CharacterType.RADICAL },
@@ -1232,5 +1238,9 @@ const RADICALS: Radical[] = [
   { characters: '巨', meanings: ['giant'], type: CharacterType.RADICAL },
   { characters: '麗', meanings: ['lovely'], type: CharacterType.RADICAL },
   { characters: '屯', meanings: ['barracks'], type: CharacterType.RADICAL },
+  { characters: '尞', meanings: ['charcoal'], type: CharacterType.RADICAL },
+  { characters: '乙', meanings: ['nose'], type: CharacterType.RADICAL },
+  { characters: '玄', meanings: ['mysterious'], type: CharacterType.RADICAL },
+  { characters: '臣', meanings: ['servant'], type: CharacterType.RADICAL },
 ];
 export default RADICALS;
