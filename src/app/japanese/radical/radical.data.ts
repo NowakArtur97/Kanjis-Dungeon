@@ -238,6 +238,7 @@ const RADICALS: Radical[] = [
     type: CharacterType.RADICAL,
   },
   { characters: '午', meanings: ['noon'], type: CharacterType.RADICAL },
+  { characters: '北', meanings: ['north'], type: CharacterType.RADICAL },
   {
     characters: '扌',
     meanings: ['fingers'],
@@ -1242,5 +1243,10 @@ const RADICALS: Radical[] = [
   { characters: '乙', meanings: ['nose'], type: CharacterType.RADICAL },
   { characters: '玄', meanings: ['mysterious'], type: CharacterType.RADICAL },
   { characters: '臣', meanings: ['servant'], type: CharacterType.RADICAL },
+  { characters: '片', meanings: ['one sided'], type: CharacterType.RADICAL },
+  { characters: '系', meanings: ['lineage'], type: CharacterType.RADICAL },
+  { characters: '冘', meanings: ['pirate'], type: CharacterType.RADICAL },
+  { characters: '甲', meanings: ['turtle shell'], type: CharacterType.RADICAL },
+  { characters: '丆', meanings: ['leaf'], type: CharacterType.RADICAL },
 ];
 export default RADICALS;
