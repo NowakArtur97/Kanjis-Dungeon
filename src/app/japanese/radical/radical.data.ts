@@ -771,6 +771,7 @@ const RADICALS: Radical[] = [
     type: CharacterType.RADICAL,
   },
   { characters: '道', meanings: ['road'], type: CharacterType.RADICAL },
+  { characters: '夜', meanings: ['night'], type: CharacterType.RADICAL },
   { characters: '前', meanings: ['before'], type: CharacterType.RADICAL },
   {
     characters: '予',
@@ -825,6 +826,7 @@ const RADICALS: Radical[] = [
     meanings: ['branch'],
     type: CharacterType.RADICAL,
   },
+  { characters: '同', meanings: ['same'], type: CharacterType.RADICAL },
   {
     characters: '血',
     meanings: ['blood'],
@@ -851,6 +853,7 @@ const RADICALS: Radical[] = [
     type: CharacterType.RADICAL,
   },
   { characters: '付', meanings: ['attach'], type: CharacterType.RADICAL },
+  { characters: '必', meanings: ['certain'], type: CharacterType.RADICAL },
   {
     characters: '氏',
     meanings: ['clan'],
@@ -1256,5 +1259,8 @@ const RADICALS: Radical[] = [
   { characters: '鬲', meanings: ['bully'], type: CharacterType.RADICAL },
   { characters: '扁', meanings: ['library'], type: CharacterType.RADICAL },
   { characters: '牙', meanings: ['fang'], type: CharacterType.RADICAL },
+  { characters: '夋', meanings: ['spider'], type: CharacterType.RADICAL },
+  { characters: '舎', meanings: ['cottage'], type: CharacterType.RADICAL },
+  { characters: '卬', meanings: ['cat pirate'], type: CharacterType.RADICAL },
 ];
 export default RADICALS;
