@@ -218,6 +218,7 @@ const RADICALS: Radical[] = [
     meanings: ['arrow'],
     type: CharacterType.RADICAL,
   },
+  { characters: '市', meanings: ['city'], type: CharacterType.RADICAL },
   {
     characters: '广',
     meanings: ['canopy'],
@@ -256,6 +257,7 @@ const RADICALS: Radical[] = [
     meanings: ['heart'],
     type: CharacterType.RADICAL,
   },
+  { characters: '内', meanings: ['inside'], type: CharacterType.RADICAL },
   { characters: '生', meanings: ['life'], type: CharacterType.RADICAL },
   { characters: '台', meanings: ['machine'], type: CharacterType.RADICAL },
   { characters: '𠆢', meanings: ['hat'], type: CharacterType.RADICAL },
@@ -278,6 +280,7 @@ const RADICALS: Radical[] = [
     meanings: ['towel'],
     type: CharacterType.RADICAL,
   },
+  { characters: '広', meanings: ['wide'], type: CharacterType.RADICAL },
   {
     characters: '夂',
     meanings: ['winter'],
@@ -450,6 +453,7 @@ const RADICALS: Radical[] = [
     meanings: ['gate'],
     type: CharacterType.RADICAL,
   },
+  { characters: '間', meanings: ['interval'], type: CharacterType.RADICAL },
   {
     characters: '厂',
     meanings: ['cliff'],
@@ -1262,5 +1266,9 @@ const RADICALS: Radical[] = [
   { characters: '夋', meanings: ['spider'], type: CharacterType.RADICAL },
   { characters: '舎', meanings: ['cottage'], type: CharacterType.RADICAL },
   { characters: '卬', meanings: ['cat pirate'], type: CharacterType.RADICAL },
+  { characters: '喿', meanings: ['syrup'], type: CharacterType.RADICAL },
+  { characters: '享', meanings: ['receive'], type: CharacterType.RADICAL },
+  { characters: '丞', meanings: ['coral'], type: CharacterType.RADICAL },
+  { characters: '蔵', meanings: ['storehouse'], type: CharacterType.RADICAL },
 ];
 export default RADICALS;
