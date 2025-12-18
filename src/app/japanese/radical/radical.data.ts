@@ -118,7 +118,11 @@ const RADICALS: Radical[] = [
   { characters: '出', meanings: ['exit'], type: CharacterType.RADICAL },
   { characters: '目', meanings: ['eye'], type: CharacterType.RADICAL },
   { characters: '火', meanings: ['fire'], type: CharacterType.RADICAL },
-  { characters: '才', meanings: ['genius'], type: CharacterType.RADICAL },
+  {
+    characters: '才',
+    meanings: ['talent', 'genius'],
+    type: CharacterType.RADICAL,
+  },
   { characters: '尸', meanings: ['flag'], type: CharacterType.RADICAL },
   { characters: '彡', meanings: ['hair'], type: CharacterType.RADICAL },
   { characters: '手', meanings: ['hand'], type: CharacterType.RADICAL },
@@ -1125,6 +1129,7 @@ const RADICALS: Radical[] = [
     meanings: ['crab'],
     type: CharacterType.RADICAL,
   },
+  { characters: '員', meanings: ['member'], type: CharacterType.RADICAL },
   {
     characters: '品',
     meanings: ['products'],
@@ -1270,5 +1275,9 @@ const RADICALS: Radical[] = [
   { characters: '享', meanings: ['receive'], type: CharacterType.RADICAL },
   { characters: '丞', meanings: ['coral'], type: CharacterType.RADICAL },
   { characters: '蔵', meanings: ['storehouse'], type: CharacterType.RADICAL },
+  { characters: '亥', meanings: ['slice'], type: CharacterType.RADICAL },
+  { characters: '爪', meanings: ['claw'], type: CharacterType.RADICAL },
+  { characters: '呉', meanings: ['catapult'], type: CharacterType.RADICAL },
+  { characters: '堇', meanings: ['boot'], type: CharacterType.RADICAL },
 ];
 export default RADICALS;
