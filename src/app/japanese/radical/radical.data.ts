@@ -1279,5 +1279,10 @@ const RADICALS: Radical[] = [
   { characters: '爪', meanings: ['claw'], type: CharacterType.RADICAL },
   { characters: '呉', meanings: ['catapult'], type: CharacterType.RADICAL },
   { characters: '堇', meanings: ['boot'], type: CharacterType.RADICAL },
+  { characters: '彑', meanings: ['shuriken'], type: CharacterType.RADICAL },
+  { characters: '為', meanings: ['sake'], type: CharacterType.RADICAL },
+  { characters: '将', meanings: ['commander'], type: CharacterType.RADICAL },
+  { characters: '帯', meanings: ['belt'], type: CharacterType.RADICAL },
+  { characters: '亀', meanings: ['turtle'], type: CharacterType.RADICAL },
 ];
 export default RADICALS;
