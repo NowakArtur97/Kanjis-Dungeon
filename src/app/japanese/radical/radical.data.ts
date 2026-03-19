@@ -222,6 +222,7 @@ const RADICALS: Radical[] = [
     meanings: ['arrow'],
     type: CharacterType.RADICAL,
   },
+  { characters: '明', meanings: ['bright'], type: CharacterType.RADICAL },
   { characters: '市', meanings: ['city'], type: CharacterType.RADICAL },
   {
     characters: '广',
@@ -452,6 +453,7 @@ const RADICALS: Radical[] = [
     meanings: ['east'],
     type: CharacterType.RADICAL,
   },
+  { characters: '南', meanings: ['south'], type: CharacterType.RADICAL },
   {
     characters: '門',
     meanings: ['gate'],
@@ -761,6 +763,7 @@ const RADICALS: Radical[] = [
     meanings: ['circumference'],
     type: CharacterType.RADICAL,
   },
+  { characters: '勇', meanings: ['courage'], type: CharacterType.RADICAL },
   { characters: '司', meanings: ['director'], type: CharacterType.RADICAL },
   { characters: '区', meanings: ['district'], type: CharacterType.RADICAL },
   {
@@ -929,6 +932,7 @@ const RADICALS: Radical[] = [
     type: CharacterType.RADICAL,
   },
   { characters: '祭', meanings: ['festival'], type: CharacterType.RADICAL },
+  { characters: '発', meanings: ['departure'], type: CharacterType.RADICAL },
   {
     characters: '𧘇',
     meanings: ['kick'],
@@ -1278,11 +1282,14 @@ const RADICALS: Radical[] = [
   { characters: '亥', meanings: ['slice'], type: CharacterType.RADICAL },
   { characters: '爪', meanings: ['claw'], type: CharacterType.RADICAL },
   { characters: '呉', meanings: ['catapult'], type: CharacterType.RADICAL },
+  { characters: '貴', meanings: ['valuable'], type: CharacterType.RADICAL },
   { characters: '堇', meanings: ['boot'], type: CharacterType.RADICAL },
   { characters: '彑', meanings: ['shuriken'], type: CharacterType.RADICAL },
   { characters: '為', meanings: ['sake'], type: CharacterType.RADICAL },
   { characters: '将', meanings: ['commander'], type: CharacterType.RADICAL },
   { characters: '帯', meanings: ['belt'], type: CharacterType.RADICAL },
   { characters: '亀', meanings: ['turtle'], type: CharacterType.RADICAL },
+  { characters: '舛', meanings: ['dance'], type: CharacterType.RADICAL },
+  { characters: '甘', meanings: ['sweet'], type: CharacterType.RADICAL },
 ];
 export default RADICALS;
