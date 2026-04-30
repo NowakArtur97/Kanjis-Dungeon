@@ -763,6 +763,7 @@ const RADICALS: Radical[] = [
     meanings: ['circumference'],
     type: CharacterType.RADICAL,
   },
+  { characters: '亦', meanings: ['again'], type: CharacterType.RADICAL },
   { characters: '勇', meanings: ['courage'], type: CharacterType.RADICAL },
   { characters: '司', meanings: ['director'], type: CharacterType.RADICAL },
   { characters: '区', meanings: ['district'], type: CharacterType.RADICAL },
@@ -1134,6 +1135,7 @@ const RADICALS: Radical[] = [
     type: CharacterType.RADICAL,
   },
   { characters: '員', meanings: ['member'], type: CharacterType.RADICAL },
+  { characters: '賞', meanings: ['prize'], type: CharacterType.RADICAL },
   {
     characters: '品',
     meanings: ['products'],
@@ -1219,6 +1221,7 @@ const RADICALS: Radical[] = [
     meanings: ['righteousness'],
     type: CharacterType.RADICAL,
   },
+  { characters: '暴', meanings: ['violence'], type: CharacterType.RADICAL },
   { characters: '巛', meanings: ['flood'], type: CharacterType.RADICAL },
   { characters: '兼', meanings: ['mona lisa'], type: CharacterType.RADICAL },
   { characters: '飛', meanings: ['fly'], type: CharacterType.RADICAL },
@@ -1291,5 +1294,8 @@ const RADICALS: Radical[] = [
   { characters: '亀', meanings: ['turtle'], type: CharacterType.RADICAL },
   { characters: '舛', meanings: ['dance'], type: CharacterType.RADICAL },
   { characters: '甘', meanings: ['sweet'], type: CharacterType.RADICAL },
+  { characters: '串', meanings: ['skewer'], type: CharacterType.RADICAL },
+  { characters: '兆', meanings: ['omen'], type: CharacterType.RADICAL },
+  { characters: '包', meanings: ['wrap'], type: CharacterType.RADICAL },
 ];
 export default RADICALS;
