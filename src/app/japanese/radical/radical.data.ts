@@ -856,6 +856,7 @@ const RADICALS: Radical[] = [
     meanings: ['yakuza'],
     type: CharacterType.RADICAL,
   },
+  { characters: '有', meanings: ['have'], type: CharacterType.RADICAL },
   { characters: '曲', meanings: ['music'], type: CharacterType.RADICAL },
   { characters: '次', meanings: ['next'], type: CharacterType.RADICAL },
   { characters: '安', meanings: ['cheap'], type: CharacterType.RADICAL },
@@ -960,6 +961,7 @@ const RADICALS: Radical[] = [
     meanings: ['building'],
     type: CharacterType.RADICAL,
   },
+  { characters: '県', meanings: ['prefecture'], type: CharacterType.RADICAL },
   { characters: '由', meanings: ['reason'], type: CharacterType.RADICAL },
   {
     characters: '反',
@@ -1119,6 +1121,7 @@ const RADICALS: Radical[] = [
     meanings: ['jackhammer'],
     type: CharacterType.RADICAL,
   },
+  { characters: '歯', meanings: ['tooth'], type: CharacterType.RADICAL },
   {
     characters: '比',
     meanings: ['compare'],
@@ -1297,5 +1300,6 @@ const RADICALS: Radical[] = [
   { characters: '串', meanings: ['skewer'], type: CharacterType.RADICAL },
   { characters: '兆', meanings: ['omen'], type: CharacterType.RADICAL },
   { characters: '包', meanings: ['wrap'], type: CharacterType.RADICAL },
+  { characters: '辟', meanings: ['hot pepper'], type: CharacterType.RADICAL },
 ];
 export default RADICALS;
